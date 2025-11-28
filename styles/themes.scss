@@ -1,0 +1,26 @@
+:root {
+  /* shared constants */
+  --radius: 12px;
+  --spacing: 1rem;
+  --transition: 0.2s ease;
+}
+
+/* Light theme */
+body[data-theme="light"] {
+  --bg: #fafafa;
+  --bg-secondary: #ffffff;
+  --text: #111;
+  --text-muted: #555;
+  --primary: #4f46e5;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+}
+
+/* Dark theme */
+body[data-theme="dark"] {
+  --bg: #111;
+  --bg-secondary: #1a1a1a;
+  --text: #f0f0f0;
+  --text-muted: #b3b3b3;
+  --primary: #818cf8;
+  --card-shadow: rgba(0, 0, 0, 0.4);
+}
