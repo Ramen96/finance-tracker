@@ -1,0 +1,12 @@
+@import "@styles/mixins";
+@import "@styles/themes";
+@import "@styles/variables";
+
+/* Global element defaults */
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}

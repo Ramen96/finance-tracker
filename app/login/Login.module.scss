@@ -1,0 +1,5 @@
+@import "@styles/mixins";
+
+.flexHelper {
+  @include flex-center;
+}

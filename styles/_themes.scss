@@ -24,3 +24,15 @@ body[data-theme="dark"] {
   --primary: #818cf8;
   --card-shadow: rgba(0, 0, 0, 0.4);
 }
+
+/* System preference */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111;
+    --bg-secondary: #1a1a1a;
+    --text: #f0f0f0;
+    --text-muted: #b3b3b3;
+    --primary: #818cf8;
+    --card-shadow: rgba(0, 0, 0, 0.4);
+  }
+}
