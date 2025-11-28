@@ -1,0 +1,5 @@
+// Global reuseable classes
+@import "@styles/mixins";
+.flex-center { @include flex-center; }
+.h-full { @include h-full; }
+.w-full { @include w-full; }

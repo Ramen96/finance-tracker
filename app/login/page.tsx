@@ -2,8 +2,10 @@ import styles from "./Login.module.scss";
 
 export default function login() {
   return (
-    <main className={styles.flexHelper}>
+    <main className={
+      `${styles.flexHelper} h-full`
+    }>
       <h1>Login</h1>
     </main>
-  )
+  );
 }

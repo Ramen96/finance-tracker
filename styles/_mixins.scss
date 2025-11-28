@@ -1,3 +1,13 @@
+// height
+@mixin h-full {
+  height: 100%;
+}
+
+// width
+@mixin w-full {
+  width: 100%;
+}
+
 // flex / gird helpers
 @mixin flex-center {
   display: flex;
