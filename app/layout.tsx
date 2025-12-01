@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
+import { ThemeProvider } from "@/context/context";
+import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import "./globals.scss";
 
 const quicksand = Quicksand({
@@ -20,7 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={quicksand.className}>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <ThemeProvider>
+          <ThemeToggle />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
