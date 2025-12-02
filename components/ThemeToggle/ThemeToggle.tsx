@@ -16,12 +16,7 @@ export default function ThemeToggle() {
         className={`${styles.hideDefault}`}
         onClick={toggleTheme}
       />
-      <label 
-        htmlFor="themeToggle" 
-        className={`
-          pointer flex-center radius
-          ${styles.toggleLabel}
-        `}>
+      <label htmlFor="themeToggle" className={`pointer flex-center radius interactive fixed-top-right border-primary ${styles.toggleLabel}`}>
           {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
       </label>
     </>
