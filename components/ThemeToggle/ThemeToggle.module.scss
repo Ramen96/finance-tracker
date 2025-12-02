@@ -1,0 +1,24 @@
+.hideDefault {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+
+  &:checked + label  {
+    &:after {
+      transform: scale(4.2); /* make this a var later */
+    }
+  }
+}
+
+.toggleLabel {
+  outline: none;
+  user-select: none;
+  padding: 0.5rem 0.75rem;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  color: var(--text-inverse);
+  border: .2rem solid var(--primary);
+  background: var(--primary);
+  box-shadow: 3px 3px 0 var(--text);
+}
