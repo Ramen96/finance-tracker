@@ -30,6 +30,101 @@
   border-radius: 0.3rem;
 }
 
+
+// Positioning helpers
+@mixin fixed-top-right($top: 20px, $right: 20px) {
+  position: fixed;
+  top: $top;
+  right: $right;
+}
+
+@mixin fixed-top-left($top: 20px, $left: 20px) {
+  position: fixed;
+  top: $top;
+  left: $left;
+}
+
+@mixin absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+// Interactive states
+@mixin no-select {
+  user-select: none;
+}
+
+@mixin no-outline {
+  outline: none;
+}
+
+@mixin interactive {
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+// Transitions
+@mixin transition($property: all) {
+  transition: $property var(--transition);
+}
+
+// Shadows
+@mixin shadow-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+@mixin shadow {
+  box-shadow: var(--shadow);
+}
+
+@mixin shadow-md {
+  box-shadow: var(--shadow-md);
+}
+
+@mixin shadow-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+// Borders
+@mixin border($width: 1px, $color: var(--border)) {
+  border: $width solid $color;
+}
+
+@mixin border-primary($width: .2rem) {
+  border: $width solid var(--primary);
+}
+
+// Spacing helpers
+@mixin p($size) {
+  padding: $size;
+}
+
+@mixin m($size) {
+  margin: $size;
+}
+
+// Visibility
+@mixin hidden {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 // Media query helpers
 @mixin respond($breakpoint) {
   @if $breakpoint == md {
