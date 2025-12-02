@@ -25,6 +25,11 @@
   align-items: center;
 }
 
+// border radius
+@mixin radius {
+  border-radius: 0.3rem;
+}
+
 // Media query helpers
 @mixin respond($breakpoint) {
   @if $breakpoint == md {
@@ -33,4 +38,9 @@
   @else if $breakpoint == lg {
     @media (min-width: 1024px) { @content; }
   }
+}
+
+// misc
+@mixin pointer {
+  cursor: pointer;
 }
