@@ -72,6 +72,10 @@
 }
 
 // Shadows
+@mixin shadow-primary {
+  box-shadow: 3px 3px 0 var(--text);
+}
+
 @mixin shadow-sm {
   box-shadow: var(--shadow-sm);
 }

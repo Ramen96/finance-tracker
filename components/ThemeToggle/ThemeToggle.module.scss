@@ -14,5 +14,5 @@
   padding: 0.5rem 0.75rem;
   color: var(--text-inverse);
   background: var(--primary);
-  box-shadow: 3px 3px 0 var(--text);
+  @include shadow-primary;
 }
