@@ -1,13 +1,29 @@
 "use client";
 import { Sun, Moon } from "lucide-react"
 import { useTheme } from "@/context/context";
+import styles from "./ThemeToggle.module.scss";
 
 export default function ThemeToggle() {
-  const { darkMode, toggleTheme } = useTheme();
+  const ctx = useTheme();
+  if (!ctx) return null;
+  const { theme, toggleTheme } = ctx;
 
-  return(
-    <button onClick={toggleTheme}>
-      {darkMode === true ? <Sun /> : <Moon />}
-    </button>
-  )
+  return (
+    <>
+      <input
+        id="themeToggle"
+        type="checkbox"
+        className={`${styles.hideDefault}`}
+        onClick={toggleTheme}
+      />
+      <label 
+        htmlFor="themeToggle" 
+        className={`
+          pointer flex-center radius
+          ${styles.toggleLabel}
+        `}>
+          {theme === 'light' ? <Moon size={24} /> : <Sun size={24} />}
+      </label>
+    </>
+  );
 }
