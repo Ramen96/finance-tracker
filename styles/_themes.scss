@@ -8,8 +8,8 @@
 /* Light theme */
 body[data-theme="light"] {
   /* backgrounds */
-  --bg: #fafafa;
-  --bg-secondary: #ffffff;
+  --bg: #ececec;
+  --bg-secondary: #e4e4e4;
   --bg-tertiary: #f4f4f5;
   --bg-elevated: #ffffff;
   
@@ -24,6 +24,19 @@ body[data-theme="light"] {
   --primary-hover: #15803d;
   --primary-light: #dcfce7;
   --primary-text: #ffffff;
+
+  /* secondary colors */
+  --secondary: #7c3aed;
+  --secondary-hover: #6d28d9;
+  --secondary-light: #f3e8ff;
+  --secondary-text: #ffffff;
+
+  /* tertiary colors */
+  --tertiary: #e5e5e5;
+  --tertiary-hover: #d4d4d4;
+  --tertiary-light: #f5f5f5;
+  --tertiary-text: #111;
+
   
   /* accent colors */
   --accent: #06b6d4;
@@ -67,7 +80,7 @@ body[data-theme="dark"] {
   --bg-elevated: #1f1f1f;
   
   /* text */
-  --text: #f0f0f0;
+  --text: #ececec;
   --text-secondary: #a3a3a3;
   --text-muted: #737373;
   --text-inverse: #111;
@@ -77,6 +90,19 @@ body[data-theme="dark"] {
   --primary-hover: #86efac;
   --primary-light: #14532d;
   --primary-text: #111;
+
+  /* secondary button */
+  --secondary: #c4b5fd;
+  --secondary-hover: #ddd6fe;
+  --secondary-light: #4c1d95;
+  --secondary-text: #111;
+
+  /* tertiary button*/
+  --tertiary: #333333;
+  --tertiary-hover: #404040;
+  --tertiary-light: #1f1f1f;
+  --tertiary-text: #ececec;
+
   
   /* accent colors */
   --accent: #22d3ee;
