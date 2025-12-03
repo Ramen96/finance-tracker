@@ -25,11 +25,14 @@
   align-items: center;
 }
 
+@mixin flex-wrap {
+  flex-wrap: wrap;
+}
+
 // border radius
 @mixin radius {
   border-radius: 0.3rem;
 }
-
 
 // Positioning helpers
 @mixin fixed-top-right($top: 20px, $right: 20px) {
@@ -63,6 +66,10 @@
 @mixin interactive {
   outline: none;
   user-select: none;
+  cursor: pointer;
+}
+
+@mixin pointer {
   cursor: pointer;
 }
 
@@ -139,7 +146,59 @@
   }
 }
 
-// misc
-@mixin pointer {
-  cursor: pointer;
+// buttons
+@mixin btnPrimary {
+  @include radius;
+  @include shadow-primary;
+  color: var(--primary);
+  background: var(--primary-light);
+  font-family: var(--font-quicksand) sans-serif;
+  font-size: larger;
+  padding: 0.2rem 1rem;
+  margin: 0.4rem;
+}
+
+@mixin btnSecondary {
+  @include radius;
+  @include shadow-primary;
+  color: var(--secondary);
+  background: var(--secondary-light);
+  font-family: var(--font-quicksand) sans-serif;
+  font-size: larger;
+  padding: 0.2rem 1rem;
+  margin: 0.4rem;
+}
+
+@mixin btnTertiary {
+  @include radius;
+  @include shadow-primary;
+  color: var(--tertiary-text);
+  background: var(--tertiary-light);
+  font-family: var(--font-quicksand) sans-serif;
+  font-size: larger;
+  padding: 0.2rem 1rem;
+  margin: 0.4rem;
+}
+
+
+// text inputs
+@mixin textInputPrimary {
+  @include radius;
+  @include no-outline;
+  @include shadow-primary;
+  padding: 0.3rem 0.5rem;
+  margin-top: 0.5rem;
+  width: 20rem;
+  height: 30px;
+  color: var(--primary);
+  border: none;
+  font-family: var(--font-quicksand);
+  letter-spacing: 0.1rem;
+  font-size: large;
+  background: var(--primary-light);
+  text-align: center;
+  &::placeholder {
+    color: var(--primary);
+    text-align: center;
+  }
 }
