@@ -6,14 +6,51 @@
   width: 25rem;
   height: 30rem;
   background: var(--primary);
+  padding: 2rem;
+  gap: 2rem;
+  flex-direction: column;
 }
 
-.textInput {
-  @include radius;
-  padding: 0.3rem 0.5rem;
-  margin-top: 0.5rem;
-  width: 50%;
-  height: 20px;
-  background: var(--bg-secondary);
-  @include shadow-primary;
+.invertTextColor {
+  color: var(--bg-elevated);
+}
+
+
+.loginContainer {
+  @include flex-center;
+  @include flex-wrap;
+  width: 100%;
+  height: 10rem;
+}
+
+.inputContainer {
+  width: 100%;
+}
+
+.mainContainer {
+  flex-wrap: wrap;
+}
+
+.btnContainer {
+  width: 20rem;  
+  display: flex;
+  @include flex-wrap;
+  height: auto;
+  justify-content: space-around;
+}
+
+.btnPrimary {
+  @include btnPrimary;
+}
+
+.btnSecondary {
+  @include btnSecondary;
+}
+
+.btnTertiary {
+  @include btnTertiary;
+}
+
+.textInputPrimary{
+  @include textInputPrimary;
 }
