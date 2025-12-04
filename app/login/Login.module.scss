@@ -1,17 +1,18 @@
 @use "@styles/mixins";
+@use "@styles/variables" as vars;
 
 .card {
   @include mixins.radius;
   @include mixins.shadow-primary;
-  width: 25rem;
-  height: 30rem;
+  @include mixins.absolute-center;
+  width: vars.$card-width;
+  height: vars.$card-height;
   background: var(--primary);
   padding: 2rem;
-  position: relative;
 }
 
 .headContainer {
-  @include mixins.h-custom(6rem);
+  @include mixins.h-custom(vars.$head-height);
 }
 
 .loginH1 {
@@ -20,21 +21,18 @@
 }
 
 .formContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  @include mixins.absolute-center;
   @include mixins.flex-center;
-  @include mixins.h-custom(20rem);
+  @include mixins.h-custom(vars.$form-height);
+  @include mixins.flex-wrap;
   margin-top: 1rem;
-  flex-wrap: wrap;
 }
 
 .textBoxContainer {
   @include mixins.flex-center;
   @include mixins.flex-wrap;
   width: 100%;
-  height: 10rem;
+  height: vars.$text-box-height;
 }
 
 .inputContainer {
@@ -42,11 +40,11 @@
 }
 
 .mainContainer {
-  flex-wrap: wrap;
+  @include mixins.flex-wrap;
 }
 
 .btnContainer {
-  width: 20rem;  
+  width: vars.$btn-container-width;  
   display: flex;
   @include mixins.flex-wrap;
   height: auto;
