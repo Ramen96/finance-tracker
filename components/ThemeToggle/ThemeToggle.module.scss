@@ -15,4 +15,5 @@
   color: var(--text-inverse);
   background: var(--primary);
   @include mixins.shadow-primary;
+  z-index: 100;
 }
