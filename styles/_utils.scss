@@ -31,6 +31,7 @@
 .fixed-top-right { @include mixins.fixed-top-right; }
 .fixed-top-left { @include mixins.fixed-top-left; }
 .absolute-center { @include mixins.absolute-center; }
+.relative { @include mixins.relative; }
 
 // Visibility
 .hidden { @include mixins.hidden; }

@@ -62,6 +62,10 @@
   transform: translate(-50%, -50%);
 }
 
+@mixin relative {
+  position: relative;
+}
+
 // Interactive states
 @mixin no-select {
   user-select: none;
