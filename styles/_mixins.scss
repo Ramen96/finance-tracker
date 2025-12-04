@@ -43,13 +43,13 @@
 }
 
 // Positioning helpers
-@mixin fixed-top-right($top: 20px, $right: 20px) {
+@mixin fixed-top-right($top: 0.5rem, $right: 0.5rem) {
   position: fixed;
   top: $top;
   right: $right;
 }
 
-@mixin fixed-top-left($top: 20px, $left: 20px) {
+@mixin fixed-top-left($top: 0.5rem, $left: 0.5rem) {
   position: fixed;
   top: $top;
   left: $left;
