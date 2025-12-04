@@ -23,6 +23,7 @@ body[data-theme="light"] {
   --primary: #16a34a;
   --primary-hover: #15803d;
   --primary-light: #dcfce7;
+  --primary-light-inverse: #14532d;
   --primary-text: #ffffff;
 
   /* secondary colors */
@@ -69,6 +70,11 @@ body[data-theme="light"] {
   --hover-overlay: rgba(0, 0, 0, 0.04);
   --active-overlay: rgba(0, 0, 0, 0.08);
   --disabled-opacity: 0.5;
+
+  /* input */ 
+  --text-input-bg: #dcfce7;
+  --text-input-shadow: #14532d;
+  --text-input-text: #14532d;
 }
 
 /* Dark theme */
@@ -135,6 +141,11 @@ body[data-theme="dark"] {
   --hover-overlay: rgba(255, 255, 255, 0.06);
   --active-overlay: rgba(255, 255, 255, 0.1);
   --disabled-opacity: 0.4;
+
+  /* input */ 
+  --text-input-bg: #dcfce7;
+  --text-input-shadow: #14532d;
+  --text-input-text: var(--primary-light);
 }
 
 /* System preference */
