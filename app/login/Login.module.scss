@@ -7,16 +7,30 @@
   height: 30rem;
   background: var(--primary);
   padding: 2rem;
-  gap: 2rem;
-  flex-direction: column;
+  position: relative;
 }
 
-.invertTextColor {
-  color: var(--bg-elevated);
+.headContainer {
+  @include h-custom(6rem);
 }
 
+.loginH1 {
+  font-size: 3.5rem;
+  color: var(--primary-light);
+}
 
-.loginContainer {
+.formContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  @include flex-center;
+  @include h-custom(20rem);
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.textBoxContainer {
   @include flex-center;
   @include flex-wrap;
   width: 100%;

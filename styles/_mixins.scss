@@ -3,6 +3,14 @@
   height: 100%;
 }
 
+@mixin h-auto {
+  height: auto;
+}
+
+@mixin h-custom($h) {
+  height: $h;
+}
+
 // width
 @mixin w-full {
   width: 100%;
@@ -83,6 +91,14 @@
   box-shadow: 3px 3px 0 var(--text);
 }
 
+@mixin shadow-primary-light {
+  box-shadow: 3px 3px 0 var(--primary-light);
+}
+
+@mixin shadow-primary-inverse {
+  box-shadow: 3px 3px 0 var(--text-inverse);
+}
+
 @mixin shadow-sm {
   box-shadow: var(--shadow-sm);
 }
@@ -136,6 +152,11 @@
   border-width: 0;
 }
 
+// Transitions
+@mixin transition($property: all) {
+  transition: $property var(--transition);
+}
+
 // Media query helpers
 @mixin respond($breakpoint) {
   @if $breakpoint == md {
@@ -149,35 +170,53 @@
 // buttons
 @mixin btnPrimary {
   @include radius;
-  @include shadow-primary;
-  color: var(--primary);
-  background: var(--primary-light);
+  @include transition;
+  box-shadow: 3px 3px 0 var(--primary-light-inverse, var(--primary-light));
+  border: 1px solid var(--primary-light-inverse, var(--primary-light));
+  color: var(--primary-light);
+  background: var(--primary);
   font-family: var(--font-quicksand) sans-serif;
   font-size: larger;
-  padding: 0.2rem 1rem;
+  padding: 0.4rem 1rem;
   margin: 0.4rem;
+  &:hover {
+    background: var(--primary-hover);
+    cursor: pointer;
+    transform: scale(1.03);
+  }
 }
 
 @mixin btnSecondary {
   @include radius;
   @include shadow-primary;
-  color: var(--secondary);
-  background: var(--secondary-light);
+  /* Color-only changes: use secondary color as background and secondary-text for contrast */
+  color: var(--secondary-text);
+  background: var(--secondary);
   font-family: var(--font-quicksand) sans-serif;
   font-size: larger;
   padding: 0.2rem 1rem;
   margin: 0.4rem;
+  &:hover {
+    background: var(--secondary-hover);
+    cursor: pointer;
+  }
 }
 
 @mixin btnTertiary {
   @include radius;
-  @include shadow-primary;
+  @include shadow-primary-inverse;
+  border: 1px solid var(--border);
   color: var(--tertiary-text);
-  background: var(--tertiary-light);
+  background: var(--tertiary);
+  @include transition;
   font-family: var(--font-quicksand) sans-serif;
   font-size: larger;
-  padding: 0.2rem 1rem;
+  padding: 0.35rem 0.9rem;
   margin: 0.4rem;
+  &:hover {
+    background: var(--tertiary-hover);
+    cursor: pointer;
+  }
 }
 
 
@@ -185,20 +224,20 @@
 @mixin textInputPrimary {
   @include radius;
   @include no-outline;
-  @include shadow-primary;
+  box-shadow: 3px 3px 0 var(--text-input-shadow);
   padding: 0.3rem 0.5rem;
   margin-top: 0.5rem;
   width: 20rem;
   height: 30px;
-  color: var(--primary);
-  border: none;
+  color: var(--text-input-text);
+  border: 1px solid var(--primary-light-inverse);
   font-family: var(--font-quicksand);
   letter-spacing: 0.1rem;
   font-size: large;
-  background: var(--primary-light);
+  background: var(--text-input-bg);
   text-align: center;
   &::placeholder {
-    color: var(--primary);
+    color: var(--text-input-text);
     text-align: center;
   }
 }
