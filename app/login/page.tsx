@@ -2,7 +2,7 @@ import styles from "./Login.module.scss";
 
 export default function login() {
   return (
-    <main className={`flex-center h-full w-full ${styles.mainContainer}`}>
+    <main className={`relative h-full w-full ${styles.mainContainer}`}>
       <section className={`${styles.card}`} id="card">
         <div
           className={`w-full flex-center relative-center-top ${styles.headContainer}`}
