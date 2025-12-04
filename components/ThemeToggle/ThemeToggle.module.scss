@@ -1,7 +1,7 @@
-@import "@styles/mixins";
+@use "@styles/mixins";
 
 .hideDefault {
-  @include hidden;
+  @include mixins.hidden;
 
   &:checked + label {
     &:after {
@@ -14,5 +14,5 @@
   padding: 0.5rem 0.75rem;
   color: var(--text-inverse);
   background: var(--primary);
-  @include shadow-primary;
+  @include mixins.shadow-primary;
 }

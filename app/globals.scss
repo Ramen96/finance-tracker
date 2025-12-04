@@ -1,7 +1,7 @@
-@import "@styles/mixins";
-@import "@styles/themes";
-@import "@styles/variables";
-@import "@styles/utils";
+@use "@styles/mixins";
+@use "@styles/themes";
+@use "@styles/variables";
+@use "@styles/utils";
 
 /* Global element defaults */
 html, body {
