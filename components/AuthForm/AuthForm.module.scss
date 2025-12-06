@@ -24,15 +24,14 @@
   @include mixins.absolute-center;
   @include mixins.flex-center;
   @include mixins.h-custom(vars.$form-height);
-  @include mixins.flex-wrap;
-  align-content: space-evenly;
+  position: absolute;
   margin-top: 1rem;
 }
 
 .textBoxContainer {
   @include mixins.flex-center;
   @include mixins.flex-wrap;
-  align-content: space-evenly;
+  align-content: center;
   width: 100%;
   height: vars.$text-box-height;
 }

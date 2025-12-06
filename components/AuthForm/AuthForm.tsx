@@ -51,6 +51,18 @@ function LoginExtras() {
   );
 }
 
+
+function ForgotPassBtn() {
+  return (
+    <button
+      type="button"
+      className={`${styles.btnPrimary}`}
+    >
+      Forgot Password
+    </button>
+  );
+}
+
 type Props = {
   mode: "login" | "signup";
 };
@@ -176,7 +188,7 @@ export default function AuthForm({ mode }: Props) {
               >
                 {mode === "login" ? "Sign Up" : "Login"}
               </button>
-
+              {mode === "login" && <ForgotPassBtn />}
               {mode === "login" ? <LoginExtras /> : null}
             </div>
           </form>
