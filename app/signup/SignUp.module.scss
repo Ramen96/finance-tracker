@@ -25,12 +25,14 @@
   @include mixins.flex-center;
   @include mixins.h-custom(vars.$form-height);
   @include mixins.flex-wrap;
+  align-content: space-evenly;
   margin-top: 1rem;
 }
 
 .textBoxContainer {
   @include mixins.flex-center;
   @include mixins.flex-wrap;
+  align-content: space-evenly;
   width: 100%;
   height: vars.$text-box-height;
 }
@@ -65,4 +67,16 @@
 
 .textInputPrimary{
   @include mixins.textInputPrimary;
+}
+
+.passwdWrapper { 
+  @include mixins.passwdWrapper;
+}
+
+.eyeBtn {
+  @include mixins.eyeBtn;
+}
+
+.checkbox {
+  @include mixins.checkbox;
 }
