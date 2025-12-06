@@ -1,3 +1,5 @@
+@use "@/styles/variables" as vars;
+
 // height
 @mixin h-full {
   height: 100%;
@@ -16,7 +18,7 @@
   width: 100%;
 }
 
-// flex / gird helpers
+// flexbox helpers
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -60,6 +62,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@mixin absolute-bottom-left {
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
 }
 
 @mixin relative {
@@ -145,11 +153,11 @@
 }
 
 @mixin sr-only {
+  @include m(-1px);
   position: absolute;
   width: 1px;
   height: 1px;
   padding: 0;
-  margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -175,6 +183,7 @@
 @mixin btnPrimary {
   @include radius;
   @include transition;
+  @include m(vars.$btn-margin);
   box-shadow: 3px 3px 0 var(--primary-light-inverse, var(--primary-light));
   border: 1px solid var(--primary-light-inverse, var(--primary-light));
   color: var(--primary-light);
@@ -182,7 +191,6 @@
   font-family: var(--font-quicksand) sans-serif;
   font-size: larger;
   padding: 0.4rem 1rem;
-  margin: 0.4rem;
   &:hover {
     background: var(--primary-hover);
     cursor: pointer;
@@ -193,13 +201,13 @@
 @mixin btnSecondary {
   @include radius;
   @include shadow-primary;
+  @include m(vars.$btn-margin);
   /* Color-only changes: use secondary color as background and secondary-text for contrast */
   color: var(--secondary-text);
   background: var(--secondary);
   font-family: var(--font-quicksand) sans-serif;
   font-size: larger;
   padding: 0.2rem 1rem;
-  margin: 0.4rem;
   &:hover {
     background: var(--secondary-hover);
     cursor: pointer;
@@ -209,6 +217,7 @@
 @mixin btnTertiary {
   @include radius;
   @include shadow-primary-inverse;
+  @include m(vars.$btn-margin);
   border: 1px solid var(--border);
   color: var(--tertiary-text);
   background: var(--tertiary);
@@ -216,32 +225,62 @@
   font-family: var(--font-quicksand) sans-serif;
   font-size: larger;
   padding: 0.35rem 0.9rem;
-  margin: 0.4rem;
   &:hover {
     background: var(--tertiary-hover);
     cursor: pointer;
   }
 }
 
-
 // text inputs
 @mixin textInputPrimary {
   @include radius;
   @include no-outline;
+  @include m(0.7rem);
   box-shadow: 3px 3px 0 var(--text-input-shadow);
   padding: 0.3rem 0.5rem;
-  margin-top: 0.5rem;
+  // margin-top: 0.5rem;
   width: 20rem;
   height: 30px;
   color: var(--text-input-text);
   border: 1px solid var(--primary-light-inverse);
   font-family: var(--font-quicksand);
-  letter-spacing: 0.1rem;
+  letter-spacing: vars.$letter-spacing;
   font-size: large;
+  text-align: left;
   background: var(--text-input-bg);
-  text-align: center;
+  caret-shape: block;
   &::placeholder {
-    color: var(--text-input-text);
     text-align: center;
+    color: var(--text-input-text);
   }
+}
+
+// show/hide password buttons
+@mixin passwdWrapper {
+  position: relative;
+}
+
+@mixin eyeBtn {
+  @include shadow-primary-light;
+  @include flex-center;
+  border-radius: 0.2rem;
+  border: var(--text-input-text);
+  color: var(--primary-light);
+  background: var(--primary);
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+// checkbox 
+@mixin checkbox {
+  @include radius;
+  font-family: var(--font-quicksand) sans-serif;
+  letter-spacing: vars.$letter-spacing;
+  font-size: 1rem;
+  color: var(--primary-light);
+  background: transparent;
 }
