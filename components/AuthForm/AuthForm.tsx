@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import styles from "./AuthForm.module.scss";
-import { useAuth } from "../../context/useAuth";
+import { useAuth } from "@/context/useAuth";
 
 type SignupFieldsProps = {
   confirm: string;
@@ -95,8 +95,6 @@ export default function AuthForm({ mode }: Props) {
       setLoading(false);
     }
   }
-
-  
 
   return (
     <main className={`relative h-full w-full ${styles.mainContainer}`}>
