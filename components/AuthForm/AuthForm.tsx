@@ -5,6 +5,7 @@ import { Eye, EyeOff } from "lucide-react";
 import styles from "./AuthForm.module.scss";
 import { useAuth } from "@/context/useAuth";
 import SignUpFields from "../SignUpFields/SignUpFields";
+import AnimatedBackground from "@/components/AnimatedBackground/AnimatedBackground";
 
 
 function LoginExtras() {
@@ -76,6 +77,7 @@ export default function AuthForm({ mode }: Props) {
 
   return (
     <main className={`relative h-full w-full ${styles.mainContainer}`}>
+      <AnimatedBackground /> 
       <section className={`${styles.card}`} id="card">
         <div
           className={`w-full flex-center relative-center-top ${styles.headContainer}`}

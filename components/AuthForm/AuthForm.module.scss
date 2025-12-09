@@ -9,6 +9,7 @@
   height: vars.$card-height;
   background: var(--primary);
   padding: 2rem;
+  z-index: 1;
 }
 
 .headContainer {
