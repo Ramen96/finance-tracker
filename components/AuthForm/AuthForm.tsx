@@ -4,41 +4,8 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import styles from "./AuthForm.module.scss";
 import { useAuth } from "@/context/useAuth";
+import SignUpFields from "../SignUpFields/SignUpFields";
 
-type SignupFieldsProps = {
-  confirm: string;
-  setConfirm: React.Dispatch<React.SetStateAction<string>>;
-  showConfirm: boolean;
-  setShowConfirm: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-function SignupFields({ confirm, setConfirm, showConfirm, setShowConfirm }: SignupFieldsProps) {
-  return (
-    <div id="confirm-passwd-wrapper" className="relative">
-      <label htmlFor="confirm-password"></label>
-      <input
-        id="confirm-password"
-        name="confirm-password"
-        placeholder="Confirm Password"
-        className={`${styles.textInputPrimary}`}
-        type={showConfirm ? "text" : "password"}
-        value={confirm}
-        onChange={(e) => setConfirm(e.target.value)}
-      />
-      <button
-        type="button"
-        className={styles.eyeBtn}
-        onClick={(e) => {
-          e.preventDefault();
-          setShowConfirm(!showConfirm);
-        }}
-        aria-label="Toggle confirm password visibility"
-      >
-        {showConfirm ? <EyeOff /> : <Eye />}
-      </button>
-    </div>
-  );
-};
 
 function LoginExtras() {
   return (
@@ -161,7 +128,7 @@ export default function AuthForm({ mode }: Props) {
             </div>
 
             {mode === "signup" ? (
-              <SignupFields
+              <SignUpFields
                 confirm={confirm}
                 setConfirm={setConfirm}
                 showConfirm={showConfirm}

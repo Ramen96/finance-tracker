@@ -1,0 +1,13 @@
+@use "@styles/mixins";
+
+.checkboxInput {
+  @include mixins.checkboxInput;
+}
+
+.textInputPrimary {
+  @include mixins.textInputPrimary;
+}
+
+.eyeBtn {
+  @include mixins.eyeBtn;
+}
