@@ -261,18 +261,20 @@
 }
 
 @mixin eyeBtn {
-  @include shadow-primary-light;
   @include flex-center;
   border-radius: 0.2rem;
-  border: var(--text-input-text);
-  color: var(--primary-light);
-  background: var(--primary);
+  border: none;
+  color: var(--text-input-text);
+  background: transparent;
   cursor: pointer;
   position: absolute;
   top: 50%;
   right: 1rem;
   transform: translateY(-50%);
   z-index: 100;
+  &:focus {
+    outline: none;
+  }
 }
 
 // checkbox 
