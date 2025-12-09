@@ -79,3 +79,7 @@
 .checkbox {
   @include mixins.checkbox;
 }
+
+.checkboxInput {
+  @include mixins.checkboxInput;
+}
