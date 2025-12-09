@@ -43,9 +43,8 @@ function SignupFields({ confirm, setConfirm, showConfirm, setShowConfirm }: Sign
 function LoginExtras() {
   return (
     <div className="absolute-bottom-left" id="checkbox-container">
-      <input id="remember-me" className={styles.checkbox} type="checkbox" />
+      <input className={styles.checkboxInput} id="remember-me" type="checkbox" />
       <label className={styles.checkbox} htmlFor="remember-me">
-        Remember Me
       </label>
     </div>
   );
