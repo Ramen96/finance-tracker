@@ -2,6 +2,7 @@
 
 .sideBarContainer {
   @include mixins.h-full;
+  @include mixins.shadow-lg;
   background: var(--bg-elevated);
 }
 
