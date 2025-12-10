@@ -108,7 +108,7 @@
 
 // Shadows
 @mixin shadow-primary {
-  box-shadow: 3px 3px 0 var(--text);
+  box-shadow: 3px 3px 0 var(--primary-light-inverse, var(--primary-light));
 }
 
 @mixin shadow-primary-light {
@@ -192,7 +192,7 @@
   @include radius;
   @include transition;
   @include m(vars.$btn-margin);
-  box-shadow: 3px 3px 0 var(--primary-light-inverse, var(--primary-light));
+  @include shadow-primary;
   border: 1px solid var(--primary-light-inverse, var(--primary-light));
   color: var(--primary-light);
   background: var(--primary);
