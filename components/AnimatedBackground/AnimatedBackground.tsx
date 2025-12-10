@@ -1,6 +1,8 @@
 import styles from "./AnimatedBackground.module.scss";
 
 export default function AnimatedBackground() {
+  const gradientClasses = [styles.g1, styles.g2, styles.g3, styles.g4, styles.g5];
+  const totalGradients = 30;
   return (
     <div id="gradient-bg" className={styles.gradientBg}>
       <svg xmlns="http://www.w3.org/2000/svg">
@@ -18,11 +20,9 @@ export default function AnimatedBackground() {
         </defs>
       </svg>
       <div className={styles.gradientsContainer}>
-        <div className={styles.g1}></div>
-        <div className={styles.g2}></div>
-        <div className={styles.g3}></div>
-        <div className={styles.g4}></div>
-        <div className={styles.g5}></div>
+        {Array.from({ length: totalGradients }, (_, i) => (
+          <div key={i} className={gradientClasses[i % gradientClasses.length]}></div>
+        ))}
       </div>
     </div>
   );
