@@ -4,6 +4,8 @@
 .h-full { @include mixins.h-full; }
 .w-full { @include mixins.w-full; }
 .h-auto { @include mixins.h-auto; }
+.h-100vh { @include mixins.h-100vh }
+.w-100vw { @include mixins.w-100vw }
 .flex-center-v { @include mixins.flex-center-v }
 .flex-center-h { @include mixins.flex-center-h }
 .radius { @include mixins.radius }

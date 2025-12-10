@@ -76,7 +76,7 @@ export default function AuthForm({ mode }: Props) {
   }
 
   return (
-    <main className={`relative h-full w-full ${styles.mainContainer}`}>
+    <main className={styles.mainContainer}>
       <AnimatedBackground /> 
       <section className={`${styles.card}`} id="card">
         <div

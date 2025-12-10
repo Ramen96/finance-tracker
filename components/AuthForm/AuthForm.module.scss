@@ -42,7 +42,7 @@
 }
 
 .mainContainer {
-  @include mixins.flex-wrap;
+  @include mixins.mainContainer;
 }
 
 .btnContainer {

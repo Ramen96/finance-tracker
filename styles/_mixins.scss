@@ -13,6 +13,14 @@
   height: $h;
 }
 
+@mixin h-100vh {
+  height: 100vh;
+}
+
+@mixin w-100vw {
+  width: 100vw;
+}
+
 // width
 @mixin w-full {
   width: 100%;
@@ -299,4 +307,15 @@
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+// Containers 
+@mixin mainContainer {
+  @include h-full;
+  @include w-full;
+  @include relative;
+  @include flex-wrap;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
