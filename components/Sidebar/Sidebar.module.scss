@@ -1,0 +1,18 @@
+@use "@styles/mixins";
+
+.sideBarContainer {
+  @include mixins.h-full;
+  background: var(--bg-elevated);
+}
+
+.wExpanded {
+  width: 15rem;
+}
+
+.wContracted {
+  width: 5rem;
+}
+
+.btn {
+  @include mixins.btnPrimary;
+}
