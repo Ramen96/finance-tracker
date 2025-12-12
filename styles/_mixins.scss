@@ -313,9 +313,53 @@
 @mixin mainContainer {
   @include h-full;
   @include w-full;
-  @include relative;
-  @include flex-wrap;
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
+}
+
+@mixin contentContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+//  cards
+@mixin card {
+  @include shadow-primary;
+  @include radius;
+  width: fit-content;
+  height: fit-content;
+  min-width: 25rem;
+  background: var(--bg-elevated);
+  letter-spacing: 0.25rem;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+@mixin card-item {
+  @include shadow-lg;
+  @include radius;
+  width: fit-content;
+  height: fit-content;
+  background: var(--bg-tertiary);
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+}
+
+// nav
+@mixin nav {
+  @include radius;
+  @include w-full;
+  @include shadow-primary-light;
+  margin: 0.7rem;
+  height: 1rem;
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+  text-align: center;
+  justify-content: center;
 }
