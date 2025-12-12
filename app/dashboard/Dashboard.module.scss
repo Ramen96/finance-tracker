@@ -2,4 +2,22 @@
 
 .mainContainer {
   @include mixins.mainContainer;
+  justify-self: center;
+  align-items: center;
+}
+
+.contentContainer {
+  @include mixins.contentContainer;
+}
+
+.card {
+  @include mixins.card;
+}
+
+.cardItem {
+  @include mixins.card-item;
+}
+
+.nav {
+  @include mixins.nav;
 }
