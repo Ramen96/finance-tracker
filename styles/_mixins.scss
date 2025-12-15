@@ -228,7 +228,7 @@
   @include m(vars.$btn-margin);
   border: 1px solid var(--border);
   color: var(--tertiary-text);
-  background: var(--tertiary);
+  background: var(--bg-elevated);
   @include transition;
   font-family: var(--font-quicksand) sans-serif;
   font-size: larger;

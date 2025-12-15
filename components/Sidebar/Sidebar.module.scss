@@ -22,7 +22,7 @@
   @include mixins.btnTertiary;
   @include mixins.shadow-lg;
   margin-top: 1rem;
-  width: calc(100% - 1.5rem);
+  width: calc(100% - 0.75rem);
   display: flex;
   flex-direction: row;
   align-items: center;
