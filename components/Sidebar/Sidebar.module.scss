@@ -4,6 +4,10 @@
   @include mixins.h-full;
   @include mixins.shadow-lg;
   background: var(--bg-elevated);
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  padding: 0.25rem;
 }
 
 .wExpanded {
