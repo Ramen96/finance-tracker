@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
+import { PanelLeftOpen, PanelLeftClose, ScanBarcode, CreditCard, LayoutDashboard } from "lucide-react";
 import styles from "./Sidebar.module.scss";
 
 type ExpandBtnPropType = {
@@ -23,12 +23,33 @@ export default function SideBar() {
 
   const toggleExpanded = () => setIsExpanded(!isExpanded);
 
+  const sideBarBtns = [
+    { id: 0, name: "Dashboard", icon: <LayoutDashboard /> },
+    { id: 1, name: "Credit/Debit", icon: <CreditCard /> },
+    { id: 2, name: "Log New Transaction", icon: <ScanBarcode /> },
+  ];
+
   return (
-    <section className={`${styles.sideBarContainer} ${ isExpanded ? styles.wExpanded : styles.wContracted }`}>
-      <ExpandBtn 
-        sideBarState={isExpanded}
-        handleClick={toggleExpanded}
-      />
+    <section
+      className={`${styles.sideBarContainer} ${
+        isExpanded ? styles.wExpanded : styles.wContracted
+      }`}
+    >
+      <ExpandBtn sideBarState={isExpanded} handleClick={toggleExpanded} />
+      <section id="menuItems" className={styles.menu}>
+      {sideBarBtns.map((btn) => (
+        <span key={btn.id}>
+          <button className={styles.sideBarBtn}>
+            <div>
+              {btn.icon}
+            </div>
+            <p className={styles.sidebarBtnTxt}>
+              {isExpanded ? btn.name : null}
+            </p>
+          </button>
+        </span>
+      ))}
+      </section>
     </section>
-  )
+  );
 }
