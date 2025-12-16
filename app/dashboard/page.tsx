@@ -20,20 +20,11 @@ export default function Dashboard () {
             <h1>Expenses</h1>
           </section>
           <section id="assets-and-liabilities" className={styles.card}>
-            <h1>Assets & Liabilities</h1>
             <span className={styles.cardItem}>
               <h1>Assets</h1>
             </span>
             <span className={styles.cardItem}>
               <h1>Liabilities</h1>
-              <li>
-                <ul>item1</ul>
-                <ul>item1</ul>
-                <ul>item1</ul>
-                <ul>item1</ul>
-                <ul>item1</ul>
-                <ul>item1</ul>
-              </li>
             </span>
           </section>
         </div>

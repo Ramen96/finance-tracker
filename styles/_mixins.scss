@@ -385,7 +385,7 @@
 // ========================================
 
 @mixin card {
-  @include shadow-primary;
+  @include shadow-lg;
   @include radius;
   width: fit-content;
   height: fit-content;
@@ -394,11 +394,14 @@
   letter-spacing: 0.25rem;
   margin: vars.$spacing-xl;
   padding: vars.$spacing-xl;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @mixin card-item {
-  @include shadow-lg;
+  @include shadow-md;
   @include radius;
+  @include border;
   width: fit-content;
   height: fit-content;
   background: var(--bg-tertiary);
