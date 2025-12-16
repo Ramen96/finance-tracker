@@ -24,9 +24,21 @@ export default function SideBar() {
   const toggleExpanded = () => setIsExpanded(!isExpanded);
 
   const sideBarBtns = [
-    { id: 0, name: "Dashboard", icon: <LayoutDashboard /> },
-    { id: 1, name: "Credit/Debit", icon: <CreditCard /> },
-    { id: 2, name: "Log New Transaction", icon: <ScanBarcode /> },
+    { 
+      id: 0, 
+      name: "Dashboard", 
+      icon: <LayoutDashboard /> 
+    },
+    { 
+      id: 1, 
+      name: "Credit/Debit", 
+      icon: <CreditCard /> 
+    },
+    {
+      id: 2,
+      name: "Log New Transaction",
+      icon: <ScanBarcode />,
+    },
   ];
 
   return (
@@ -40,12 +52,12 @@ export default function SideBar() {
       {sideBarBtns.map((btn) => (
         <span key={btn.id}>
           <button className={styles.sideBarBtn}>
-            <div>
-              {btn.icon}
-            </div>
-            <p className={styles.sidebarBtnTxt}>
-              {isExpanded ? btn.name : null}
-            </p>
+            {btn.icon}
+            {isExpanded && (
+              <p className={styles.sidebarBtnTxt}>
+                {btn.name}
+              </p>
+            )}
           </button>
         </span>
       ))}
