@@ -1,4 +1,8 @@
 import SideBar from "@/components/Sidebar/Sidebar";
+import Income from "@/components/Income/income";
+import Audit from "@/components/Audit/audit";
+import Expenses from "@/components/Expenses/expenses";
+import Assets from "@/components/Assets/assets";
 import styles from "./Dashboard.module.scss";
 
 export default function Dashboard () {
@@ -15,23 +19,23 @@ export default function Dashboard () {
 
           {/* Income Section */}
           <section id="income" className={styles.card}>
-            <h1>Income</h1>
+            <Income />
           </section>
 
           {/* Audit Section */}
           <section id="audit" className={styles.card}>
-            <h1>Audit</h1>
+            <Audit />
           </section>
 
           {/* Expenses Section */}
           <section id="expenses" className={styles.card}>
-            <h1>Expenses</h1>
+            <Expenses />
           </section>
 
           {/* Assets Section */}
           <section id="assets-and-liabilities" className={styles.card}>
             <span className={styles.cardItem}>
-              <h1>Assets</h1>
+              <Assets />
             </span>
             <span className={styles.cardItem}>
               <h1>Liabilities</h1>
