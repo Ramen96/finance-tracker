@@ -1,0 +1,20 @@
+@use "@styles/mixins";
+
+.incomeContainer {
+  @include mixins.contentContainer;
+}
+
+.labelRow {
+  @include mixins.label-row-primary;
+}
+
+.labelRowSecondary {
+  @include mixins.label-row-secondary;
+}
+
+.informationList {
+  width: 100%;
+  display: flex;
+  justify-self: start;
+  text-align: start;
+}

@@ -17,6 +17,11 @@
 .flex-center-v { @include mixins.flex-center-v; }
 .flex-center-h { @include mixins.flex-center-h; }
 
+// Label Rows
+.label-row { @include mixins.label-row; }
+.label-row-primary { @include mixins.label-row-primary; }
+.label-row-secondary { @include mixins.label-row-secondary; }
+
 // ========================================
 // Styling
 // ========================================
@@ -51,6 +56,11 @@
 .absolute-center { @include mixins.absolute-center; }
 .absolute-bottom-left { @include mixins.absolute-bottom-left; }
 .relative { @include mixins.relative; }
+
+// ========================================
+// Text Positioning
+// ========================================
+.text-center { @include mixins.text-center; }
 
 // ========================================
 // Visibility
