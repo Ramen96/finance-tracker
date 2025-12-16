@@ -20,13 +20,13 @@
 
 .sideBarBtn {
   @include mixins.btnTertiary;
-  @include mixins.shadow-lg;
+  @include mixins.shadow-md;
   margin-top: 1rem;
+  padding: 0.7rem;
   width: calc(100% - 0.75rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  align-content: center;
 }
 
 .btn {
