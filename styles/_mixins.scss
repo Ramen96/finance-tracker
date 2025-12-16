@@ -153,6 +153,10 @@
   margin: $size;
 }
 
+@mixin mr-05Rem {
+  margin-right: 0.5rem;
+}
+
 // Visibility
 @mixin hidden {
   height: 0;

@@ -39,3 +39,8 @@
 // Visibility
 .hidden { @include mixins.hidden; }
 .sr-only { @include mixins.sr-only; }
+
+// Margin
+.mr-05rem {
+  @include mixins.mr-05Rem;
+}
