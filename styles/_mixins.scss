@@ -1,6 +1,9 @@
 @use "@/styles/variables" as vars;
 
-// height
+// ========================================
+// Dimension Helpers
+// ========================================
+
 @mixin h-full {
   height: 100%;
 }
@@ -21,12 +24,14 @@
   width: 100vw;
 }
 
-// width
 @mixin w-full {
   width: 100%;
 }
 
-// flexbox helpers
+// ========================================
+// Flexbox Helpers
+// ========================================
+
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -47,19 +52,47 @@
   flex-wrap: wrap;
 }
 
-// border radius
+// ========================================
+// Styling Helpers
+// ========================================
+
 @mixin radius {
-  border-radius: 0.3rem;
+  border-radius: vars.$radius;
 }
 
-// Positioning helpers
-@mixin fixed-top-right($top: 0.5rem, $right: 0.5rem) {
+@mixin radius-sm {
+  border-radius: vars.$radius-sm;
+}
+
+@mixin pointer {
+  cursor: pointer;
+}
+
+@mixin interactive {
+  outline: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+@mixin no-select {
+  user-select: none;
+}
+
+@mixin no-outline {
+  outline: none;
+}
+
+// ========================================
+// Positioning Helpers
+// ========================================
+
+@mixin fixed-top-right($top: vars.$spacing-md, $right: vars.$spacing-md) {
   position: fixed;
   top: $top;
   right: $right;
 }
 
-@mixin fixed-top-left($top: 0.5rem, $left: 0.5rem) {
+@mixin fixed-top-left($top: vars.$spacing-md, $left: vars.$spacing-md) {
   position: fixed;
   top: $top;
   left: $left;
@@ -74,49 +107,36 @@
 
 @mixin absolute-bottom-left {
   position: absolute;
-  bottom: 0%;
-  left: 0%;
+  bottom: 0;
+  left: 0;
 }
 
 @mixin relative {
   position: relative;
 }
 
-// Interactive states
-@mixin no-select {
-  user-select: none;
-}
+// ========================================
+// Transitions & Effects
+// ========================================
 
-@mixin no-outline {
-  outline: none;
-}
-
-@mixin interactive {
-  outline: none;
-  user-select: none;
-  cursor: pointer;
-}
-
-@mixin pointer {
-  cursor: pointer;
-}
-
-// Transitions
 @mixin transition($property: all) {
   transition: $property var(--transition);
 }
 
+// ========================================
 // Shadows
+// ========================================
+
 @mixin shadow-primary {
-  box-shadow: 3px 3px 0 var(--primary-light-inverse, var(--primary-light));
+  box-shadow: vars.$icon-size vars.$icon-size 0 var(--primary-light-inverse, var(--primary-light));
 }
 
 @mixin shadow-primary-light {
-  box-shadow: 3px 3px 0 var(--primary-light);
+  box-shadow: vars.$icon-size vars.$icon-size 0 var(--primary-light);
 }
 
 @mixin shadow-primary-inverse {
-  box-shadow: 3px 3px 0 var(--text-inverse);
+  box-shadow: vars.$icon-size vars.$icon-size 0 var(--text-inverse);
 }
 
 @mixin shadow-sm {
@@ -135,16 +155,22 @@
   box-shadow: var(--shadow-lg);
 }
 
+// ========================================
 // Borders
+// ========================================
+
 @mixin border($width: 1px, $color: var(--border)) {
   border: $width solid $color;
 }
 
-@mixin border-primary($width: .2rem) {
+@mixin border-primary($width: 0.2rem) {
   border: $width solid var(--primary);
 }
 
-// Spacing helpers
+// ========================================
+// Spacing Helpers
+// ========================================
+
 @mixin p($size) {
   padding: $size;
 }
@@ -153,11 +179,14 @@
   margin: $size;
 }
 
-@mixin mr-05Rem {
-  margin-right: 0.5rem;
+@mixin mr-05rem {
+  margin-right: vars.$spacing-md;
 }
 
+// ========================================
 // Visibility
+// ========================================
+
 @mixin hidden {
   height: 0;
   width: 0;
@@ -165,7 +194,7 @@
 }
 
 @mixin sr-only {
-  @include m(-1px);
+  margin: -1px;
   position: absolute;
   width: 1px;
   height: 1px;
@@ -176,12 +205,10 @@
   border-width: 0;
 }
 
-// Transitions
-@mixin transition($property: all) {
-  transition: $property var(--transition);
-}
+// ========================================
+// Media Query Helpers
+// ========================================
 
-// Media query helpers
 @mixin respond($breakpoint) {
   @if $breakpoint == md {
     @media (min-width: 768px) { @content; }
@@ -191,105 +218,122 @@
   }
 }
 
-// buttons
-@mixin btnPrimary {
+// ========================================
+// Button Mixins
+// ========================================
+
+@mixin btn-base {
   @include radius;
   @include transition;
-  @include m(vars.$btn-margin);
+  font-family: var(--font-quicksand) sans-serif;
+  font-size: vars.$font-size-large;
+  border: none;
+  cursor: pointer;
+  
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin btnPrimary {
+  @include btn-base;
+  @include m(vars.$spacing-sm);
   @include shadow-primary;
   border: 1px solid var(--primary-light-inverse, var(--primary-light));
   color: var(--primary-light);
   background: var(--primary);
-  font-family: var(--font-quicksand) sans-serif;
-  font-size: larger;
-  padding: 0.4rem 1rem;
+  padding: vars.$spacing-sm 1rem;
+  
   &:hover {
     background: var(--primary-hover);
-    cursor: pointer;
     transform: scale(1.03);
   }
 }
 
 @mixin btnSecondary {
-  @include radius;
+  @include btn-base;
   @include shadow-primary;
-  @include m(vars.$btn-margin);
-  /* Color-only changes: use secondary color as background and secondary-text for contrast */
+  @include m(vars.$spacing-sm);
   color: var(--secondary-text);
   background: var(--secondary);
-  font-family: var(--font-quicksand) sans-serif;
-  font-size: larger;
-  padding: 0.2rem 1rem;
+  padding: vars.$spacing-xs 1rem;
+  
   &:hover {
     background: var(--secondary-hover);
-    cursor: pointer;
   }
 }
 
 @mixin btnTertiary {
-  @include radius;
+  @include btn-base;
   @include shadow-primary-inverse;
-  @include m(vars.$btn-margin);
+  @include m(vars.$spacing-sm);
   border: 1px solid var(--border);
   color: var(--tertiary-text);
   background: var(--bg-elevated);
-  @include transition;
-  font-family: var(--font-quicksand) sans-serif;
-  font-size: larger;
   padding: 0.35rem 0.9rem;
+  
   &:hover {
     background: var(--tertiary-hover);
-    cursor: pointer;
   }
 }
 
-// text inputs
+// ========================================
+// Text Inputs
+// ========================================
+
 @mixin textInputPrimary {
   @include radius;
   @include no-outline;
-  @include m(0.7rem);
-  box-shadow: 3px 3px 0 var(--text-input-shadow);
-  padding: 0.3rem 0.5rem;
-  // margin-top: 0.5rem;
-  width: 20rem;
-  height: 30px;
+  @include m(vars.$spacing-lg);
+  box-shadow: vars.$icon-size vars.$icon-size 0 var(--text-input-shadow);
+  padding: vars.$spacing-xs 0.5rem;
+  width: vars.$input-width;
+  height: vars.$input-height;
   color: var(--text-input-text);
   border: 1px solid var(--primary-light-inverse);
   font-family: var(--font-quicksand);
   letter-spacing: vars.$letter-spacing;
-  font-size: large;
+  font-size: vars.$font-size-large;
   text-align: left;
   background: var(--text-input-bg);
   caret-shape: block;
+  
   &::placeholder {
     text-align: center;
     color: var(--text-input-text);
   }
 }
 
-// show/hide password buttons
+// ========================================
+// Password Input
+// ========================================
+
 @mixin passwdWrapper {
   position: relative;
 }
 
 @mixin eyeBtn {
   @include flex-center;
-  border-radius: 0.2rem;
+  border-radius: vars.$radius-sm;
   border: none;
   color: var(--text-input-text);
   background: transparent;
   cursor: pointer;
   position: absolute;
   top: 50%;
-  right: 1rem;
+  right: vars.$eye-btn-distance;
   transform: translateY(-50%);
   z-index: 100;
+  
   &:focus {
     outline: none;
   }
 }
 
-// checkbox 
+// ========================================
+// Checkbox
+// ========================================
+
 @mixin checkbox {
   @include radius;
   font-family: var(--font-quicksand) sans-serif;
@@ -297,8 +341,9 @@
   font-size: 1rem;
   color: var(--primary-light);
   background: #333;
-  width: 10rem;
-  height: 10rem;
+  width: vars.$checkbox-size;
+  height: vars.$checkbox-size;
+  
   &:checked {
     background: #0a5fdf;
   }
@@ -307,13 +352,16 @@
 @mixin checkboxInput {
   opacity: 0;
   position: absolute;
-  left: -9999px; 
+  left: -9999px;
   width: 1px;
   height: 1px;
   overflow: hidden;
 }
 
-// Containers 
+// ========================================
+// Containers
+// ========================================
+
 @mixin mainContainer {
   @include h-full;
   @include w-full;
@@ -332,17 +380,20 @@
   align-content: flex-start;
 }
 
-//  cards
+// ========================================
+// Cards
+// ========================================
+
 @mixin card {
   @include shadow-primary;
   @include radius;
   width: fit-content;
   height: fit-content;
-  min-width: 25rem;
+  min-width: vars.$card-width;
   background: var(--bg-elevated);
   letter-spacing: 0.25rem;
-  margin: 1rem;
-  padding: 1rem;
+  margin: vars.$spacing-xl;
+  padding: vars.$spacing-xl;
 }
 
 @mixin card-item {
@@ -351,18 +402,21 @@
   width: fit-content;
   height: fit-content;
   background: var(--bg-tertiary);
-  margin: 1rem;
-  padding: 1rem;
+  margin: vars.$spacing-xl;
+  padding: vars.$spacing-xl;
   display: flex;
   flex-direction: row;
 }
 
-// nav
+// ========================================
+// Navigation
+// ========================================
+
 @mixin nav {
   @include radius;
   @include w-full;
   @include flex-center;
-  margin: 0.5rem;
+  margin: vars.$spacing-md;
   height: 1rem;
-  padding: 1.25rem;
+  padding: vars.$spacing-2xl;
 }

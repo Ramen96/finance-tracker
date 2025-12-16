@@ -5,7 +5,26 @@ $form-height: 20rem;
 $text-box-height: 10rem;
 $head-height: 6rem;
 $btn-container-width: 20rem;
-$btn-margin: 0.4rem;
 
-// letter spacing
+// Spacing
+$spacing-xs: 0.2rem;
+$spacing-sm: 0.4rem;
+$spacing-md: 0.5rem;
+$spacing-lg: 0.7rem;
+$spacing-xl: 1rem;
+$spacing-2xl: 1.25rem;
+
+// Border radius
+$radius-sm: 0.2rem;
+$radius: 0.3rem;
+
+// Font
 $letter-spacing: 0.1rem;
+$font-size-large: larger;
+
+// Dimensions
+$input-width: 20rem;
+$input-height: 30px;
+$checkbox-size: 10rem;
+$icon-size: 3px;
+$eye-btn-distance: 1rem;
