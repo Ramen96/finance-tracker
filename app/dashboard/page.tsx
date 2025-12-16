@@ -7,18 +7,28 @@ export default function Dashboard () {
       <main className={styles.mainContainer}>
         <SideBar />
         <div id="content" className={styles.contentContainer}>
+
+          {/* Navigation */}
           <nav id="nav" className={`${styles.nav}`}>
             <h1 className="">Goal and % to goal</h1>
           </nav>
+
+          {/* Income Section */}
           <section id="income" className={styles.card}>
             <h1>Income</h1>
           </section>
+
+          {/* Audit Section */}
           <section id="audit" className={styles.card}>
             <h1>Audit</h1>
           </section>
+
+          {/* Expenses Section */}
           <section id="expenses" className={styles.card}>
             <h1>Expenses</h1>
           </section>
+
+          {/* Assets Section */}
           <section id="assets-and-liabilities" className={styles.card}>
             <span className={styles.cardItem}>
               <h1>Assets</h1>
