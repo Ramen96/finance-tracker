@@ -4,6 +4,7 @@
   @include mixins.mainContainer;
   justify-self: center;
   align-items: center;
+  overflow-y: auto;
 }
 
 .contentContainer {
