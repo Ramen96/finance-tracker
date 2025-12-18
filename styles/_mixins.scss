@@ -452,3 +452,227 @@
   height: 1rem;
   padding: vars.$spacing-2xl;
 }
+
+
+// ========================================
+// Grid & Table Helpers
+// ========================================
+
+@mixin grid-two-col($col1: 1fr, $col2: 0.8fr, $gap: vars.$spacing-md) {
+  display: grid;
+  grid-template-columns: $col1 $col2;
+  gap: $gap;
+}
+
+@mixin table-header {
+  @include grid-two-col;
+  @include p(vars.$spacing-md);
+  @include radius;
+  background: var(--bg-secondary);
+  font-weight: 600;
+  font-family: var(--font-display), sans-serif;
+  color: var(--text);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+@mixin table-row {
+  @include grid-two-col;
+  @include p(vars.$spacing-md);
+  @include radius;
+  @include border;
+  @include transition;
+  background: var(--bg-tertiary);
+  
+  &:hover {
+    background: var(--bg-elevated);
+    border-color: var(--primary);
+    @include shadow-sm;
+  }
+}
+
+// ========================================
+// Section Headers
+// ========================================
+
+@mixin section-header($border-width: 2px) {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-md;
+  padding-bottom: vars.$spacing-md;
+  border-bottom: $border-width solid var(--border);
+  
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+}
+
+@mixin section-icon {
+  @include flex-center;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+// ========================================
+// Page Headers
+// ========================================
+
+@mixin page-header {
+  @include w-full;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-sm;
+  margin-bottom: vars.$spacing-lg;
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+// ========================================
+// Category/Card Sections
+// ========================================
+
+@mixin category-card {
+  @include card;
+  @include shadow-primary;
+  @include p(vars.$spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-md;
+  width: fit-content;
+  min-width: 280px;
+  max-width: 420px;
+  height: fit-content;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    @include w-full;
+    max-width: none;
+  }
+}
+
+// ========================================
+// Total Display Sections
+// ========================================
+
+@mixin category-total {
+  @include grid-two-col(1fr, 0.8fr, vars.$spacing-lg);
+  @include p(vars.$spacing-lg);
+  @include radius;
+  font-family: var(--font-display);
+  background: var(--primary);
+  margin-top: vars.$spacing-sm;
+  font-weight: 700;
+
+  .totalLabel {
+    color: var(--primary-text);
+    text-align: left;
+  }
+
+  .totalAmount {
+    color: var(--primary-text);
+    text-align: right;
+    font-size: 1.15rem;
+  }
+}
+
+@mixin grand-total {
+  @include flex-center;
+  @include p(vars.$spacing-lg vars.$spacing-md);
+  @include radius;
+  @include border(2px, var(--primary));
+  @include w-full;
+  background: var(--bg-secondary);
+  margin-top: vars.$spacing-lg;
+  box-sizing: border-box;
+}
+
+@mixin grand-total-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: vars.$spacing-md;
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+}
+
+@mixin grand-total-amount($color: var(--success)) {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: $color;
+  letter-spacing: 0.05rem;
+}
+
+// ========================================
+// Container Layouts
+// ========================================
+
+@mixin page-container($max-width: 1400px) {
+  @include w-full;
+  @include flex-center;
+  font-family: var(--font-display), sans-serif;
+  flex-direction: column;
+  padding: vars.$spacing-xl;
+  gap: vars.$spacing-2xl;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: $max-width;
+  margin: 0 auto;
+}
+
+@mixin responsive-grid($gap: vars.$spacing-lg) {
+  @include w-full;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $gap;
+}
+
+// ========================================
+// Table Components
+// ========================================
+
+@mixin data-table {
+  display: flex;
+  font-family: var(--font-main), sans-serif;
+  flex-direction: column;
+  gap: vars.$spacing-sm;
+  @include w-full;
+}
+
+@mixin table-body {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-sm;
+  @include w-full;
+}
+
+// ========================================
+// Text Alignment Utilities
+// ========================================
+
+@mixin text-left {
+  text-align: left;
+}
+
+@mixin text-right {
+  text-align: right;
+}

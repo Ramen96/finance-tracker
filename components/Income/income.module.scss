@@ -2,131 +2,43 @@
 @use "@styles/variables" as vars;
 
 .incomeContainer {
-  @include mixins.w-full;
-  @include mixins.flex-center;
-  font-family: var(--font-display), sans-serif;
-  flex-direction: column;
-  padding: vars.$spacing-xl;
-  gap: vars.$spacing-2xl;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-width: 1400px;
-  margin: 0 auto;
+  @include mixins.page-container;
 }
 
 .header {
-  @include mixins.w-full;
-  display: flex;
-  flex-direction: column;
-  gap: vars.$spacing-sm;
-  margin-bottom: vars.$spacing-lg;
-
-  h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--text);
-    margin: 0;
-  }
-
-  p {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin: 0;
-  }
+  @include mixins.page-header;
 }
 
 .categoriesGrid {
-  @include mixins.w-full;
-  display: flex;
-  flex-wrap: wrap;
-  gap: vars.$spacing-lg;
+  @include mixins.responsive-grid;
 }
 
 .categorySection {
-  @include mixins.card;
-  @include mixins.shadow-primary;
-  @include mixins.p(vars.$spacing-lg);
-  display: flex;
-  flex-direction: column;
-  gap: vars.$spacing-md;
-  width: fit-content;
-  min-width: 280px;
-  max-width: 420px;
-  height: fit-content;
-  margin: 0;
-
-  @media (max-width: 768px) {
-    @include mixins.w-full;
-    max-width: none;
-  }
+  @include mixins.category-card;
 }
 
 .categoryHeader {
-  display: flex;
-  align-items: center;
-  gap: vars.$spacing-md;
-  padding-bottom: vars.$spacing-md;
-  border-bottom: 2px solid var(--border);
-
-  h2 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text);
-    margin: 0;
-  }
+  @include mixins.section-header;
 }
 
 .categoryIcon {
-  @include mixins.flex-center;
-  color: var(--primary);
-  flex-shrink: 0;
+  @include mixins.section-icon;
 }
 
 .incomeTable {
-  display: flex;
-  font-family: var(--font-main), sans-serif;
-  flex-direction: column;
-  gap: vars.$spacing-sm;
-  @include mixins.w-full;
+  @include mixins.data-table;
 }
 
 .tableHeader {
-  display: grid;
-  grid-template-columns: 1fr 0.8fr;
-  gap: vars.$spacing-md;
-  @include mixins.p(vars.$spacing-md);
-  @include mixins.radius;
-  background: var(--bg-secondary);
-  font-weight: 600;
-  font-family: var(--font-display), sans-serif;
-  color: var(--text);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05rem;
+  @include mixins.table-header;
 }
 
 .tableBody {
-  display: flex;
-  flex-direction: column;
-  gap: vars.$spacing-sm;
-  @include mixins.w-full;
+  @include mixins.table-body;
 }
 
 .tableRow {
-  display: grid;
-  grid-template-columns: 1fr 0.8fr;
-  gap: vars.$spacing-md;
-  @include mixins.p(vars.$spacing-md);
-  @include mixins.radius;
-  @include mixins.border;
-  background: var(--bg-tertiary);
-  @include mixins.transition;
-
-  &:hover {
-    background: var(--bg-elevated);
-    border-color: var(--primary);
-    @include mixins.shadow-sm;
-  }
+  @include mixins.table-row;
 
   span {
     @include mixins.flex-center;
@@ -134,7 +46,7 @@
 }
 
 .descriptionCol {
-  text-align: left;
+  @include mixins.text-left;
 }
 
 .tableRow .descriptionCol {
@@ -143,7 +55,7 @@
 }
 
 .amountCol {
-  text-align: right;
+  @include mixins.text-right;
 }
 
 .tableRow .amountCol {
@@ -153,56 +65,17 @@
 }
 
 .categoryTotal {
-  display: grid;
-  grid-template-columns: 1fr 0.8fr;
-  gap: vars.$spacing-lg;
-  @include mixins.p(vars.$spacing-lg);
-  @include mixins.radius;
-  font-family: var(--font-display);
-  background: var(--primary);
-  margin-top: vars.$spacing-sm;
-  font-weight: 700;
-
-  .totalLabel {
-    color: var(--primary-text);
-    text-align: left;
-  }
-
-  .totalAmount {
-    color: var(--primary-text);
-    text-align: right;
-    font-size: 1.15rem;
-  }
+  @include mixins.category-total;
 }
 
 .grandTotal {
-  @include mixins.flex-center;
-  @include mixins.p(vars.$spacing-lg vars.$spacing-md);
-  @include mixins.radius;
-  @include mixins.border(2px, var(--primary));
-  @include mixins.w-full;
-  background: var(--bg-secondary);
-  margin-top: vars.$spacing-lg;
-  box-sizing: border-box;
+  @include mixins.grand-total;
 }
 
 .grandTotalContent {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: vars.$spacing-md;
-
-  h2 {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--text);
-    margin: 0;
-  }
+  @include mixins.grand-total-content;
 }
 
 .grandTotalAmount {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--success);
-  letter-spacing: 0.05rem;
+  @include mixins.grand-total-amount;
 }
