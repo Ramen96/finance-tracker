@@ -5,6 +5,8 @@
   @include mixins.radius;
   @include mixins.shadow-primary;
   @include mixins.absolute-center;
+  font-family: var(--font-display);
+  letter-spacing: 0.2rem;
   width: vars.$card-width;
   height: vars.$card-height;
   background: var(--primary);
