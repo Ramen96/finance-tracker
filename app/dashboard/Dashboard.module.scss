@@ -2,6 +2,7 @@
 
 .mainContainer {
   @include mixins.mainContainer;
+  font-family: var(--font-display);
   justify-self: center;
   align-items: center;
   overflow-y: auto;

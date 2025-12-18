@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Quicksand } from "next/font/google";
+import { Orbitron, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/context/context";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import "./globals.scss";
 
-const quicksand = Quicksand({
-  variable: "--font-quicksand",
+const orbitron = Orbitron({
+  variable: "--font-display",
   subsets: ["latin"],
-})
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-main",
+  subsets: ["latin"]
+});
+
 
 export const metadata: Metadata = {
   title: "Finance Tracker",
@@ -20,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={quicksand.className}>
+    <html lang="en" className={`${orbitron.variable} ${spaceGrotesk.variable}`}>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <body className="antialiased transition">
         <ThemeProvider>
