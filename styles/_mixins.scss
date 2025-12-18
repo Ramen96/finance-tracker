@@ -62,9 +62,9 @@
 
 @mixin label-row-primary {
   @include label-row;
-  font-size: vars.$font-size-large;
-  font-weight: 400;
-  margin-bottom: vars.$spacing-xl;
+  font-family: var(--font-display);
+  letter-spacing: 0.15rem;
+  text-transform: uppercase;
 }
 
 @mixin label-row-secondary {
@@ -254,8 +254,8 @@
 @mixin btn-base {
   @include radius;
   @include transition;
-  font-family: var(--font-quicksand) sans-serif;
-  font-size: vars.$font-size-large;
+  font-family: var(--font-display), sans-serif;
+  font-size: vars.$font-size-md;
   border: none;
   cursor: pointer;
   
@@ -320,7 +320,7 @@
   height: vars.$input-height;
   color: var(--text-input-text);
   border: 1px solid var(--primary-light-inverse);
-  font-family: var(--font-quicksand);
+  font-family: var(--font-main);
   letter-spacing: vars.$letter-spacing;
   font-size: vars.$font-size-large;
   text-align: left;
@@ -365,7 +365,7 @@
 
 @mixin checkbox {
   @include radius;
-  font-family: var(--font-quicksand) sans-serif;
+  font-family: var(--font-display), sans-serif;
   letter-spacing: vars.$letter-spacing;
   font-size: 1rem;
   color: var(--primary-light);
