@@ -1,0 +1,153 @@
+@use "@styles/mixins";
+@use "@styles/variables" as vars;
+
+.auditContainer {
+  @include mixins.page-container(700px);
+  gap: vars.$spacing-md;
+}
+
+.header {
+  @include mixins.page-header;
+}
+
+.auditSection {
+  @include mixins.w-full;
+  @include mixins.category-card;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-sm;
+  padding: vars.$spacing-md;
+}
+
+.sectionHeader {
+  @include mixins.section-header;
+  border-bottom: none;
+  justify-content: center;
+  padding-bottom: 0;
+
+  h2 {
+    font-size: 1.1rem;
+  }
+}
+
+.sectionIcon {
+  @include mixins.section-icon;
+}
+
+.amountDisplay {
+  @include mixins.flex-center;
+  @include mixins.p(vars.$spacing-sm);
+  @include mixins.radius;
+  background: var(--bg-secondary);
+}
+
+.amountValue {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.operator {
+  @include mixins.flex-center;
+  color: var(--text-secondary);
+  padding: vars.$spacing-xs 0;
+}
+
+.operatorEquals {
+  @include mixins.flex-center;
+  padding: vars.$spacing-xs 0;
+}
+
+.equalsLine {
+  @include mixins.w-full;
+  max-width: 150px;
+  height: 2px;
+  background: var(--text-secondary);
+  @include mixins.radius;
+}
+
+.totalSection {
+  @include mixins.w-full;
+  @include mixins.category-card;
+  @include mixins.shadow-lg;
+  max-width: 100%;
+  background: var(--primary);
+  border: 2px solid var(--primary-light);
+  padding: vars.$spacing-md;
+}
+
+.totalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: vars.$spacing-md;
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-text);
+    margin: 0;
+  }
+}
+
+.totalIcon {
+  @include mixins.flex-center;
+  color: var(--primary-text);
+  flex-shrink: 0;
+}
+
+.totalAmount {
+  @include mixins.flex-center;
+  @include mixins.p(vars.$spacing-md);
+  @include mixins.radius;
+  background: rgba(255, 255, 255, 0.1);
+  margin-top: vars.$spacing-sm;
+}
+
+.totalValue {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary-text);
+}
+
+.finalTotal {
+  @include mixins.grand-total;
+  @include mixins.w-full;
+  background: var(--bg-elevated);
+  border: 3px solid var(--success);
+  padding: vars.$spacing-lg;
+  margin-top: vars.$spacing-lg;
+}
+
+.finalHeader {
+  text-align: center;
+  margin-bottom: vars.$spacing-md;
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+  }
+}
+
+.finalAmount {
+  @include mixins.flex-center;
+  @include mixins.p(vars.$spacing-lg);
+  @include mixins.radius;
+  background: var(--success);
+  @include mixins.shadow-lg;
+}
+
+.finalValue {
+  font-family: var(--font-display), sans-serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--primary-text);
+  letter-spacing: 0.05rem;
+}
