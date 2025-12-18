@@ -3,6 +3,9 @@
 .sideBarContainer {
   @include mixins.h-full;
   @include mixins.shadow-lg;
+  position: sticky;
+  top: 0;
+  left: 0;
   background: var(--bg-elevated);
   display: flex;
   justify-content: start;
