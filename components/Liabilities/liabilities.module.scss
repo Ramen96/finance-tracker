@@ -1,0 +1,211 @@
+@use "@styles/mixins";
+@use "@styles/variables" as vars;
+
+.liabilitiesContainer {
+  @include mixins.page-container;
+}
+
+.header {
+  @include mixins.page-header;
+}
+
+.categoriesGrid {
+  @include mixins.responsive-grid;
+}
+
+.categorySection {
+  @include mixins.category-card;
+}
+
+.categoryHeader {
+  @include mixins.section-header;
+}
+
+.categoryIcon {
+  @include mixins.section-icon;
+}
+
+.addBtn {
+  @include mixins.flex-center;
+  @include mixins.radius;
+  @include mixins.transition;
+  @include mixins.w-full;
+  gap: vars.$spacing-xs;
+  padding: vars.$spacing-sm vars.$spacing-md;
+  background: var(--primary);
+  color: var(--primary-text);
+  border: 1px solid var(--primary-light);
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: vars.$spacing-md;
+
+  &:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    @include mixins.shadow-sm;
+  }
+}
+
+.liabilitiesTable {
+  @include mixins.data-table;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 0.7fr 0.8fr;
+  gap: vars.$spacing-sm;
+  @include mixins.p(vars.$spacing-md);
+  @include mixins.radius;
+  background: var(--bg-secondary);
+  font-weight: 600;
+  font-family: var(--font-display), sans-serif;
+  color: var(--text);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+}
+
+.tableBody {
+  @include mixins.table-body;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 0.7fr 0.8fr;
+  gap: vars.$spacing-sm;
+  @include mixins.p(vars.$spacing-md);
+  @include mixins.radius;
+  @include mixins.border;
+  @include mixins.transition;
+  background: var(--bg-tertiary);
+  align-items: center;
+
+  &:hover {
+    background: var(--bg-elevated);
+    border-color: var(--primary);
+    @include mixins.shadow-sm;
+  }
+}
+
+.nameCol {
+  @include mixins.text-left;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.balanceCol {
+  @include mixins.text-right;
+  color: var(--error, #ef4444);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.paymentCol {
+  @include mixins.text-right;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.rateCol {
+  @include mixins.text-right;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.actionsCol {
+  @include mixins.flex-center;
+  gap: vars.$spacing-xs;
+  justify-content: flex-end;
+}
+
+.editBtn {
+  @include mixins.flex-center;
+  @include mixins.radius-sm;
+  @include mixins.transition;
+  padding: vars.$spacing-xs;
+  background: var(--primary);
+  color: var(--primary-text);
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--primary-hover);
+    transform: scale(1.1);
+  }
+}
+
+.deleteBtn {
+  @include mixins.flex-center;
+  @include mixins.radius-sm;
+  @include mixins.transition;
+  padding: vars.$spacing-xs;
+  background: var(--error, #ef4444);
+  color: white;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--error-hover, #dc2626);
+    transform: scale(1.1);
+  }
+}
+
+.categoryTotal {
+  @include mixins.category-total;
+}
+
+.totalsSection {
+  @include mixins.w-full;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-lg;
+  margin-top: vars.$spacing-lg;
+}
+
+.grandTotal {
+  @include mixins.grand-total;
+  background: var(--bg-elevated);
+  border-color: var(--error, #ef4444);
+}
+
+.grandTotalContent {
+  @include mixins.grand-total-content;
+}
+
+.grandTotalAmount {
+  @include mixins.grand-total-amount(var(--error, #ef4444));
+}
+
+.monthlyTotal {
+  @include mixins.flex-center;
+  @include mixins.p(vars.$spacing-lg vars.$spacing-md);
+  @include mixins.radius;
+  @include mixins.border(2px, var(--primary));
+  @include mixins.w-full;
+  background: var(--bg-secondary);
+  box-sizing: border-box;
+}
+
+.monthlyTotalContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: vars.$spacing-md;
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+}
+
+.monthlyTotalAmount {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.05rem;
+}
