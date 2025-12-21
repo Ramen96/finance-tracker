@@ -55,18 +55,7 @@
 }
 
 .tableHeader {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 0.8fr;
-  gap: vars.$spacing-md;
-  @include mixins.p(vars.$spacing-md);
-  @include mixins.radius;
-  background: var(--bg-secondary);
-  font-weight: 600;
-  font-family: var(--font-display), sans-serif;
-  color: var(--text);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05rem;
+  @include mixins.table-header-assets;
 }
 
 .tableBody {
@@ -74,46 +63,23 @@
 }
 
 .tableRow {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 0.8fr;
-  gap: vars.$spacing-md;
-  @include mixins.p(vars.$spacing-md);
-  @include mixins.radius;
-  @include mixins.border;
-  @include mixins.transition;
-  background: var(--bg-tertiary);
-  align-items: center;
-
-  &:hover {
-    background: var(--bg-elevated);
-    border-color: var(--primary);
-    @include mixins.shadow-sm;
-  }
+  @include mixins.table-row-assets;
 }
 
 .nameCol {
-  @include mixins.text-left;
-  color: var(--text);
-  font-weight: 500;
+  @include mixins.column-name;
 }
 
 .valueCol {
-  @include mixins.text-right;
-  color: var(--text);
-  font-weight: 600;
-  font-size: 1.05rem;
+  @include mixins.column-value;
 }
 
 .incomeCol {
-  @include mixins.text-right;
-  color: var(--success);
-  font-weight: 600;
+  @include mixins.column-success;
 }
 
 .growthCol {
-  @include mixins.text-right;
-  color: var(--primary);
-  font-weight: 600;
+  @include mixins.column-success;
 }
 
 .actionsCol {
@@ -123,35 +89,11 @@
 }
 
 .editBtn {
-  @include mixins.flex-center;
-  @include mixins.radius-sm;
-  @include mixins.transition;
-  padding: vars.$spacing-xs;
-  background: var(--primary);
-  color: var(--primary-text);
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background: var(--primary-hover);
-    transform: scale(1.1);
-  }
+  @include mixins.action-btn-edit;
 }
 
 .deleteBtn {
-  @include mixins.flex-center;
-  @include mixins.radius-sm;
-  @include mixins.transition;
-  padding: vars.$spacing-xs;
-  background: var(--error, #ef4444);
-  color: white;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background: var(--error-hover, #dc2626);
-    transform: scale(1.1);
-  }
+  @include mixins.action-btn-delete;
 }
 
 .categoryTotal {

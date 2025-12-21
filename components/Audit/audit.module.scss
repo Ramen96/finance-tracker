@@ -43,10 +43,7 @@
 }
 
 .amountValue {
-  font-family: var(--font-display), sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--text);
+  @include mixins.amount-display-value(1.4rem);
 }
 
 .operator {
@@ -107,10 +104,7 @@
 }
 
 .totalValue {
-  font-family: var(--font-display), sans-serif;
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--primary-text);
+  @include mixins.amount-display-value(1.8rem);
 }
 
 .finalTotal {
@@ -145,8 +139,7 @@
 }
 
 .finalValue {
-  font-family: var(--font-display), sans-serif;
-  font-size: 2rem;
+  @include mixins.amount-display-value(2rem);
   font-weight: 900;
   color: var(--primary-text);
   letter-spacing: 0.05rem;

@@ -55,18 +55,7 @@
 }
 
 .tableHeader {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 0.8fr 0.6fr 0.9fr;
-  gap: vars.$spacing-xs;
-  @include mixins.p(vars.$spacing-sm vars.$spacing-md);
-  @include mixins.radius;
-  background: var(--bg-secondary);
-  font-weight: 600;
-  font-family: var(--font-display), sans-serif;
-  color: var(--text);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05rem;
+  @include mixins.table-header-liabilities;
 }
 
 .tableBody {
@@ -74,47 +63,23 @@
 }
 
 .tableRow {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 0.8fr 0.6fr 0.9fr;
-  gap: vars.$spacing-xs;
-  @include mixins.p(vars.$spacing-sm vars.$spacing-md);
-  @include mixins.radius;
-  @include mixins.border;
-  @include mixins.transition;
-  background: var(--bg-tertiary);
-  align-items: center;
-
-  &:hover {
-    background: var(--bg-elevated);
-    border-color: var(--primary);
-    @include mixins.shadow-sm;
-  }
+  @include mixins.table-row-liabilities;
 }
 
 .nameCol {
-  @include mixins.text-left;
-  color: var(--text);
-  font-weight: 500;
+  @include mixins.column-name;
 }
 
 .balanceCol {
-  @include mixins.text-right;
-  color: var(--error, #ef4444);
-  font-weight: 600;
-  font-size: 1.05rem;
+  @include mixins.column-error;
 }
 
 .paymentCol {
-  @include mixins.text-right;
-  color: var(--text);
-  font-weight: 600;
+  @include mixins.column-value;
 }
 
 .rateCol {
-  @include mixins.text-right;
-  color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 0.95rem;
+  @include mixins.column-secondary;
 }
 
 .actionsCol {
@@ -124,35 +89,11 @@
 }
 
 .editBtn {
-  @include mixins.flex-center;
-  @include mixins.radius-sm;
-  @include mixins.transition;
-  padding: vars.$spacing-xs;
-  background: var(--primary);
-  color: var(--primary-text);
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background: var(--primary-hover);
-    transform: scale(1.1);
-  }
+  @include mixins.action-btn-edit;
 }
 
 .deleteBtn {
-  @include mixins.flex-center;
-  @include mixins.radius-sm;
-  @include mixins.transition;
-  padding: vars.$spacing-xs;
-  background: var(--error, #ef4444);
-  color: white;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    background: var(--error-hover, #dc2626);
-    transform: scale(1.1);
-  }
+  @include mixins.action-btn-delete;
 }
 
 .categoryTotal {

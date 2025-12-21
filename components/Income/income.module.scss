@@ -46,7 +46,7 @@
 }
 
 .descriptionCol {
-  @include mixins.text-left;
+  @include mixins.column-name;
 }
 
 .tableRow .descriptionCol {
@@ -55,13 +55,7 @@
 }
 
 .amountCol {
-  @include mixins.text-right;
-}
-
-.tableRow .amountCol {
-  color: var(--success);
-  font-weight: 600;
-  font-size: 1.05rem;
+  @include mixins.column-success;
 }
 
 .categoryTotal {
