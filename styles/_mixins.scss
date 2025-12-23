@@ -43,12 +43,13 @@
 
 @mixin label-row-primary {
   @include label-row(var(--font-display));
-  letter-spacing: 0.15rem;
+  letter-spacing: 0.1rem;
   text-transform: uppercase;
+  font-size: 0.875rem;
 }
 
 @mixin label-row-secondary {
-  @include label-row(null, medium, 200);
+  @include label-row(null, 1rem, 500);
 }
 
 // ========================================
@@ -115,6 +116,10 @@
   transition: $property var(--transition);
 }
 
+@mixin smooth-transition {
+  @include transition;
+}
+
 // ========================================
 // Shadows
 // ========================================
@@ -136,9 +141,9 @@
 @mixin shadow-sm { @include shadow(sm); }
 @mixin shadow-md { @include shadow(md); }
 @mixin shadow-lg { @include shadow(lg); }
-@mixin shadow-primary { @include shadow(null, var(--primary-light-inverse, var(--primary-light))); }
-@mixin shadow-primary-light { @include shadow(null, var(--primary-light)); }
-@mixin shadow-primary-inverse { @include shadow(null, var(--text-inverse)); }
+@mixin shadow-primary { @include shadow(lg); }
+@mixin shadow-primary-light { @include shadow(md); }
+@mixin shadow-primary-inverse { @include shadow(sm); }
 
 // ========================================
 // Borders
@@ -148,8 +153,12 @@
   border: $width solid $color;
 }
 
-@mixin border-primary($width: 0.2rem) {
+@mixin border-primary($width: 2px) {
   @include border($width, var(--primary));
+}
+
+@mixin border-subtle {
+  @include border(1px, var(--border));
 }
 
 // ========================================
@@ -186,7 +195,9 @@
 // ========================================
 
 @mixin respond($breakpoint) {
-  @if $breakpoint == md {
+  @if $breakpoint == sm {
+    @media (min-width: 640px) { @content; }
+  } @else if $breakpoint == md {
     @media (min-width: 768px) { @content; }
   } @else if $breakpoint == lg {
     @media (min-width: 1024px) { @content; }
@@ -199,52 +210,60 @@
 
 @mixin btn-base {
   @include radius;
-  @include transition;
+  @include smooth-transition;
   @include pointer;
+  @include no-select;
   font-family: var(--font-display), sans-serif;
   font-size: vars.$font-size-md;
+  font-weight: 600;
   border: none;
 }
 
 @mixin btnPrimary {
   @include btn-base;
   @include m(vars.$spacing-sm);
-  @include shadow-primary;
-  border: 1px solid var(--primary-light-inverse, var(--primary-light));
-  color: var(--primary-light);
+  @include shadow-sm;
+  color: var(--primary-text);
   background: var(--primary);
-  padding: vars.$spacing-sm 1rem;
+  padding: 0.625rem 1.25rem;
   
   &:hover {
     background: var(--primary-hover);
-    transform: scale(1.03);
+    transform: translateY(-2px);
+    @include shadow-md;
+  }
+  
+  &:active {
+    transform: translateY(0);
   }
 }
 
 @mixin btnSecondary {
   @include btn-base;
-  @include shadow-primary;
+  @include shadow-sm;
   @include m(vars.$spacing-sm);
   color: var(--secondary-text);
   background: var(--secondary);
-  padding: vars.$spacing-xs 1rem;
+  padding: 0.625rem 1.25rem;
   
   &:hover {
     background: var(--secondary-hover);
+    transform: translateY(-2px);
+    @include shadow-md;
   }
 }
 
 @mixin btnTertiary {
   @include btn-base;
-  @include shadow-primary-inverse;
   @include m(vars.$spacing-sm);
-  border: 1px solid var(--border);
+  @include border-subtle;
   color: var(--tertiary-text);
   background: var(--bg-elevated);
-  padding: 0.35rem 0.9rem;
+  padding: 0.625rem 1.25rem;
   
   &:hover {
-    background: var(--tertiary-hover);
+    background: var(--bg-secondary);
+    border-color: var(--primary);
   }
 }
 
@@ -257,19 +276,22 @@
   @include no-outline;
   @include m(vars.$spacing-lg);
   @include size(vars.$input-width, vars.$input-height);
-  box-shadow: vars.$icon-size vars.$icon-size 0 var(--text-input-shadow);
-  padding: vars.$spacing-xs 0.5rem;
+  @include border-subtle;
+  padding: 0.75rem 1rem;
   color: var(--text-input-text);
-  border: 1px solid var(--primary-light-inverse);
   font-family: var(--font-main);
-  letter-spacing: vars.$letter-spacing;
   font-size: vars.$font-size-large;
   background: var(--text-input-bg);
   caret-shape: block;
+  @include transition;
   
   &::placeholder {
-    @include text-center;
-    color: var(--text-input-text);
+    color: var(--text-muted);
+  }
+
+  &:focus {
+    border-color: var(--primary);
+    @include shadow-sm;
   }
 }
 
@@ -290,6 +312,11 @@
   background: transparent;
   transform: translateY(-50%);
   z-index: 100;
+  @include smooth-transition;
+
+  &:hover {
+    color: var(--primary);
+  }
 }
 
 // ========================================
@@ -302,11 +329,11 @@
   font-family: var(--font-display), sans-serif;
   letter-spacing: vars.$letter-spacing;
   font-size: 1rem;
-  color: var(--primary-light);
-  background: #333;
+  cursor: pointer;
+  accent-color: var(--primary);
   
-  &:checked {
-    background: #0a5fdf;
+  &:hover {
+    filter: brightness(1.1);
   }
 }
 
@@ -339,13 +366,14 @@
 // Cards
 // ========================================
 
-@mixin card-base($padding: vars.$spacing-xl, $margin: vars.$spacing-xl) {
+@mixin card-base($padding: vars.$spacing-lg, $margin: vars.$spacing-lg) {
   @include radius;
   width: fit-content;
   height: fit-content;
   margin: $margin;
   padding: $padding;
   display: flex;
+  @include smooth-transition;
 }
 
 @mixin card {
@@ -355,14 +383,20 @@
   letter-spacing: 0.25rem;
   min-width: vars.$card-width;
   flex-wrap: wrap;
+  border: 1px solid var(--border);
 }
 
 @mixin card-item {
   @include card-base;
   @include shadow-md;
-  @include border;
+  @include border-subtle;
   background: var(--bg-tertiary);
   flex-direction: row;
+  
+  &:hover {
+    border-color: var(--primary);
+    @include shadow-lg;
+  }
 }
 
 // ========================================
@@ -401,24 +435,27 @@
 @mixin table-header($columns: 1fr 0.8fr, $gap: vars.$spacing-md) {
   @include table-base($columns, $gap);
   background: var(--bg-secondary);
-  font-weight: 600;
+  font-weight: 700;
   font-family: var(--font-display), sans-serif;
   color: var(--text);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
+  border-bottom: 2px solid var(--primary);
 }
 
 @mixin table-row($columns: 1fr 0.8fr, $gap: vars.$spacing-md) {
   @include table-base($columns, $gap);
-  @include border;
+  @include border-subtle;
   @include transition;
   background: var(--bg-tertiary);
+  align-items: center;
   
   &:hover {
     background: var(--bg-elevated);
     border-color: var(--primary);
-    @include shadow-sm;
+    @include shadow-md;
+    transform: translateY(-1px);
   }
 }
 
@@ -450,11 +487,11 @@
   @include flex(null, center);
   gap: vars.$spacing-md;
   padding-bottom: vars.$spacing-md;
-  border-bottom: $border-width solid var(--border);
+  border-bottom: $border-width solid var(--primary);
   
   h2 {
-    font-size: 1.3rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: var(--text);
     margin: 0;
   }
@@ -464,6 +501,7 @@
   @include flex-center;
   color: var(--primary);
   flex-shrink: 0;
+  font-size: 1.5rem;
 }
 
 // ========================================
@@ -473,20 +511,22 @@
 @mixin page-header {
   @include w-full;
   @include flex(null, null, column);
-  gap: vars.$spacing-sm;
+  gap: vars.$spacing-md;
   margin-bottom: vars.$spacing-lg;
 
   h1 {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 800;
     color: var(--text);
     margin: 0;
+    letter-spacing: -0.02em;
   }
 
   p {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--text-secondary);
     margin: 0;
+    font-weight: 500;
   }
 }
 
@@ -496,13 +536,18 @@
 
 @mixin category-card {
   @include card;
-  @include shadow-primary;
   @include p(vars.$spacing-lg);
   @include flex(null, null, column);
   gap: vars.$spacing-md;
   min-width: 280px;
   max-width: 420px;
   margin: 0;
+  border-left: 4px solid var(--primary);
+
+  &:hover {
+    @include shadow-lg;
+    transform: translateY(-4px);
+  }
 
   @media (max-width: 768px) {
     @include w-full;
@@ -519,19 +564,19 @@
   @include p(vars.$spacing-lg);
   @include radius;
   font-family: var(--font-display);
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
   margin-top: vars.$spacing-sm;
   font-weight: 700;
+  color: var(--primary-text);
 
   .totalLabel {
-    color: var(--primary-text);
     @include text-left;
+    opacity: 0.95;
   }
 
   .totalAmount {
-    color: var(--primary-text);
     @include text-right;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
   }
 }
 
@@ -541,24 +586,24 @@
   @include radius;
   @include border(2px, var(--primary));
   @include w-full;
-  background: var(--bg-secondary);
+  background: linear-gradient(135deg, var(--primary-light), var(--bg-secondary));
   margin-top: vars.$spacing-lg;
   box-sizing: border-box;
 }
 
 @mixin grand-total-content {
-  @include flex(null, center, column);
+  @include flex(center, center, column);
   gap: vars.$spacing-md;
 
   h2 {
-    font-size: 1.3rem;
-    font-weight: 600;
+    font-size: 1.25rem;
+    font-weight: 700;
     color: var(--text);
     margin: 0;
   }
 }
 
-@mixin grand-total-amount($color: var(--success)) {
+@mixin grand-total-amount($color: var(--primary)) {
   font-size: 2.5rem;
   font-weight: 800;
   color: $color;
@@ -615,14 +660,19 @@
   @include radius-sm;
   @include transition;
   @include pointer;
-  padding: vars.$spacing-xs;
+  padding: 0.5rem 0.75rem;
   background: $bg;
   color: $color;
   border: none;
+  font-weight: 600;
 
   &:hover {
     background: $hover-bg;
-    transform: scale(1.1);
+    transform: scale(1.08);
+  }
+  
+  &:active {
+    transform: scale(0.96);
   }
 }
 
@@ -646,19 +696,21 @@
 }
 
 @mixin column-name {
-  @include column-text(left, var(--text), 500);
+  @include column-text(left, var(--text), 600);
+  font-size: 0.95rem;
 }
 
 @mixin column-value {
-  @include column-text(right, var(--text), 600, 1.05rem);
+  @include column-text(right, var(--text), 700, 1.05rem);
 }
 
 @mixin column-success {
-  @include column-text(right, var(--success), 600);
+  @include column-text(right, var(--primary), 700);
+  font-size: 1.05rem;
 }
 
 @mixin column-error {
-  @include column-text(right, var(--error, #ef4444), 600, 1.05rem);
+  @include column-text(right, var(--error, #ef4444), 700, 1.05rem);
 }
 
 @mixin column-secondary {
@@ -669,9 +721,10 @@
 // Amount Display Styling
 // ========================================
 
-@mixin amount-display-value($font-size: 1.4rem) {
+@mixin amount-display-value($font-size: 1.5rem) {
   font-family: var(--font-display), sans-serif;
   font-size: $font-size;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text);
+  letter-spacing: -0.01em;
 }
