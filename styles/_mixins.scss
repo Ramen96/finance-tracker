@@ -258,12 +258,13 @@
   @include m(vars.$spacing-sm);
   @include border-subtle;
   color: var(--tertiary-text);
-  background: var(--bg-elevated);
+  background: var(--tertiary);
   padding: 0.625rem 1.25rem;
   
   &:hover {
-    background: var(--bg-secondary);
-    border-color: var(--primary);
+    background: var(--tertiary-hover);
+    transform: translateY(-2px);
+    @include shadow-md;
   }
 }
 
@@ -392,9 +393,10 @@
   @include border-subtle;
   background: var(--bg-tertiary);
   flex-direction: row;
+  border-left: 3px solid var(--accent);
   
   &:hover {
-    border-color: var(--primary);
+    border-color: var(--accent);
     @include shadow-lg;
   }
 }
@@ -441,7 +443,7 @@
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
-  border-bottom: 2px solid var(--primary);
+  border-bottom: 2px solid var(--tertiary);
 }
 
 @mixin table-row($columns: 1fr 0.8fr, $gap: vars.$spacing-md) {
@@ -453,7 +455,7 @@
   
   &:hover {
     background: var(--bg-elevated);
-    border-color: var(--primary);
+    border-color: var(--tertiary);
     @include shadow-md;
     transform: translateY(-1px);
   }
@@ -487,7 +489,7 @@
   @include flex(null, center);
   gap: vars.$spacing-md;
   padding-bottom: vars.$spacing-md;
-  border-bottom: $border-width solid var(--primary);
+  border-bottom: $border-width solid var(--tertiary);
   
   h2 {
     font-size: 1.25rem;
@@ -542,7 +544,7 @@
   min-width: 280px;
   max-width: 420px;
   margin: 0;
-  border-left: 4px solid var(--primary);
+  border-left: 4px solid var(--secondary);
 
   &:hover {
     @include shadow-lg;
@@ -584,9 +586,9 @@
   @include flex-center;
   @include p(vars.$spacing-lg vars.$spacing-md);
   @include radius;
-  @include border(2px, var(--primary));
+  @include border(2px, var(--secondary));
   @include w-full;
-  background: linear-gradient(135deg, var(--primary-light), var(--bg-secondary));
+  background: linear-gradient(135deg, var(--secondary-light), var(--bg-secondary));
   margin-top: vars.$spacing-lg;
   box-sizing: border-box;
 }
