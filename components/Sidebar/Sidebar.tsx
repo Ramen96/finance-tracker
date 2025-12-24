@@ -11,7 +11,7 @@ type ExpandBtnPropType = {
 function ExpandBtn({ sideBarState, handleClick}: ExpandBtnPropType) {
   return (
     <span id="btn-container">
-      <button onClick={handleClick} className={styles.btn}>
+      <button onClick={handleClick} className={styles.btn} data-tooltip={sideBarState ? "Collapse Sidebar" : "Expand Sidebar"}>
         {sideBarState ? <PanelLeftClose /> : <PanelLeftOpen />}
       </button>
     </span>
@@ -19,7 +19,7 @@ function ExpandBtn({ sideBarState, handleClick}: ExpandBtnPropType) {
 }
 
 export default function SideBar() {
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const toggleExpanded = () => setIsExpanded(!isExpanded);
 
@@ -51,7 +51,7 @@ export default function SideBar() {
       <section id="menuItems" className={styles.menu}>
       {sideBarBtns.map((btn) => (
         <span key={btn.id}>
-          <button className={styles.sideBarBtn}>
+          <button data-tooltip={!isExpanded ? btn.name : undefined} className={styles.sideBarBtn}>
             {btn.icon}
             {isExpanded && (
               <p className={styles.sidebarBtnTxt}>
