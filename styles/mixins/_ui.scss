@@ -1,0 +1,329 @@
+@use "@/styles/variables" as vars;
+@use "layout" as layout;
+
+// ========================================
+// Transitions & Effects
+// ========================================
+
+@mixin transition($property: all) {
+  transition: $property var(--transition);
+}
+
+@mixin smooth-transition {
+  @include transition;
+}
+
+// ========================================
+// Shadows
+// ========================================
+
+@mixin shadow($size: null, $color: null) {
+  @if $size == null {
+    box-shadow: var(--shadow);
+  } @else if $size == sm {
+    box-shadow: var(--shadow-sm);
+  } @else if $size == md {
+    box-shadow: var(--shadow-md);
+  } @else if $size == lg {
+    box-shadow: var(--shadow-lg);
+  } @else if $color {
+    box-shadow: vars.$icon-size vars.$icon-size 0 $color;
+  }
+}
+
+@mixin shadow-sm { @include shadow(sm); }
+@mixin shadow-md { @include shadow(md); }
+@mixin shadow-lg { @include shadow(lg); }
+@mixin shadow-primary { @include shadow(lg); }
+@mixin shadow-primary-light { @include shadow(md); }
+@mixin shadow-primary-inverse { @include shadow(sm); }
+
+// ========================================
+// Borders
+// ========================================
+
+@mixin border($width: 1px, $color: var(--border)) {
+  border: $width solid $color;
+}
+
+@mixin border-primary($width: 2px) {
+  @include border($width, var(--primary));
+}
+
+@mixin border-subtle {
+  @include border(1px, var(--border));
+}
+
+// ========================================
+// Visibility
+// ========================================
+
+@mixin hidden {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+@mixin sr-only {
+  @include layout.position(absolute, null, null, null, -9999px);
+  @include layout.size(1px);
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+// ========================================
+// Button Mixins
+// ========================================
+
+@mixin btn-base {
+  @include layout.radius;
+  @include smooth-transition;
+  @include layout.pointer;
+  @include layout.no-select;
+  font-family: var(--font-display), sans-serif;
+  font-size: vars.$font-size-md;
+  font-weight: 600;
+  border: none;
+  position: relative;
+  z-index: 1;
+  &[data-tooltip] {
+    &::after {
+      @include layout.radius;
+      @include shadow-lg;
+        content: attr(data-tooltip);
+        position: absolute;
+        left: 0;
+        bottom: -100%;
+        padding: 5px 10px;
+        background: var(--bg);
+        font-family: var(--font-main), sans-serif;
+        color: var(--text);
+        border: 1px solid var(--accent);
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+        z-index: 9999;
+      }
+      &:hover {
+        z-index: 10;
+        &::after {
+          opacity: 1
+        }
+      }
+    }
+}
+
+@mixin btnPrimary {
+  @include btn-base;
+  @include layout.m(vars.$spacing-sm);
+  @include shadow-sm;
+  color: var(--primary-text);
+  background: var(--primary);
+  padding: 0.625rem 1.25rem;
+  
+  &:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    @include shadow-md;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+@mixin btnSecondary {
+  @include btn-base;
+  @include shadow-sm;
+  @include layout.m(vars.$spacing-sm);
+  color: var(--secondary-text);
+  background: var(--secondary);
+  padding: 0.625rem 1.25rem;
+  
+  &:hover {
+    background: var(--secondary-hover);
+    transform: translateY(-2px);
+    @include shadow-md;
+  }
+}
+
+@mixin btnTertiary {
+  @include btn-base;
+  @include layout.m(vars.$spacing-sm);
+  @include border-subtle;
+  color: var(--tertiary-text);
+  background: var(--tertiary);
+  padding: 0.625rem 1.25rem;
+  
+  &:hover {
+    background: var(--tertiary-hover);
+    transform: translateY(-2px);
+    @include shadow-md;
+  }
+}
+
+// ========================================
+// Text Inputs
+// ========================================
+
+@mixin textInputPrimary {
+  @include layout.radius;
+  @include layout.no-outline;
+  @include layout.m(vars.$spacing-lg);
+  @include layout.size(vars.$input-width, vars.$input-height);
+  @include border-subtle;
+  padding: 0.75rem 1rem;
+  color: var(--text-input-text);
+  font-family: var(--font-main);
+  font-size: vars.$font-size-large;
+  background: var(--text-input-bg);
+  caret-shape: block;
+  @include transition;
+  
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &:focus {
+    border-color: var(--primary);
+    @include shadow-sm;
+  }
+}
+
+// ========================================
+// Password Input
+// ========================================
+
+@mixin passwdWrapper { position: relative; }
+
+@mixin eyeBtn {
+  @include layout.flex-center;
+  @include layout.position(absolute, 50%, vars.$eye-btn-distance);
+  @include layout.radius-sm;
+  @include layout.no-outline;
+  @include layout.pointer;
+  border: none;
+  color: var(--text-input-text);
+  background: transparent;
+  transform: translateY(-50%);
+  z-index: 100;
+  @include smooth-transition;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+// ========================================
+// Checkbox
+// ========================================
+
+@mixin checkbox {
+  @include layout.radius;
+  @include layout.size(vars.$checkbox-size);
+  font-family: var(--font-display), sans-serif;
+  letter-spacing: vars.$letter-spacing;
+  font-size: 1rem;
+  cursor: pointer;
+  accent-color: var(--primary);
+  
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
+
+@mixin checkboxInput {
+  @include layout.position(absolute, null, null, null, -9999px);
+  @include layout.size(1px);
+  opacity: 0;
+  overflow: hidden;
+}
+
+// ========================================
+// Cards
+// ========================================
+
+@mixin card-base($padding: vars.$spacing-lg, $margin: vars.$spacing-lg) {
+  @include layout.radius;
+  width: fit-content;
+  height: fit-content;
+  margin: $margin;
+  padding: $padding;
+  display: flex;
+  @include smooth-transition;
+}
+
+@mixin card {
+  @include card-base;
+  @include shadow-lg;
+  background: var(--bg-elevated);
+  letter-spacing: 0.25rem;
+  min-width: vars.$card-width;
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+}
+
+@mixin card-item {
+  @include card-base;
+  @include shadow-md;
+  @include border-subtle;
+  background: var(--bg-tertiary);
+  flex-direction: row;
+  border-left: 3px solid var(--accent);
+  
+  &:hover {
+    border-color: var(--accent);
+    @include shadow-lg;
+  }
+}
+
+// ========================================
+// Table Helpers
+// ========================================
+
+@mixin table-base($columns, $gap: vars.$spacing-md, $padding: vars.$spacing-md) {
+  @include layout.grid($columns, $gap);
+  @include layout.p($padding);
+  @include layout.radius;
+}
+
+@mixin table-header($columns: 1fr 0.8fr, $gap: vars.$spacing-md) {
+  @include table-base($columns, $gap);
+  background: var(--bg-secondary);
+  font-weight: 700;
+  font-family: var(--font-display), sans-serif;
+  color: var(--text);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  border-bottom: 2px solid var(--tertiary);
+}
+
+@mixin table-row($columns: 1fr 0.8fr, $gap: vars.$spacing-md) {
+  @include table-base($columns, $gap);
+  @include border-subtle;
+  @include transition;
+  background: var(--bg-tertiary);
+  align-items: center;
+  
+  &:hover {
+    background: var(--bg-elevated);
+    border-color: var(--tertiary);
+    @include shadow-md;
+    transform: translateY(-1px);
+  }
+}
+
+@mixin table-header-assets {
+  @include table-header(2fr 1fr 1fr 0.8fr);
+}
+
+@mixin table-row-assets {
+  @include table-row(2fr 1fr 1fr 0.8fr);
+  align-items: center;
+}

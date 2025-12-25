@@ -1,0 +1,153 @@
+@use "@/styles/variables" as vars;
+
+// ========================================
+// Dimension Helpers
+// ========================================
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin h-custom($h) { height: $h; }
+@mixin h-full { height: 100%; }
+@mixin h-auto { height: auto; }
+@mixin h-100vh { height: 100vh; }
+@mixin w-full { width: 100%; }
+@mixin w-100vw { width: 100vw; }
+
+// ========================================
+// Flexbox Helpers
+// ========================================
+
+@mixin flex($justify: null, $align: null, $direction: null) {
+  display: flex;
+  @if $justify { justify-content: $justify; }
+  @if $align { align-items: $align; }
+  @if $direction { flex-direction: $direction; }
+}
+
+@mixin flex-center { @include flex(center, center); }
+@mixin flex-center-v { @include flex(center); }
+@mixin flex-center-h { @include flex(null, center); }
+@mixin flex-wrap { flex-wrap: wrap; }
+
+@mixin label-row($font-family: null, $font-size: null, $font-weight: null) {
+  @include flex(space-around, center);
+  width: 100%;
+  gap: 1.5rem;
+  @if $font-family { font-family: $font-family; }
+  @if $font-size { font-size: $font-size; }
+  @if $font-weight { font-weight: $font-weight; }
+}
+
+@mixin label-row-primary {
+  @include label-row(var(--font-display));
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+@mixin label-row-secondary {
+  @include label-row(null, 1rem, 500);
+}
+
+// ========================================
+// Styling Helpers (Fundamental)
+// ========================================
+
+@mixin radius($size: vars.$radius) { border-radius: $size; }
+@mixin radius-sm { @include radius(vars.$radius-sm); }
+@mixin pointer { cursor: pointer; }
+@mixin no-select { user-select: none; }
+@mixin no-outline { outline: none; }
+
+@mixin interactive {
+  @include no-outline;
+  @include no-select;
+  @include pointer;
+}
+
+// ========================================
+// Positioning Helpers
+// ========================================
+
+@mixin position($type, $top: null, $right: null, $bottom: null, $left: null) {
+  position: $type;
+  @if $top { top: $top; }
+  @if $right { right: $right; }
+  @if $bottom { bottom: $bottom; }
+  @if $left { left: $left; }
+}
+
+@mixin fixed-top-right($top: vars.$spacing-md, $right: vars.$spacing-md) {
+  @include position(fixed, $top, $right);
+}
+
+@mixin fixed-top-left($top: vars.$spacing-md, $left: vars.$spacing-md) {
+  @include position(fixed, $top, null, null, $left);
+}
+
+@mixin absolute-center {
+  @include position(absolute, 50%, null, null, 50%);
+  transform: translate(-50%, -50%);
+}
+
+@mixin absolute-bottom-left {
+  @include position(absolute, null, null, 0, 0);
+}
+
+@mixin relative { position: relative; }
+
+// ========================================
+// Spacing Helpers
+// ========================================
+
+@mixin p($size) { padding: $size; }
+@mixin m($size) { margin: $size; }
+@mixin mr-05rem { margin-right: vars.$spacing-md; }
+
+// ========================================
+// Grid Helpers
+// ========================================
+
+@mixin grid($columns, $gap: vars.$spacing-md) {
+  display: grid;
+  grid-template-columns: $columns;
+  gap: $gap;
+}
+
+@mixin grid-two-col($col1: 1fr, $col2: 0.8fr, $gap: vars.$spacing-md) {
+  @include grid($col1 $col2, $gap);
+}
+
+// ========================================
+// Containers
+// ========================================
+
+@mixin mainContainer {
+  @include position(absolute, 0, null, null, 0);
+  @include h-full;
+  @include w-full;
+  display: flex;
+}
+
+@mixin contentContainer {
+  @include size(100%);
+  @include flex(center);
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+// ========================================
+// Navigation
+// ========================================
+
+@mixin nav {
+  @include radius;
+  @include w-full;
+  @include flex-center;
+  margin: vars.$spacing-md;
+  height: 1rem;
+  padding: vars.$spacing-2xl;
+}
