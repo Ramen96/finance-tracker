@@ -1,17 +1,20 @@
-// Forward all mixins from organized partial files
+@use "@/styles/variables" as vars;
+@use "mixins/layout" as layout;
+@use "mixins/ui" as ui;
+@use "mixins/typography" as typography;
 
 @forward "mixins/layout";
 @forward "mixins/ui";
 @forward "mixins/typography";
 
 @mixin table-header-liabilities {
-  @include table-header(1.2fr 1fr 0.8fr 0.6fr 0.9fr, vars.$spacing-xs);
-  @include p(vars.$spacing-sm vars.$spacing-md);
+  @include ui.table-header(1.2fr 1fr 0.8fr 0.6fr 0.9fr, vars.$spacing-xs);
+  @include layout.p(vars.$spacing-sm vars.$spacing-md);
 }
 
 @mixin table-row-liabilities {
-  @include table-row(1.2fr 1fr 0.8fr 0.6fr 0.9fr, vars.$spacing-xs);
-  @include p(vars.$spacing-sm vars.$spacing-md);
+  @include ui.table-row(1.2fr 1fr 0.8fr 0.6fr 0.9fr, vars.$spacing-xs);
+  @include layout.p(vars.$spacing-sm vars.$spacing-md);
   align-items: center;
 }
 
@@ -20,7 +23,7 @@
 // ========================================
 
 @mixin section-header($border-width: 2px) {
-  @include flex(null, center);
+  @include layout.flex(null, center);
   gap: vars.$spacing-md;
   padding-bottom: vars.$spacing-md;
   border-bottom: $border-width solid var(--tertiary);
@@ -34,7 +37,7 @@
 }
 
 @mixin section-icon {
-  @include flex-center;
+  @include layout.flex-center;
   color: var(--primary);
   flex-shrink: 0;
   font-size: 1.5rem;
@@ -71,9 +74,9 @@
 // ========================================
 
 @mixin category-card {
-  @include card;
-  @include p(vars.$spacing-lg);
-  @include flex(null, null, column);
+  @include ui.card;
+  @include layout.p(vars.$spacing-lg);
+  @include layout.flex(null, null, column);
   gap: vars.$spacing-md;
   min-width: 280px;
   max-width: 420px;
@@ -81,12 +84,12 @@
   border-left: 4px solid var(--secondary);
 
   &:hover {
-    @include shadow-lg;
+    @include ui.shadow-lg;
     transform: translateY(-4px);
   }
 
   @media (max-width: 768px) {
-    @include w-full;
+    @include layout.w-full;
     max-width: none;
   }
 }
@@ -96,9 +99,9 @@
 // ========================================
 
 @mixin category-total {
-  @include grid-two-col(1fr, 0.8fr, vars.$spacing-lg);
-  @include p(vars.$spacing-lg);
-  @include radius;
+  @include layout.grid-two-col(1fr, 0.8fr, vars.$spacing-lg);
+  @include layout.p(vars.$spacing-lg);
+  @include layout.radius;
   font-family: var(--font-display);
   background: linear-gradient(135deg, var(--primary), var(--primary-hover));
   margin-top: vars.$spacing-sm;
@@ -106,29 +109,29 @@
   color: var(--primary-text);
 
   .totalLabel {
-    @include text-left;
+    @include typography.text-left;
     opacity: 0.95;
   }
 
   .totalAmount {
-    @include text-right;
+    @include typography.text-right;
     font-size: 1.25rem;
   }
 }
 
 @mixin grand-total {
-  @include flex-center;
-  @include p(vars.$spacing-lg vars.$spacing-md);
-  @include radius;
-  @include border(2px, var(--secondary));
-  @include w-full;
+  @include layout.flex-center;
+  @include layout.p(vars.$spacing-lg vars.$spacing-md);
+  @include layout.radius;
+  @include ui.border(2px, var(--secondary));
+  @include layout.w-full;
   background: linear-gradient(135deg, var(--secondary-light), var(--bg-secondary));
   margin-top: vars.$spacing-lg;
   box-sizing: border-box;
 }
 
 @mixin grand-total-content {
-  @include flex(center, center, column);
+  @include layout.flex(center, center, column);
   gap: vars.$spacing-md;
 
   h2 {
@@ -151,8 +154,8 @@
 // ========================================
 
 @mixin page-container($max-width: 1400px) {
-  @include w-full;
-  @include flex-center;
+  @include layout.w-full;
+  @include layout.flex-center;
   font-family: var(--font-display), sans-serif;
   flex-direction: column;
   padding: vars.$spacing-xl;
@@ -164,7 +167,7 @@
 }
 
 @mixin responsive-grid($gap: vars.$spacing-lg) {
-  @include w-full;
+  @include layout.w-full;
   display: flex;
   flex-wrap: wrap;
   gap: $gap;
@@ -175,15 +178,15 @@
 // ========================================
 
 @mixin data-table {
-  @include w-full;
-  @include flex(null, null, column);
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
   gap: vars.$spacing-sm;
   font-family: var(--font-main), sans-serif;
 }
 
 @mixin table-body {
-  @include w-full;
-  @include flex(null, null, column);
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
   gap: vars.$spacing-sm;
 }
 
@@ -192,10 +195,10 @@
 // ========================================
 
 @mixin action-btn($bg, $hover-bg, $color: white) {
-  @include flex-center;
-  @include radius-sm;
-  @include transition;
-  @include pointer;
+  @include layout.flex-center;
+  @include layout.radius-sm;
+  @include ui.transition;
+  @include layout.pointer;
   padding: 0.5rem 0.75rem;
   background: $bg;
   color: $color;
@@ -225,7 +228,7 @@
 // ========================================
 
 @mixin column-text($align, $color, $weight, $size: null) {
-  @include text-align($align);
+  @include typography.text-align($align);
   color: $color;
   font-weight: $weight;
   @if $size { font-size: $size; }
