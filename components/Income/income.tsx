@@ -14,6 +14,7 @@ export default function Income() {
     <section className={styles.incomeContainer}>
       <div className={styles.header}>
         <h1>Income</h1>
+        <p>Track your and manage income sources</p>
       </div>
 
       <section className={styles.categoriesGrid}>
