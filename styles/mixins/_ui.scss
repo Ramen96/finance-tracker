@@ -224,7 +224,7 @@
 // ========================================
 
 @mixin checkbox {
-  @include radius;
+  @include layout.radius;
   @include layout.size(vars.$checkbox-size);
   font-family: var(--font-display), sans-serif;
   letter-spacing: vars.$letter-spacing;
