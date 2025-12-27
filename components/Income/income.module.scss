@@ -29,8 +29,26 @@
   @include mixins.data-table;
 }
 
+.editBtn {
+  @include mixins.action-btn-edit;
+}
+
+.deleteBtn {
+  @include mixins.action-btn-delete;
+}
+
 .tableHeader {
-  @include mixins.table-header;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 0.5fr;
+  gap: vars.$spacing-xs;
+  padding: vars.$spacing-sm vars.$spacing-md;
+  background: var(--bg-secondary);
+  border-radius: vars.$radius-sm;
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .tableBody {
@@ -38,15 +56,24 @@
 }
 
 .tableRow {
-  @include mixins.table-row;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 0.5fr;
+  gap: vars.$spacing-xs;
+  padding: vars.$spacing-sm vars.$spacing-md;
+  align-items: center;
+  background: var(--bg);
+  border-radius: vars.$radius-sm;
+  transition: all 0.2s ease;
 
-  span {
-    @include mixins.flex-center;
+  &:hover {
+    background: var(--bg-secondary);
+    transform: translateX(4px);
   }
 }
 
 .descriptionCol {
   @include mixins.column-name;
+  text-align: left;
 }
 
 .tableRow .descriptionCol {
@@ -56,6 +83,14 @@
 
 .amountCol {
   @include mixins.column-success;
+  text-align: right;
+}
+
+.actionsCol {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: vars.$spacing-xs;
 }
 
 .categoryTotal {

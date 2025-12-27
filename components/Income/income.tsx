@@ -1,5 +1,13 @@
 import styles from "./income.module.scss";
-import { Briefcase, DollarSign, TrendingUp, Home, Building2 } from "lucide-react";
+import {
+  Briefcase,
+  DollarSign,
+  TrendingUp,
+  Home,
+  Building2,
+  Edit2,
+  Trash2,
+} from "lucide-react";
 
 const incomeCategories = [
   { name: "Salary", icon: Briefcase },
@@ -32,16 +40,24 @@ export default function Income() {
                 <div className={styles.tableHeader}>
                   <span className={styles.descriptionCol}>Description</span>
                   <span className={styles.amountCol}>Cash Flow</span>
+                  <span className={styles.actionsCol}>Actions</span>
                 </div>
 
                 {/* Sources */}
+
                 <div className={styles.tableBody}>
                   <div className={styles.tableRow}>
                     <span className={styles.descriptionCol}>
                       Add income sources here
                     </span>
-                    <span className={styles.amountCol}>
-                      $0.00
+                    <span className={styles.amountCol}>$0.00</span>
+                    <span className={styles.actionsCol}>
+                      <button className={styles.editBtn}>
+                        <Edit2 size={16} />
+                      </button>
+                      <button className={styles.deleteBtn}>
+                        <Trash2 size={16} />
+                      </button>
                     </span>
                   </div>
                 </div>
