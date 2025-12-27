@@ -261,6 +261,7 @@
 @mixin card {
   @include card-base;
   @include shadow-lg;
+  max-width: 1500px;
   background: var(--bg-elevated);
   letter-spacing: 0.25rem;
   min-width: vars.$card-width;
