@@ -3,6 +3,8 @@
 
 .assetsContainer {
   @include mixins.page-container;
+  width: fit-content !important;
+  align-items: center;
 }
 
 .header {
@@ -15,8 +17,6 @@
 
 .categorySection {
   @include mixins.category-card;
-  width: fit-content;
-  min-width: 500px;
 }
 
 .categoryHeader {

@@ -15,8 +15,6 @@
 
 .categorySection {
   @include mixins.category-card;
-  width: fit-content;
-  min-width: 500px;
 }
 
 .categoryHeader {
