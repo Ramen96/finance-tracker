@@ -36,7 +36,7 @@ export default function Assets() {
             <div className={styles.tableHeader}>
               <span className={styles.nameCol}>Asset Name</span>
               <span className={styles.valueCol}>Value</span>
-              <span className={styles.incomeCol}>Monthly Income</span>
+              <span className={styles.incomeCol}>Income</span>
               <span className={styles.actionsCol}>Actions</span>
             </div>
 
@@ -90,7 +90,7 @@ export default function Assets() {
             <div className={styles.tableHeader}>
               <span className={styles.nameCol}>Asset Name</span>
               <span className={styles.valueCol}>Value</span>
-              <span className={styles.growthCol}>Growth Rate</span>
+              <span className={styles.growthCol}>Rate</span>
               <span className={styles.actionsCol}>Actions</span>
             </div>
 

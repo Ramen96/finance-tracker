@@ -31,7 +31,7 @@ export default function Income() {
               <div className={styles.incomeTable}>
                 <div className={styles.tableHeader}>
                   <span className={styles.descriptionCol}>Description</span>
-                  <span className={styles.amountCol}>Monthly Cash Flow</span>
+                  <span className={styles.amountCol}>Cash Flow</span>
                 </div>
 
                 {/* Sources */}
