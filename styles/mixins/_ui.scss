@@ -297,7 +297,7 @@
   @include table-base($columns, $gap);
   background: var(--bg-secondary);
   font-weight: 700;
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-main), sans-serif;
   color: var(--text);
   font-size: 0.8rem;
   text-transform: uppercase;
