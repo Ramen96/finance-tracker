@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { PanelLeftOpen, PanelLeftClose, ScanBarcode, CreditCard, LayoutDashboard } from "lucide-react";
 import styles from "./Sidebar.module.scss";
 
@@ -19,6 +20,7 @@ function ExpandBtn({ sideBarState, handleClick}: ExpandBtnPropType) {
 }
 
 export default function SideBar() {
+  const router = useRouter();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const toggleExpanded = () => setIsExpanded(!isExpanded);
@@ -27,17 +29,20 @@ export default function SideBar() {
     { 
       id: 0, 
       name: "Dashboard", 
-      icon: <LayoutDashboard /> 
+      icon: <LayoutDashboard />,
+      onClick: () => router.push("/dashboard")
     },
     { 
       id: 1, 
       name: "Credit/Debit", 
-      icon: <CreditCard /> 
+      icon: <CreditCard />,
+      onClick: () => router.push("/card")
     },
     {
       id: 2,
       name: "Log New Transaction",
       icon: <ScanBarcode />,
+      onClick: () => router.push("/transaction")
     },
   ];
 
@@ -51,7 +56,11 @@ export default function SideBar() {
       <section id="menuItems" className={styles.menu}>
       {sideBarBtns.map((btn) => (
         <span key={btn.id}>
-          <button data-tooltip={!isExpanded ? btn.name : undefined} className={styles.sideBarBtn}>
+          <button 
+            data-tooltip={!isExpanded ? btn.name : undefined} 
+            className={styles.sideBarBtn}
+            onClick={btn.onClick}
+            >
             {btn.icon}
             {isExpanded && (
               <p className={styles.sidebarBtnTxt}>
