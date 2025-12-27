@@ -53,14 +53,13 @@
 }
 
 .tableHeader {
+  @include mixins.p(vars.$spacing-md);
+  @include mixins.radius;
   display: grid;
   grid-template-columns: 1.5fr 1fr 0.8fr;
   gap: vars.$spacing-md;
-  @include mixins.p(vars.$spacing-md);
-  @include mixins.radius;
   background: var(--bg-secondary);
   font-weight: 600;
-  font-family: var(--font-display), sans-serif;
   color: var(--text);
   font-size: 0.85rem;
   text-transform: uppercase;
