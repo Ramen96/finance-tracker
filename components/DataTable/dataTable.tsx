@@ -41,7 +41,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
   totalKey,
   styles,
 }: DataTableProps<DataItem>) {
-  
+
   const calculateCategoryTotal = (items: DataItem[]) => {
     if (!totalKey) return null;
     return items.reduce((sum, item) => sum + (Number(item[totalKey]) || 0), 0);
@@ -61,7 +61,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
             </div>
 
             {onAdd && (
-              <button 
+              <button
                 className={styles.addBtn}
                 onClick={() => onAdd(category.name)}
               >
@@ -74,8 +74,8 @@ export default function DataTable<DataItem extends { id: number | string }>({
               {/* Dynamic Table Header */}
               <div className={styles.tableHeader}>
                 {columns.map((col) => (
-                  <span 
-                    key={String(col.key)} 
+                  <span
+                    key={String(col.key)}
                     className={col.className || styles[`${String(col.key)}Col`]}
                   >
                     {col.label}
@@ -89,8 +89,8 @@ export default function DataTable<DataItem extends { id: number | string }>({
                 {category.items.map((item) => (
                   <div key={item.id} className={styles.tableRow}>
                     {columns.map((col) => (
-                      <span 
-                        key={String(col.key)} 
+                      <span
+                        key={String(col.key)}
                         className={col.className || styles[`${String(col.key)}Col`]}
                       >
                         {col.format(item[col.key])}
@@ -98,7 +98,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
                     ))}
                     <span className={styles.actionsCol}>
                       {onEdit && (
-                        <button 
+                        <button
                           className={styles.editBtn}
                           onClick={() => onEdit(item)}
                         >
@@ -106,7 +106,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
                         </button>
                       )}
                       {onDelete && (
-                        <button 
+                        <button
                           className={styles.deleteBtn}
                           onClick={() => onDelete(item)}
                         >
