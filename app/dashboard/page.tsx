@@ -6,7 +6,7 @@ import Assets from "@/components/Assets/assets";
 import styles from "./Dashboard.module.scss";
 import Liabilities from "@/components/Liabilities/liabilities";
 
-export default function Dashboard () {
+export default function Dashboard() {
   return (
     <>
       <main className={styles.mainContainer}>
@@ -23,11 +23,6 @@ export default function Dashboard () {
             <Income />
           </section>
 
-          {/* Audit Section */}
-          <section id="audit" className={styles.card}>
-            <Audit />
-          </section>
-
           {/* Expenses Section */}
           <section id="expenses" className={styles.card}>
             <Expenses />
@@ -35,12 +30,17 @@ export default function Dashboard () {
 
           {/* Assets Section */}
           <section id="assets-and-liabilities" className={styles.card}>
-              <Assets />
+            <Assets />
           </section>
 
           {/* Liabilities Section */}
           <section id="liabilities" className={styles.card}>
             <Liabilities />
+          </section>
+
+          {/* Audit Section */}
+          <section id="audit" className={styles.card}>
+            <Audit />
           </section>
         </div>
       </main>
