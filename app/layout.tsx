@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Orbitron, Space_Grotesk } from "next/font/google";
-import { ThemeProvider } from "@/context/context";
+import { ThemeProvider } from "@/context/useTheme";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import "./globals.scss";
 
