@@ -1,0 +1,154 @@
+:root {
+  /* shared constants */
+  --radius: 8px;
+  --spacing: 1rem;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme - Nord Light (Snow Storm) */
+body[data-theme="light"] {
+  /* backgrounds */
+  --bg: #eceff4;
+  --bg-secondary: #e5e9f0;
+  --bg-tertiary: #d8dee9;
+  --bg-elevated: #d8dee9;
+
+  /* text */
+  --text: #2e3440;
+  --text-secondary: #3b4252;
+  --text-muted: #4c566a;
+  --text-inverse: #eceff4;
+
+  /* primary colors - frost blue */
+  --primary: #5e81ac;
+  --primary-hover: #81a1c1;
+  --primary-light: #d8dee9;
+  --primary-light-inverse: #5e81ac;
+  --primary-text: #eceff4;
+
+  /* secondary colors - frost cyan */
+  --secondary: #88c0d0;
+  --secondary-hover: #8fbcbb;
+  --secondary-light: #d8dee9;
+  --secondary-text: #2e3440;
+
+  /* tertiary colors - surface */
+  --tertiary: #d8dee9;
+  --tertiary-hover: #c2c9d6;
+  --tertiary-light: #e5e9f0;
+  --tertiary-text: #2e3440;
+
+  /* accent colors - aurora purple */
+  --accent: #b48ead;
+  --accent-hover: #bf616a;
+  --accent-light: #d8dee9;
+
+  /* semantic colors */
+  --success: #a3be8c;
+  --success-light: #d8dee9;
+  --warning: #ebcb8b;
+  --warning-light: #d8dee9;
+  --error: #bf616a;
+  --error-light: #d8dee9;
+  --info: #88c0d0;
+  --info-light: #d8dee9;
+
+  /* borders */
+  --border: #d8dee9;
+  --border-hover: #c2c9d6;
+  --border-focus: #5e81ac;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(46, 52, 64, 0.04);
+  --shadow: 0 1px 3px 0 rgba(46, 52, 64, 0.1), 0 1px 2px 0 rgba(46, 52, 64, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(46, 52, 64, 0.1), 0 2px 4px -1px rgba(46, 52, 64, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(46, 52, 64, 0.1), 0 4px 6px -2px rgba(46, 52, 64, 0.05);
+  --card-shadow: rgba(46, 52, 64, 0.08);
+
+  /* interactive states */
+  --hover-overlay: rgba(46, 52, 64, 0.02);
+  --active-overlay: rgba(46, 52, 64, 0.06);
+  --disabled-opacity: 0.5;
+
+  /* input */
+  --text-input-bg: #e5e9f0;
+  --text-input-shadow: #5e81ac;
+  --text-input-text: #2e3440;
+}
+
+/* Dark theme - Nord Dark (Polar Night) */
+body[data-theme="dark"] {
+  /* backgrounds */
+  --bg: #2e3440;
+  --bg-secondary: #242933;
+  --bg-tertiary: #3b4252;
+  --bg-elevated: #434c5e;
+
+  /* text */
+  --text: #eceff4;
+  --text-secondary: #e5e9f0;
+  --text-muted: #d8dee9;
+  --text-inverse: #2e3440;
+
+  /* primary colors - frost blue */
+  --primary: #81a1c1;
+  --primary-hover: #5e81ac;
+  --primary-light: #3b4252;
+  --primary-text: #2e3440;
+
+  /* secondary colors - frost cyan */
+  --secondary: #88c0d0;
+  --secondary-hover: #8fbcbb;
+  --secondary-light: #3b4252;
+  --secondary-text: #2e3440;
+
+  /* tertiary colors - surface */
+  --tertiary: #3b4252;
+  --tertiary-hover: #434c5e;
+  --tertiary-light: #434c5e;
+  --tertiary-text: #eceff4;
+
+  /* accent colors - aurora purple */
+  --accent: #b48ead;
+  --accent-hover: #bf616a;
+  --accent-light: #3b4252;
+
+  /* semantic colors */
+  --success: #a3be8c;
+  --success-light: #3b4252;
+  --warning: #ebcb8b;
+  --warning-light: #3b4252;
+  --error: #bf616a;
+  --error-light: #3b4252;
+  --info: #88c0d0;
+  --info-light: #3b4252;
+
+  /* borders */
+  --border: #434c5e;
+  --border-hover: #4c566a;
+  --border-focus: #81a1c1;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  --card-shadow: rgba(0, 0, 0, 0.3);
+
+  /* interactive states */
+  --hover-overlay: rgba(236, 239, 244, 0.08);
+  --active-overlay: rgba(236, 239, 244, 0.12);
+  --disabled-opacity: 0.4;
+
+  /* input */
+  --text-input-bg: #3b4252;
+  --text-input-shadow: #81a1c1;
+  --text-input-text: #eceff4;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

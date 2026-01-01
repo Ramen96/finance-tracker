@@ -1,0 +1,154 @@
+:root {
+  /* shared constants */
+  --radius: 8px;
+  --spacing: 1rem;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme - Catppuccin Latte */
+body[data-theme="light"] {
+  /* backgrounds */
+  --bg: #eff1f5;
+  --bg-secondary: #e6e9ef;
+  --bg-tertiary: #dce0e8;
+  --bg-elevated: #ccd0da;
+
+  /* text */
+  --text: #4c4f69;
+  --text-secondary: #5c5f77;
+  --text-muted: #6c6f85;
+  --text-inverse: #eff1f5;
+
+  /* primary colors - green */
+  --primary: #40a02b;
+  --primary-hover: #179299;
+  --primary-light: #dce0e8;
+  --primary-light-inverse: #40a02b;
+  --primary-text: #eff1f5;
+
+  /* secondary colors - teal */
+  --secondary: #179299;
+  --secondary-hover: #04a5e5;
+  --secondary-light: #dce0e8;
+  --secondary-text: #eff1f5;
+
+  /* tertiary colors - surface */
+  --tertiary: #ccd0da;
+  --tertiary-hover: #bcc0cc;
+  --tertiary-light: #e6e9ef;
+  --tertiary-text: #4c4f69;
+
+  /* accent colors - pink */
+  --accent: #ea76cb;
+  --accent-hover: #d20f39;
+  --accent-light: #e6e9ef;
+
+  /* semantic colors */
+  --success: #40a02b;
+  --success-light: #dce0e8;
+  --warning: #df8e1d;
+  --warning-light: #e6e9ef;
+  --error: #d20f39;
+  --error-light: #e6e9ef;
+  --info: #04a5e5;
+  --info-light: #dce0e8;
+
+  /* borders */
+  --border: #ccd0da;
+  --border-hover: #bcc0cc;
+  --border-focus: #40a02b;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(76, 79, 105, 0.04);
+  --shadow: 0 1px 3px 0 rgba(76, 79, 105, 0.1), 0 1px 2px 0 rgba(76, 79, 105, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(76, 79, 105, 0.1), 0 2px 4px -1px rgba(76, 79, 105, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(76, 79, 105, 0.1), 0 4px 6px -2px rgba(76, 79, 105, 0.05);
+  --card-shadow: rgba(76, 79, 105, 0.08);
+
+  /* interactive states */
+  --hover-overlay: rgba(76, 79, 105, 0.02);
+  --active-overlay: rgba(76, 79, 105, 0.06);
+  --disabled-opacity: 0.5;
+
+  /* input */
+  --text-input-bg: #e6e9ef;
+  --text-input-shadow: #40a02b;
+  --text-input-text: #4c4f69;
+}
+
+/* Dark theme - Catppuccin Macchiato */
+body[data-theme="dark"] {
+  /* backgrounds */
+  --bg: #24273a;
+  --bg-secondary: #1e2030;
+  --bg-tertiary: #363a4f;
+  --bg-elevated: #494d64;
+
+  /* text */
+  --text: #cad3f5;
+  --text-secondary: #b8c0e0;
+  --text-muted: #a5adcb;
+  --text-inverse: #24273a;
+
+  /* primary colors - green */
+  --primary: #a6da95;
+  --primary-hover: #8bd5ca;
+  --primary-light: #363a4f;
+  --primary-text: #24273a;
+
+  /* secondary colors - teal */
+  --secondary: #8bd5ca;
+  --secondary-hover: #91d7e3;
+  --secondary-light: #363a4f;
+  --secondary-text: #24273a;
+
+  /* tertiary colors - surface */
+  --tertiary: #363a4f;
+  --tertiary-hover: #494d64;
+  --tertiary-light: #494d64;
+  --tertiary-text: #cad3f5;
+
+  /* accent colors - pink */
+  --accent: #f5bde6;
+  --accent-hover: #c6a0f6;
+  --accent-light: #363a4f;
+
+  /* semantic colors */
+  --success: #a6da95;
+  --success-light: #363a4f;
+  --warning: #eed49f;
+  --warning-light: #363a4f;
+  --error: #ed8796;
+  --error-light: #363a4f;
+  --info: #91d7e3;
+  --info-light: #363a4f;
+
+  /* borders */
+  --border: #494d64;
+  --border-hover: #5b6078;
+  --border-focus: #a6da95;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  --card-shadow: rgba(0, 0, 0, 0.3);
+
+  /* interactive states */
+  --hover-overlay: rgba(202, 211, 245, 0.08);
+  --active-overlay: rgba(202, 211, 245, 0.12);
+  --disabled-opacity: 0.4;
+
+  /* input */
+  --text-input-bg: #363a4f;
+  --text-input-shadow: #a6da95;
+  --text-input-text: #cad3f5;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

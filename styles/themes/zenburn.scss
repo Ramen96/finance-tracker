@@ -1,0 +1,154 @@
+:root {
+  /* shared constants */
+  --radius: 8px;
+  --spacing: 1rem;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light theme - Zenburn Light */
+body[data-theme="light"] {
+  /* backgrounds */
+  --bg: #f0ead6;
+  --bg-secondary: #ede4d0;
+  --bg-tertiary: #e8dfc5;
+  --bg-elevated: #dfd6bc;
+
+  /* text */
+  --text: #404040;
+  --text-secondary: #5a5a5a;
+  --text-muted: #707070;
+  --text-inverse: #f0ead6;
+
+  /* primary colors - golden mustard */
+  --primary: #c9a554;
+  --primary-hover: #b08f42;
+  --primary-light: #e8dfc5;
+  --primary-light-inverse: #c9a554;
+  --primary-text: #404040;
+
+  /* secondary colors - muted sage */
+  --secondary: #9faf9f;
+  --secondary-hover: #8f9f8f;
+  --secondary-light: #e8dfc5;
+  --secondary-text: #404040;
+
+  /* tertiary colors - surface */
+  --tertiary: #dfd6bc;
+  --tertiary-hover: #d0c7ad;
+  --tertiary-light: #e8dfc5;
+  --tertiary-text: #404040;
+
+  /* accent colors - orange */
+  --accent: #dfaf8f;
+  --accent-hover: #d09f7f;
+  --accent-light: #e8dfc5;
+
+  /* semantic colors */
+  --success: #9faf9f;
+  --success-light: #e8dfc5;
+  --warning: #c9a554;
+  --warning-light: #e8dfc5;
+  --error: #dca3a3;
+  --error-light: #e8dfc5;
+  --info: #9faf9f;
+  --info-light: #e8dfc5;
+
+  /* borders */
+  --border: #dfd6bc;
+  --border-hover: #d0c7ad;
+  --border-focus: #c9a554;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(64, 64, 64, 0.04);
+  --shadow: 0 1px 3px 0 rgba(64, 64, 64, 0.1), 0 1px 2px 0 rgba(64, 64, 64, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(64, 64, 64, 0.1), 0 2px 4px -1px rgba(64, 64, 64, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(64, 64, 64, 0.1), 0 4px 6px -2px rgba(64, 64, 64, 0.05);
+  --card-shadow: rgba(64, 64, 64, 0.08);
+
+  /* interactive states */
+  --hover-overlay: rgba(64, 64, 64, 0.02);
+  --active-overlay: rgba(64, 64, 64, 0.06);
+  --disabled-opacity: 0.5;
+
+  /* input */
+  --text-input-bg: #ede4d0;
+  --text-input-shadow: #c9a554;
+  --text-input-text: #404040;
+}
+
+/* Dark theme - Zenburn */
+body[data-theme="dark"] {
+  /* backgrounds */
+  --bg: #3f3f3f;
+  --bg-secondary: #2b2b2b;
+  --bg-tertiary: #4f4f4f;
+  --bg-elevated: #5f5f5f;
+
+  /* text */
+  --text: #dcdccc;
+  --text-secondary: #c3bf9f;
+  --text-muted: #9f9f8f;
+  --text-inverse: #3f3f3f;
+
+  /* primary colors - golden mustard */
+  --primary: #e0cf9f;
+  --primary-hover: #f0dfaf;
+  --primary-light: #4f4f4f;
+  --primary-text: #3f3f3f;
+
+  /* secondary colors - muted sage */
+  --secondary: #9faf9f;
+  --secondary-hover: #8fb28f;
+  --secondary-light: #4f4f4f;
+  --secondary-text: #3f3f3f;
+
+  /* tertiary colors - surface */
+  --tertiary: #4f4f4f;
+  --tertiary-hover: #5f5f5f;
+  --tertiary-light: #5f5f5f;
+  --tertiary-text: #dcdccc;
+
+  /* accent colors - peach */
+  --accent: #dfaf8f;
+  --accent-hover: #efbf9f;
+  --accent-light: #4f4f4f;
+
+  /* semantic colors */
+  --success: #9faf9f;
+  --success-light: #4f4f4f;
+  --warning: #e0cf9f;
+  --warning-light: #4f4f4f;
+  --error: #dca3a3;
+  --error-light: #4f4f4f;
+  --info: #9faf9f;
+  --info-light: #4f4f4f;
+
+  /* borders */
+  --border: #5f5f5f;
+  --border-hover: #6f6f6f;
+  --border-focus: #e0cf9f;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  --card-shadow: rgba(0, 0, 0, 0.3);
+
+  /* interactive states */
+  --hover-overlay: rgba(220, 220, 204, 0.08);
+  --active-overlay: rgba(220, 220, 204, 0.12);
+  --disabled-opacity: 0.4;
+
+  /* input */
+  --text-input-bg: #4f4f4f;
+  --text-input-shadow: #e0cf9f;
+  --text-input-text: #dcdccc;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
