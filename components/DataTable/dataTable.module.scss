@@ -42,7 +42,7 @@
   font-weight: 600;
   cursor: pointer;
   margin-bottom: vars.$spacing-md;
-
+  
   &:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
@@ -54,8 +54,26 @@
   @include mixins.data-table;
 }
 
+.tableHeader,
+.tableRow {
+  display: flex;
+  gap: vars.$spacing-md;
+  padding: vars.$spacing-md;
+  align-items: center;
+  
+  > span:not(.actionsCol) {
+    flex: 1;
+  }
+}
+
 .tableHeader {
-  @include mixins.table-header-liabilities;
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  border-radius: 8px 8px 0 0;
 }
 
 .tableBody {
@@ -63,7 +81,14 @@
 }
 
 .tableRow {
-  @include mixins.table-row-liabilities;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-tertiary);
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: var(--bg-elevated);
+    border-color: var(--primary);
+  }
 }
 
 .nameCol {
@@ -83,7 +108,9 @@
 }
 
 .actionsCol {
-  @include mixins.flex-center;
+  flex: 0 0 100px;
+  display: flex;
+  align-items: center;
   gap: vars.$spacing-xs;
   justify-content: flex-end;
 }
@@ -137,7 +164,7 @@
   flex-direction: column;
   align-items: center;
   gap: vars.$spacing-md;
-
+  
   h2 {
     font-size: 1.3rem;
     font-weight: 600;
