@@ -98,7 +98,14 @@ export default function SideBar() {
       icon: <Settings />,
       onClick: () => console.log("nothing for now")
     },
-  ]
+  ];
+
+
+  const navigationGroups = [
+    { label: "Workspace", items: topButtons },
+    { label: "Ledger", items: middleButtons },
+    { label: "System", items: bottomButtons },
+  ];
 
   return (
     <section
@@ -107,60 +114,25 @@ export default function SideBar() {
     >
       <ExpandBtn sideBarState={isExpanded} handleClick={toggleExpanded} />
       <div className={styles.btnsContainer}>
-        <section id="menuItems" className={styles.menu}>
-          {topButtons.map((btn) => (
-            <span key={btn.id}>
-              <button
-                data-tooltip={!isExpanded ? btn.name : undefined}
-                className={styles.sideBarBtn}
-                onClick={btn.onClick}
-              >
-                {btn.icon}
-                {isExpanded && (
-                  <p className={styles.sidebarBtnTxt}>
-                    {btn.name}
-                  </p>
-                )}
-              </button>
-            </span>
+        <div className={styles.btnsContainer}>
+          {navigationGroups.map((group, index) => (
+            <section key={index} className={styles.menu}>
+              {isExpanded && <h3 className={styles.sectionLabel}>{group.label}</h3>}
+              {group.items.map((btn) => (
+                <span key={btn.id}>
+                  <button
+                    data-tooltip={!isExpanded ? btn.name : undefined}
+                    className={styles.sideBarBtn}
+                    onClick={btn.onClick}
+                  >
+                    {btn.icon}
+                    {isExpanded && <p className={styles.sidebarBtnTxt}>{btn.name}</p>}
+                  </button>
+                </span>
+              ))}
+            </section>
           ))}
-        </section>
-        <section id="menuItems" className={styles.menu}>
-          {middleButtons.map((btn) => (
-            <span key={btn.id}>
-              <button
-                data-tooltip={!isExpanded ? btn.name : undefined}
-                className={styles.sideBarBtn}
-                onClick={btn.onClick}
-              >
-                {btn.icon}
-                {isExpanded && (
-                  <p className={styles.sidebarBtnTxt}>
-                    {btn.name}
-                  </p>
-                )}
-              </button>
-            </span>
-          ))}
-        </section>
-        <section id="menuItems" className={styles.menu}>
-          {bottomButtons.map((btn) => (
-            <span key={btn.id}>
-              <button
-                data-tooltip={!isExpanded ? btn.name : undefined}
-                className={styles.sideBarBtn}
-                onClick={btn.onClick}
-              >
-                {btn.icon}
-                {isExpanded && (
-                  <p className={styles.sidebarBtnTxt}>
-                    {btn.name}
-                  </p>
-                )}
-              </button>
-            </span>
-          ))}
-        </section>
+        </div>
       </div>
     </section>
   );

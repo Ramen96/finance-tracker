@@ -21,7 +21,6 @@
 .sideBarBtn {
   @include mixins.btnTertiary;
   @include mixins.shadow-md;
-  margin-top: 1rem;
   padding: 0.7rem;
   width: calc(100% - 0.75rem);
   display: flex;
@@ -58,4 +57,27 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.sectionLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  color: var(--text);
+  margin: 8px 0 4px 12px;
+  opacity: 0.8;
+  pointer-events: none;
+  border-bottom: 1px solid var(--text-muted);
 }
