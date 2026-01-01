@@ -1,17 +1,102 @@
+"use client";
 import styles from "./assets.module.scss";
-import { TrendingUp, LineChart, Edit2, Trash2, Plus } from "lucide-react";
+import DataTable from "../DataTable/dataTable";
+import { TrendingUp, LineChart } from "lucide-react";
 
-const producingAssets = [
+interface ProducingAsset {
+  id: number;
+  name: string;
+  value: number;
+  income: number;
+}
+
+interface GrowthAsset {
+  id: number;
+  name: string;
+  value: number;
+  appreciation: number;
+}
+
+const producingAssets: ProducingAsset[] = [
   { id: 1, name: "Rental Property - Main St", value: 250000, income: 2500 },
   { id: 2, name: "Dividend Stocks Portfolio", value: 150000, income: 500 },
 ];
 
-const growthAssets = [
+const growthAssets: GrowthAsset[] = [
   { id: 3, name: "Primary Residence", value: 400000, appreciation: 3.5 },
   { id: 4, name: "Growth Stock Portfolio", value: 75000, appreciation: 8.2 },
 ];
 
 export default function Assets() {
+  const producingColumns = [
+    {
+      key: "name" as const,
+      label: "Asset Name",
+      format: (value: string | number) => String(value),
+    },
+    {
+      key: "value" as const,
+      label: "Value",
+      format: (value: string | number) => {
+        const num = typeof value === "number" ? value : Number(value || 0);
+        return `$${num.toLocaleString()}`;
+      },
+    },
+    {
+      key: "income" as const,
+      label: "Income",
+      format: (value: string | number) => {
+        const num = typeof value === "number" ? value : Number(value || 0);
+        return `$${num.toLocaleString()}`;
+      },
+    },
+  ];
+
+  const growthColumns = [
+    {
+      key: "name" as const,
+      label: "Asset Name",
+      format: (value: string | number) => String(value),
+    },
+    {
+      key: "value" as const,
+      label: "Value",
+      format: (value: string | number) => {
+        const num = typeof value === "number" ? value : Number(value || 0);
+        return `$${num.toLocaleString()}`;
+      },
+    },
+    {
+      key: "appreciation" as const,
+      label: "Rate",
+      format: (value: string | number) => {
+        const num = typeof value === "number" ? value : Number(value || 0);
+        return `${num}%`;
+      },
+    },
+  ];
+
+  const producingCategories = [
+    {
+      name: "Producing Assets",
+      icon: TrendingUp,
+      items: producingAssets,
+    },
+  ];
+
+  const growthCategories = [
+    {
+      name: "Growth Assets",
+      icon: LineChart,
+      items: growthAssets,
+    },
+  ];
+
+  const totalAssetValue = [...producingAssets, ...growthAssets].reduce(
+    (sum, asset) => sum + asset.value,
+    0
+  );
+
   return (
     <section className={styles.assetsContainer}>
       <div className={styles.header}>
@@ -19,125 +104,29 @@ export default function Assets() {
         <p>Track your producing and growth assets</p>
       </div>
 
-      <section className={styles.categoriesGrid}>
-        {/* Producing Assets */}
-        <section className={styles.categorySection}>
-          <div className={styles.categoryHeader}>
-            <TrendingUp className={styles.categoryIcon} size={24} />
-            <h2>Producing Assets</h2>
-          </div>
+      <DataTable
+        categories={producingCategories}
+        columns={producingColumns}
+        totalKey="value"
+        onAdd={(cat) => console.log("Adding producing asset to", cat)}
+        onEdit={(item) => console.log("Editing producing asset", item)}
+        onDelete={(item) => console.log("Deleting producing asset", item)}
+      />
 
-          <button className={styles.addBtn}>
-            <Plus size={18} />
-            Add Producing Asset
-          </button>
+      <DataTable
+        categories={growthCategories}
+        columns={growthColumns}
+        totalKey="value"
+        onAdd={(cat) => console.log("Adding growth asset to", cat)}
+        onEdit={(item) => console.log("Editing growth asset", item)}
+        onDelete={(item) => console.log("Deleting growth asset", item)}
+      />
 
-          <div className={styles.assetsTable}>
-            <div className={styles.tableHeader}>
-              <span className={styles.nameCol}>Asset Name</span>
-              <span className={styles.valueCol}>Value</span>
-              <span className={styles.incomeCol}>Income</span>
-              <span className={styles.actionsCol}>Actions</span>
-            </div>
-
-            <div className={styles.tableBody}>
-              {producingAssets.map((asset) => (
-                <div key={asset.id} className={styles.tableRow}>
-                  <span className={styles.nameCol}>{asset.name}</span>
-                  <span className={styles.valueCol}>
-                    ${asset.value.toLocaleString()}
-                  </span>
-                  <span className={styles.incomeCol}>
-                    ${asset.income.toLocaleString()}
-                  </span>
-                  <span className={styles.actionsCol}>
-                    <button className={styles.editBtn}>
-                      <Edit2 size={16} />
-                    </button>
-                    <button className={styles.deleteBtn}>
-                      <Trash2 size={16} />
-                    </button>
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.categoryTotal}>
-              <span className={styles.totalLabel}>Category Total:</span>
-              <span className={styles.totalAmount}>
-                $
-                {producingAssets
-                  .reduce((sum, asset) => sum + asset.value, 0)
-                  .toLocaleString()}
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* Growth Assets */}
-        <section className={styles.categorySection}>
-          <div className={styles.categoryHeader}>
-            <LineChart className={styles.categoryIcon} size={24} />
-            <h2>Growth Assets</h2>
-          </div>
-
-          <button className={styles.addBtn}>
-            <Plus size={18} />
-            Add Growth Asset
-          </button>
-
-          <div className={styles.assetsTable}>
-            <div className={styles.tableHeader}>
-              <span className={styles.nameCol}>Asset Name</span>
-              <span className={styles.valueCol}>Value</span>
-              <span className={styles.growthCol}>Rate</span>
-              <span className={styles.actionsCol}>Actions</span>
-            </div>
-
-            <div className={styles.tableBody}>
-              {growthAssets.map((asset) => (
-                <div key={asset.id} className={styles.tableRow}>
-                  <span className={styles.nameCol}>{asset.name}</span>
-                  <span className={styles.valueCol}>
-                    ${asset.value.toLocaleString()}
-                  </span>
-                  <span className={styles.growthCol}>
-                    {asset.appreciation}%
-                  </span>
-                  <span className={styles.actionsCol}>
-                    <button className={styles.editBtn}>
-                      <Edit2 size={16} />
-                    </button>
-                    <button className={styles.deleteBtn}>
-                      <Trash2 size={16} />
-                    </button>
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.categoryTotal}>
-              <span className={styles.totalLabel}>Category Total:</span>
-              <span className={styles.totalAmount}>
-                $
-                {growthAssets
-                  .reduce((sum, asset) => sum + asset.value, 0)
-                  .toLocaleString()}
-              </span>
-            </div>
-          </div>
-        </section>
-      </section>
-
-      {/* Grand Total */}
       <div className={styles.grandTotal}>
         <div className={styles.grandTotalContent}>
           <h2>Total Asset Value</h2>
           <span className={styles.grandTotalAmount}>
-            $
-            {[...producingAssets, ...growthAssets]
-              .reduce((sum, asset) => sum + asset.value, 0)
-              .toLocaleString()}
+            ${totalAssetValue.toLocaleString()}
           </span>
         </div>
       </div>

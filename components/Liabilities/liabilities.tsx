@@ -1,7 +1,16 @@
+"use client";
 import styles from "./liabilities.module.scss";
-import { CreditCard, Car, GraduationCap, Home, Building2, Edit2, Trash2, Plus } from "lucide-react";
+import DataTable from "components/DataTable/dataTable";
+import { CreditCard, Car, GraduationCap, Home, Building2 } from "lucide-react";
 
-// Example Data
+interface LiabilityItem {
+  id: number;
+  name: string;
+  balance: number;
+  payment: number;
+  rate: number;
+}
+
 const liabilityCategories = [
   {
     name: "Credit Cards",
@@ -43,6 +52,44 @@ const liabilityCategories = [
 ];
 
 export default function Liabilities() {
+  const columns = [
+    {
+      key: "name" as const,
+      label: "Name",
+      format: (value: string | number) => String(value),
+    },
+    {
+      key: "balance" as const,
+      label: "Balance",
+      format: (value: string | number) => {
+        const num = typeof value === "number" ? value : Number(value || 0);
+        return `$${num.toLocaleString()}`;
+      },
+    },
+    {
+      key: "payment" as const,
+      label: "Payment",
+      format: (value: string | number) => {
+        const num = typeof value === "number" ? value : Number(value || 0);
+        return `$${num.toLocaleString()}`;
+      },
+    },
+    {
+      key: "rate" as const,
+      label: "Rate",
+      format: (value: string | number) => {
+        const num = typeof value === "number" ? value : Number(value || 0);
+        return `${num}%`;
+      },
+    },
+  ];
+
+  const formattedCategories = liabilityCategories.map((category) => ({
+    name: category.name,
+    icon: category.icon,
+    items: category.liabilities,
+  }));
+
   const totalBalance = liabilityCategories.reduce(
     (sum, cat) => sum + cat.liabilities.reduce((s, l) => s + l.balance, 0),
     0
@@ -60,73 +107,15 @@ export default function Liabilities() {
         <p>Track your debts and monthly obligations</p>
       </div>
 
-      <section className={styles.categoriesGrid}>
-        {liabilityCategories.map((category) => {
-          const IconComponent = category.icon;
-          const categoryTotal = category.liabilities.reduce(
-            (sum, liability) => sum + liability.balance,
-            0
-          );
+      <DataTable
+        categories={formattedCategories}
+        columns={columns}
+        totalKey="balance"
+        onAdd={(cat) => console.log("Adding liability to", cat)}
+        onEdit={(item) => console.log("Editing liability", item)}
+        onDelete={(item) => console.log("Deleting liability", item)}
+      />
 
-          return (
-            <section key={category.name} className={styles.categorySection}>
-              <div className={styles.categoryHeader}>
-                <IconComponent className={styles.categoryIcon} size={24} />
-                <h2>{category.name}</h2>
-              </div>
-
-              <button className={styles.addBtn}>
-                <Plus size={18} />
-                Add {category.name}
-              </button>
-
-              <div className={styles.liabilitiesTable}>
-                <div className={styles.tableHeader}>
-                  <span className={styles.nameCol}>Name</span>
-                  <span className={styles.balanceCol}>Balance</span>
-                  <span className={styles.paymentCol}>Payment</span>
-                  <span className={styles.rateCol}>Rate</span>
-                  <span className={styles.actionsCol}>Actions</span>
-                </div>
-
-                <div className={styles.tableBody}>
-                  {category.liabilities.map((liability) => (
-                    <div key={liability.id} className={styles.tableRow}>
-                      <span className={styles.nameCol}>{liability.name}</span>
-                      <span className={styles.balanceCol}>
-                        ${liability.balance.toLocaleString()}
-                      </span>
-                      <span className={styles.paymentCol}>
-                        ${liability.payment.toLocaleString()}
-                      </span>
-                      <span className={styles.rateCol}>
-                        {liability.rate}%
-                      </span>
-                      <span className={styles.actionsCol}>
-                        <button className={styles.editBtn}>
-                          <Edit2 size={16} />
-                        </button>
-                        <button className={styles.deleteBtn}>
-                          <Trash2 size={16} />
-                        </button>
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className={styles.categoryTotal}>
-                  <span className={styles.totalLabel}>Category Total:</span>
-                  <span className={styles.totalAmount}>
-                    ${categoryTotal.toLocaleString()}
-                  </span>
-                </div>
-              </div>
-            </section>
-          );
-        })}
-      </section>
-
-      {/* Grand Totals */}
       <div className={styles.totalsSection}>
         <div className={styles.grandTotal}>
           <div className={styles.grandTotalContent}>

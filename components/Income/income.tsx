@@ -1,13 +1,19 @@
+"use client";
 import styles from "./income.module.scss";
+import DataTable from "components/DataTable/dataTable";
 import {
   Briefcase,
   DollarSign,
   TrendingUp,
   Home,
   Building2,
-  Edit2,
-  Trash2,
 } from "lucide-react";
+
+interface IncomeItem {
+  id: number;
+  description: string;
+  amount: number;
+}
 
 const incomeCategories = [
   { name: "Salary", icon: Briefcase },
@@ -17,67 +23,76 @@ const incomeCategories = [
   { name: "Businesses", icon: Building2 },
 ];
 
+const categoryIncome: Record<string, IncomeItem[]> = {
+  Salary: [
+    { id: 1, description: "Monthly salary", amount: 5000 },
+    { id: 2, description: "Bonus", amount: 1000 },
+  ],
+  Interest: [
+    { id: 3, description: "Savings account", amount: 50 },
+    { id: 4, description: "CD interest", amount: 75 },
+  ],
+  Dividends: [
+    { id: 5, description: "Stock dividends", amount: 200 },
+  ],
+  "Real Estate": [
+    { id: 6, description: "Rental property #1", amount: 1500 },
+    { id: 7, description: "Rental property #2", amount: 1800 },
+  ],
+  Businesses: [
+    { id: 8, description: "Side business", amount: 800 },
+  ],
+};
+
 export default function Income() {
+  const columns = [
+    {
+      key: "description" as const,
+      label: "Description",
+      format: (value: string | number) => String(value),
+    },
+    {
+      key: "amount" as const,
+      label: "Cash Flow",
+      format: (value: string | number) => {
+        const num = typeof value === "number" ? value : Number(value || 0);
+        return `$${num.toLocaleString()}`;
+      },
+    },
+  ];
+
+  const formattedCategories = incomeCategories.map((category) => ({
+    name: category.name,
+    icon: category.icon,
+    items: categoryIncome[category.name] || [],
+  }));
+
+  const totalIncome = Object.values(categoryIncome)
+    .flat()
+    .reduce((sum, income) => sum + income.amount, 0);
+
   return (
     <section className={styles.incomeContainer}>
       <div className={styles.header}>
         <h1>Income</h1>
-        <p>Track your and manage income sources</p>
+        <p>Track and manage income sources</p>
       </div>
 
-      <section className={styles.categoriesGrid}>
-        {incomeCategories.map((category) => {
-          const IconComponent = category.icon;
-          return (
-            <section key={category.name} className={styles.categorySection}>
-              <div className={styles.categoryHeader}>
-                <IconComponent className={styles.categoryIcon} size={24} />
-                <h2>{category.name}</h2>
-              </div>
+      <DataTable
+        categories={formattedCategories}
+        columns={columns}
+        totalKey="amount"
+        onAdd={(cat) => console.log("Adding income to", cat)}
+        onEdit={(item) => console.log("Editing income", item)}
+        onDelete={(item) => console.log("Deleting income", item)}
+      />
 
-              {/* Description */}
-              <div className={styles.incomeTable}>
-                <div className={styles.tableHeader}>
-                  <span className={styles.descriptionCol}>Description</span>
-                  <span className={styles.amountCol}>Cash Flow</span>
-                  <span className={styles.actionsCol}>Actions</span>
-                </div>
-
-                {/* Sources */}
-
-                <div className={styles.tableBody}>
-                  <div className={styles.tableRow}>
-                    <span className={styles.descriptionCol}>
-                      Add income sources here
-                    </span>
-                    <span className={styles.amountCol}>$0.00</span>
-                    <span className={styles.actionsCol}>
-                      <button className={styles.editBtn}>
-                        <Edit2 size={16} />
-                      </button>
-                      <button className={styles.deleteBtn}>
-                        <Trash2 size={16} />
-                      </button>
-                    </span>
-                  </div>
-                </div>
-
-                {/* Total */}
-                <div className={styles.categoryTotal}>
-                  <span className={styles.totalLabel}>Category Total:</span>
-                  <span className={styles.totalAmount}>$0.00</span>
-                </div>
-              </div>
-            </section>
-          );
-        })}
-      </section>
-
-      {/* Grand Total */}
       <div className={styles.grandTotal}>
         <div className={styles.grandTotalContent}>
           <h2>Total Monthly Income</h2>
-          <span className={styles.grandTotalAmount}>$0.00</span>
+          <span className={styles.grandTotalAmount}>
+            ${totalIncome.toLocaleString()}
+          </span>
         </div>
       </div>
     </section>

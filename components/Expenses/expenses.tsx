@@ -1,6 +1,6 @@
 "use client";
 import styles from "./expenses.module.scss";
-import DataTable from "../DataTable/dataTable";
+import DataTable from "components/DataTable/dataTable";
 import { Utensils, Home, Car, Heart, Zap, Plus, Edit2, Trash2 } from "lucide-react";
 
 interface ExpenseItem {
