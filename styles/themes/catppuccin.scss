@@ -7,148 +7,107 @@
 
 /* Light theme - Catppuccin Latte */
 body[data-theme="light"] {
-  /* backgrounds */
   --bg: #eff1f5;
   --bg-secondary: #e6e9ef;
   --bg-tertiary: #dce0e8;
   --bg-elevated: #ccd0da;
 
-  /* text */
   --text: #4c4f69;
   --text-secondary: #5c5f77;
   --text-muted: #6c6f85;
   --text-inverse: #eff1f5;
 
-  /* primary colors - green */
-  --primary: #40a02b;
-  --primary-hover: #179299;
+  /* Primary */
+  --primary: #8839ef;
+  --primary-hover: #7287fd;
   --primary-light: #dce0e8;
-  --primary-light-inverse: #40a02b;
+  --primary-light-inverse: #8839ef;
   --primary-text: #eff1f5;
 
-  /* secondary colors - teal */
-  --secondary: #179299;
-  --secondary-hover: #04a5e5;
+  --secondary: #7287fd;
+  --secondary-hover: #1e66f5;
   --secondary-light: #dce0e8;
   --secondary-text: #eff1f5;
 
-  /* tertiary colors - surface */
+  /* Tertiary */
   --tertiary: #ccd0da;
   --tertiary-hover: #bcc0cc;
-  --tertiary-light: #e6e9ef;
+  --tertiary-light: #eff1f5;
   --tertiary-text: #4c4f69;
 
-  /* accent colors - pink */
   --accent: #ea76cb;
   --accent-hover: #d20f39;
   --accent-light: #e6e9ef;
 
-  /* semantic colors */
+  /* Semantic */
   --success: #40a02b;
-  --success-light: #dce0e8;
   --warning: #df8e1d;
-  --warning-light: #e6e9ef;
   --error: #d20f39;
-  --error-light: #e6e9ef;
-  --info: #04a5e5;
-  --info-light: #dce0e8;
+  --info: #1e66f5;
 
-  /* borders */
-  --border: #ccd0da;
-  --border-hover: #bcc0cc;
-  --border-focus: #40a02b;
+  /* Borders & Shadows */
+  --border: #acb0be;
+  --border-hover: #8c8fa1;
+  --border-focus: #8839ef;
 
-  /* shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(76, 79, 105, 0.04);
-  --shadow: 0 1px 3px 0 rgba(76, 79, 105, 0.1), 0 1px 2px 0 rgba(76, 79, 105, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(76, 79, 105, 0.1), 0 2px 4px -1px rgba(76, 79, 105, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(76, 79, 105, 0.1), 0 4px 6px -2px rgba(76, 79, 105, 0.05);
-  --card-shadow: rgba(76, 79, 105, 0.08);
+  --shadow-sm: 0 1px 2px 0 rgba(76, 79, 105, 0.1);
+  --shadow: 0 4px 6px -1px rgba(76, 79, 105, 0.15), 0 2px 4px -1px rgba(76, 79, 105, 0.1);
+  --card-shadow: rgba(76, 79, 105, 0.15);
 
-  /* interactive states */
-  --hover-overlay: rgba(76, 79, 105, 0.02);
-  --active-overlay: rgba(76, 79, 105, 0.06);
-  --disabled-opacity: 0.5;
-
-  /* input */
   --text-input-bg: #e6e9ef;
-  --text-input-shadow: #40a02b;
+  --text-input-shadow: rgba(136, 57, 239, 0.2);
   --text-input-text: #4c4f69;
 }
 
 /* Dark theme - Catppuccin Macchiato */
 body[data-theme="dark"] {
-  /* backgrounds */
   --bg: #24273a;
   --bg-secondary: #1e2030;
-  --bg-tertiary: #363a4f;
-  --bg-elevated: #494d64;
+  --bg-tertiary: #181926;
+  --bg-elevated: #363a4f;
 
-  /* text */
   --text: #cad3f5;
   --text-secondary: #b8c0e0;
   --text-muted: #a5adcb;
   --text-inverse: #24273a;
 
-  /* primary colors - green */
-  --primary: #a6da95;
-  --primary-hover: #8bd5ca;
+  /* Primary */
+  --primary: #c6a0f6;
+  --primary-hover: #b7bdf8;
   --primary-light: #363a4f;
   --primary-text: #24273a;
 
-  /* secondary colors - teal */
-  --secondary: #8bd5ca;
-  --secondary-hover: #91d7e3;
+  --secondary: #b7bdf8;
+  --secondary-hover: #8aadf4;
   --secondary-light: #363a4f;
   --secondary-text: #24273a;
 
-  /* tertiary colors - surface */
-  --tertiary: #363a4f;
-  --tertiary-hover: #494d64;
-  --tertiary-light: #494d64;
+  /* Tertiary */
+  --tertiary: #494d64;
+  --tertiary-hover: #5b6078;
+  --tertiary-light: #24273a;
   --tertiary-text: #cad3f5;
 
-  /* accent colors - pink */
   --accent: #f5bde6;
-  --accent-hover: #c6a0f6;
+  --accent-hover: #f0c6c6;
   --accent-light: #363a4f;
 
-  /* semantic colors */
+  /* Semantic */
   --success: #a6da95;
-  --success-light: #363a4f;
   --warning: #eed49f;
-  --warning-light: #363a4f;
   --error: #ed8796;
-  --error-light: #363a4f;
-  --info: #91d7e3;
-  --info-light: #363a4f;
+  --info: #8aadf4;
 
-  /* borders */
-  --border: #494d64;
-  --border-hover: #5b6078;
-  --border-focus: #a6da95;
+  /* Borders & Shadows */
+  --border: #5b6078;
+  --border-hover: #6e738d;
+  --border-focus: #c6a0f6;
 
-  /* shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
-  --card-shadow: rgba(0, 0, 0, 0.3);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --card-shadow: rgba(0, 0, 0, 0.4);
 
-  /* interactive states */
-  --hover-overlay: rgba(202, 211, 245, 0.08);
-  --active-overlay: rgba(202, 211, 245, 0.12);
-  --disabled-opacity: 0.4;
-
-  /* input */
   --text-input-bg: #363a4f;
-  --text-input-shadow: #a6da95;
+  --text-input-shadow: rgba(198, 160, 246, 0.3);
   --text-input-text: #cad3f5;
-}
-
-/* System preference fallback to dark theme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-  }
 }
