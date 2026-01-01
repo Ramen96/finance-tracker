@@ -27,7 +27,7 @@
   gap: vars.$spacing-md;
   padding-bottom: vars.$spacing-md;
   border-bottom: $border-width solid var(--tertiary);
-  
+
   h2 {
     font-size: 1.25rem;
     font-weight: 700;
@@ -106,7 +106,8 @@
   @include layout.p(vars.$spacing-lg);
   @include layout.radius;
   font-family: var(--font-display);
-  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  // background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  background: var(--primary);
   margin-top: vars.$spacing-sm;
   font-weight: 700;
   color: var(--primary-text);
@@ -214,7 +215,7 @@
     background: $hover-bg;
     transform: scale(1.08);
   }
-  
+
   &:active {
     transform: scale(0.96);
   }
@@ -236,7 +237,10 @@
   @include typography.text-align($align);
   color: $color;
   font-weight: $weight;
-  @if $size { font-size: $size; }
+
+  @if $size {
+    font-size: $size;
+  }
 }
 
 @mixin column-name {
