@@ -1,5 +1,6 @@
 import { Plus, Edit2, Trash2 } from "lucide-react";
 import { LucideIcon } from "lucide-react";
+import styles from "./dataTable.module.scss";
 
 // ============================================================================
 // TYPES
@@ -25,7 +26,6 @@ type DataTableProps<DataItem> = {
   onEdit?: (item: DataItem) => void;
   onDelete?: (item: DataItem) => void;
   totalKey?: keyof DataItem;
-  styles: Record<string, string>;
 };
 
 // ============================================================================
@@ -39,7 +39,6 @@ export default function DataTable<DataItem extends { id: number | string }>({
   onEdit,
   onDelete,
   totalKey,
-  styles,
 }: DataTableProps<DataItem>) {
 
   const calculateCategoryTotal = (items: DataItem[]) => {
