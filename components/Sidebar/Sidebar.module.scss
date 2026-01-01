@@ -52,3 +52,10 @@
 .marginRight {
   margin-right: 1rem;
 }
+
+.btnsContainer {
+  @include mixins.h-full;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
