@@ -23,3 +23,10 @@
 .nav {
   @include mixins.nav;
 }
+
+.cardsContainer {
+  @include mixins.w-full;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
