@@ -3,32 +3,45 @@ import styles from "./assets.module.scss";
 import DataTable from "../DataTable/dataTable";
 import { TrendingUp, LineChart } from "lucide-react";
 
-interface ProducingAsset {
+interface Asset {
   id: number;
   name: string;
   value: number;
-  income: number;
+  incomeOrRate: string;
 }
 
-interface GrowthAsset {
-  id: number;
-  name: string;
-  value: number;
-  appreciation: number;
-}
-
-const producingAssets: ProducingAsset[] = [
-  { id: 1, name: "Rental Property - Main St", value: 250000, income: 2500 },
-  { id: 2, name: "Dividend Stocks Portfolio", value: 150000, income: 500 },
+const producingAssets: Asset[] = [
+  { 
+    id: 1, 
+    name: "Rental Property - Main St", 
+    value: 250000, 
+    incomeOrRate: "$2,500" 
+  },
+  { 
+    id: 2, 
+    name: "Dividend Stocks Portfolio", 
+    value: 150000, 
+    incomeOrRate: "$500" 
+  },
 ];
 
-const growthAssets: GrowthAsset[] = [
-  { id: 3, name: "Primary Residence", value: 400000, appreciation: 3.5 },
-  { id: 4, name: "Growth Stock Portfolio", value: 75000, appreciation: 8.2 },
+const growthAssets: Asset[] = [
+  { 
+    id: 3, 
+    name: "Primary Residence", 
+    value: 400000, 
+    incomeOrRate: "3.5%" 
+  },
+  { 
+    id: 4, 
+    name: "Growth Stock Portfolio", 
+    value: 75000, 
+    incomeOrRate: "8.2%" 
+  },
 ];
 
 export default function Assets() {
-  const producingColumns = [
+  const columns = [
     {
       key: "name" as const,
       label: "Asset Name",
@@ -43,48 +56,18 @@ export default function Assets() {
       },
     },
     {
-      key: "income" as const,
-      label: "Income",
-      format: (value: string | number) => {
-        const num = typeof value === "number" ? value : Number(value || 0);
-        return `$${num.toLocaleString()}`;
-      },
-    },
-  ];
-
-  const growthColumns = [
-    {
-      key: "name" as const,
-      label: "Asset Name",
+      key: "incomeOrRate" as const,
+      label: "Income/Rate",
       format: (value: string | number) => String(value),
     },
-    {
-      key: "value" as const,
-      label: "Value",
-      format: (value: string | number) => {
-        const num = typeof value === "number" ? value : Number(value || 0);
-        return `$${num.toLocaleString()}`;
-      },
-    },
-    {
-      key: "appreciation" as const,
-      label: "Rate",
-      format: (value: string | number) => {
-        const num = typeof value === "number" ? value : Number(value || 0);
-        return `${num}%`;
-      },
-    },
   ];
 
-  const producingCategories = [
+  const allCategories = [
     {
       name: "Producing Assets",
       icon: TrendingUp,
       items: producingAssets,
     },
-  ];
-
-  const growthCategories = [
     {
       name: "Growth Assets",
       icon: LineChart,
@@ -103,25 +86,16 @@ export default function Assets() {
         <h1>Assets</h1>
         <p>Track your producing and growth assets</p>
       </div>
-
+      
       <DataTable
-        categories={producingCategories}
-        columns={producingColumns}
+        categories={allCategories}
+        columns={columns}
         totalKey="value"
-        onAdd={(cat) => console.log("Adding producing asset to", cat)}
-        onEdit={(item) => console.log("Editing producing asset", item)}
-        onDelete={(item) => console.log("Deleting producing asset", item)}
+        onAdd={(cat) => console.log("Adding asset to", cat)}
+        onEdit={(item) => console.log("Editing asset", item)}
+        onDelete={(item) => console.log("Deleting asset", item)}
       />
-
-      <DataTable
-        categories={growthCategories}
-        columns={growthColumns}
-        totalKey="value"
-        onAdd={(cat) => console.log("Adding growth asset to", cat)}
-        onEdit={(item) => console.log("Editing growth asset", item)}
-        onDelete={(item) => console.log("Deleting growth asset", item)}
-      />
-
+      
       <div className={styles.grandTotal}>
         <div className={styles.grandTotalContent}>
           <h2>Total Asset Value</h2>

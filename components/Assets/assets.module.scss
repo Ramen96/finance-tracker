@@ -3,8 +3,8 @@
 
 .assetsContainer {
   @include mixins.page-container;
-  width: fit-content !important;
-  align-items: center;
+  // Removed: width: fit-content !important;
+  // Removed: align-items: center;
 }
 
 .header {
@@ -42,7 +42,7 @@
   font-weight: 600;
   cursor: pointer;
   margin-bottom: vars.$spacing-md;
-
+  
   &:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
