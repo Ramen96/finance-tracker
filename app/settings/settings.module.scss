@@ -1,0 +1,32 @@
+@use "@styles/mixins";
+
+.mainContainer {
+  @include mixins.mainContainer;
+  font-family: var(--font-display);
+  justify-self: center;
+  align-items: center;
+}
+
+.contentContainer {
+  @include mixins.contentContainer;
+  overflow-y: auto;
+}
+
+.card {
+  @include mixins.card;
+}
+
+.cardItem {
+  @include mixins.card-item;
+}
+
+.nav {
+  @include mixins.nav;
+}
+
+.cardsContainer {
+  @include mixins.w-full;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
