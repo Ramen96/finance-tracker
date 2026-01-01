@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { PanelLeftOpen, PanelLeftClose, ScanBarcode, CreditCard, LayoutDashboard, BanknoteArrowUp, BanknoteArrowDown, ChartCandlestick, ReceiptText, ShieldCheck, UserRoundPen, Settings } from "lucide-react";
+import { PanelLeftOpen, PanelLeftClose, ScanBarcode, CreditCard, LayoutDashboard, BanknoteArrowUp, BanknoteArrowDown, ChartCandlestick, ReceiptText, ShieldCheck, UserRoundPen, Settings, Palette } from "lucide-react";
 import styles from "./Sidebar.module.scss";
 
 type ExpandBtnPropType = {
@@ -82,12 +82,18 @@ export default function SideBar() {
   const bottomButtons = [
     {
       id: 8,
+      name: "Theme",
+      icon: <Palette />,
+      onClick: () => console.log("nothing for now")
+    },
+    {
+      id: 9,
       name: "Profile",
       icon: <UserRoundPen />,
       onClick: () => console.log("nothing for now")
     },
     {
-      id: 9,
+      id: 10,
       name: "Settings",
       icon: <Settings />,
       onClick: () => console.log("nothing for now")
