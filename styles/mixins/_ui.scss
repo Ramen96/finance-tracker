@@ -18,25 +18,50 @@
 // ========================================
 
 @mixin shadow($size: null, $color: null) {
-  @if $size == null {
+  @if $size ==null {
     box-shadow: var(--shadow);
-  } @else if $size == sm {
+  }
+
+  @else if $size ==sm {
     box-shadow: var(--shadow-sm);
-  } @else if $size == md {
+  }
+
+  @else if $size ==md {
     box-shadow: var(--shadow-md);
-  } @else if $size == lg {
+  }
+
+  @else if $size ==lg {
     box-shadow: var(--shadow-lg);
-  } @else if $color {
+  }
+
+  @else if $color {
     box-shadow: vars.$icon-size vars.$icon-size 0 $color;
   }
 }
 
-@mixin shadow-sm { @include shadow(sm); }
-@mixin shadow-md { @include shadow(md); }
-@mixin shadow-lg { @include shadow(lg); }
-@mixin shadow-primary { @include shadow(lg); }
-@mixin shadow-primary-light { @include shadow(md); }
-@mixin shadow-primary-inverse { @include shadow(sm); }
+@mixin shadow-sm {
+  @include shadow(sm);
+}
+
+@mixin shadow-md {
+  @include shadow(md);
+}
+
+@mixin shadow-lg {
+  @include shadow(lg);
+}
+
+@mixin shadow-primary {
+  @include shadow(lg);
+}
+
+@mixin shadow-primary-light {
+  @include shadow(md);
+}
+
+@mixin shadow-primary-inverse {
+  @include shadow(sm);
+}
 
 // ========================================
 // Borders
@@ -90,32 +115,35 @@
   border: none;
   position: relative;
   z-index: 1;
+
   &[data-tooltip] {
     &::after {
       @include layout.radius;
       @include shadow-lg;
-        content: attr(data-tooltip);
-        position: absolute;
-        left: 0;
-        bottom: -100%;
-        padding: 5px 10px;
-        background: var(--bg);
-        font-family: var(--font-main), sans-serif;
-        color: var(--text);
-        border: 1px solid var(--accent);
-        white-space: nowrap;
-        opacity: 0;
-        transition: opacity 0.2s ease;
-        pointer-events: none;
-        z-index: 9999;
-      }
-      &:hover {
-        z-index: 10;
-        &::after {
-          opacity: 1
-        }
+      content: attr(data-tooltip);
+      position: absolute;
+      left: 0;
+      bottom: -100%;
+      padding: 5px 10px;
+      background: var(--bg);
+      font-family: var(--font-main), sans-serif;
+      color: var(--text);
+      border: 1px solid var(--border-focus);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    &:hover {
+      z-index: 10;
+
+      &::after {
+        opacity: 1
       }
     }
+  }
 }
 
 @mixin btnPrimary {
@@ -125,13 +153,13 @@
   color: var(--primary-text);
   background: var(--primary);
   padding: 0.625rem 1.25rem;
-  
+
   &:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
     @include shadow-md;
   }
-  
+
   &:active {
     transform: translateY(0);
   }
@@ -144,7 +172,7 @@
   color: var(--secondary-text);
   background: var(--secondary);
   padding: 0.625rem 1.25rem;
-  
+
   &:hover {
     background: var(--secondary-hover);
     transform: translateY(-2px);
@@ -159,7 +187,7 @@
   color: var(--tertiary-text);
   background: var(--tertiary);
   padding: 0.625rem 1.25rem;
-  
+
   &:hover {
     background: var(--tertiary-hover);
     transform: translateY(-2px);
@@ -184,7 +212,7 @@
   background: var(--text-input-bg);
   caret-shape: block;
   @include transition;
-  
+
   &::placeholder {
     color: var(--text-muted);
   }
@@ -199,7 +227,9 @@
 // Password Input
 // ========================================
 
-@mixin passwdWrapper { position: relative; }
+@mixin passwdWrapper {
+  position: relative;
+}
 
 @mixin eyeBtn {
   @include layout.flex-center;
@@ -231,7 +261,7 @@
   font-size: 1rem;
   cursor: pointer;
   accent-color: var(--primary);
-  
+
   &:hover {
     filter: brightness(1.1);
   }
@@ -276,7 +306,7 @@
   background: var(--bg-tertiary);
   flex-direction: row;
   border-left: 3px solid var(--accent);
-  
+
   &:hover {
     border-color: var(--accent);
     @include shadow-lg;
@@ -311,7 +341,7 @@
   @include transition;
   background: var(--bg-tertiary);
   align-items: center;
-  
+
   &:hover {
     background: var(--bg-elevated);
     border-color: var(--tertiary);
