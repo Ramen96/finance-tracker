@@ -106,8 +106,7 @@
   @include layout.p(vars.$spacing-lg);
   @include layout.radius;
   font-family: var(--font-display);
-  // background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
   margin-top: vars.$spacing-sm;
   font-weight: 700;
   color: var(--primary-text);
