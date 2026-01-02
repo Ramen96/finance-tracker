@@ -6,7 +6,7 @@
 }
 
 /* Light theme - Rosé Pine Dawn */
-body[data-theme="light"] {
+body[data-palette="rose-pine"][data-theme="light"] {
   /* backgrounds */
   --bg: #faf4ed;
   --bg-secondary: #fffaf3;
@@ -77,7 +77,7 @@ body[data-theme="light"] {
 }
 
 /* Dark theme - Rosé Pine Main */
-body[data-theme="dark"] {
+body[data-palette="rose-pine"][data-theme="dark"] {
   /* backgrounds */
   --bg: #191724;
   --bg-secondary: #1f1d2e;

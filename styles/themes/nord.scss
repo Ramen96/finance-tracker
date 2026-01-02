@@ -6,7 +6,7 @@
 }
 
 /* Light theme - Nord Light (Snow Storm) */
-body[data-theme="light"] {
+body[data-palette="nord"][data-theme="light"] {
   /* backgrounds */
   --bg: #eceff4;
   --bg-secondary: #e5e9f0;
@@ -77,7 +77,7 @@ body[data-theme="light"] {
 }
 
 /* Dark theme - Nord Dark (Polar Night) */
-body[data-theme="dark"] {
+body[data-palette="nord"][data-theme="dark"] {
   /* backgrounds */
   --bg: #2e3440;
   --bg-secondary: #242933;

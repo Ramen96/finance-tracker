@@ -6,7 +6,7 @@
 }
 
 /* Light theme - Everforest Light */
-body[data-theme="light"] {
+body[data-palette="everforest"][data-theme="light"] {
   /* backgrounds */
   --bg: #fdf6e3;
   --bg-secondary: #f4f0d9;
@@ -77,7 +77,7 @@ body[data-theme="light"] {
 }
 
 /* Dark theme - Everforest Dark */
-body[data-theme="dark"] {
+body[data-palette="everforest"][data-theme="dark"] {
   /* backgrounds */
   --bg: #2b3339;
   --bg-secondary: #232a2e;

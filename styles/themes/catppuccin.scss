@@ -6,7 +6,7 @@
 }
 
 /* Light theme - Catppuccin Latte */
-body[data-theme="light"] {
+body[data-palette="catppuccin"][data-theme="light"] {
   --bg: #eff1f5;
   --bg-secondary: #e6e9ef;
   --bg-tertiary: #dce0e8;
@@ -60,7 +60,7 @@ body[data-theme="light"] {
 }
 
 /* Dark theme - Catppuccin Macchiato */
-body[data-theme="dark"] {
+body[data-palette="catppuccin"][data-theme="dark"] {
   --bg: #24273a;
   --bg-secondary: #1e2030;
   --bg-tertiary: #181926;
