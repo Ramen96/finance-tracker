@@ -1,10 +1,3 @@
-:root {
-  /* shared constants */
-  --radius: 8px;
-  --spacing: 1rem;
-  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 /* Light theme - Rosé Pine Dawn */
 body[data-palette="rose-pine"][data-theme="light"] {
   /* backgrounds */
@@ -27,8 +20,8 @@ body[data-palette="rose-pine"][data-theme="light"] {
   --primary-text: #faf4ed;
 
   /* secondary colors - foam (teal) */
-  --secondary: #56949f;
-  --secondary-hover: #286983;
+  --secondary: #907aa9;
+  --secondary-hover: #575279;
   --secondary-light: #f2e9e1;
   --secondary-text: #faf4ed;
 
@@ -76,79 +69,62 @@ body[data-palette="rose-pine"][data-theme="light"] {
   --text-input-text: #575279;
 }
 
-/* Dark theme - Rosé Pine Main */
+/* Dark theme - Rosé Pine Moon */
 body[data-palette="rose-pine"][data-theme="dark"] {
   /* backgrounds */
-  --bg: #191724;
-  --bg-secondary: #1f1d2e;
-  --bg-tertiary: #26233a;
-  --bg-elevated: #26233a;
-
+  --bg: #232136;
+  --bg-secondary: #2a273f;
+  --bg-tertiary: #393552;
+  --bg-elevated: #393552;
   /* text */
   --text: #e0def4;
   --text-secondary: #908caa;
   --text-muted: #6e6a86;
-  --text-inverse: #191724;
-
+  --text-inverse: #232136;
   /* primary colors - love (rose) */
   --primary: #eb6f92;
   --primary-hover: #f6c177;
-  --primary-light: #26233a;
-  --primary-text: #191724;
-
+  --primary-light: #393552;
+  --primary-text: #232136;
   /* secondary colors - foam (teal) */
-  --secondary: #9ccfd8;
-  --secondary-hover: #31748f;
-  --secondary-light: #26233a;
-  --secondary-text: #191724;
-
+  --secondary: #c4a7e7;
+  --secondary-hover: #eb6f92;
+  --secondary-light: #393552;
+  --secondary-text: #232136;
   /* tertiary colors - surface */
-  --tertiary: #26233a;
-  --tertiary-hover: #403d52;
-  --tertiary-light: #403d52;
+  --tertiary: #393552;
+  --tertiary-hover: #44415a;
+  --tertiary-light: #44415a;
   --tertiary-text: #e0def4;
-
   /* accent colors - iris (purple) */
   --accent: #c4a7e7;
   --accent-hover: #eb6f92;
-  --accent-light: #26233a;
-
+  --accent-light: #393552;
   /* semantic colors */
   --success: #9ccfd8;
-  --success-light: #26233a;
+  --success-light: #393552;
   --warning: #f6c177;
-  --warning-light: #26233a;
+  --warning-light: #393552;
   --error: #eb6f92;
-  --error-light: #26233a;
-  --info: #31748f;
-  --info-light: #26233a;
-
+  --error-light: #393552;
+  --info: #3e8fb0;
+  --info-light: #393552;
   /* borders */
-  --border: #403d52;
-  --border-hover: #524f67;
+  --border: #44415a;
+  --border-hover: #56526e;
   --border-focus: #eb6f92;
-
   /* shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
   --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
   --card-shadow: rgba(0, 0, 0, 0.3);
-
   /* interactive states */
   --hover-overlay: rgba(224, 222, 244, 0.08);
   --active-overlay: rgba(224, 222, 244, 0.12);
   --disabled-opacity: 0.4;
-
   /* input */
-  --text-input-bg: #26233a;
+  --text-input-bg: #393552;
   --text-input-shadow: #eb6f92;
   --text-input-text: #e0def4;
-}
-
-/* System preference fallback to dark theme */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-  }
 }

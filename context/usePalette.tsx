@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState, ReactNode, createContext, useContext } from "react";
 
-export type Palette = 'everforest' | 'nord' | 'catppuccin' | 'rose-pine' | 'zenburn';
+export type Palette = 'everforest' | 'nord' | 'catppuccin' | 'rose-pine' | 'zenburn' | 'gruvbox' | 'tokyo-night';
 
 type PaletteContextType = {
   palette: Palette;

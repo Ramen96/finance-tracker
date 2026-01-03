@@ -1,0 +1,127 @@
+/* Light theme - Tokyo Night Day (Improved) */
+body[data-palette="tokyo-night"][data-theme="light"] {
+  /* background colors - slightly off whites */
+  --bg: #d0d1dd;
+  --bg-secondary: #dcdde9;
+  --bg-tertiary: #d6d7e3;
+  --bg-elevated: #d8d9e5;
+
+  --text: #2f3659;
+  --text-secondary: #4f5b7a;
+  --text-muted: #7c85a8;
+  --text-inverse: #e1e2e7;
+
+  /* primary colors - slightly deeper blue */
+  --primary: #2959b0;
+  --primary-hover: #8344c9;
+  --primary-text: #E2E8F0;
+  --primary-light: #d8d9e5;
+  --primary-light-inverse: #2959b0;
+
+  /* secondary colors - refined purple */
+  --secondary: #8344c9;
+  --secondary-hover: #6d28d9;
+  --secondary-light: #f0ebf8;
+  --secondary-text: #ffffff;
+
+  /* tertiary colors */
+  --tertiary: #e8365d;
+  --tertiary-hover: #d4154d;
+  --tertiary-text: #ffffff;
+
+  /* accent colors - richer green */
+  --accent: #4d7c2f;
+  --accent-hover: #3d6325;
+
+  /* semantic */
+  --success: #4d7c2f;
+  --success-light: #e8f5e2;
+  --warning: #9d6e2a;
+  --warning-light: #fef3e2;
+  --error: #e8365d;
+  --error-hover: #c64164;
+  --error-light: #fee8ed;
+  --info: #2959b0;
+  --info-light: #e3effc;
+
+  /* borders - better contrast */
+  --border: #c1c6dd;
+  --border-hover: #a4aac5;
+  --border-focus: #2959b0;
+
+  /* interactive states */
+  --shadow-sm: 0 1px 2px 0 rgba(33, 40, 79, 0.06);
+  --shadow: 0 1px 3px 0 rgba(33, 40, 79, 0.12), 0 1px 2px 0 rgba(33, 40, 79, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(33, 40, 79, 0.12), 0 2px 4px -1px rgba(33, 40, 79, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(33, 40, 79, 0.12), 0 4px 6px -2px rgba(33, 40, 79, 0.06);
+  --card-shadow: rgba(33, 40, 79, 0.1);
+  --hover-overlay: rgba(41, 89, 176, 0.06);
+  --active-overlay: rgba(41, 89, 176, 0.12);
+  --disabled-opacity: 0.5;
+  --text-input-bg: #ffffff;
+  --text-input-shadow: #2959b0;
+  --text-input-text: #33406f;
+}
+
+/* Dark theme - Tokyo Night Moon */
+body[data-palette="tokyo-night"][data-theme="dark"] {
+  /* background colors */
+  --bg: #222436;
+  --bg-secondary: #1e2030;
+  --bg-tertiary: #2d3149;
+  --bg-elevated: #363a52;
+  --text: #c8d3f5;
+  --text-secondary: #b4c2f0;
+  --text-muted: #737aa2;
+  --text-inverse: #222436;
+
+  /* primary colors */
+  --primary: #65bcff;
+  --primary-hover: #b444ff;
+  --primary-light: #2d3149;
+  --primary-text: #003366;
+
+  /* secondary colors */
+  --secondary: #b444ff;
+  --secondary-hover: #ff007c;
+  --secondary-light: #2d3149;
+  --secondary-text: #222436;
+
+  /* tertiary colors */
+  --tertiary: #ff007c;
+  --tertiary-hover: #ff3396;
+  --tertiary-text: #ffd1e6;
+
+  /* accent colors */
+  --accent: #41a6b5;
+  --accent-hover: #7dcfff;
+
+  /* semantic */
+  --success: #73daca;
+  --success-light: #2d3149;
+  --warning: #ff9e64;
+  --warning-light: #2d3149;
+  --error: #ff007c;
+  --error-hover: #f7768e;
+  --error-light: #2d3149;
+  --info: #65bcff;
+  --info-light: #2d3149;
+
+  /* borders */
+  --border: #3b4261;
+  --border-hover: #444a73;
+  --border-focus: #65bcff;
+
+  /* interactive states */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --hover-overlay: rgba(200, 211, 245, 0.08);
+  --active-overlay: rgba(200, 211, 245, 0.15);
+  --disabled-opacity: 0.4;
+  --text-input-bg: #1e2030;
+  --text-input-shadow: #b444ff;
+  --text-input-text: #c8d3f5;
+}

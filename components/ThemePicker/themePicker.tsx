@@ -7,6 +7,8 @@ import everforest from "@styles/themes/everforest.module.scss";
 import nord from "@styles/themes/nord.module.scss";
 import rosePine from "@styles/themes/rose-pine.module.scss";
 import zenburn from "@styles/themes/zenburn.module.scss";
+import gruvbox from "@styles/themes/gruvbox.module.scss";
+import tokyoNight from "@styles/themes/tokyo-night.module.scss";
 import styles from "./themePicker.module.scss";
 
 type ThemePickerProps = {
@@ -19,7 +21,9 @@ const THEME_MAP = {
   everforest: { id: "everforest", name: "Everforest", colors: everforest },
   nord: { id: "nord", name: "Nord", colors: nord },
   rosePine: { id: "rose-pine", name: "Rose Pine", colors: rosePine },
-  zenburn: { id: "zenburn", name: "Zenburn", colors: zenburn }
+  zenburn: { id: "zenburn", name: "Zenburn", colors: zenburn },
+  gruvbox: { id: "gruvbox", name: "Gruvbox", colors: gruvbox },
+  tokyoNight: { id: "tokyo-night", name: "Tokyo Night", colors: tokyoNight },
 }
 
 export default function ThemePicker({

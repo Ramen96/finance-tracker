@@ -1,0 +1,134 @@
+/* Light theme - Gruvbox "Rainbow-Depth" */
+body[data-palette="gruvbox"][data-theme="light"] {
+  /* background colors */
+  --bg: #f9f5d7;
+  --bg-secondary: #f2e5bc;
+  --bg-tertiary: #ebdbb2;
+  --bg-elevated: #fbf1c7;
+
+  --text: #282828;
+  --text-secondary: #8b8e23;
+  --text-muted: #928374;
+  --text-inverse: #fbf1c7;
+
+  /* primary colors */
+  --primary: #458588;
+  --primary-hover: #d17b0f;
+  --primary-text: #fbf1c7;
+
+  --primary-light: #83a598;
+  --primary-light-inverse: #076678;
+
+  /* secondary colors */
+  --secondary: #9d0006;
+  --secondary-hover: #af3a03;
+  --secondary-light: #f2e5bc;
+  --secondary-text: #f9f5d7;
+
+  /* tertiary colors */
+  --tertiary: #d17b0f;
+  --tertiary-hover: #af3a03;
+  --tertiary-text: #fbf1c7;
+
+  /* accent colors */
+  --accent: #8b8e23;
+  --accent-hover: #a9b665;
+
+  /* semantic */
+  --success: #79740e;
+  --success-light: #f2e5bc;
+  --warning: #b57614;
+  --warning-light: #f2e5bc;
+  --error: #9d0006;
+  --error-hover: #af3a03;
+  --error-light: #f2e5bc;
+  --info: #076678;
+  --info-light: #f2e5bc;
+
+  /* borders */
+  --border: #d5c4a1;
+  --border-hover: #bdae93;
+  --border-focus: #076678;
+
+  /* interactive states */
+  --shadow-sm: 0 1px 2px 0 rgba(40, 40, 40, 0.05);
+  --shadow: 0 1px 3px 0 rgba(40, 40, 40, 0.1), 0 1px 2px 0 rgba(40, 40, 40, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(40, 40, 40, 0.1), 0 2px 4px -1px rgba(40, 40, 40, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(40, 40, 40, 0.1), 0 4px 6px -2px rgba(40, 40, 40, 0.05);
+  --card-shadow: rgba(40, 40, 40, 0.08);
+
+  --hover-overlay: rgba(40, 40, 40, 0.04);
+  --active-overlay: rgba(40, 40, 40, 0.08);
+  --disabled-opacity: 0.5;
+
+  --text-input-bg: #fbf1c7;
+  --text-input-shadow: #b57614;
+  --text-input-text: #282828;
+}
+
+/* Dark theme - Gruvbox */
+body[data-palette="gruvbox"][data-theme="dark"] {
+  /* background colors */
+  --bg: #1d2021;
+  --bg-secondary: #212423;
+  --bg-tertiary: #323630;
+  --bg-elevated: #2a2d2a;
+
+  --text: #fbf1c7;
+  --text-secondary: #b8bb26;
+  --text-muted: #a89984;
+  --text-inverse: #1d2021;
+
+  /* primary colors */
+  --primary: #076678;
+  --primary-hover: #fe8019;
+  --primary-light: #32302f;
+  --primary-text: #fbf1c7;
+
+  /* secondary colors */
+  --secondary: #fb4934;
+  --secondary-hover: #fe8019;
+  --secondary-light: #3c3836;
+  --secondary-text: #1d2021;
+
+  /* tertiary colors */
+  --tertiary: #fe8019;
+  --tertiary-hover: #d65d0e;
+  --tertiary-text: #fbf1c7;
+
+  /* accent colors */
+  --accent: #b8bb26;
+  --accent-hover: #8ec07c;
+
+  /* semantic */
+  --success: #b8bb26;
+  --success-light: #32302f;
+  --warning: #fabd2f;
+  --warning-light: #32302f;
+  --error: #fb4934;
+  --error-hover: #cc241d;
+  --error-light: #32302f;
+  --info: #83a598;
+  --info-light: #32302f;
+
+  /* borders */
+  --border: #504945;
+  --border-hover: #665c54;
+  /* Added */
+  --border-focus: #8ec07c;
+
+  /* interactive states */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  --card-shadow: rgba(0, 0, 0, 0.3);
+
+  --hover-overlay: rgba(251, 241, 199, 0.06);
+  --active-overlay: rgba(251, 241, 199, 0.12);
+  --disabled-opacity: 0.4;
+
+  --text-input-bg: #282828;
+  --text-input-shadow: #fe8019;
+  --text-input-text: #fbf1c7;
+}

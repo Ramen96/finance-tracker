@@ -3,3 +3,10 @@
 @import "themes/nord.module.scss";
 @import "themes/rose-pine.module.scss";
 @import "themes/zenburn.module.scss";
+
+:root {
+  /* shared constants */
+  --radius: 8px;
+  --spacing: 1rem;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
