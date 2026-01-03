@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import ThemePicker from "components/ThemePicker/themePicker";
 import { PanelLeftOpen, PanelLeftClose, ScanBarcode, CreditCard, LayoutDashboard, BanknoteArrowUp, BanknoteArrowDown, ChartCandlestick, ReceiptText, ShieldCheck, UserRoundPen, Settings, Palette } from "lucide-react";
 import styles from "./Sidebar.module.scss";
 
@@ -22,6 +23,7 @@ function ExpandBtn({ sideBarState, handleClick }: ExpandBtnPropType) {
 export default function SideBar() {
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isThemePickerOpen, setIsThemePickerOpen] = useState<boolean>(false);
 
   const toggleExpanded = () => setIsExpanded(!isExpanded);
 
@@ -84,7 +86,7 @@ export default function SideBar() {
       id: 8,
       name: "Theme",
       icon: <Palette />,
-      onClick: () => console.log("nothing for now")
+      onClick: () => setIsThemePickerOpen(true)
     },
     {
       id: 9,
@@ -113,6 +115,10 @@ export default function SideBar() {
         }`}
     >
       <ExpandBtn sideBarState={isExpanded} handleClick={toggleExpanded} />
+      <ThemePicker
+        isThemePickerOpen={isThemePickerOpen}
+        setIsThemePickerOpen={() => setIsThemePickerOpen(false)}
+      />
       <div className={styles.btnsContainer}>
         <div className={styles.btnsContainer}>
           {navigationGroups.map((group, index) => (
