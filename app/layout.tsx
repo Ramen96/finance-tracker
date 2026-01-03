@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Orbitron, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/context/useTheme";
+import { PaletteProvider } from "@/context/usePalette";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import "./globals.scss";
 
@@ -13,7 +14,6 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-main",
   subsets: ["latin"]
 });
-
 
 export const metadata: Metadata = {
   title: "Finance Tracker",
@@ -30,8 +30,10 @@ export default function RootLayout({
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <body className="antialiased transition">
         <ThemeProvider>
-          <ThemeToggle />
-          {children}
+          <PaletteProvider>
+            <ThemeToggle />
+            {children}
+          </PaletteProvider>
         </ThemeProvider>
       </body>
     </html>
