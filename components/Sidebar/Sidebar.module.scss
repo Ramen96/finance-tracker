@@ -1,35 +1,279 @@
 @use "@styles/mixins";
+@use "@styles/mixins/typography" as typography;
 
+// ========================================
+// Hamburger Menu Button
+// ========================================
+.hamburger {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  @include mixins.flex-center;
+  @include mixins.radius;
+  @include mixins.shadow-lg;
+  padding: 0.75rem;
+  background: var(--primary);
+  color: var(--primary-text);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  // Hide on desktop
+  @include typography.respond("laptop") {
+    display: none;
+  }
+}
+
+// ========================================
+// Overlay
+// ========================================
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  // Hide on desktop
+  @include typography.respond("laptop") {
+    display: none;
+  }
+}
+
+// ========================================
+// Sidebar Container
+// ========================================
 .sideBarContainer {
   @include mixins.h-full;
   @include mixins.shadow-lg;
   background: var(--bg-elevated);
   display: flex;
-  justify-content: start;
   flex-direction: column;
   padding: 0.25rem;
+  transition: all 0.3s ease;
+  position: relative;
+
+  // Mobile/Tablet: Slide-in menu
+  @include typography.respond-down("laptop") {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    max-width: 85vw;
+    z-index: 1000;
+    transform: translateX(-100%);
+    padding: 1rem 0.5rem;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  // Desktop: Collapsible sidebar
+  @include typography.respond("laptop") {
+    position: relative;
+    transform: none;
+
+    &.collapsed {
+      width: 5rem;
+    }
+
+    &.expanded {
+      width: 20rem;
+    }
+  }
+
+  @include typography.respond("laptop-l") {
+    &.expanded {
+      width: 25rem;
+    }
+  }
 }
 
-.wExpanded {
-  width: 25rem;
+// ========================================
+// Toggle Button (Desktop only)
+// ========================================
+.toggleBtn {
+  @include mixins.btnPrimary;
+  @include mixins.flex-center;
+  width: calc(100% - 0.5rem);
+  margin: 0.25rem;
+  padding: 0.625rem;
+  position: relative;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  // Hide on mobile
+  @include typography.respond-down("laptop") {
+    display: none;
+  }
 }
 
-.wContracted {
-  width: 5rem;
+// ========================================
+// Navigation Container
+// ========================================
+.btnsContainer {
+  @include mixins.h-full;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
+// ========================================
+// Menu Sections
+// ========================================
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 0;
+
+  @include typography.respond("laptop") {
+    gap: 4px;
+    padding: 12px 0;
+  }
+}
+
+.sectionLabel {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  color: var(--text);
+  margin: 6px 0 4px 8px;
+  opacity: 0.8;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--text-muted);
+
+  @include typography.respond("tablet") {
+    font-size: 0.75rem;
+    margin: 8px 0 4px 10px;
+  }
+
+  @include typography.respond("laptop") {
+    font-size: 0.8rem;
+    margin: 8px 0 4px 12px;
+  }
+}
+
+// ========================================
+// Navigation Buttons
+// ========================================
 .sideBarBtn {
-  @include mixins.btnTertiary;
-  @include mixins.shadow-md;
-  padding: 0.7rem;
-  width: calc(100% - 0.75rem);
+  @include mixins.radius;
+  @include mixins.transition;
   display: flex;
   align-items: center;
   justify-content: center;
-}
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-main);
+  position: relative;
 
-.btn {
-  @include mixins.btnPrimary;
+  svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  // Mobile/Tablet: Modern style (always expanded)
+  @include typography.respond-down("laptop") {
+    gap: 1rem;
+    background: transparent;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: left;
+    justify-content: flex-start;
+
+    svg {
+      color: var(--text-secondary);
+      transition: color 0.3s ease;
+    }
+
+    &:hover {
+      background: var(--bg-secondary);
+      color: var(--primary);
+      @include mixins.shadow-sm;
+
+      svg {
+        color: var(--primary);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  // Desktop Collapsed: Original btnTertiary style
+  @include typography.respond("laptop") {
+    .collapsed & {
+      @include mixins.btnTertiary;
+      @include mixins.shadow-md;
+      width: calc(100% - 0.75rem);
+      padding: 0.7rem;
+      justify-content: center;
+    }
+
+    // Desktop Expanded: Modern style
+    .expanded & {
+      gap: 1rem;
+      background: transparent;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: left;
+      justify-content: flex-start;
+
+      svg {
+        color: var(--text-secondary);
+        transition: color 0.3s ease;
+      }
+
+      &:hover {
+        background: var(--bg-secondary);
+        color: var(--primary);
+        @include mixins.shadow-sm;
+
+        svg {
+          color: var(--primary);
+        }
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
 }
 
 .sidebarBtnTxt {
@@ -40,44 +284,17 @@
   padding: 0;
   display: flex;
   align-items: center;
-  font-size: 1.1rem;
+  font-size: 1rem;
   padding-left: 0.5rem;
-}
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-.menu {
-  margin-top: 0.75rem;
+  @include typography.respond("laptop") {
+    font-size: 1.1rem;
+  }
 }
 
 .marginRight {
   margin-right: 1rem;
-}
-
-.btnsContainer {
-  @include mixins.h-full;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 12px 0;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.sectionLabel {
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05rem;
-  color: var(--text);
-  margin: 8px 0 4px 12px;
-  opacity: 0.8;
-  pointer-events: none;
-  border-bottom: 1px solid var(--text-muted);
 }

@@ -1,31 +1,55 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ThemePicker from "components/ThemePicker/themePicker";
-import { PanelLeftOpen, PanelLeftClose, ScanBarcode, CreditCard, LayoutDashboard, BanknoteArrowUp, BanknoteArrowDown, ChartCandlestick, ReceiptText, ShieldCheck, UserRoundPen, Settings, Palette } from "lucide-react";
+import {
+  Menu,
+  X,
+  PanelLeftOpen,
+  PanelLeftClose,
+  ScanBarcode,
+  CreditCard,
+  LayoutDashboard,
+  BanknoteArrowUp,
+  BanknoteArrowDown,
+  ChartCandlestick,
+  ReceiptText,
+  ShieldCheck,
+  UserRoundPen,
+  Settings,
+  Palette
+} from "lucide-react";
 import styles from "./Sidebar.module.scss";
-
-type ExpandBtnPropType = {
-  sideBarState: boolean;
-  handleClick: () => void;
-}
-
-function ExpandBtn({ sideBarState, handleClick }: ExpandBtnPropType) {
-  return (
-    <span id="btn-container">
-      <button onClick={handleClick} className={styles.btn} data-tooltip={sideBarState ? "Collapse Sidebar" : "Expand Sidebar"}>
-        {sideBarState ? <PanelLeftClose /> : <PanelLeftOpen />}
-      </button>
-    </span>
-  )
-}
 
 export default function SideBar() {
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isThemePickerOpen, setIsThemePickerOpen] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+      if (window.innerWidth >= 1024) {
+        setIsOpen(false);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
   const toggleExpanded = () => setIsExpanded(!isExpanded);
+
+  const handleNavClick = (onClick: () => void) => {
+    onClick();
+    if (isMobile) {
+      setIsOpen(false);
+    }
+  };
 
   const topButtons = [
     {
@@ -102,7 +126,6 @@ export default function SideBar() {
     },
   ];
 
-
   const navigationGroups = [
     { label: "Workspace", items: topButtons },
     { label: "Ledger", items: middleButtons },
@@ -110,36 +133,69 @@ export default function SideBar() {
   ];
 
   return (
-    <section
-      className={`${styles.sideBarContainer} ${isExpanded ? styles.wExpanded : styles.wContracted
-        }`}
-    >
-      <ExpandBtn sideBarState={isExpanded} handleClick={toggleExpanded} />
-      <ThemePicker
-        isThemePickerOpen={isThemePickerOpen}
-        setIsThemePickerOpen={() => setIsThemePickerOpen(false)}
-      />
-      <div className={styles.btnsContainer}>
-        <div className={styles.btnsContainer}>
+    <>
+      {/* Hamburger Button - Only visible on mobile/tablet */}
+      {isMobile && (
+        <button
+          className={styles.hamburger}
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      )}
+
+      {/* Overlay */}
+      {isMobile && isOpen && (
+        <div
+          className={styles.overlay}
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`${styles.sideBarContainer} ${isOpen ? styles.open : ''} ${isExpanded ? styles.expanded : styles.collapsed}`}
+      >
+        <ThemePicker
+          isThemePickerOpen={isThemePickerOpen}
+          setIsThemePickerOpen={() => setIsThemePickerOpen(false)}
+        />
+
+        {/* Toggle Button - Only visible on desktop */}
+        {!isMobile && (
+          <button
+            className={styles.toggleBtn}
+            onClick={toggleExpanded}
+            data-tooltip={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
+          >
+            {isExpanded ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
+          </button>
+        )}
+
+        <nav className={styles.btnsContainer}>
           {navigationGroups.map((group, index) => (
             <section key={index} className={styles.menu}>
-              {isExpanded && <h3 className={styles.sectionLabel}>{group.label}</h3>}
+              {(isMobile || isExpanded) && (
+                <h3 className={styles.sectionLabel}>{group.label}</h3>
+              )}
               {group.items.map((btn) => (
-                <span key={btn.id}>
-                  <button
-                    data-tooltip={!isExpanded ? btn.name : undefined}
-                    className={styles.sideBarBtn}
-                    onClick={btn.onClick}
-                  >
-                    {btn.icon}
-                    {isExpanded && <p className={styles.sidebarBtnTxt}>{btn.name}</p>}
-                  </button>
-                </span>
+                <button
+                  key={btn.id}
+                  className={styles.sideBarBtn}
+                  onClick={() => handleNavClick(btn.onClick)}
+                  data-tooltip={!isMobile && !isExpanded ? btn.name : undefined}
+                >
+                  {btn.icon}
+                  {(isMobile || isExpanded) && (
+                    <span className={styles.sidebarBtnTxt}>{btn.name}</span>
+                  )}
+                </button>
               ))}
             </section>
           ))}
-        </div>
-      </div>
-    </section>
+        </nav>
+      </aside>
+    </>
   );
 }
