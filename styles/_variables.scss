@@ -29,3 +29,14 @@ $input-height: 30px;
 $checkbox-size: 10rem;
 $icon-size: 3px;
 $eye-btn-distance: 1rem;
+
+// Breakpoints
+$breakpoints: (
+  mobile-s: 320px,
+  mobile-m: 375px,
+  mobile-l: 425px,
+  tablet: 768px,
+  laptop: 1024px,
+  laptop-l: 1440px,
+  4k: 2560px
+);
