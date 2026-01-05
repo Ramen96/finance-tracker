@@ -8,14 +8,24 @@
 @forward "mixins/typography";
 
 @mixin table-header-liabilities {
-  @include ui.table-header(1.2fr 1fr 0.8fr 0.6fr 0.9fr, vars.$spacing-xs);
+  @include ui.table-header(1fr 1fr 0.8fr 0.6fr 0.9fr, vars.$spacing-xs);
   @include layout.p(vars.$spacing-sm vars.$spacing-md);
+
+  // Stack on mobile
+  @include typography.respond-down("tablet") {
+    @include ui.table-header(1fr, vars.$spacing-xs);
+  }
 }
 
 @mixin table-row-liabilities {
-  @include ui.table-row(1.2fr 1fr 0.8fr 0.6fr 0.9fr, vars.$spacing-xs);
+  @include ui.table-row(1fr 1fr 0.8fr 0.6fr 0.9fr, vars.$spacing-xs);
   @include layout.p(vars.$spacing-sm vars.$spacing-md);
   align-items: center;
+
+  // Stack on mobile
+  @include typography.respond-down("tablet") {
+    @include ui.table-row(1fr, vars.$spacing-xs);
+  }
 }
 
 // ========================================
@@ -29,10 +39,19 @@
   border-bottom: $border-width solid var(--tertiary);
 
   h2 {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--text);
     margin: 0;
+
+    @include typography.respond("tablet") {
+      font-size: 1.25rem;
+    }
+  }
+
+  @include typography.respond-down("mobile-l") {
+    gap: vars.$spacing-sm;
+    padding-bottom: vars.$spacing-sm;
   }
 }
 
@@ -40,7 +59,11 @@
   @include layout.flex-center;
   color: var(--primary);
   flex-shrink: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+
+  @include typography.respond("tablet") {
+    font-size: 1.5rem;
+  }
 }
 
 // ========================================
@@ -51,23 +74,40 @@
   @include layout.flex(null, null, column);
   @include layout.w-full;
   text-align: left;
-  gap: vars.$spacing-md;
-  margin-bottom: vars.$spacing-lg;
+  gap: vars.$spacing-sm;
+  margin-bottom: vars.$spacing-md;
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
     font-weight: 800;
     color: var(--text);
     margin: 0;
     letter-spacing: -0.02em;
+
+    @include typography.respond("mobile-l") {
+      font-size: 2rem;
+    }
+
+    @include typography.respond("tablet") {
+      font-size: 2.5rem;
+    }
   }
 
   p {
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
     font-family: var(--font-main);
     margin: 0;
     font-weight: 500;
+
+    @include typography.respond("tablet") {
+      font-size: 1.05rem;
+    }
+  }
+
+  @include typography.respond("tablet") {
+    gap: vars.$spacing-md;
+    margin-bottom: vars.$spacing-lg;
   }
 }
 
@@ -77,11 +117,11 @@
 
 @mixin category-card {
   @include ui.card;
-  @include layout.p(vars.$spacing-lg);
-  flex: 1 1 500px;
-  gap: vars.$spacing-md;
-  width: fit-content;
-  min-width: 500px;
+  @include layout.p(vars.$spacing-md);
+  flex: 1 1 100%;
+  gap: vars.$spacing-sm;
+  width: 100%;
+  min-width: auto;
   max-width: none;
   margin: 0;
   border-left: 4px solid var(--secondary);
@@ -91,9 +131,19 @@
     transform: translateY(-4px);
   }
 
-  @media (max-width: 768px) {
-    @include layout.w-full;
-    max-width: none;
+  @include typography.respond("mobile-l") {
+    @include layout.p(vars.$spacing-lg);
+    gap: vars.$spacing-md;
+  }
+
+  @include typography.respond("tablet") {
+    flex: 1 1 calc(50% - vars.$spacing-lg);
+    min-width: 300px;
+  }
+
+  @include typography.respond("laptop") {
+    flex: 1 1 500px;
+    min-width: 500px;
   }
 }
 
@@ -102,8 +152,8 @@
 // ========================================
 
 @mixin category-total {
-  @include layout.grid-two-col(1fr, 0.8fr, vars.$spacing-lg);
-  @include layout.p(vars.$spacing-lg);
+  @include layout.grid-two-col(1fr, 1fr, vars.$spacing-md);
+  @include layout.p(vars.$spacing-md);
   @include layout.radius;
   font-family: var(--font-display);
   background: linear-gradient(135deg, var(--primary), var(--primary-hover));
@@ -114,42 +164,73 @@
   .totalLabel {
     @include typography.text-left;
     opacity: 0.95;
+    font-size: 0.9rem;
   }
 
   .totalAmount {
     @include typography.text-right;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+  }
+
+  @include typography.respond("tablet") {
+    @include layout.grid-two-col(1fr, 0.8fr, vars.$spacing-lg);
+    @include layout.p(vars.$spacing-lg);
+
+    .totalLabel {
+      font-size: 1rem;
+    }
+
+    .totalAmount {
+      font-size: 1.25rem;
+    }
   }
 }
 
 @mixin grand-total {
   @include layout.flex-center;
-  @include layout.p(vars.$spacing-lg vars.$spacing-md);
+  @include layout.p(vars.$spacing-md);
   @include layout.radius;
   @include layout.w-full;
   @include ui.border(2px, var(--secondary));
   background: linear-gradient(135deg, var(--secondary-light), var(--bg-secondary));
-  margin-top: vars.$spacing-lg;
+  margin-top: vars.$spacing-md;
   box-sizing: border-box;
+
+  @include typography.respond("tablet") {
+    @include layout.p(vars.$spacing-lg vars.$spacing-md);
+    margin-top: vars.$spacing-lg;
+  }
 }
 
 @mixin grand-total-content {
   @include layout.flex(center, center, column);
-  gap: vars.$spacing-md;
+  gap: vars.$spacing-sm;
 
   h2 {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--text);
     margin: 0;
   }
+
+  @include typography.respond("tablet") {
+    gap: vars.$spacing-md;
+
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
 }
 
 @mixin grand-total-amount($color: var(--primary)) {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: 800;
   color: $color;
   letter-spacing: 0.05rem;
+
+  @include typography.respond("tablet") {
+    font-size: 2.5rem;
+  }
 }
 
 // ========================================
@@ -162,20 +243,29 @@
   font-family: var(--font-display), sans-serif;
   flex-direction: column;
   align-items: flex-start;
-  padding: vars.$spacing-xl;
-  gap: vars.$spacing-2xl;
+  padding: vars.$spacing-md;
+  gap: vars.$spacing-lg;
   overflow-y: auto;
   overflow-x: hidden;
   max-width: $max-width;
   margin: 0 auto;
+
+  @include typography.respond("tablet") {
+    padding: vars.$spacing-xl;
+    gap: vars.$spacing-2xl;
+  }
 }
 
-@mixin responsive-grid($gap: vars.$spacing-lg) {
+@mixin responsive-grid($gap: vars.$spacing-md) {
   @include layout.w-full;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: $gap;
+
+  @include typography.respond("tablet") {
+    gap: vars.$spacing-lg;
+  }
 }
 
 // ========================================
@@ -187,6 +277,7 @@
   @include layout.flex(null, null, column);
   gap: vars.$spacing-sm;
   font-family: var(--font-main), sans-serif;
+  overflow-x: auto;
 }
 
 @mixin table-body {
@@ -204,11 +295,17 @@
   @include layout.radius-sm;
   @include ui.transition;
   @include layout.pointer;
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.6rem;
   background: $bg;
   color: $color;
   border: none;
   font-weight: 600;
+  font-size: 0.85rem;
+
+  @include typography.respond("tablet") {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+  }
 
   &:hover {
     background: $hover-bg;
@@ -244,34 +341,58 @@
 
 @mixin column-name {
   @include column-text(left, var(--text), 600);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
+
+  @include typography.respond("tablet") {
+    font-size: 0.95rem;
+  }
 }
 
 @mixin column-value {
-  @include column-text(right, var(--text), 700, 1.05rem);
+  @include column-text(right, var(--text), 700, 0.95rem);
+
+  @include typography.respond("tablet") {
+    font-size: 1.05rem;
+  }
 }
 
 @mixin column-success {
   @include column-text(right, var(--primary), 700);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
+
+  @include typography.respond("tablet") {
+    font-size: 1.05rem;
+  }
 }
 
 @mixin column-error {
-  @include column-text(right, var(--error, #ef4444), 700, 1.05rem);
+  @include column-text(right, var(--error, #ef4444), 700, 0.95rem);
+
+  @include typography.respond("tablet") {
+    font-size: 1.05rem;
+  }
 }
 
 @mixin column-secondary {
-  @include column-text(right, var(--text-secondary), 500, 0.95rem);
+  @include column-text(right, var(--text-secondary), 500, 0.85rem);
+
+  @include typography.respond("tablet") {
+    font-size: 0.95rem;
+  }
 }
 
 // ========================================
 // Amount Display Styling
 // ========================================
 
-@mixin amount-display-value($font-size: 1.5rem) {
+@mixin amount-display-value($font-size: 1.25rem) {
   font-family: var(--font-display), sans-serif;
   font-size: $font-size;
   font-weight: 800;
   color: var(--text);
   letter-spacing: -0.01em;
+
+  @include typography.respond("tablet") {
+    font-size: 1.5rem;
+  }
 }
