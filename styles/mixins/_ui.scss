@@ -1,5 +1,6 @@
 @use "@/styles/variables" as vars;
 @use "layout" as layout;
+@use "typography" as typography;
 
 // ========================================
 // Transitions & Effects
@@ -202,13 +203,15 @@
 @mixin textInputPrimary {
   @include layout.radius;
   @include layout.no-outline;
-  @include layout.m(vars.$spacing-lg);
-  @include layout.size(vars.$input-width, vars.$input-height);
+  @include layout.m(vars.$spacing-sm);
+  width: 100%;
+  max-width: vars.$input-width;
+  height: vars.$input-height;
   @include border-subtle;
   padding: 0.75rem 1rem;
   color: var(--text-input-text);
   font-family: var(--font-main);
-  font-size: vars.$font-size-large;
+  font-size: 1rem;
   background: var(--text-input-bg);
   caret-shape: block;
   @include transition;
@@ -220,6 +223,11 @@
   &:focus {
     border-color: var(--primary);
     @include shadow-sm;
+  }
+
+  @include typography.respond("tablet") {
+    @include layout.m(vars.$spacing-lg);
+    font-size: vars.$font-size-large;
   }
 }
 
@@ -341,12 +349,17 @@
   @include transition;
   background: var(--bg-tertiary);
   align-items: center;
+  font-size: 0.9rem;
 
   &:hover {
     background: var(--bg-elevated);
     border-color: var(--tertiary);
     @include shadow-md;
     transform: translateY(-1px);
+  }
+
+  @include typography.respond("tablet") {
+    font-size: 1rem;
   }
 }
 
