@@ -142,7 +142,6 @@
   @include mixins.h-full;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 // ========================================
@@ -153,6 +152,10 @@
   flex-direction: column;
   gap: 4px;
   padding: 12px 0;
+
+  &:last-child {
+    margin-top: auto;
+  }
 
   @include typography.respond("laptop") {
     gap: 4px;
