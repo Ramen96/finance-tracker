@@ -71,9 +71,7 @@
   border: 1px solid var(--border);
 
 
-  @include mixins.respond-down("laptop") {
-    padding: 1rem;
-  }
+
 }
 
 .headerContent {
@@ -118,6 +116,11 @@
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+
+  @include mixins.respond-down("laptop") {
+    top: 1rem;
+    right: 0.5rem;
+  }
 
   &:hover {
     background: var(--hover-overlay);
