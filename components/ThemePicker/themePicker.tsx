@@ -2,13 +2,6 @@
 import { X } from "lucide-react";
 import type { Palette } from "@/context/usePalette";
 import { usePalette } from "@/context/usePalette";
-import catppuccin from "@styles/themes/catppuccin.module.scss";
-import everforest from "@styles/themes/everforest.module.scss";
-import nord from "@styles/themes/nord.module.scss";
-import rosePine from "@styles/themes/rose-pine.module.scss";
-import zenburn from "@styles/themes/zenburn.module.scss";
-import gruvbox from "@styles/themes/gruvbox.module.scss";
-import tokyoNight from "@styles/themes/tokyo-night.module.scss";
 import styles from "./themePicker.module.scss";
 
 type ThemePickerProps = {
@@ -17,13 +10,13 @@ type ThemePickerProps = {
 }
 
 const THEME_MAP = {
-  catppuccin: { id: "catppuccin", name: "Catppuccin", colors: catppuccin },
-  everforest: { id: "everforest", name: "Everforest", colors: everforest },
-  nord: { id: "nord", name: "Nord", colors: nord },
-  rosePine: { id: "rose-pine", name: "Rose Pine", colors: rosePine },
-  zenburn: { id: "zenburn", name: "Zenburn", colors: zenburn },
-  gruvbox: { id: "gruvbox", name: "Gruvbox", colors: gruvbox },
-  tokyoNight: { id: "tokyo-night", name: "Tokyo Night", colors: tokyoNight },
+  catppuccin: { id: "catppuccin", name: "Catppuccin" },
+  everforest: { id: "everforest", name: "Everforest" },
+  nord: { id: "nord", name: "Nord" },
+  rosePine: { id: "rose-pine", name: "Rosé Pine" },
+  zenburn: { id: "zenburn", name: "Zenburn" },
+  gruvbox: { id: "gruvbox", name: "Gruvbox" },
+  tokyoNight: { id: "tokyo-night", name: "Tokyo Night" },
 }
 
 export default function ThemePicker({
@@ -37,23 +30,28 @@ export default function ThemePicker({
 
   return (
     <div className={styles.overlay} onClick={handleClose}>
-      <div className={styles.popover} onClick={(e) => e.stopPropagation()}>
+      <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <h3>select theme</h3>
-          <button className={styles.closeBtn} onClick={handleClose}>
-            <X size={18} />
+          <div className={styles.headerContent}>
+            <h2 className={styles.title}>Theme Selection</h2>
+            <p className={styles.subtitle}>Choose your color palette</p>
+          </div>
+          <button className={styles.closeBtn} onClick={handleClose} aria-label="Close">
+            <X size={20} />
           </button>
         </div>
-        <div className={styles.themesGrid}>
+
+        <div className={styles.content}>
           {Object.entries(THEME_MAP).map(([themeKey, theme]) => (
             <button
               key={themeKey}
-              className={`${styles.themeCard} ${palette === theme.id ? styles.active : ''}`}
-              onClick={() => {
-                setPalette(theme.id as Palette);
-              }}
+              className={`${styles.themeOption} ${palette === theme.id ? styles.active : ''}`}
+              onClick={() => setPalette(theme.id as Palette)}
             >
               <span className={styles.themeName}>{theme.name}</span>
+              {palette === theme.id && (
+                <span className={styles.checkmark}>✓</span>
+              )}
             </button>
           ))}
         </div>
