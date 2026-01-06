@@ -1,3 +1,11 @@
+@use "themes/catppuccin.module.scss";
+@use "themes/everforest.module.scss";
+@use "themes/gruvbox.module.scss";
+@use "themes/nord.module.scss";
+@use "themes/rose-pine.module.scss";
+@use "themes/tokyo-night.module.scss";
+@use "themes/zenburn.module.scss";
+
 :root {
   /* shared constants */
   --radius: 8px;
