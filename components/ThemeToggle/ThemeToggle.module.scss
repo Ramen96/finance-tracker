@@ -1,9 +1,10 @@
 @use "@styles/mixins";
+@use "@/styles/variables" as vars;
 
 .hideDefault {
   @include mixins.hidden;
 
-  &:checked + label {
+  &:checked+label {
     &:after {
       transform: scale(4.2);
     }
@@ -12,6 +13,21 @@
 
 .toggleLabel {
   @include mixins.btnPrimary;
-  margin: 0.5rem 1.5rem;
-  z-index: 100;
+  @include mixins.flex-center;
+  border-radius: vars.$radius-lg !important;
+  margin: 0.5rem 1.5rem 0px 0px;
+  padding: 0.625rem;
+  background: transparent;
+  color: var(--text);
+  border: 0px !important;
+  box-shadow: none;
+
+  &:hover {
+    background: var(--hover-overlay);
+    box-shadow: none;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
 }
