@@ -17,7 +17,7 @@
 }
 
 @mixin text-right {
-  @include text-align(right);
+  @iclude text-align(right);
 }
 
 // ========================================
@@ -41,7 +41,7 @@
 
 // Max-width (desktop-first)
 @mixin respond-down($breakpoint) {
-  $size: map-get(vars.$breakpoints, $breakpoint);
+  $size: map.get(vars.$breakpoints, $breakpoint);
 
   @if $size {
     @media (max-width: ($size - 1px)) {
@@ -56,8 +56,8 @@
 
 // Between two breakpoints
 @mixin respond-between($min-breakpoint, $max-breakpoint) {
-  $min: map-get(vars.$breakpoints, $min-breakpoint);
-  $max: map-get(vars.$breakpoints, $max-breakpoint);
+  $min: map.get(vars.$breakpoints, $min-breakpoint);
+  $max: map.get(vars.$breakpoints, $max-breakpoint);
 
   @if $min and $max {
     @media (min-width: $min) and (max-width: ($max - 1px)) {
