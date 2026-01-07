@@ -27,6 +27,7 @@ export default function SideBar() {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isThemePickerOpen, setIsThemePickerOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [exdFromThemePicker, setExdFromThemePicker] = useState<boolean>(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -50,6 +51,16 @@ export default function SideBar() {
       setIsOpen(false);
     }
   };
+
+  const handleThemePickerClick = () => {
+    if (isExpanded) {
+      setIsThemePickerOpen(true);
+    } else {
+      setIsExpanded(true);
+      setIsThemePickerOpen(true);
+      setExdFromThemePicker(true);
+    }
+  }
 
   const topButtons = [
     {
@@ -110,7 +121,7 @@ export default function SideBar() {
       id: 8,
       name: "Theme",
       icon: <Palette />,
-      onClick: () => setIsThemePickerOpen(true)
+      onClick: () => handleThemePickerClick()
     },
     {
       id: 9,
@@ -160,6 +171,9 @@ export default function SideBar() {
         <ThemePicker
           isThemePickerOpen={isThemePickerOpen}
           setIsThemePickerOpen={() => setIsThemePickerOpen(false)}
+          exdFromThemePicker={exdFromThemePicker}
+          setExdFromThemePicker={setExdFromThemePicker}
+          setIsExpanded={setIsExpanded}
         />
 
         {/* Toggle Button - Only visible on desktop */}

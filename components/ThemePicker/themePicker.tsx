@@ -7,6 +7,9 @@ import styles from "./themePicker.module.scss";
 type ThemePickerProps = {
   isThemePickerOpen: boolean;
   setIsThemePickerOpen: any;
+  exdFromThemePicker: boolean;
+  setExdFromThemePicker: any;
+  setIsExpanded: any;
 }
 
 const THEME_MAP = {
@@ -21,12 +24,23 @@ const THEME_MAP = {
 
 export default function ThemePicker({
   isThemePickerOpen,
-  setIsThemePickerOpen
+  setIsThemePickerOpen,
+  exdFromThemePicker,
+  setExdFromThemePicker,
+  setIsExpanded,
 }: ThemePickerProps) {
   if (!isThemePickerOpen) return null;
 
   const { palette, setPalette } = usePalette();
-  const handleClose = () => setIsThemePickerOpen(false);
+  const handleClose = () => {
+    if (exdFromThemePicker) {
+      setIsThemePickerOpen(false);
+      setIsExpanded(false);
+      setExdFromThemePicker(false);
+    } else {
+      setIsThemePickerOpen(false);
+    }
+  }
 
   return (
     <div className={styles.overlay} onClick={handleClose}>
