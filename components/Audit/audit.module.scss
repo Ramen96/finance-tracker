@@ -1,12 +1,16 @@
 @use "@styles/mixins";
+@use "@styles/mixins/layout" as layout;
 @use "@styles/variables" as vars;
 
 .auditContainer {
   @include mixins.page-container;
+  display: flex;
+  align-items: center;
 }
 
 .header {
-  text-align: center;
+  width: 100%;
+  text-align: left;
   margin-bottom: vars.$spacing-xl;
 
   h1 {
@@ -23,11 +27,12 @@
 }
 
 .auditCard {
+  @include mixins.radius;
+  @include mixins.shadow-sm;
+  width: calc(100% - vars.$spacing-2xl);
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  @include mixins.radius;
   padding: vars.$spacing-lg;
-  @include mixins.shadow-sm;
 }
 
 .incomeRow {
@@ -46,15 +51,16 @@
 
 .rowIcon {
   flex-shrink: 0;
-  
+  color: var(--primary-text);
+
   &.primary {
     color: var(--primary);
   }
-  
+
   &.success {
     color: var(--success);
   }
-  
+
   &.error {
     color: var(--error);
   }
@@ -80,10 +86,10 @@
   gap: vars.$spacing-md;
   padding: vars.$spacing-md 0;
   background: var(--primary);
-  margin: vars.$spacing-md calc(-1 * vars.$spacing-lg);
+  margin: vars.$spacing-md 0;
   padding-left: vars.$spacing-lg;
   padding-right: vars.$spacing-lg;
-  @include mixins.radius;
+  border-radius: vars.$radius-md;
 }
 
 .totalLabel {
@@ -118,10 +124,9 @@
   align-items: center;
   gap: vars.$spacing-md;
   padding: vars.$spacing-md;
-  background: var(--success);
-  margin: vars.$spacing-lg calc(-1 * vars.$spacing-lg) calc(-1 * vars.$spacing-lg);
-  @include mixins.radius;
-  border-radius: 0 0 12px 12px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-hover));
+  margin: vars.$spacing-lg 0 0 0;
+  border-radius: vars.$radius-md;
 }
 
 .finalLabel {
