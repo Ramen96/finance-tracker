@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ThemePicker from "components/ThemePicker/themePicker";
+import ThemeToggle from "components/ThemeToggle/ThemeToggle";
 import {
   Menu,
   X,
@@ -176,15 +177,20 @@ export default function SideBar() {
           setIsExpanded={setIsExpanded}
         />
 
-        {/* Toggle Button - Only visible on desktop */}
+        {/* Top Control Bar - Only visible on desktop */}
         {!isMobile && (
-          <button
-            className={styles.toggleBtn}
-            onClick={toggleExpanded}
-            data-tooltip={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
-          >
-            {isExpanded ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
-          </button>
+          <div className={styles.topControlBar}>
+            <button
+              className={styles.toggleBtn}
+              onClick={toggleExpanded}
+              data-tooltip={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
+            >
+              {isExpanded ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
+            </button>
+            {isExpanded && (
+              <ThemeToggle />
+            )}
+          </div>
         )}
 
         <nav className={styles.btnsContainer}>

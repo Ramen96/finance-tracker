@@ -115,23 +115,42 @@
 }
 
 // ========================================
+// Top Control Bar (Desktop only)
+// ========================================
+.topControlBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: calc(100% - 0.5rem);
+  margin: 0.25rem;
+  margin-bottom: 0.75rem;
+
+  // Hide on mobile
+  @include typography.respond-down("laptop") {
+    display: none;
+  }
+}
+
+// ========================================
 // Toggle Button (Desktop only)
 // ========================================
 .toggleBtn {
   @include mixins.btnPrimary;
   @include mixins.flex-center;
-  width: calc(100% - 0.5rem);
-  margin: 0.25rem;
   padding: 0.625rem;
   position: relative;
+  transition: all 0.3s ease;
 
   svg {
     flex-shrink: 0;
   }
 
-  // Hide on mobile
-  @include typography.respond-down("laptop") {
-    display: none;
+  .collapsed & {
+    width: 100%;
+  }
+
+  .expanded & {
+    flex: 1;
   }
 }
 

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Orbitron, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/context/useTheme";
 import { PaletteProvider } from "@/context/usePalette";
-import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
 import "./globals.scss";
 
 const orbitron = Orbitron({
@@ -31,7 +30,6 @@ export default function RootLayout({
       <body className="antialiased transition">
         <ThemeProvider>
           <PaletteProvider>
-            <ThemeToggle />
             {children}
           </PaletteProvider>
         </ThemeProvider>
