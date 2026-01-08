@@ -289,7 +289,7 @@
 
 @mixin card-base($padding: vars.$spacing-lg, $margin: vars.$spacing-lg) {
   @include layout.radius;
-  width: fit-content;
+  width: calc(90% - vars.$spacing-lg);
   height: fit-content;
   margin: $margin;
   padding: $padding;
@@ -300,7 +300,6 @@
 @mixin card {
   @include card-base;
   @include shadow-lg;
-  max-width: 1500px;
   background: var(--bg-elevated);
   letter-spacing: 0.25rem;
   min-width: vars.$card-width;
