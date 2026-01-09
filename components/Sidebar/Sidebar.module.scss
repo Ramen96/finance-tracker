@@ -1,23 +1,27 @@
 @use "@styles/mixins";
 @use "@styles/mixins/typography" as typography;
+@use "@styles/variables" as vars;
 
 // ========================================
 // Hamburger Menu Button
 // ========================================
 .hamburger {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  z-index: 1001;
   @include mixins.flex-center;
-  @include mixins.radius;
   @include mixins.shadow-lg;
+  position: fixed;
+  top: vars.$spacing-2xl;
+  left: vars.$spacing-2xl;
+  z-index: 1001;
+  border-radius: vars.$radius-lg;
   padding: 0.75rem;
   background: var(--primary);
   color: var(--primary-text);
   border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition:
+    left 0.8s cubic-bezier(0.68, 0.13, 0.27, 1.21),
+    transform 0.8s cubic-bezier(0.68, 0.13, 0.27, 1.21);
+  transform: translateX(0) scale(1) rotate(0deg);
 
   &:hover {
     background: var(--primary-hover);
@@ -32,6 +36,11 @@
   @include typography.respond("laptop") {
     display: none;
   }
+}
+
+.hamburger.open {
+  left: calc(100vw - vars.$spacing-2xl - 3rem);
+  transform: translateX(0) scale(1.05) rotate(90deg);
 }
 
 // ========================================

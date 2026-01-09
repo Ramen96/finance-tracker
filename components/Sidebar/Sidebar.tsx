@@ -149,11 +149,11 @@ export default function SideBar() {
       {/* Hamburger Button - Only visible on mobile/tablet */}
       {isMobile && (
         <button
-          className={styles.hamburger}
+          className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
           onClick={toggleMenu}
           aria-label="Toggle menu"
         >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+          {isOpen ? <X size={16} /> : <Menu size={16} />}
         </button>
       )}
 
