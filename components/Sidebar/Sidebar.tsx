@@ -183,7 +183,6 @@ export default function SideBar() {
             <button
               className={styles.toggleBtn}
               onClick={toggleExpanded}
-              data-tooltip={isExpanded ? "Collapse Sidebar" : "Expand Sidebar"}
             >
               {isExpanded ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
             </button>
