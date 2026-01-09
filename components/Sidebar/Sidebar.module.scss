@@ -146,9 +146,10 @@
 .toggleBtn {
   @include mixins.btnPrimary;
   @include mixins.flex-center;
-  padding: 0.625rem;
+  border-radius: vars.$radius-md;
   position: relative;
   transition: all 0.3s ease;
+  margin: none;
 
   svg {
     flex-shrink: 0;
