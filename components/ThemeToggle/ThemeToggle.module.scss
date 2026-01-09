@@ -1,8 +1,9 @@
 @use "@styles/mixins";
-@use "@/styles/variables" as vars;
+@use "@styles/variables" as vars;
+@use "@styles/mixins/ui" as ui;
 
 .hideDefault {
-  @include mixins.hidden;
+  @include ui.hidden;
 
   &:checked+label {
     &:after {
@@ -14,7 +15,7 @@
 .toggleLabel {
   margin: 0;
   border-radius: vars.$radius-lg;
-  padding: 0.625rem;
+  padding: vars.$spacing-lg;
   width: auto;
   position: static;
   background: var(--bg-secondary);
