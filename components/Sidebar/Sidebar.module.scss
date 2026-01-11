@@ -9,7 +9,7 @@
   @include mixins.flex-center;
   @include mixins.shadow-lg;
   position: fixed;
-  top: vars.$spacing-2xl;
+  top: calc(0% + vars.$spacing-md);
   left: vars.$spacing-2xl;
   z-index: 1001;
   border-radius: vars.$radius-lg;
@@ -39,7 +39,7 @@
 }
 
 .hamburger.open {
-  left: calc(100vw - vars.$spacing-2xl - 3rem);
+  left: calc(100vw - vars.$spacing-2xl - 2.5rem);
   transform: translateX(0) scale(1.05) rotate(90deg);
 }
 
