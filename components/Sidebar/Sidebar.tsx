@@ -192,6 +192,13 @@ export default function SideBar() {
           </div>
         )}
 
+        { /* Mobile Control Bar */}
+        {isMobile && isOpen && (
+          <div className={`${styles.mobileControlBar}`}>
+            <ThemeToggle />
+          </div>
+        )}
+
         <nav className={styles.btnsContainer}>
           {navigationGroups.map((group, index) => (
             <section key={index} className={styles.menu}>

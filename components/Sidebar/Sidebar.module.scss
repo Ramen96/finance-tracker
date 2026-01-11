@@ -140,6 +140,23 @@
   }
 }
 
+
+// ========================================
+// Mobile Control Bar
+// ========================================
+.mobileControlBar {
+  @include mixins.flex-center;
+  position: absolute;
+  top: calc(0% - vars.$spacing-sm);
+  right: 0;
+  padding: vars.$spacing-lg;
+  margin: 0 0 vars.$spacing-lg 0;
+
+  @include typography.respond("laptop") {
+    display: none;
+  }
+}
+
 // ========================================
 // Toggle Button (Desktop only)
 // ========================================
