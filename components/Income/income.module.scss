@@ -1,5 +1,6 @@
 @use "@styles/mixins";
 @use "@styles/variables" as vars;
+@use "@styles/mixins/typography" as typography;
 
 .incomeContainer {
   @include mixins.page-container;
@@ -49,6 +50,10 @@
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+
+  @include typography.respond-down("tablet") {
+    display: none
+  }
 }
 
 .tableBody {
@@ -68,6 +73,12 @@
   &:hover {
     background: var(--bg-secondary);
     transform: translateX(4px);
+  }
+
+  @include typography.respond-down("tablet") {
+    grid-template-columns: 1fr;
+    gap: vars.$spacing-xs;
+    padding: vars.$spacing-xs vars.$spacing-sm;
   }
 }
 

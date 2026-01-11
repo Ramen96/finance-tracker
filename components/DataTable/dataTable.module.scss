@@ -1,5 +1,6 @@
 @use "@styles/mixins";
 @use "@styles/variables" as vars;
+@use "@styles/mixins/typography" as typography;
 
 .liabilitiesContainer {
   @include mixins.page-container;
@@ -15,8 +16,6 @@
 
 .categorySection {
   @include mixins.category-card;
-  width: fit-content;
-  min-width: 500px;
 }
 
 .categoryHeader {
@@ -42,7 +41,7 @@
   font-weight: 600;
   cursor: pointer;
   margin-bottom: vars.$spacing-md;
-  
+
   &:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
@@ -57,12 +56,24 @@
 .tableHeader,
 .tableRow {
   display: flex;
+  flex-wrap: wrap;
   gap: vars.$spacing-md;
   padding: vars.$spacing-md;
   align-items: center;
-  
-  > span:not(.actionsCol) {
-    flex: 1;
+
+  >span:not(.actionsCol) {
+    flex: 1 1 auto;
+    min-width: 120px;
+  }
+
+  @include typography.respond-down("tablet") {
+    flex-direction: column;
+    align-items: flex-start;
+
+    >span:not(.actionsCol) {
+      width: 100%;
+      min-width: auto;
+    }
   }
 }
 
@@ -84,7 +95,7 @@
   border-bottom: 1px solid var(--border);
   background: var(--bg-tertiary);
   transition: all 0.2s ease;
-  
+
   &:hover {
     background: var(--bg-elevated);
     border-color: var(--primary);
@@ -164,7 +175,7 @@
   flex-direction: column;
   align-items: center;
   gap: vars.$spacing-md;
-  
+
   h2 {
     font-size: 1.3rem;
     font-weight: 600;

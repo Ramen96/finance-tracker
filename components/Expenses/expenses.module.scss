@@ -1,5 +1,6 @@
 @use "@styles/mixins";
 @use "@styles/variables" as vars;
+@use "@styles/mixins/typography" as typography;
 
 .expensesContainer {
   @include mixins.page-container;
@@ -64,6 +65,10 @@
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
+
+  @include typography.respond-down("tablet") {
+    display: none
+  }
 }
 
 .tableBody {
@@ -85,6 +90,12 @@
     background: var(--bg-elevated);
     border-color: var(--primary);
     @include mixins.shadow-sm;
+  }
+
+  @media (max-width: 767px) {
+    @include mixins.p(vars.$spacing-sm);
+    grid-template-columns: 1fr;
+    gap: vars.$spacing-sm;
   }
 }
 

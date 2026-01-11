@@ -117,9 +117,9 @@
 
 @mixin category-card {
   @include ui.card;
-  @include layout.p(vars.$spacing-md);
+  @include layout.p(vars.$spacing-sm vars.$spacing-md);
   flex: 1 1 100%;
-  gap: vars.$spacing-sm;
+  gap: vars.$spacing-xs;
   width: 100%;
   min-width: auto;
   max-width: none;
@@ -132,16 +132,21 @@
   }
 
   @include typography.respond("mobile-l") {
-    @include layout.p(vars.$spacing-lg);
-    gap: vars.$spacing-md;
+    @include layout.p(vars.$spacing-md vars.$spacing-lg);
+    gap: vars.$spacing-sm;
   }
 
   @include typography.respond("tablet") {
     flex: 1 1 calc(50% - vars.$spacing-lg);
-    min-width: 300px;
+    min-width: 0;
   }
 
   @include typography.respond("laptop") {
+    flex: 1 1 calc(50% - vars.$spacing-lg);
+    min-width: 400px;
+  }
+
+  @include typography.respond("laptop-l") {
     flex: 1 1 500px;
     min-width: 500px;
   }

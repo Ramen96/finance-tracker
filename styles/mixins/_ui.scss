@@ -294,13 +294,17 @@
 // ========================================
 
 @mixin card-base($padding: vars.$spacing-lg, $margin: vars.$spacing-lg) {
-  @include layout.radius;
+  @include smooth-transition;
+  border-radius: vars.$radius;
   width: calc(90% - vars.$spacing-lg);
   height: fit-content;
   margin: $margin;
   padding: $padding;
   display: flex;
-  @include smooth-transition;
+
+  @include typography.respond-down("mobile-l") {
+    width: 95%;
+  }
 }
 
 @mixin card {
@@ -308,9 +312,15 @@
   @include shadow-lg;
   background: var(--bg-elevated);
   letter-spacing: 0.25rem;
-  min-width: vars.$card-width;
   flex-wrap: wrap;
   border: 1px solid var(--border);
+  width: 100%;
+  min-width: auto;
+
+  @include typography.respond("tablet") {
+    min-width: vars.$card-width;
+    width: auto;
+  }
 }
 
 @mixin card-item {
