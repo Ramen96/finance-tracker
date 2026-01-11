@@ -1,4 +1,5 @@
 @use "@/styles/variables" as vars;
+@use "@styles/mixins/typography" as typography;
 
 // ========================================
 // Dimension Helpers
@@ -9,12 +10,29 @@
   height: $height;
 }
 
-@mixin h-custom($h) { height: $h; }
-@mixin h-full { height: 100%; }
-@mixin h-auto { height: auto; }
-@mixin h-100vh { height: 100vh; }
-@mixin w-full { width: 100%; }
-@mixin w-100vw { width: 100vw; }
+@mixin h-custom($h) {
+  height: $h;
+}
+
+@mixin h-full {
+  height: 100%;
+}
+
+@mixin h-auto {
+  height: auto;
+}
+
+@mixin h-100vh {
+  height: 100vh;
+}
+
+@mixin w-full {
+  width: 100%;
+}
+
+@mixin w-100vw {
+  width: 100vw;
+}
 
 // ========================================
 // Flexbox Helpers
@@ -22,23 +40,52 @@
 
 @mixin flex($justify: null, $align: null, $direction: null) {
   display: flex;
-  @if $justify { justify-content: $justify; }
-  @if $align { align-items: $align; }
-  @if $direction { flex-direction: $direction; }
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+
+  @if $direction {
+    flex-direction: $direction;
+  }
 }
 
-@mixin flex-center { @include flex(center, center); }
-@mixin flex-center-v { @include flex(center); }
-@mixin flex-center-h { @include flex(null, center); }
-@mixin flex-wrap { flex-wrap: wrap; }
+@mixin flex-center {
+  @include flex(center, center);
+}
+
+@mixin flex-center-v {
+  @include flex(center);
+}
+
+@mixin flex-center-h {
+  @include flex(null, center);
+}
+
+@mixin flex-wrap {
+  flex-wrap: wrap;
+}
 
 @mixin label-row($font-family: null, $font-size: null, $font-weight: null) {
   @include flex(space-around, center);
   width: 100%;
   gap: 1.5rem;
-  @if $font-family { font-family: $font-family; }
-  @if $font-size { font-size: $font-size; }
-  @if $font-weight { font-weight: $font-weight; }
+
+  @if $font-family {
+    font-family: $font-family;
+  }
+
+  @if $font-size {
+    font-size: $font-size;
+  }
+
+  @if $font-weight {
+    font-weight: $font-weight;
+  }
 }
 
 @mixin label-row-primary {
@@ -56,11 +103,25 @@
 // Styling Helpers (Fundamental)
 // ========================================
 
-@mixin radius($size: vars.$radius) { border-radius: $size; }
-@mixin radius-sm { @include radius(vars.$radius-sm); }
-@mixin pointer { cursor: pointer; }
-@mixin no-select { user-select: none; }
-@mixin no-outline { outline: none; }
+@mixin radius($size: vars.$radius) {
+  border-radius: $size;
+}
+
+@mixin radius-sm {
+  @include radius(vars.$radius-sm);
+}
+
+@mixin pointer {
+  cursor: pointer;
+}
+
+@mixin no-select {
+  user-select: none;
+}
+
+@mixin no-outline {
+  outline: none;
+}
 
 @mixin interactive {
   @include no-outline;
@@ -74,10 +135,22 @@
 
 @mixin position($type, $top: null, $right: null, $bottom: null, $left: null) {
   position: $type;
-  @if $top { top: $top; }
-  @if $right { right: $right; }
-  @if $bottom { bottom: $bottom; }
-  @if $left { left: $left; }
+
+  @if $top {
+    top: $top;
+  }
+
+  @if $right {
+    right: $right;
+  }
+
+  @if $bottom {
+    bottom: $bottom;
+  }
+
+  @if $left {
+    left: $left;
+  }
 }
 
 @mixin fixed-top-right($top: vars.$spacing-md, $right: vars.$spacing-md) {
@@ -97,15 +170,25 @@
   @include position(absolute, null, null, 0, 0);
 }
 
-@mixin relative { position: relative; }
+@mixin relative {
+  position: relative;
+}
 
 // ========================================
 // Spacing Helpers
 // ========================================
 
-@mixin p($size) { padding: $size; }
-@mixin m($size) { margin: $size; }
-@mixin mr-05rem { margin-right: vars.$spacing-md; }
+@mixin p($size) {
+  padding: $size;
+}
+
+@mixin m($size) {
+  margin: $size;
+}
+
+@mixin mr-05rem {
+  margin-right: vars.$spacing-md;
+}
 
 // ========================================
 // Grid Helpers
@@ -137,6 +220,10 @@
   @include flex(center);
   flex-wrap: wrap;
   align-content: flex-start;
+
+  @include typography.respond-down("mobile-l") {
+    width: 95%;
+  }
 }
 
 // ========================================
