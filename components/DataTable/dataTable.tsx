@@ -69,7 +69,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
               </button>
             )}
 
-            <div className={styles.liabilitiesTable}>
+            <div className={styles.dataTable}>
               {/* Dynamic Table Header */}
               <div className={styles.tableHeader}>
                 {columns.map((col) => (
