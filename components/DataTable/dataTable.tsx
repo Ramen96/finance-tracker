@@ -70,7 +70,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
             )}
 
             <div className={styles.dataTable}>
-              {/* Dynamic Table Header */}
+              {/* Dynamic Table Header - Desktop only */}
               <div className={styles.tableHeader}>
                 {columns.map((col) => (
                   <span
@@ -91,6 +91,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
                       <span
                         key={String(col.key)}
                         className={col.className || styles[`${String(col.key)}Col`]}
+                        data-label={col.label}
                       >
                         {col.format(item[col.key])}
                       </span>
@@ -100,6 +101,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
                         <button
                           className={styles.editBtn}
                           onClick={() => onEdit(item)}
+                          aria-label="Edit item"
                         >
                           <Edit2 size={16} />
                         </button>
@@ -108,6 +110,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
                         <button
                           className={styles.deleteBtn}
                           onClick={() => onDelete(item)}
+                          aria-label="Delete item"
                         >
                           <Trash2 size={16} />
                         </button>

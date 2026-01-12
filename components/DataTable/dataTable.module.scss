@@ -12,6 +12,7 @@
 
 .categorySection {
   @include mixins.category-card;
+  min-width: 0; // Allow flexbox to shrink
 }
 
 .categoryHeader {
@@ -33,7 +34,7 @@
   color: var(--primary-text);
   border: 1px solid var(--primary-light);
   font-family: var(--font-display), sans-serif;
-  font-size: 0.9rem;
+  font-size: vars.$font-size-md;
   font-weight: 600;
   cursor: pointer;
   margin-bottom: vars.$spacing-md;
@@ -43,33 +44,48 @@
     transform: translateY(-2px);
     @include mixins.shadow-sm;
   }
+
+  @include typography.respond-down("laptop") {
+    font-size: vars.$font-size-sm;
+    padding: vars.$spacing-sm;
+  }
+
+  @include typography.respond-down("tablet") {
+    font-size: vars.$font-size-xs;
+    padding: vars.$spacing-xs vars.$spacing-sm;
+  }
 }
 
 .dataTable {
   @include mixins.data-table;
+  width: 100%;
+  min-width: 0; // Allow shrinking
 }
 
+// Desktop table layout
 .tableHeader,
 .tableRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: vars.$spacing-md;
+  display: grid;
+  gap: vars.$spacing-sm;
   padding: vars.$spacing-md;
   align-items: center;
+  width: 100%;
+  min-width: 0;
 
-  >span:not(.actionsCol) {
-    flex: 1 1 auto;
-    min-width: 120px;
+  // Default desktop grid - adjust column count based on your needs
+  grid-template-columns: 2fr 1fr 1fr 1fr 100px;
+
+  @include typography.respond-down("laptop") {
+    gap: vars.$spacing-xs;
+    padding: vars.$spacing-sm vars.$spacing-md;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr 90px;
   }
 
   @include typography.respond-down("tablet") {
-    width: calc(100% - vars.$spacing-xl);
-    font-size: vars.$font-size-sm;
-
-    >span:not(.actionsCol) {
-      height: fit-content;
-      min-width: auto;
-    }
+    // Switch to card layout
+    grid-template-columns: 1fr;
+    gap: vars.$spacing-sm;
+    padding: vars.$spacing-md;
   }
 }
 
@@ -77,10 +93,19 @@
   background: var(--bg-secondary);
   font-weight: 600;
   color: var(--text);
-  font-size: 0.85rem;
+  font-size: vars.$font-size-sm;
   text-transform: uppercase;
   letter-spacing: 0.05rem;
-  border-radius: 8px 8px 0 0;
+  border-radius: vars.$radius-lg vars.$radius-lg 0 0;
+
+  @include typography.respond-down("laptop") {
+    font-size: vars.$font-size-xs;
+    padding: vars.$spacing-sm;
+  }
+
+  @include typography.respond-down("tablet") {
+    display: none; // Hide header on mobile
+  }
 }
 
 .tableBody {
@@ -96,10 +121,70 @@
     background: var(--bg-elevated);
     border-color: var(--primary);
   }
+
+  // Mobile card layout
+  @include typography.respond-down("tablet") {
+    border-radius: vars.$radius-md;
+    margin-bottom: vars.$spacing-sm;
+    border: 1px solid var(--border);
+
+    >span:not(.actionsCol) {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: vars.$spacing-sm;
+      align-items: start;
+      padding: vars.$spacing-xs 0;
+      word-break: break-word;
+
+      &::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-secondary);
+        font-size: vars.$font-size-2xs;
+        text-transform: uppercase;
+        letter-spacing: 0.05rem;
+      }
+    }
+  }
+
+  @include typography.respond-down("mobile-l") {
+    padding: vars.$spacing-sm;
+
+    >span:not(.actionsCol) {
+      grid-template-columns: 1fr;
+      gap: vars.$spacing-xs;
+
+      &::before {
+        margin-bottom: vars.$spacing-xs;
+      }
+    }
+  }
+}
+
+// Column styles - these apply to grid children
+.nameCol,
+.balanceCol,
+.paymentCol,
+.rateCol {
+  min-width: 0; // Allow text truncation
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: vars.$font-size-md;
+
+  @include typography.respond-down("laptop") {
+    font-size: vars.$font-size-sm;
+  }
+
+  @include typography.respond-down("tablet") {
+    overflow: visible;
+    text-overflow: initial;
+    font-size: vars.$font-size-xs;
+  }
 }
 
 .nameCol {
   @include mixins.column-name;
+  font-weight: 600;
 }
 
 .balanceCol {
@@ -115,23 +200,117 @@
 }
 
 .actionsCol {
-  flex: 0 0 100px;
   display: flex;
   align-items: center;
   gap: vars.$spacing-xs;
   justify-content: flex-end;
+  min-width: 0;
+
+  @include typography.respond-down("laptop") {
+    gap: vars.$spacing-xs;
+  }
+
+  @include typography.respond-down("tablet") {
+    justify-content: center;
+    gap: vars.$spacing-md;
+    padding-top: vars.$spacing-sm;
+    border-top: 1px solid var(--border);
+
+    &::before {
+      display: none !important;
+    }
+  }
 }
 
 .editBtn {
   @include mixins.action-btn-edit;
+  flex-shrink: 0;
+
+  @include typography.respond-down("laptop") {
+    padding: vars.$spacing-xs;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  @include typography.respond-down("tablet") {
+    flex: 1;
+    padding: vars.$spacing-sm vars.$spacing-md;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: vars.$spacing-xs;
+    font-size: vars.$font-size-2xs;
+
+    &::after {
+      content: "Edit";
+    }
+  }
 }
 
 .deleteBtn {
   @include mixins.action-btn-delete;
+  flex-shrink: 0;
+
+  @include typography.respond-down("laptop") {
+    padding: vars.$spacing-xs;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  @include typography.respond-down("tablet") {
+    flex: 1;
+    padding: vars.$spacing-sm vars.$spacing-md;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: vars.$spacing-xs;
+    font-size: vars.$font-size-2xs;
+
+    &::after {
+      content: "Delete";
+    }
+  }
 }
 
 .categoryTotal {
   @include mixins.category-total;
+
+  @include typography.respond-down("tablet") {
+    flex-direction: column;
+    gap: vars.$spacing-xs;
+    text-align: center;
+    padding: vars.$spacing-md;
+  }
+}
+
+.totalLabel {
+  font-size: vars.$font-size-md;
+
+  @include typography.respond-down("laptop") {
+    font-size: vars.$font-size-sm;
+  }
+
+  @include typography.respond-down("tablet") {
+    font-size: vars.$font-size-xs;
+  }
+}
+
+.totalAmount {
+  font-size: vars.$font-size-large;
+
+  @include typography.respond-down("laptop") {
+    font-size: vars.$font-size-md;
+  }
+
+  @include typography.respond-down("tablet") {
+    font-size: vars.$font-size-sm;
+  }
 }
 
 .totalsSection {
@@ -146,14 +325,36 @@
   @include mixins.grand-total;
   background: var(--bg-elevated);
   border-color: var(--error, #ef4444);
+
+  @include typography.respond-down("tablet") {
+    padding: vars.$spacing-md;
+  }
 }
 
 .grandTotalContent {
   @include mixins.grand-total-content;
+
+  @include typography.respond-down("tablet") {
+    flex-direction: column;
+    gap: vars.$spacing-sm;
+    text-align: center;
+  }
 }
 
 .grandTotalAmount {
   @include mixins.grand-total-amount(var(--error, #ef4444));
+
+  @include typography.respond-down("laptop") {
+    font-size: vars.$font-size-xl;
+  }
+
+  @include typography.respond-down("tablet") {
+    font-size: vars.$font-size-large;
+  }
+
+  @include typography.respond-down("mobile-l") {
+    font-size: vars.$font-size-md;
+  }
 }
 
 .monthlyTotal {
@@ -164,6 +365,10 @@
   @include mixins.w-full;
   background: var(--bg-secondary);
   box-sizing: border-box;
+
+  @include typography.respond-down("tablet") {
+    padding: vars.$spacing-md;
+  }
 }
 
 .monthlyTotalContent {
@@ -173,16 +378,36 @@
   gap: vars.$spacing-md;
 
   h2 {
-    font-size: 1.3rem;
+    font-size: vars.$font-size-xl;
     font-weight: 600;
     color: var(--text);
     margin: 0;
+
+    @include typography.respond-down("laptop") {
+      font-size: vars.$font-size-large;
+    }
+
+    @include typography.respond-down("tablet") {
+      font-size: vars.$font-size-md;
+    }
   }
 }
 
 .monthlyTotalAmount {
-  font-size: 2rem;
+  font-size: vars.$font-size-2xl;
   font-weight: 800;
   color: var(--text);
-  letter-spacing: 0.05rem;
+  letter-spacing: vars.$letter-spacing;
+
+  @include typography.respond-down("laptop") {
+    font-size: vars.$font-size-xl;
+  }
+
+  @include typography.respond-down("tablet") {
+    font-size: vars.$font-size-large;
+  }
+
+  @include typography.respond-down("mobile-l") {
+    font-size: vars.$font-size-md;
+  }
 }
