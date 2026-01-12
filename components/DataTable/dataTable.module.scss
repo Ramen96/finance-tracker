@@ -2,10 +2,6 @@
 @use "@styles/variables" as vars;
 @use "@styles/mixins/typography" as typography;
 
-.liabilitiesContainer {
-  @include mixins.page-container;
-}
-
 .header {
   @include mixins.page-header;
 }
@@ -49,7 +45,7 @@
   }
 }
 
-.liabilitiesTable {
+.dataTable {
   @include mixins.data-table;
 }
 
@@ -67,11 +63,11 @@
   }
 
   @include typography.respond-down("tablet") {
-    flex-direction: column;
-    align-items: flex-start;
+    width: calc(100% - vars.$spacing-xl);
+    font-size: vars.$font-size-sm;
 
     >span:not(.actionsCol) {
-      width: 100%;
+      height: fit-content;
       min-width: auto;
     }
   }
