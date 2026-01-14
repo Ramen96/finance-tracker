@@ -12,12 +12,6 @@ export default function Dashboard() {
       <main className={styles.mainContainer}>
         <SideBar />
         <div id="content" className={styles.contentContainer}>
-
-          {/* Navigation */}
-          <nav id="nav" className={`${styles.nav}`}>
-            <h1 className="">Goal and % to goal</h1>
-          </nav>
-
           <div className={styles.cardsContainer}>
             {/* Income Section */}
             <section id="income" className={styles.card}>
