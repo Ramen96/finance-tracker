@@ -71,7 +71,10 @@ export default function DataTable<DataItem extends { id: number | string }>({
 
             <div className={styles.dataTable}>
               {/* Dynamic Table Header - Desktop only */}
-              <div className={styles.tableHeader}>
+              <div
+                className={styles.tableHeader}
+                data-column-count={columns.length + 1}
+              >
                 {columns.map((col) => (
                   <span
                     key={String(col.key)}
@@ -86,7 +89,11 @@ export default function DataTable<DataItem extends { id: number | string }>({
               {/* Dynamic Table Body */}
               <div className={styles.tableBody}>
                 {category.items.map((item) => (
-                  <div key={item.id} className={styles.tableRow}>
+                  <div
+                    key={item.id}
+                    className={styles.tableRow}
+                    data-column-count={columns.length + 1}
+                  >
                     {columns.map((col) => (
                       <span
                         key={String(col.key)}
