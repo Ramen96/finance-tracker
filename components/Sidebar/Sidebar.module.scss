@@ -3,25 +3,46 @@
 @use "@styles/variables" as vars;
 
 // ========================================
+// Top Navbar Container (Mobile & Tablet)
+// ========================================
+.topNavbar {
+  display: none;
+
+  @include typography.respond-down("laptop") {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    padding: 0 vars.$spacing-lg;
+    z-index: 1010;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// ========================================
 // Hamburger Menu Button
 // ========================================
 .hamburger {
   @include mixins.flex-center;
-  @include mixins.shadow-lg;
   position: fixed;
-  top: calc(0% + vars.$spacing-md);
+  top: vars.$spacing-md;
   left: vars.$spacing-2xl;
-  z-index: 1001;
   border-radius: vars.$radius-lg;
   padding: 0.75rem;
   background: var(--primary);
   color: var(--primary-text);
   border: none;
   cursor: pointer;
+  z-index: 1000;
   transition:
     left 0.8s cubic-bezier(0.68, 0.13, 0.27, 1.21),
     transform 0.8s cubic-bezier(0.68, 0.13, 0.27, 1.21);
-  transform: translateX(0) scale(1) rotate(0deg);
 
   &:hover {
     background: var(--primary-hover);
@@ -32,15 +53,20 @@
     transform: scale(0.95);
   }
 
+  &.open {
+    left: calc(100vw - vars.$spacing-2xl - 2.5rem);
+    transform: scale(1.05) rotate(90deg);
+  }
+
+  // Tablet: Inside navbar (static position)
+  @include typography.respond-between("mobile-l", "laptop") {
+    padding: vars.$spacing-lg;
+  }
+
   // Hide on desktop
   @include typography.respond("laptop") {
     display: none;
   }
-}
-
-.hamburger.open {
-  left: calc(100vw - vars.$spacing-2xl - 2.5rem);
-  transform: translateX(0) scale(1.05) rotate(90deg);
 }
 
 // ========================================
@@ -86,10 +112,9 @@
   transition: all 0.3s ease;
   position: relative;
 
-  // Mobile/Tablet: Slide-in menu
+  // Mobile & Tablet: Slide-in menu from left
   @include typography.respond-down("laptop") {
     position: fixed;
-    top: 0;
     left: 0;
     width: 280px;
     max-width: 85vw;
@@ -100,6 +125,17 @@
     &.open {
       transform: translateX(0);
     }
+  }
+
+  // Mobile: Full height from top
+  @include typography.respond-down("mobile-l") {
+    top: 0;
+  }
+
+  // Tablet: Starts below the navbar
+  @include typography.respond-between("mobile-l", "laptop") {
+    top: 60px;
+    height: calc(100vh - 60px);
   }
 
   // Desktop: Collapsible sidebar
@@ -134,24 +170,37 @@
   margin: 0.25rem;
   margin-bottom: 0.75rem;
 
-  // Hide on mobile
+  // Hide on mobile/tablet
   @include typography.respond-down("laptop") {
     display: none;
   }
 }
-
 
 // ========================================
 // Mobile Control Bar
 // ========================================
 .mobileControlBar {
   @include mixins.flex-center;
-  position: absolute;
-  top: calc(0% - vars.$spacing-sm);
-  right: 0;
-  padding: vars.$spacing-lg;
-  margin: 0 0 vars.$spacing-lg 0;
+  padding: vars.$spacing-md 0;
+  margin-bottom: vars.$spacing-md;
 
+  // Mobile: Absolute positioning at top right
+  @include typography.respond-down("mobile-l") {
+    position: absolute;
+    top: calc(0% - vars.$spacing-sm);
+    right: 0;
+    padding: vars.$spacing-lg;
+    margin: 0 0 vars.$spacing-lg 0;
+  }
+
+  // Tablet: Static positioning with bottom border
+  @include typography.respond-between("mobile-l", "laptop") {
+    position: static;
+    justify-content: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  // Hide on desktop
   @include typography.respond("laptop") {
     display: none;
   }
@@ -188,6 +237,7 @@
   @include mixins.h-full;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
 }
 
 // ========================================
