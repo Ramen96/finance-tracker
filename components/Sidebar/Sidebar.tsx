@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import ThemePicker from "components/ThemePicker/themePicker";
 import ThemeToggle from "components/ThemeToggle/ThemeToggle";
@@ -31,16 +31,18 @@ export default function SideBar() {
   const [exdFromThemePicker, setExdFromThemePicker] = useState<boolean>(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-      if (window.innerWidth >= 1024) {
+    const checkViewport = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 1024);
+
+      if (width >= 1024) {
         setIsOpen(false);
       }
     };
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    checkViewport();
+    window.addEventListener('resize', checkViewport);
+    return () => window.removeEventListener('resize', checkViewport);
   }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -63,7 +65,7 @@ export default function SideBar() {
     }
   }
 
-  const topButtons = [
+  const topButtons = useMemo(() => [
     {
       id: 0,
       name: "Dashboard",
@@ -82,9 +84,9 @@ export default function SideBar() {
       icon: <ScanBarcode />,
       onClick: () => router.push("/transaction")
     },
-  ];
+  ], [router]);
 
-  const middleButtons = [
+  const middleButtons = useMemo(() => [
     {
       id: 3,
       name: "Income",
@@ -115,9 +117,9 @@ export default function SideBar() {
       icon: <ShieldCheck />,
       onClick: () => console.log("nothing for now")
     },
-  ];
+  ], []);
 
-  const bottomButtons = [
+  const bottomButtons = useMemo(() => [
     {
       id: 8,
       name: "Theme",
@@ -136,25 +138,28 @@ export default function SideBar() {
       icon: <Settings />,
       onClick: () => console.log("nothing for now")
     },
-  ];
+  ], []);
 
-  const navigationGroups = [
+  const navigationGroups = useMemo(() => [
     { label: "Workspace", items: topButtons },
     { label: "Ledger", items: middleButtons },
     { label: "System", items: bottomButtons },
-  ];
+  ], [topButtons, middleButtons, bottomButtons]);
 
   return (
     <>
-      {/* Hamburger Button - Only visible on mobile/tablet */}
+      {/* Top Navbar (Mobile & Tablet) */}
       {isMobile && (
-        <button
-          className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={16} /> : <Menu size={16} />}
-        </button>
+        <div className={styles.topNavbar}>
+          <button
+            className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
+          {!isOpen && <ThemeToggle />}
+        </div>
       )}
 
       {/* Overlay */}
@@ -189,13 +194,6 @@ export default function SideBar() {
             {isExpanded && (
               <ThemeToggle />
             )}
-          </div>
-        )}
-
-        { /* Mobile Control Bar */}
-        {isMobile && isOpen && (
-          <div className={`${styles.mobileControlBar}`}>
-            <ThemeToggle />
           </div>
         )}
 
