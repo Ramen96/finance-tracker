@@ -23,10 +23,14 @@
 
 .card {
   @include mixins.card;
-  width: 100%;
+  width: calc(100% - vars.$spacing-2xl);
   max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+
+  @include typography.respond("laptop-l") {
+    max-width: 1600px;
+  }
 
   @include typography.respond-down("laptop") {
     padding: vars.$spacing-lg;
