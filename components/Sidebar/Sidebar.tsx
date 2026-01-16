@@ -3,6 +3,8 @@ import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import ThemePicker from "components/ThemePicker/themePicker";
 import ThemeToggle from "components/ThemeToggle/ThemeToggle";
+import Image from "next/image";
+import logo from "public/Penros-Triangle.svg";
 import {
   Menu,
   X,
@@ -150,17 +152,23 @@ export default function SideBar() {
     <>
       {/* Top Navbar (Mobile & Tablet) */}
       {isMobile && (
-        <button
-          className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={16} /> : <Menu size={16} />}
-        </button>
+        <>
+          <button
+            className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={16} /> : <Menu size={16} />}
+          </button>
+
+        </>
       )}
 
       {isMobile && (
         <div className={styles.topNavbar}>
+          <div className={styles.logoContainer}>
+            <Image src={logo} alt="logo" width={40} height={40} />
+          </div>
           {!isOpen && <ThemeToggle />}
         </div>
       )}

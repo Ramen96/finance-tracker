@@ -1,6 +1,7 @@
 @use "@styles/mixins";
 @use "@styles/mixins/typography" as typography;
 @use "@styles/variables" as vars;
+@use "@styles/mixins/layout" as layout;
 
 // ========================================
 // Top Navbar Container (Mobile & Tablet)
@@ -67,6 +68,23 @@
   @include typography.respond("laptop") {
     display: none;
   }
+}
+
+
+// ========================================
+// Logo
+// ========================================
+.logoContainer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50% -50%);
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: vars.$spacing-md;
 }
 
 // ========================================
