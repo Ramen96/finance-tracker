@@ -52,9 +52,6 @@ export default function SideBar() {
 
   const handleNavClick = (onClick: () => void) => {
     onClick();
-    if (isMobile) {
-      setIsOpen(false);
-    }
   };
 
   const handleThemePickerClick = () => {
