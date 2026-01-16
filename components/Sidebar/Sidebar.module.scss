@@ -20,7 +20,7 @@
     background: var(--bg-elevated);
     border-bottom: 1px solid var(--border);
     padding: 0 vars.$spacing-lg;
-    z-index: 1010;
+    z-index: 998;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
 }
@@ -39,7 +39,7 @@
   color: var(--primary-text);
   border: none;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 1010;
   transition:
     left 0.8s cubic-bezier(0.68, 0.13, 0.27, 1.21),
     transform 0.8s cubic-bezier(0.68, 0.13, 0.27, 1.21);
@@ -116,8 +116,10 @@
   @include typography.respond-down("laptop") {
     position: fixed;
     left: 0;
+    top: 0;
     width: 280px;
     max-width: 85vw;
+    height: 100vh;
     z-index: 1000;
     transform: translateX(-100%);
     padding: 1rem 0.5rem;
@@ -125,17 +127,6 @@
     &.open {
       transform: translateX(0);
     }
-  }
-
-  // Mobile: Full height from top
-  @include typography.respond-down("mobile-l") {
-    top: 0;
-  }
-
-  // Tablet: Starts below the navbar
-  @include typography.respond-between("mobile-l", "laptop") {
-    top: 60px;
-    height: calc(100vh - 60px);
   }
 
   // Desktop: Collapsible sidebar

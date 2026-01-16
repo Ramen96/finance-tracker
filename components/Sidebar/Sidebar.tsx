@@ -150,14 +150,17 @@ export default function SideBar() {
     <>
       {/* Top Navbar (Mobile & Tablet) */}
       {isMobile && (
+        <button
+          className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          {isOpen ? <X size={16} /> : <Menu size={16} />}
+        </button>
+      )}
+
+      {isMobile && (
         <div className={styles.topNavbar}>
-          <button
-            className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={16} /> : <Menu size={16} />}
-          </button>
           {!isOpen && <ThemeToggle />}
         </div>
       )}
