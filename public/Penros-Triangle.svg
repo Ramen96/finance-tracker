@@ -1,0 +1,49 @@
+<svg width="600" height="520" viewBox="0 0 2756 2393" fill="none" xmlns="http://www.w3.org/2000/svg" style="background: transparent;">
+    <defs>
+        <!-- Subtle shadow for depth -->
+        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
+            <feOffset dx="0" dy="4" result="offsetblur"/>
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.3"/>
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        
+        <!-- Subtle inner shadow for dimension -->
+        <filter id="depth">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+            <feOffset dx="2" dy="2"/>
+            <feComposite in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1"/>
+            <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 0.15 0"/>
+            <feBlend in2="SourceGraphic" mode="multiply"/>
+        </filter>
+    </defs>
+    
+    <!-- Pink/Coral face (top-right) -->
+    <g filter="url(#shadow)" class="face-1">
+        <rect width="308.45" height="2131.33" transform="matrix(1 0 -0.5 0.866025 1219.82 0)" fill="var(--primary, #ff7b9d)" filter="url(#depth)"/>
+        <path d="M0 2112.79L154.225 1845.66L1969.89 1820.39L2054.76 1965.95L2140.63 2112.68L0 2112.79Z" fill="var(--primary, #ff7b9d)" filter="url(#depth)"/>
+        <!-- Highlight edge -->
+        <rect width="308.45" height="2131.33" transform="matrix(1 0 -0.5 0.866025 1219.82 0)" fill="white" opacity="0.15"/>
+    </g>
+    
+    <!-- Cyan face (bottom-right) -->
+    <g filter="url(#shadow)" class="face-2">
+        <rect width="308.45" height="2132.71" transform="matrix(-0.5 -0.866025 1 -4.76264e-08 160.551 2379.74)" fill="var(--secondary, #4fc3f7)" filter="url(#depth)"/>
+        <path d="M2600.16 2379.97L2291.71 2379.97L1361.99 820.189L1445.62 673.906L1529.75 526.181L2600.16 2379.97Z" fill="var(--secondary, #4fc3f7)" filter="url(#depth)"/>
+        <!-- Highlight edge -->
+        <rect width="308.45" height="2132.71" transform="matrix(-0.5 -0.866025 1 -4.76264e-08 160.551 2379.74)" fill="white" opacity="0.15"/>
+    </g>
+    
+    <!-- Amber/Gold face (left) -->
+    <g filter="url(#shadow)" class="face-3">
+        <rect width="308.45" height="2147.37" transform="matrix(-0.5 0.866025 -0.5 -0.866025 2755.23 2125.46)" fill="var(--tertiary, #ffc947)" filter="url(#depth)"/>
+        <path d="M1527.66 0.810072L1681.89 267.936L805.838 1836.54L638.649 1838.96L464.763 1841.78L1527.66 0.810072Z" fill="var(--tertiary, #ffc947)" filter="url(#depth)"/>
+        <!-- Highlight edge -->
+        <rect width="308.45" height="2147.37" transform="matrix(-0.5 0.866025 -0.5 -0.866025 2755.23 2125.46)" fill="white" opacity="0.15"/>
+    </g>
+</svg>
