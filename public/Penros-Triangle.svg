@@ -23,26 +23,26 @@
         </filter>
     </defs>
     
-    <!-- Pink/Coral face (top-right) -->
+    <!-- Face 1 (top-right) - White -->
     <g filter="url(#shadow)" class="face-1">
-        <rect width="308.45" height="2131.33" transform="matrix(1 0 -0.5 0.866025 1219.82 0)" fill="var(--primary, #ff7b9d)" filter="url(#depth)"/>
-        <path d="M0 2112.79L154.225 1845.66L1969.89 1820.39L2054.76 1965.95L2140.63 2112.68L0 2112.79Z" fill="var(--primary, #ff7b9d)" filter="url(#depth)"/>
+        <rect width="308.45" height="2131.33" transform="matrix(1 0 -0.5 0.866025 1219.82 0)" fill="#ffffff" filter="url(#depth)"/>
+        <path d="M0 2112.79L154.225 1845.66L1969.89 1820.39L2054.76 1965.95L2140.63 2112.68L0 2112.79Z" fill="#ffffff" filter="url(#depth)"/>
         <!-- Highlight edge -->
         <rect width="308.45" height="2131.33" transform="matrix(1 0 -0.5 0.866025 1219.82 0)" fill="white" opacity="0.15"/>
     </g>
     
-    <!-- Cyan face (bottom-right) -->
+    <!-- Face 2 (bottom-right) - Gray -->
     <g filter="url(#shadow)" class="face-2">
-        <rect width="308.45" height="2132.71" transform="matrix(-0.5 -0.866025 1 -4.76264e-08 160.551 2379.74)" fill="var(--secondary, #4fc3f7)" filter="url(#depth)"/>
-        <path d="M2600.16 2379.97L2291.71 2379.97L1361.99 820.189L1445.62 673.906L1529.75 526.181L2600.16 2379.97Z" fill="var(--secondary, #4fc3f7)" filter="url(#depth)"/>
+        <rect width="308.45" height="2132.71" transform="matrix(-0.5 -0.866025 1 -4.76264e-08 160.551 2379.74)" fill="#808080" filter="url(#depth)"/>
+        <path d="M2600.16 2379.97L2291.71 2379.97L1361.99 820.189L1445.62 673.906L1529.75 526.181L2600.16 2379.97Z" fill="#808080" filter="url(#depth)"/>
         <!-- Highlight edge -->
         <rect width="308.45" height="2132.71" transform="matrix(-0.5 -0.866025 1 -4.76264e-08 160.551 2379.74)" fill="white" opacity="0.15"/>
     </g>
     
-    <!-- Amber/Gold face (left) -->
+    <!-- Face 3 (left) - Black -->
     <g filter="url(#shadow)" class="face-3">
-        <rect width="308.45" height="2147.37" transform="matrix(-0.5 0.866025 -0.5 -0.866025 2755.23 2125.46)" fill="var(--tertiary, #ffc947)" filter="url(#depth)"/>
-        <path d="M1527.66 0.810072L1681.89 267.936L805.838 1836.54L638.649 1838.96L464.763 1841.78L1527.66 0.810072Z" fill="var(--tertiary, #ffc947)" filter="url(#depth)"/>
+        <rect width="308.45" height="2147.37" transform="matrix(-0.5 0.866025 -0.5 -0.866025 2755.23 2125.46)" fill="#000000" filter="url(#depth)"/>
+        <path d="M1527.66 0.810072L1681.89 267.936L805.838 1836.54L638.649 1838.96L464.763 1841.78L1527.66 0.810072Z" fill="#000000" filter="url(#depth)"/>
         <!-- Highlight edge -->
         <rect width="308.45" height="2147.37" transform="matrix(-0.5 0.866025 -0.5 -0.866025 2755.23 2125.46)" fill="white" opacity="0.15"/>
     </g>
