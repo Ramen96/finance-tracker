@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Orbitron, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "@/context/useTheme";
 import { PaletteProvider } from "@/context/usePalette";
+import Script from "next/script";
 import "./globals.scss";
 
 const orbitron = Orbitron({
@@ -26,8 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${orbitron.variable} ${spaceGrotesk.variable}`}>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <body className="antialiased transition">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <Script
+          src="/theme-check.js"
+          strategy="beforeInteractive"
+        />
+      </head>
+      <body data-palette="everforest" className="antialiased transition">
         <ThemeProvider>
           <PaletteProvider>
             {children}
