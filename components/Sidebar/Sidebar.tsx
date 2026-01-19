@@ -139,7 +139,7 @@ export default function SideBar() {
       id: 10,
       name: "Settings",
       icon: <Settings />,
-      onClick: () => console.log("nothing for now")
+      onClick: () => router.push('settings')
     },
   ], []);
 
