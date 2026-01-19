@@ -1,32 +1,260 @@
-@use "@styles/mixins";
+@use "@/styles/mixins" as mixins;
+@use "@/styles/variables" as vars;
 
 .mainContainer {
   @include mixins.mainContainer;
-  font-family: var(--font-display);
-  justify-self: center;
-  align-items: center;
+  background: var(--bg);
 }
 
 .contentContainer {
-  @include mixins.contentContainer;
-  overflow-y: auto;
+  @include mixins.page-container(1400px);
+  background: var(--bg);
+  min-height: 100vh;
 }
 
-.card {
-  @include mixins.card;
+.pageHeader {
+  @include mixins.page-header;
 }
 
-.cardItem {
-  @include mixins.card-item;
-}
-
-.nav {
-  @include mixins.nav;
-}
-
-.cardsContainer {
+.settingsGrid {
   @include mixins.w-full;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: vars.$spacing-lg;
+  width: 100%;
+
+  @include mixins.respond("tablet") {
+    grid-template-columns: repeat(2, 1fr);
+    gap: vars.$spacing-xl;
+  }
+
+  @include mixins.respond("laptop") {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.settingCard {
+  @include mixins.card;
+  @include mixins.flex(null, null, column);
+  gap: vars.$spacing-md;
+  padding: vars.$spacing-lg;
+  margin: 0;
+  width: 100%;
+  min-width: auto;
+  max-width: none;
+  box-sizing: border-box;
+
+  @include mixins.respond("tablet") {
+    gap: vars.$spacing-lg;
+    padding: vars.$spacing-xl;
+  }
+}
+
+.sectionHeader {
+  @include mixins.section-header;
+}
+
+.sectionIcon {
+  @include mixins.section-icon;
+}
+
+.settingGroup {
+  @include mixins.flex(null, null, column);
+  gap: vars.$spacing-xs;
+  width: 100%;
+}
+
+.settingLabel {
+  font-family: var(--font-main), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+
+  @include mixins.respond("tablet") {
+    font-size: 0.95rem;
+  }
+}
+
+.textInput {
+  @include mixins.radius;
+  @include mixins.no-outline;
+  width: 100%;
+  max-width: 100%;
+  height: vars.$input-height;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-main), sans-serif;
+  font-size: 0.95rem;
+  background: var(--bg-elevated);
+  @include mixins.transition;
+  box-sizing: border-box;
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &:focus {
+    border-color: var(--primary);
+    @include mixins.shadow-sm;
+  }
+
+  &:hover {
+    border-color: var(--primary);
+  }
+
+  @include mixins.respond("tablet") {
+    font-size: 1rem;
+  }
+}
+
+.selectInput {
+  @include mixins.radius;
+  @include mixins.no-outline;
+  @include mixins.pointer;
+  width: 100%;
+  max-width: 100%;
+  height: vars.$input-height;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-main), sans-serif;
+  font-size: 0.95rem;
+  background: var(--bg-elevated);
+  @include mixins.transition;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: var(--primary);
+    @include mixins.shadow-sm;
+  }
+
+  &:hover {
+    border-color: var(--primary);
+  }
+
+  @include mixins.respond("tablet") {
+    font-size: 1rem;
+  }
+}
+
+.checkboxLabel {
+  @include mixins.flex(flex-start, center);
+  gap: vars.$spacing-md;
+  font-family: var(--font-main), sans-serif;
+  font-size: 0.9rem;
+  color: var(--text);
+  @include mixins.pointer;
+  padding: vars.$spacing-sm 0;
+  width: 100%;
+
+  span {
+    font-weight: 500;
+  }
+
+  &:hover {
+    color: var(--primary);
+
+    .checkbox {
+      border-color: var(--primary);
+    }
+  }
+
+  @include mixins.respond("tablet") {
+    font-size: 0.95rem;
+  }
+}
+
+.checkbox {
+  @include mixins.radius;
+  @include mixins.size(1.25rem);
+  margin: 0;
+  cursor: pointer;
+  accent-color: var(--primary);
+  flex-shrink: 0;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+
+  @include mixins.respond("tablet") {
+    @include mixins.size(1.5rem);
+  }
+}
+
+.btnPrimary {
+  @include mixins.btnPrimary;
+  width: 100%;
+  max-width: 300px;
+  margin: 0;
+
+  @include mixins.respond("tablet") {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.05rem;
+  }
+}
+
+.btnSecondary {
+  @include mixins.btnSecondary;
+  width: 100%;
+  margin: 0;
+
+  @include mixins.respond("tablet") {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+.btnDanger {
+  @include mixins.btn-base;
+  @include mixins.shadow-sm;
+  width: 100%;
+  margin: 0;
+  color: white;
+  background: var(--error, #ef4444);
+  padding: 0.625rem 1.25rem;
+
+  &:hover {
+    background: var(--error-hover, #dc2626);
+    transform: translateY(-2px);
+    @include mixins.shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @include mixins.respond("tablet") {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+.helperText {
+  font-family: var(--font-main), sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin: 0;
+  margin-top: vars.$spacing-xs;
+  font-weight: 400;
+  line-height: 1.4;
+
+  @include mixins.respond("tablet") {
+    font-size: 0.85rem;
+  }
+}
+
+.saveContainer {
+  @include mixins.flex-center;
+  @include mixins.w-full;
+  margin-top: vars.$spacing-lg;
+  padding-top: vars.$spacing-lg;
+  border-top: 2px solid var(--tertiary);
+
+  @include mixins.respond("tablet") {
+    margin-top: vars.$spacing-2xl;
+    padding-top: vars.$spacing-2xl;
+  }
 }
