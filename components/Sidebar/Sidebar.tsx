@@ -26,12 +26,15 @@ import styles from "./Sidebar.module.scss";
 
 export default function SideBar() {
   const router = useRouter();
+
+  // States
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isThemePickerOpen, setIsThemePickerOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const [exdFromThemePicker, setExdFromThemePicker] = useState<boolean>(false);
 
+  // Check mobile
   useEffect(() => {
     const checkViewport = () => {
       const width = window.innerWidth;
@@ -47,6 +50,7 @@ export default function SideBar() {
     return () => window.removeEventListener('resize', checkViewport);
   }, []);
 
+  // Nav logic
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleExpanded = () => setIsExpanded(!isExpanded);
 
