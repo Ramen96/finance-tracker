@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Orbitron, Space_Grotesk } from "next/font/google";
+import { cookies } from "next/headers";
 import { ThemeProvider } from "@/context/useTheme";
-import { PaletteProvider } from "@/context/usePalette";
-import Script from "next/script";
+import { Palette, PaletteProvider } from "@/context/usePalette";
 import "./globals.scss";
 
 const orbitron = Orbitron({
@@ -20,23 +20,22 @@ export const metadata: Metadata = {
   description: "A web application to help you track your spending daily",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookiesStore = await cookies();
+  const paletteTheme = cookiesStore.get('palette')?.value as Palette || 'everforest';
+
   return (
     <html lang="en" className={`${orbitron.variable} ${spaceGrotesk.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <Script
-          src="/theme-check.js"
-          strategy="beforeInteractive"
-        />
       </head>
-      <body data-palette="everforest" className="antialiased transition">
+      <body data-palette={paletteTheme} className="antialiased">
         <ThemeProvider>
-          <PaletteProvider>
+          <PaletteProvider initialPalette={paletteTheme}>
             {children}
           </PaletteProvider>
         </ThemeProvider>

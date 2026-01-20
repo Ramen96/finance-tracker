@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState, ReactNode, createContext, useContext } from "react";
+import { updatePaletteCookiesAction } from "@/lib/actions/palette";
 
 export type Palette = 'everforest' | 'nord' | 'catppuccin' | 'rose-pine' | 'zenburn' | 'gruvbox' | 'tokyo-night';
 
@@ -10,23 +11,12 @@ type PaletteContextType = {
 
 const PaletteContext = createContext<PaletteContextType | undefined>(undefined);
 
-export const PaletteProvider = ({ children }: { children: ReactNode }) => {
-  const [palette, setPalette] = useState<Palette>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('palette') as Palette;
-      return saved || 'everforest';
-    }
-    return 'everforest';
-  });
-
-  useEffect(() => {
-    const saved = localStorage.getItem('palette') as Palette;
-    if (saved) setPalette(saved);
-  }, []);
+export const PaletteProvider = ({ children, initialPalette }: { children: ReactNode, initialPalette: Palette }) => {
+  const [palette, setPalette] = useState<Palette>(initialPalette);
 
   useEffect(() => {
     document.body.setAttribute('data-palette', palette);
-    localStorage.setItem('palette', palette);
+    updatePaletteCookiesAction(palette)
   }, [palette]);
 
   return (
