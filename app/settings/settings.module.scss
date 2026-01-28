@@ -1,5 +1,7 @@
 @use "@/styles/mixins" as mixins;
 @use "@/styles/variables" as vars;
+@use "@/styles/mixins/layout" as layout;
+@use "@/styles/mixins/typography" as typography;
 
 .mainContainer {
   @include mixins.mainContainer;
@@ -9,7 +11,10 @@
 .contentContainer {
   @include mixins.page-container(1400px);
   background: var(--bg);
-  min-height: 100vh;
+  justify-content: start;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: scroll;
 }
 
 .pageHeader {
