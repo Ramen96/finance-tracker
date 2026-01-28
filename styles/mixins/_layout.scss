@@ -226,8 +226,12 @@
   flex-wrap: wrap;
   align-content: flex-start;
 
+  @include typography.respond-down("tablet") {
+    margin: 0 0 vars.$spacing-md 0;
+  }
+
   @include typography.respond-down("mobile-l") {
-    width: 95%;
+    width: 100vw;
   }
 }
 

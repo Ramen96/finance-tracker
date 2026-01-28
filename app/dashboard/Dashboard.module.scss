@@ -13,12 +13,6 @@
   @include mixins.contentContainer;
   overflow-y: auto;
   overflow-x: hidden;
-
-  @include typography.respond-down("mobile-l") {
-    width: 100vw;
-    margin: 0 0 vars.$spacing-md 0;
-  }
-
 }
 
 .card {
@@ -44,7 +38,6 @@
   @include typography.respond-down("mobile-l") {
     width: 100vw !important;
     padding: vars.$spacing-sm;
-    margin: 0 0 vars.$spacing-sm 0;
     border-radius: vars.$radius-md;
   }
 }
