@@ -213,6 +213,11 @@
   @include h-full;
   @include w-full;
   display: flex;
+
+  @include typography.respond-down("tablet") {
+    display: grid;
+    columns: 1fr
+  }
 }
 
 @mixin contentContainer {
