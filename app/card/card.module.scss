@@ -1,0 +1,386 @@
+@use "@/styles/mixins/layout" as layout;
+@use "@/styles/mixins/ui" as ui;
+@use "@/styles/mixins/typography" as typography;
+@use "@/styles/variables" as vars;
+
+// ========================================
+// Container & Layout
+// ========================================
+
+.cardContainer {
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-2xl;
+  padding: vars.$spacing-xl;
+
+  @include typography.respond("tablet") {
+    padding: vars.$spacing-xl 2rem;
+  }
+
+  @include typography.respond("laptop") {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+// ========================================
+// Header Section
+// ========================================
+
+.header {
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-sm;
+  margin-bottom: vars.$spacing-lg;
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0;
+    letter-spacing: -0.02em;
+
+    @include typography.respond("mobile-l") {
+      font-size: 2rem;
+    }
+
+    @include typography.respond("tablet") {
+      font-size: 2.5rem;
+    }
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+// ========================================
+// Main Content Layout
+// ========================================
+
+.content {
+  @include layout.w-full;
+  @include layout.flex(null, flex-start, column);
+  gap: vars.$spacing-2xl;
+
+  @include typography.respond("laptop") {
+    flex-direction: row;
+    gap: vars.$spacing-2xl;
+  }
+}
+
+// ========================================
+// Form Section
+// ========================================
+
+.formSection {
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-lg;
+  padding: vars.$spacing-xl;
+  background: var(--surface);
+  border-radius: vars.$radius-lg;
+  @include ui.shadow-sm;
+
+  @include typography.respond("laptop") {
+    flex: 0 0 35%;
+    position: sticky;
+    top: vars.$spacing-xl;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+}
+
+// ========================================
+// Form Styles
+// ========================================
+
+.form {
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-lg;
+}
+
+.formGroup {
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-md;
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+    text-transform: capitalize;
+  }
+
+  input,
+  select,
+  textarea {
+    @include layout.w-full;
+    padding: vars.$spacing-lg;
+    border-radius: vars.$radius-md;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    @include ui.transition;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: var(--surface-focus);
+    }
+
+    &::placeholder {
+      color: var(--text-secondary);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+}
+
+.row {
+  @include layout.w-full;
+  @include layout.flex(null, flex-start, row);
+  gap: vars.$spacing-lg;
+
+  @include typography.respond-down("mobile-l") {
+    flex-direction: column;
+  }
+
+  .formGroup {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+// ========================================
+// Button Styles
+// ========================================
+
+.submitBtn {
+  @include ui.btnPrimary;
+  @include layout.w-full;
+  @include layout.flex(center, center);
+  gap: vars.$spacing-md;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.deleteBtn {
+  @include layout.flex-center;
+  padding: vars.$spacing-md;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  @include ui.transition;
+
+  &:hover {
+    background: var(--surface-hover);
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+}
+
+// ========================================
+// List Section
+// ========================================
+
+.listSection {
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-lg;
+
+  @include typography.respond("laptop") {
+    flex: 1;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+}
+
+// ========================================
+// Empty State
+// ========================================
+
+.emptyState {
+  @include layout.w-full;
+  @include layout.flex-center;
+  padding: 3rem vars.$spacing-xl;
+  border-radius: vars.$radius-lg;
+  background: var(--surface);
+  color: var(--text-secondary);
+  text-align: center;
+  font-style: italic;
+}
+
+// ========================================
+// Transactions List
+// ========================================
+
+.transactionsList {
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-lg;
+}
+
+.transactionItem {
+  @include layout.w-full;
+  @include layout.flex(space-between, flex-start);
+  padding: vars.$spacing-lg;
+  border-radius: vars.$radius-lg;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  @include ui.transition;
+
+  &:hover {
+    background: var(--surface-hover);
+    border-color: var(--primary);
+    @include ui.shadow-md;
+  }
+
+  @include typography.respond-down("mobile-m") {
+    flex-direction: column;
+    gap: vars.$spacing-lg;
+  }
+}
+
+.transactionInfo {
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-md;
+  flex: 1;
+  min-width: 0;
+}
+
+.transactionHeader {
+  @include layout.flex(space-between, center, row);
+  gap: vars.$spacing-lg;
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  @include typography.respond-down("mobile-m") {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.category {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: vars.$radius-full;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.transactionDetails {
+  @include layout.flex(null, center);
+  gap: vars.$spacing-lg;
+  font-size: 0.875rem;
+
+  p {
+    margin: 0;
+    color: var(--text-secondary);
+
+    &.cardName {
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    &.date {
+      color: var(--text-secondary);
+    }
+  }
+
+  @include typography.respond-down("mobile-m") {
+    flex-wrap: wrap;
+    gap: vars.$spacing-md;
+  }
+}
+
+.description {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding-top: vars.$spacing-sm;
+  border-top: 1px solid var(--border);
+}
+
+.transactionAmount {
+  @include layout.flex(null, center);
+  gap: vars.$spacing-lg;
+  align-items: center;
+  white-space: nowrap;
+
+  @include typography.respond-down("mobile-m") {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+.amount {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+// ========================================
+// Total Section
+// ========================================
+
+.totalSection {
+  @include layout.w-full;
+  @include layout.flex(space-between, center);
+  padding: vars.$spacing-lg vars.$spacing-xl;
+  border-radius: vars.$radius-lg;
+  background: linear-gradient(
+    135deg,
+    var(--primary-light),
+    var(--secondary-light)
+  );
+  border: 2px solid var(--primary);
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+}
+
+.totalAmount {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary);
+
+  @include typography.respond("mobile-l") {
+    font-size: 2rem;
+  }
+}
