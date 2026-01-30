@@ -12,6 +12,11 @@
   @include layout.flex(null, null, column);
   gap: vars.$spacing-2xl;
   padding: vars.$spacing-xl;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  font-family: var(--font-display);
 
   @include typography.respond("tablet") {
     padding: vars.$spacing-xl 2rem;
@@ -34,19 +39,11 @@
   margin-bottom: vars.$spacing-lg;
 
   h1 {
-    font-size: 1.75rem;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
     font-weight: 800;
     color: var(--text);
     margin: 0;
     letter-spacing: -0.02em;
-
-    @include typography.respond("mobile-l") {
-      font-size: 2rem;
-    }
-
-    @include typography.respond("tablet") {
-      font-size: 2.5rem;
-    }
   }
 
   p {
@@ -64,10 +61,16 @@
   @include layout.w-full;
   @include layout.flex(null, flex-start, column);
   gap: vars.$spacing-2xl;
+  font-family: var(--font-main), sans-serif;
 
   @include typography.respond("laptop") {
     flex-direction: row;
     gap: vars.$spacing-2xl;
+  }
+
+  & h2,
+  label {
+    font-family: var(--font-display);
   }
 }
 
@@ -88,6 +91,10 @@
     flex: 0 0 35%;
     position: sticky;
     top: vars.$spacing-xl;
+  }
+
+  @include typography.respond-down("mobile-l") {
+    padding: vars.$spacing-md;
   }
 
   h2 {
@@ -157,6 +164,7 @@
 
   @include typography.respond-down("mobile-l") {
     flex-direction: column;
+    gap: vars.$spacing-md;
   }
 
   .formGroup {
@@ -177,6 +185,11 @@
   padding: 0.875rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
+  
+  @include typography.respond-down("mobile-l") {
+    padding: 0.65rem 1rem;
+    font-size: 0.95rem;
+  }
 }
 
 .deleteBtn {
@@ -260,6 +273,7 @@
   @include typography.respond-down("mobile-m") {
     flex-direction: column;
     gap: vars.$spacing-lg;
+    padding: vars.$spacing-md;
   }
 }
 
@@ -275,6 +289,7 @@
   gap: vars.$spacing-lg;
 
   h3 {
+    font-family: var(--font-dilsplay), sans-serif;
     margin: 0;
     font-size: 1rem;
     font-weight: 700;
@@ -297,6 +312,9 @@
   font-weight: 600;
   text-transform: uppercase;
   white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .transactionDetails {
@@ -342,6 +360,7 @@
   @include typography.respond-down("mobile-m") {
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 }
 
@@ -360,11 +379,9 @@
   @include layout.flex(space-between, center);
   padding: vars.$spacing-lg vars.$spacing-xl;
   border-radius: vars.$radius-lg;
-  background: linear-gradient(
-    135deg,
-    var(--primary-light),
-    var(--secondary-light)
-  );
+  background: linear-gradient(135deg,
+      var(--primary-light),
+      var(--secondary-light));
   border: 2px solid var(--primary);
 
   h3 {
@@ -381,6 +398,6 @@
   color: var(--primary);
 
   @include typography.respond("mobile-l") {
-    font-size: 2rem;
+    font-size: clamp(1.6rem, 6vw, 2rem);
   }
 }
