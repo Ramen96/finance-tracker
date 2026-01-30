@@ -10,6 +10,7 @@
 .cardContainer {
   @include layout.w-full;
   @include layout.flex(null, null, column);
+  width: fit-content;
   gap: vars.$spacing-2xl;
   padding: vars.$spacing-xl;
   box-sizing: border-box;
@@ -79,13 +80,14 @@
 // ========================================
 
 .formSection {
-  @include layout.w-full;
   @include layout.flex(null, null, column);
+  @include ui.shadow-md;
+  width: calc(100% - vars.$spacing-2xl);
   gap: vars.$spacing-lg;
   padding: vars.$spacing-xl;
   background: var(--surface);
   border-radius: vars.$radius-lg;
-  @include ui.shadow-sm;
+  border: 1px solid var(--bg-secondary);
 
   @include typography.respond("laptop") {
     flex: 0 0 35%;
@@ -130,7 +132,7 @@
   input,
   select,
   textarea {
-    @include layout.w-full;
+    @include ui.transition;
     padding: vars.$spacing-lg;
     border-radius: vars.$radius-md;
     border: 1px solid var(--border);
@@ -138,7 +140,6 @@
     color: var(--text);
     font-family: var(--font-main);
     font-size: 0.95rem;
-    @include ui.transition;
 
     &:focus {
       outline: none;
@@ -185,7 +186,7 @@
   padding: 0.875rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
-  
+
   @include typography.respond-down("mobile-l") {
     padding: 0.65rem 1rem;
     font-size: 0.95rem;
