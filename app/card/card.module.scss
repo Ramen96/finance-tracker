@@ -25,6 +25,7 @@
   max-width: 1280px;
   margin: 0 auto;
   font-family: var(--font-display);
+  overflow-y: auto;
 
   @include typography.respond("tablet") {
     padding: vars.$spacing-xl 2rem;
@@ -222,8 +223,8 @@
 // ========================================
 
 .listSection {
-  @include layout.w-full;
   @include layout.flex(null, null, column);
+  width: calc(100% - vars.$spacing-xl);
   gap: vars.$spacing-lg;
 
   @include typography.respond("laptop") {
@@ -258,14 +259,12 @@
 // ========================================
 
 .transactionsList {
-  @include layout.w-full;
   @include layout.flex(null, null, column);
   gap: vars.$spacing-lg;
 }
 
 .transactionItem {
   @include layout.w-full;
-  @include layout.flex(space-between, flex-start);
   padding: vars.$spacing-lg;
   border-radius: vars.$radius-lg;
   background: var(--surface);
@@ -383,8 +382,8 @@
 // ========================================
 
 .totalSection {
-  @include layout.w-full;
   @include layout.flex(space-between, center);
+  width: calc(100% - vars.$spacing-lg);
   padding: vars.$spacing-lg vars.$spacing-xl;
   border-radius: vars.$radius-lg;
   background: linear-gradient(135deg,
