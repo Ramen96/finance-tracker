@@ -1,0 +1,316 @@
+@use "@/styles/mixins";
+@use "@/styles/mixins/layout" as layout;
+@use "@/styles/mixins/ui" as ui;
+@use "@/styles/mixins/typography" as typography;
+@use "@/styles/variables" as vars;
+
+
+.mainContainer {
+  @include mixins.mainContainer;
+  font-family: var(--font-display);
+  justify-self: center;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: vars.$spacing-2xl;
+  overflow-y: auto;
+
+  @include typography.respond-down("tablet") {
+    padding: vars.$spacing-2xl;
+  }
+}
+
+.headerContainer {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 1200px;
+  background: var(--bg);
+  padding-top: vars.$spacing-lg;
+  z-index: 500;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-md;
+  padding-left: vars.$spacing-lg;
+
+  h1 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin: 0;
+    color: var(--text);
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-lg;
+  padding: vars.$spacing-lg;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.filters {
+  display: flex;
+  gap: vars.$spacing-md;
+}
+
+.filterBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--surface-hover);
+    border-color: var(--primary);
+  }
+
+  &.active {
+    background: var(--primary);
+    color: var(--primary-text);
+    border-color: var(--primary);
+  }
+}
+
+.actions {
+  display: flex;
+  gap: vars.$spacing-md;
+  flex-wrap: wrap;
+}
+
+.markSelectedBtn {
+  @include ui.btnPrimary;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+}
+
+.markAllBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--primary);
+    color: var(--primary-text);
+  }
+}
+
+.transactionsGroups {
+  width: calc(100% - vars.$spacing-xl);
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-2xl;
+  padding: vars.$spacing-lg;
+}
+
+.monthGroup {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-lg;
+}
+
+.monthHeader {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+  padding-bottom: vars.$spacing-md;
+  border-bottom: 2px solid var(--border);
+}
+
+.monthTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: vars.$spacing-lg vars.$spacing-xl;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: vars.$radius-md;
+  font-weight: 600;
+
+  span:first-child {
+    color: var(--text-secondary);
+    font-size: 1rem;
+  }
+}
+
+.monthTotalAmount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.transactionsList {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-md;
+}
+
+.transactionCard {
+  display: flex;
+  gap: vars.$spacing-lg;
+  padding: vars.$spacing-lg;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: vars.$radius-lg;
+  transition: all 0.2s;
+  align-items: center;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &:hover {
+    background: var(--surface-hover);
+    border-color: var(--primary);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  &.selected {
+    background: var(--primary-light);
+    border-color: var(--primary);
+  }
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  color: var(--primary);
+  cursor: pointer;
+  flex-shrink: 0;
+
+  svg {
+    transition: transform 0.2s;
+  }
+
+  &:hover svg {
+    transform: scale(1.1);
+  }
+}
+
+.mainInfo {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-md;
+  flex: 1;
+}
+
+.merchantRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: vars.$spacing-md;
+
+  h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text);
+  }
+}
+
+.status {
+  padding: 0.35rem 0.75rem;
+  border-radius: vars.$radius-full;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  &.unpaid {
+    background: var(--warning-light);
+    color: var(--warning);
+  }
+
+  &.paid {
+    background: var(--success-light);
+    color: var(--success);
+  }
+}
+
+.details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: vars.$spacing-lg;
+
+  @media (min-width: 768px) {
+    gap: vars.$spacing-xl;
+  }
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
+.amount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+
+  @media (max-width: 640px) {
+    width: 100%;
+    text-align: right;
+  }
+}
+
+.totalBar {
+  position: sticky;
+  bottom: 0;
+  width: calc(96% - vars.$spacing-xl);
+  max-width: 1166px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: vars.$spacing-xl;
+  background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+  border: 2px solid var(--primary);
+  border-radius: vars.$radius-lg;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text);
+  }
+}
