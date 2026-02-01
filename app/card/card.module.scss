@@ -17,6 +17,7 @@
 .cardContainer {
   @include layout.w-full;
   @include layout.flex(null, null, column);
+  @include ui.hide-scrollbar;
   width: fit-content;
   gap: vars.$spacing-2xl;
   padding: vars.$spacing-xl;

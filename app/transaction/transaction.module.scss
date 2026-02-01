@@ -12,6 +12,7 @@
 }
 
 .container {
+  @include ui.hide-scrollbar;
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -21,12 +22,7 @@
   overflow-y: auto;
   overflow-x: hidden;
 
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
 
   @include typography.respond-down("tablet") {
     padding: vars.$spacing-2xl;
