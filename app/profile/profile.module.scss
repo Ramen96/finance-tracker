@@ -1,0 +1,287 @@
+@use "@/styles/mixins/layout" as layout;
+@use "@/styles/mixins/ui" as ui;
+@use "@/styles/mixins/typography" as typography;
+@use "@/styles/variables" as vars;
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: vars.$spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-2xl;
+
+  @media (min-width: 768px) {
+    padding: vars.$spacing-2xl;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-sm;
+
+  h1 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 800;
+    margin: 0;
+    color: var(--text);
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+.profileCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: vars.$radius-lg;
+  padding: vars.$spacing-xl;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: 768px) {
+    padding: vars.$spacing-2xl;
+  }
+}
+
+.profileHeader {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-lg;
+  padding-bottom: vars.$spacing-xl;
+  border-bottom: 1px solid var(--border);
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+}
+
+.editBtn {
+  @include ui.btnPrimary;
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+}
+
+.editActions {
+  display: flex;
+  gap: vars.$spacing-md;
+}
+
+.saveBtn {
+  @include ui.btnPrimary;
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+}
+
+.cancelBtn {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  padding: 0.75rem 1.5rem;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: var(--surface-hover);
+    border-color: var(--primary);
+  }
+}
+
+.profileContent {
+  padding-top: vars.$spacing-xl;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-lg;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text);
+  }
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: vars.$spacing-lg;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.infoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: vars.$spacing-md;
+  padding: vars.$spacing-md;
+  background: var(--bg);
+  border-radius: vars.$radius-md;
+
+  svg {
+    color: var(--primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+}
+
+.infoText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.value {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.bioSection {
+  margin-top: vars.$spacing-xl;
+  padding-top: vars.$spacing-xl;
+  border-top: 1px solid var(--border);
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 vars.$spacing-md 0;
+    color: var(--text);
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+}
+
+.editForm {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-lg;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-sm;
+
+  label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: vars.$spacing-lg;
+    border-radius: vars.$radius-md;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.95rem;
+    min-height: 44px;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: var(--surface-focus);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+    line-height: 1.5;
+  }
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: vars.$spacing-lg;
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.statCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: vars.$radius-lg;
+  padding: vars.$spacing-xl;
+  text-align: center;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 0 0 vars.$spacing-md 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+.statValue {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--primary);
+  margin: 0;
+}
