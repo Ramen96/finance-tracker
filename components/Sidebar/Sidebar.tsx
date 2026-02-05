@@ -133,7 +133,7 @@ export default function SideBar() {
       id: 9,
       name: "Profile",
       icon: <UserRoundPen />,
-      onClick: () => console.log("nothing for now")
+      onClick: () => router.push('profile')
     },
     {
       id: 10,
