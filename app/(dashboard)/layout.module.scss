@@ -1,0 +1,7 @@
+@use "@styles/mixins";
+
+.mainContainer {
+  @include mixins.mainContainer;
+  font-family: var(--font-display);
+  justify-self: center;
+}

@@ -3,13 +3,6 @@
 @use "@styles/variables" as vars;
 @use "@styles/mixins/typography" as typography;
 
-.mainContainer {
-  @include mixins.mainContainer;
-  font-family: var(--font-display);
-  justify-self: center;
-  align-items: center;
-}
-
 .contentContainer {
   @include mixins.contentContainer;
   @include ui.hide-scrollbar;

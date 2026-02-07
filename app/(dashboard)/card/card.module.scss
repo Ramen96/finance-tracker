@@ -8,12 +8,6 @@
 // Container & Layout
 // ========================================
 
-.mainContainer {
-  @include mixins.mainContainer;
-  font-family: var(--font-display);
-  justify-self: center;
-}
-
 .cardContainer {
   @include layout.w-full;
   @include layout.flex(null, null, column);

@@ -3,11 +3,6 @@
 @use "@/styles/mixins/layout" as layout;
 @use "@/styles/mixins/typography" as typography;
 
-.mainContainer {
-  @include mixins.mainContainer;
-  background: var(--bg);
-}
-
 .contentContainer {
   @include mixins.page-container(1400px);
   background: var(--bg);

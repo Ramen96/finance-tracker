@@ -4,12 +4,6 @@
 @use "@/styles/mixins/typography" as typography;
 @use "@/styles/variables" as vars;
 
-.mainContainer {
-  @include mixins.mainContainer;
-  font-family: var(--font-display);
-  justify-self: center;
-}
-
 .container {
   width: 100%;
   max-width: 1200px;
