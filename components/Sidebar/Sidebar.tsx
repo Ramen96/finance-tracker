@@ -94,31 +94,31 @@ export default function SideBar() {
       id: 3,
       name: "Income",
       icon: <BanknoteArrowUp />,
-      onClick: () => console.log("nothing for now")
+      onClick: () => router.push('/dashboard/income')
     },
     {
       id: 4,
       name: "Expenses",
       icon: <BanknoteArrowDown />,
-      onClick: () => console.log("nothing for now")
+      onClick: () => router.push('/dashboard/expenses')
     },
     {
       id: 5,
       name: "Assets",
       icon: <ChartCandlestick />,
-      onClick: () => console.log("nothing for now")
+      onClick: () => router.push('/dashboard/assets')
     },
     {
       id: 6,
       name: "Liabilities",
       icon: <ReceiptText />,
-      onClick: () => console.log("nothing for now")
+      onClick: () => router.push('/dashboard/liabilities')
     },
     {
       id: 7,
       name: "Audit",
       icon: <ShieldCheck />,
-      onClick: () => console.log("nothing for now")
+      onClick: () => router.push('/dashboard/audit')
     },
   ], []);
 
