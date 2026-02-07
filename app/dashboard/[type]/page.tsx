@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { TrendingUp, TrendingDown, PieChart, FileText, ShieldCheck } from "lucide-react";
+import SideBar from "@/components/Sidebar/Sidebar";
 import styles from "./reports.module.scss";
 
 type ReportType = "income" | "expenses" | "assets" | "liabilities" | "audit";
@@ -113,55 +114,58 @@ export default function Report() {
   }
 
   return (
-    <section className={styles.container}>
-      <div className={styles.header}>
-        <div className={styles.titleRow}>
-          <div className={`${styles.icon} ${styles[config.color]}`}>
-            {config.icon}
-          </div>
-          <div>
-            <h1>{config.title}</h1>
-            <p>{config.description}</p>
+    <main className={styles.mainContainer}>
+      <SideBar />
+      <section className={styles.container}>
+        <div className={styles.header}>
+          <div className={styles.titleRow}>
+            <div className={`${styles.icon} ${styles[config.color]}`}>
+              {config.icon}
+            </div>
+            <div>
+              <h1>{config.title}</h1>
+              <p>{config.description}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className={styles.content}>
-        {data.length === 0 ? (
-          <div className={styles.emptyState}>
-            <p>No {reportType} records found</p>
-          </div>
-        ) : (
-          <>
-            <div className={styles.itemsList}>
-              {data.map((item) => (
-                <div key={item.id} className={styles.item}>
-                  <div className={styles.itemInfo}>
-                    <h3>{item.title}</h3>
-                    <div className={styles.itemMeta}>
-                      <span className={styles.category}>{item.category}</span>
-                      <span className={styles.date}>{item.date}</span>
+        <div className={styles.content}>
+          {data.length === 0 ? (
+            <div className={styles.emptyState}>
+              <p>No {reportType} records found</p>
+            </div>
+          ) : (
+            <>
+              <div className={styles.itemsList}>
+                {data.map((item) => (
+                  <div key={item.id} className={styles.item}>
+                    <div className={styles.itemInfo}>
+                      <h3>{item.title}</h3>
+                      <div className={styles.itemMeta}>
+                        <span className={styles.category}>{item.category}</span>
+                        <span className={styles.date}>{item.date}</span>
+                      </div>
+                      {item.description && (
+                        <p className={styles.description}>{item.description}</p>
+                      )}
                     </div>
-                    {item.description && (
-                      <p className={styles.description}>{item.description}</p>
-                    )}
+                    <div className={`${styles.amount} ${styles[config.color]}`}>
+                      ${item.amount.toLocaleString()}
+                    </div>
                   </div>
-                  <div className={`${styles.amount} ${styles[config.color]}`}>
-                    ${item.amount.toLocaleString()}
-                  </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
-            <div className={`${styles.totalBar} ${styles[config.color]}`}>
-              <h2>Total {config.title}</h2>
-              <span className={styles.totalAmount}>
-                ${total.toLocaleString()}
-              </span>
-            </div>
-          </>
-        )}
-      </div>
-    </section>
+              <div className={`${styles.totalBar} ${styles[config.color]}`}>
+                <h2>Total {config.title}</h2>
+                <span className={styles.totalAmount}>
+                  ${total.toLocaleString()}
+                </span>
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+    </main>
   );
 }
