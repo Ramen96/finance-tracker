@@ -133,13 +133,13 @@ export default function SideBar() {
       id: 9,
       name: "Profile",
       icon: <UserRoundPen />,
-      onClick: () => router.push('profile')
+      onClick: () => router.push('/profile')
     },
     {
       id: 10,
       name: "Settings",
       icon: <Settings />,
-      onClick: () => router.push('settings')
+      onClick: () => router.push('/settings')
     },
   ], []);
 
