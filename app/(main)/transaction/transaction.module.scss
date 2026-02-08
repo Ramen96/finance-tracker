@@ -14,12 +14,6 @@
   gap: vars.$spacing-2xl;
   overflow-y: auto;
   overflow-x: hidden;
-
-
-
-  @include typography.respond-down("tablet") {
-    padding: vars.$spacing-2xl;
-  }
 }
 
 .headerContainer {

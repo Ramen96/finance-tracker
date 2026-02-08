@@ -8,14 +8,9 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: vars.$spacing-lg;
   display: flex;
   flex-direction: column;
   gap: vars.$spacing-2xl;
-
-  @media (min-width: 768px) {
-    padding: vars.$spacing-2xl;
-  }
 }
 
 .loading {
