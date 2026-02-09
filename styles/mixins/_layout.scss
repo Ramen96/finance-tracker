@@ -212,11 +212,12 @@
   @include position(absolute, 0, null, null, 0);
   @include h-full;
   @include w-full;
+  font-family: var(--font-display), sans-serif;
   display: flex;
 
-  @include typography.respond-down("tablet") {
+  @include typography.respond-down("laptop") {
     display: grid;
-    columns: 1fr
+    grid-template-columns: repeat(1, 1fr)
   }
 }
 
