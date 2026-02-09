@@ -1,18 +1,5 @@
 @use "@styles/mixins";
-@use "@styles/mixins/layout" as layout;
-@use "@styles/mixins/typography" as typography;
 
 .mainContainer {
-  @include layout.position(absolute, 0, null, null, 0);
-  @include layout.h-full;
-  @include layout.w-full;
-  display: flex;
-
-  @include typography.respond-down("tablet") {
-    display: grid;
-    columns: 1
-  }
-
-  font-family: var(--font-display);
-  // justify-self: center;
+  @include mixins.mainContainer;
 }
