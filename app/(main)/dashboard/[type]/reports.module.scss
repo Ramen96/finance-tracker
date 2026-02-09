@@ -8,9 +8,11 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align-self: start;
   gap: vars.$spacing-2xl;
+  margin: vars.$spacing-2xl;
 }
 
 .loading {
