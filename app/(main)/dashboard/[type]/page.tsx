@@ -1,108 +1,239 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { TrendingUp, TrendingDown, PieChart, FileText, ShieldCheck } from "lucide-react";
+import DataTable from "@/components/DataTable/dataTable";
+import {
+  Briefcase,
+  DollarSign,
+  TrendingUp,
+  Home,
+  Building2,
+  Utensils,
+  Car,
+  Heart,
+  Zap,
+  CreditCard,
+  GraduationCap
+} from "lucide-react";
+import Audit from "@/components/Audit/audit";
+import Income from "@/components/Income/income";
 import styles from "./reports.module.scss";
 
 type ReportType = "income" | "expenses" | "assets" | "liabilities" | "audit";
 
-interface ReportData {
+interface ReportItem {
   id: number;
-  title: string;
+  description: string;
   amount: number;
-  date: string;
-  category: string;
-  description?: string;
 }
 
-const PLACEHOLDER_DATA: Record<ReportType, ReportData[]> = {
-  income: [
-    { id: 1, title: "Salary", amount: 5000, date: "2026-01-31", category: "Employment" },
-    { id: 2, title: "Freelance Project", amount: 1200, date: "2026-01-15", category: "Freelance" },
+// ALL OF THE DATA BELOW IS PLACEHOLDER DATA
+// UNTIL AN API IS CREATED
+
+//////////////////////////////////////////
+///////////// INCOME DATA ///////////////
+////////////////////////////////////////
+
+const incomeCategories = [
+  { name: "Salary", icon: Briefcase },
+  { name: "Interest", icon: DollarSign },
+  { name: "Dividends", icon: TrendingUp },
+  { name: "Real Estate", icon: Home },
+  { name: "Businesses", icon: Building2 },
+];
+
+const categoryIncome: Record<string, ReportItem[]> = {
+  Salary: [
+    { id: 1, description: "Monthly salary", amount: 5000 },
+    { id: 2, description: "Bonus", amount: 1000 },
   ],
-  expenses: [
-    { id: 1, title: "Rent", amount: 1500, date: "2026-01-01", category: "Housing" },
-    { id: 2, title: "Groceries", amount: 450, date: "2026-01-15", category: "Food" },
+  Interest: [
+    { id: 3, description: "Savings account", amount: 50 },
+    { id: 4, description: "CD interest", amount: 75 },
   ],
-  assets: [
-    { id: 1, title: "Savings Account", amount: 15000, date: "2026-01-31", category: "Cash" },
-    { id: 2, title: "Investment Portfolio", amount: 25000, date: "2026-01-31", category: "Stocks" },
+  Dividends: [
+    { id: 5, description: "Stock dividends", amount: 200 },
   ],
-  liabilities: [
-    { id: 1, title: "Credit Card", amount: 2500, date: "2026-01-31", category: "Debt" },
-    { id: 2, title: "Student Loan", amount: 18000, date: "2026-01-31", category: "Debt" },
+  "Real Estate": [
+    { id: 6, description: "Rental property #1", amount: 1500 },
+    { id: 7, description: "Rental property #2", amount: 1800 },
   ],
-  audit: [
-    { id: 1, title: "January Review", amount: 0, date: "2026-01-31", category: "Monthly" },
+  Businesses: [
+    { id: 8, description: "Side business", amount: 800 },
   ],
 };
 
-const REPORT_CONFIG: Record<ReportType, {
-  title: string;
+
+
+
+
+//////////////////////////////////////////
+/////////// EXPENSES DATA ///////////////
+////////////////////////////////////////
+
+interface ExpenseItem {
+  id: number;
   description: string;
-  icon: React.ReactNode;
-  color: string;
-}> = {
-  income: {
-    title: "Income",
-    description: "Track your earnings and revenue streams",
-    icon: <TrendingUp size={24} />,
-    color: "success",
-  },
-  expenses: {
-    title: "Expenses",
-    description: "Monitor your spending and outflows",
-    icon: <TrendingDown size={24} />,
-    color: "danger",
-  },
-  assets: {
-    title: "Assets",
-    description: "Manage your valuable possessions and investments",
-    icon: <PieChart size={24} />,
-    color: "primary",
-  },
-  liabilities: {
-    title: "Liabilities",
-    description: "Track debts and financial obligations",
-    icon: <FileText size={24} />,
-    color: "warning",
-  },
-  audit: {
-    title: "Audit",
-    description: "Review and verify your financial records",
-    icon: <ShieldCheck size={24} />,
-    color: "info",
-  },
+  amount: number;
+}
+
+const expenseCategories = [
+  { name: "Groceries", icon: Utensils },
+  { name: "Housing", icon: Home },
+  { name: "Transportation", icon: Car },
+  { name: "Healthcare", icon: Heart },
+  { name: "Utilities", icon: Zap },
+];
+
+const categoryExpenses: Record<string, ExpenseItem[]> = {
+  Groceries: [
+    { id: 1, description: "Weekly grocery shopping", amount: 150 },
+    { id: 2, description: "Farmers market", amount: 45 },
+  ],
+  Housing: [
+    { id: 3, description: "Rent/Mortgage", amount: 2000 },
+    { id: 4, description: "Home insurance", amount: 150 },
+    { id: 5, description: "Maintenance", amount: 200 },
+  ],
+  Transportation: [
+    { id: 6, description: "Gas", amount: 150 },
+    { id: 7, description: "Car insurance", amount: 120 },
+  ],
+  Healthcare: [
+    { id: 8, description: "Doctor visit", amount: 100 },
+  ],
+  Utilities: [
+    { id: 9, description: "Electricity", amount: 120 },
+    { id: 10, description: "Water", amount: 60 },
+    { id: 11, description: "Internet", amount: 80 },
+  ],
 };
+
+////////////////////////////////////////////////
+/////////////// ASSETS DATA ///////////////////
+//////////////////////////////////////////////
+interface Asset {
+  id: number;
+  name: string;
+  value: number;
+  incomeOrRate: string;
+}
+
+const producingAssets: Asset[] = [
+  {
+    id: 1,
+    name: "Rental Property - Main St",
+    value: 250000,
+    incomeOrRate: "$2,500"
+  },
+  {
+    id: 2,
+    name: "Dividend Stocks Portfolio",
+    value: 150000,
+    incomeOrRate: "$500"
+  },
+];
+
+const growthAssets: Asset[] = [
+  {
+    id: 3,
+    name: "Primary Residence",
+    value: 400000,
+    incomeOrRate: "3.5%"
+  },
+  {
+    id: 4,
+    name: "Growth Stock Portfolio",
+    value: 75000,
+    incomeOrRate: "8.2%"
+  },
+];
+
+//////////////////////////////////////////
+////////// LIABILITIES DATA /////////////
+////////////////////////////////////////
+const liabilityCategories = [
+  {
+    name: "Credit Cards",
+    icon: CreditCard,
+    liabilities: [
+      { id: 1, name: "Chase Sapphire", balance: 3500, payment: 150, rate: 18.99 },
+      { id: 2, name: "American Express", balance: 2100, payment: 100, rate: 16.49 },
+    ],
+  },
+  {
+    name: "Auto Loans",
+    icon: Car,
+    liabilities: [
+      { id: 3, name: "Tesla Model 3", balance: 35000, payment: 650, rate: 4.5 },
+    ],
+  },
+  {
+    name: "Student Loans",
+    icon: GraduationCap,
+    liabilities: [
+      { id: 4, name: "Federal Student Loan", balance: 25000, payment: 300, rate: 5.8 },
+    ],
+  },
+  {
+    name: "Real Estate",
+    icon: Home,
+    liabilities: [
+      { id: 5, name: "Primary Mortgage", balance: 320000, payment: 2200, rate: 3.75 },
+      { id: 6, name: "Rental Property Mortgage", balance: 180000, payment: 1400, rate: 4.25 },
+    ],
+  },
+  {
+    name: "Business Loans",
+    icon: Building2,
+    liabilities: [
+      { id: 7, name: "Small Business Loan", balance: 50000, payment: 800, rate: 6.5 },
+    ],
+  },
+];
+
 
 export default function Report() {
   const params = useParams();
   const reportType = (params?.type as ReportType) || "income";
 
-  const [data, setData] = useState<ReportData[]>([]);
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  // simulate api call for now
+  // Simulate API call
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500)
+  }, []);
 
-      setTimeout(() => {
-        const validTypes: ReportType[] = ["income", "expenses", "assets", "liabilities", "audit"];
-        if (validTypes.includes(reportType)) {
-          setData(PLACEHOLDER_DATA[reportType]);
-        } else {
-          setData([]);
-        }
-        setLoading(false);
-      }, 500);
-    }
+  const columns = [
+    {
+      key: "description" as const,
+      label: "Description",
+      format: (value: string | number) => String(value),
+    },
+    {
+      key: "amount" as const,
+      label: "Cash Flow",
+      format: (value: string | number) => {
+        const num = typeof value === "number" ? value : Number(value || 0);
+        return `$${num.toLocaleString()}`;
+      },
+    },
+  ];
 
-    fetchData();
-  }, [reportType]);
+  const formattedCategories = incomeCategories.map((category) => ({
+    name: category.name,
+    icon: category.icon,
+    items: categoryIncome[category.name] || [],
+  }));
 
-  const config = REPORT_CONFIG[reportType];
-  const total = data.reduce((sum, item) => sum + item.amount, 0);
+  const totalIncome = Object.values(categoryIncome)
+    .flat()
+    .reduce((sum, income) => sum + income.amount, 0);
+
+
 
   if (loading) {
     return (
@@ -113,54 +244,28 @@ export default function Report() {
   }
 
   return (
-    <section className={styles.container}>
+    <section className={styles.incomeContainer}>
       <div className={styles.header}>
-        <div className={styles.titleRow}>
-          <div className={`${styles.icon} ${styles[config.color]}`}>
-            {config.icon}
-          </div>
-          <div>
-            <h1>{config.title}</h1>
-            <p>{config.description}</p>
-          </div>
-        </div>
+        <h1>Income</h1>
+        <p>Track and manage income sources</p>
       </div>
 
-      <div className={styles.content}>
-        {data.length === 0 ? (
-          <div className={styles.emptyState}>
-            <p>No {reportType} records found</p>
-          </div>
-        ) : (
-          <>
-            <div className={styles.itemsList}>
-              {data.map((item) => (
-                <div key={item.id} className={styles.item}>
-                  <div className={styles.itemInfo}>
-                    <h3>{item.title}</h3>
-                    <div className={styles.itemMeta}>
-                      <span className={styles.category}>{item.category}</span>
-                      <span className={styles.date}>{item.date}</span>
-                    </div>
-                    {item.description && (
-                      <p className={styles.description}>{item.description}</p>
-                    )}
-                  </div>
-                  <div className={`${styles.amount} ${styles[config.color]}`}>
-                    ${item.amount.toLocaleString()}
-                  </div>
-                </div>
-              ))}
-            </div>
+      <DataTable
+        categories={formattedCategories}
+        columns={columns}
+        totalKey="amount"
+        onAdd={(cat) => console.log("Adding income to", cat)}
+        onEdit={(item) => console.log("Editing income", item)}
+        onDelete={(item) => console.log("Deleting income", item)}
+      />
 
-            <div className={`${styles.totalBar} ${styles[config.color]}`}>
-              <h2>Total {config.title}</h2>
-              <span className={styles.totalAmount}>
-                ${total.toLocaleString()}
-              </span>
-            </div>
-          </>
-        )}
+      <div className={styles.grandTotal}>
+        <div className={styles.grandTotalContent}>
+          <h2>Total Monthly Income</h2>
+          <span className={styles.grandTotalAmount}>
+            ${totalIncome.toLocaleString()}
+          </span>
+        </div>
       </div>
     </section>
   );
