@@ -24,258 +24,120 @@
   color: var(--text-secondary);
 }
 
+.incomeContainer {
+  @include mixins.page-container;
+}
+
 .header {
-  display: flex;
-  flex-direction: column;
-  gap: vars.$spacing-lg;
+  @include mixins.page-header;
 }
 
-.titleRow {
-  display: flex;
+.categoriesGrid {
+  @include mixins.responsive-grid;
+}
+
+.categorySection {
+  @include mixins.category-card;
+}
+
+.categoryHeader {
+  @include mixins.section-header;
+}
+
+.categoryIcon {
+  @include mixins.section-icon;
+}
+
+.incomeTable {
+  @include mixins.data-table;
+}
+
+.editBtn {
+  @include mixins.action-btn-edit;
+}
+
+.deleteBtn {
+  @include mixins.action-btn-delete;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 0.5fr;
+  gap: vars.$spacing-xs;
+  padding: vars.$spacing-sm vars.$spacing-md;
+  background: var(--bg-secondary);
+  border-radius: vars.$radius-sm;
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  @include typography.respond-down("tablet") {
+    display: none
+  }
+}
+
+.tableBody {
+  @include mixins.table-body;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 0.5fr;
+  gap: vars.$spacing-xs;
+  padding: vars.$spacing-sm vars.$spacing-md;
   align-items: center;
-  gap: vars.$spacing-lg;
-
-  h1 {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 800;
-    margin: 0;
-    color: var(--text);
-  }
-
-  p {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-}
-
-.icon {
-  width: 56px;
-  height: 56px;
-  border-radius: vars.$radius-lg;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-
-  &.success {
-    background: var(--success-light);
-    color: var(--success);
-  }
-
-  &.danger {
-    background: var(--danger-light);
-    color: var(--danger);
-  }
-
-  &.primary {
-    background: var(--primary-light);
-    color: var(--primary);
-  }
-
-  &.warning {
-    background: var(--warning-light);
-    color: var(--warning);
-  }
-
-  &.info {
-    background: var(--info-light);
-    color: var(--info);
-  }
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: vars.$spacing-xl;
-}
-
-.emptyState {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem vars.$spacing-xl;
-  background: var(--surface);
-  border: 2px dashed var(--border);
-  border-radius: vars.$radius-lg;
-  text-align: center;
-
-  p {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    font-style: italic;
-    margin: 0;
-  }
-}
-
-.itemsList {
-  display: flex;
-  flex-direction: column;
-  gap: vars.$spacing-md;
-}
-
-.item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: vars.$spacing-lg;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: vars.$radius-lg;
-  transition: all 0.2s;
-  gap: vars.$spacing-lg;
-
-  @media (max-width: 640px) {
-    flex-direction: column;
-  }
+  background: var(--bg);
+  border-radius: vars.$radius-sm;
+  transition: all 0.2s ease;
 
   &:hover {
-    background: var(--surface-hover);
-    border-color: var(--primary);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: var(--bg-secondary);
+    transform: translateX(4px);
+  }
+
+  @include typography.respond-down("tablet") {
+    grid-template-columns: 1fr;
+    gap: vars.$spacing-xs;
+    padding: vars.$spacing-xs vars.$spacing-sm;
   }
 }
 
-.itemInfo {
+.descriptionCol {
+  @include mixins.column-name;
+  text-align: left;
+}
+
+.tableRow .descriptionCol {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.amountCol {
+  @include mixins.column-success;
+  text-align: right;
+}
+
+.actionsCol {
+  text-align: right;
   display: flex;
-  flex-direction: column;
-  gap: vars.$spacing-sm;
-  flex: 1;
-
-  h3 {
-    font-size: 1.125rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--text);
-  }
+  justify-content: flex-end;
+  gap: vars.$spacing-xs;
 }
 
-.itemMeta {
-  display: flex;
-  align-items: center;
-  gap: vars.$spacing-lg;
-  flex-wrap: wrap;
+.categoryTotal {
+  @include mixins.category-total;
 }
 
-.category {
-  padding: 0.35rem 0.75rem;
-  border-radius: vars.$radius-full;
-  background: var(--primary-light);
-  color: var(--primary);
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
+.grandTotal {
+  @include mixins.grand-total;
 }
 
-.date {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
+.grandTotalContent {
+  @include mixins.grand-total-content;
 }
 
-.description {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  margin: 0;
-  padding-top: vars.$spacing-sm;
-  border-top: 1px solid var(--border);
-}
-
-.amount {
-  font-size: 1.5rem;
-  font-weight: 700;
-  white-space: nowrap;
-
-  @media (max-width: 640px) {
-    width: 100%;
-    text-align: right;
-  }
-
-  &.success {
-    color: var(--success);
-  }
-
-  &.danger {
-    color: var(--danger);
-  }
-
-  &.primary {
-    color: var(--primary);
-  }
-
-  &.warning {
-    color: var(--warning);
-  }
-
-  &.info {
-    color: var(--info);
-  }
-}
-
-.totalBar {
-  position: sticky;
-  bottom: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: vars.$spacing-xl;
-  border-radius: vars.$radius-lg;
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
-  border: 2px solid;
-
-  h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0;
-    color: var(--text);
-  }
-
-  &.success {
-    background: linear-gradient(135deg, var(--success-light), var(--success-light));
-    border-color: var(--success);
-  }
-
-  &.danger {
-    background: linear-gradient(135deg, var(--danger-light), var(--danger-light));
-    border-color: var(--danger);
-  }
-
-  &.primary {
-    background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
-    border-color: var(--primary);
-  }
-
-  &.warning {
-    background: linear-gradient(135deg, var(--warning-light), var(--warning-light));
-    border-color: var(--warning);
-  }
-
-  &.info {
-    background: linear-gradient(135deg, var(--info-light), var(--info-light));
-    border-color: var(--info);
-  }
-}
-
-.totalAmount {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 800;
-
-  .success & {
-    color: var(--success);
-  }
-
-  .danger & {
-    color: var(--danger);
-  }
-
-  .primary & {
-    color: var(--primary);
-  }
-
-  .warning & {
-    color: var(--warning);
-  }
-
-  .info & {
-    color: var(--info);
-  }
+.grandTotalAmount {
+  @include mixins.grand-total-amount;
 }
