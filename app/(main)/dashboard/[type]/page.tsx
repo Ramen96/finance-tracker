@@ -13,7 +13,8 @@ import {
   Heart,
   Zap,
   CreditCard,
-  GraduationCap
+  GraduationCap,
+  LineChart
 } from "lucide-react";
 import Audit from "@/components/Audit/audit";
 import Income from "@/components/Income/income";
@@ -22,9 +23,16 @@ import styles from "./reports.module.scss";
 type ReportType = "income" | "expenses" | "assets" | "liabilities" | "audit";
 
 interface ReportItem {
+  // id: number;
+  // description: string;
+  // amount: number;
+
+
   id: number;
-  description: string;
-  amount: number;
+  name: string;
+  balance: number;
+  payment: number;
+  rate: number;
 }
 
 // ALL OF THE DATA BELOW IS PLACEHOLDER DATA
@@ -63,9 +71,21 @@ const categoryIncome: Record<string, ReportItem[]> = {
   ],
 };
 
-
-
-
+const incomeColumns = [
+  {
+    key: "description" as const,
+    label: "Description",
+    format: (value: string | number) => String(value),
+  },
+  {
+    key: "amount" as const,
+    label: "Cash Flow",
+    format: (value: string | number) => {
+      const num = typeof value === "number" ? value : Number(value || 0);
+      return `$${num.toLocaleString()}`;
+    },
+  },
+];
 
 //////////////////////////////////////////
 /////////// EXPENSES DATA ///////////////
@@ -109,6 +129,22 @@ const categoryExpenses: Record<string, ExpenseItem[]> = {
   ],
 };
 
+const expensesColumns = [
+  {
+    key: "description" as const,
+    label: "Item",
+    format: (value: string | number) => String(value),
+  },
+  {
+    key: "amount" as const,
+    label: "Amount",
+    format: (value: string | number) => {
+      const num = typeof value === "number" ? value : Number(value || 0);
+      return `$${num.toLocaleString()}`;
+    },
+  },
+];
+
 ////////////////////////////////////////////////
 /////////////// ASSETS DATA ///////////////////
 //////////////////////////////////////////////
@@ -146,6 +182,40 @@ const growthAssets: Asset[] = [
     name: "Growth Stock Portfolio",
     value: 75000,
     incomeOrRate: "8.2%"
+  },
+];
+
+const assetsColumns = [
+  {
+    key: "name" as const,
+    label: "Asset Name",
+    format: (value: string | number) => String(value),
+  },
+  {
+    key: "value" as const,
+    label: "Value",
+    format: (value: string | number) => {
+      const num = typeof value === "number" ? value : Number(value || 0);
+      return `$${num.toLocaleString()}`;
+    },
+  },
+  {
+    key: "incomeOrRate" as const,
+    label: "Income/Rate",
+    format: (value: string | number) => String(value),
+  },
+];
+
+const allCategories = [
+  {
+    name: "Producing Assets",
+    icon: TrendingUp,
+    items: producingAssets,
+  },
+  {
+    name: "Growth Assets",
+    icon: LineChart,
+    items: growthAssets,
   },
 ];
 
@@ -192,6 +262,37 @@ const liabilityCategories = [
   },
 ];
 
+const columns = [
+  {
+    key: "name" as const,
+    label: "Name",
+    format: (value: string | number) => String(value),
+  },
+  {
+    key: "balance" as const,
+    label: "Balance",
+    format: (value: string | number) => {
+      const num = typeof value === "number" ? value : Number(value || 0);
+      return `$${num.toLocaleString()}`;
+    },
+  },
+  {
+    key: "payment" as const,
+    label: "Payment",
+    format: (value: string | number) => {
+      const num = typeof value === "number" ? value : Number(value || 0);
+      return `$${num.toLocaleString()}`;
+    },
+  },
+  {
+    key: "rate" as const,
+    label: "Rate",
+    format: (value: string | number) => {
+      const num = typeof value === "number" ? value : Number(value || 0);
+      return `${num}%`;
+    },
+  },
+];
 
 export default function Report() {
   const params = useParams();
@@ -202,26 +303,12 @@ export default function Report() {
 
   // Simulate API call
   useEffect(() => {
+
     setTimeout(() => {
+
       setLoading(false);
     }, 500)
   }, []);
-
-  const columns = [
-    {
-      key: "description" as const,
-      label: "Description",
-      format: (value: string | number) => String(value),
-    },
-    {
-      key: "amount" as const,
-      label: "Cash Flow",
-      format: (value: string | number) => {
-        const num = typeof value === "number" ? value : Number(value || 0);
-        return `$${num.toLocaleString()}`;
-      },
-    },
-  ];
 
   const formattedCategories = incomeCategories.map((category) => ({
     name: category.name,
@@ -253,7 +340,7 @@ export default function Report() {
       <DataTable
         categories={formattedCategories}
         columns={columns}
-        totalKey="amount"
+        totalKey="balance"
         onAdd={(cat) => console.log("Adding income to", cat)}
         onEdit={(item) => console.log("Editing income", item)}
         onDelete={(item) => console.log("Deleting income", item)}
