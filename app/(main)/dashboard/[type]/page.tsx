@@ -294,6 +294,10 @@ const columns = [
   },
 ];
 
+
+
+
+
 export default function Report() {
   const params = useParams();
   const reportType = (params?.type as ReportType) || "income";
@@ -319,6 +323,30 @@ export default function Report() {
   const totalIncome = Object.values(categoryIncome)
     .flat()
     .reduce((sum, income) => sum + income.amount, 0);
+
+
+  const reportConfig = {
+    income: {
+      categories: formattedCategories,
+      columns: incomeColumns,
+      totalKey: "amount"
+    },
+    expenses: {
+      categories: formattedCategories,
+      columns: expensesColumns,
+      totalKey: "number",
+    },
+    assets: {
+      categories: formattedCategories,
+      columns: expensesColumns,
+      totalKey: "value",
+    },
+    liabilities: {
+      categories: formattedCategories,
+      columns: expensesColumns,
+      totalKey: "balance",
+    }
+  }
 
 
 
