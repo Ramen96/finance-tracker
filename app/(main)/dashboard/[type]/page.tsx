@@ -314,11 +314,23 @@ export default function Report() {
     }, 500)
   }, []);
 
-  const formattedCategories = incomeCategories.map((category) => ({
-    name: category.name,
-    icon: category.icon,
-    items: categoryIncome[category.name] || [],
-  }));
+  // const formattedCategories = incomeCategories.map((category) => ({
+  //   name: category.name,
+  //   icon: category.icon,
+  //   items: categoryIncome[category.name] || [],
+  // }));
+  //
+
+  const formatCategories = (categories: any[], itemsObject: any) => {
+    return categories.map((category) => ({
+      name: category.name,
+      icon: category.icon,
+      items: itemsObject[category.name] || []
+    }));
+  };
+
+  // Usage:
+  const formattedIncome = formatCategories(incomeCategories, categoryIncome);
 
   const totalIncome = Object.values(categoryIncome)
     .flat()
