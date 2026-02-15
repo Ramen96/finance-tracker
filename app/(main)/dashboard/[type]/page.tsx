@@ -17,29 +17,9 @@ import {
   LineChart
 } from "lucide-react";
 import Audit from "@/components/Audit/audit";
-import Income from "@/components/Income/income";
 import styles from "./reports.module.scss";
 
 type ReportType = "income" | "expenses" | "assets" | "liabilities" | "audit";
-
-interface ReportItem {
-  // id: number;
-  // description: string;
-  // amount: number;
-
-
-  id: number;
-  name: string;
-  balance: number;
-  payment: number;
-  rate: number;
-}
-
-interface incomeReportType {
-  id: number;
-  description: string;
-  amount: number;
-}
 
 // ALL OF THE DATA BELOW IS PLACEHOLDER DATA
 // UNTIL AN API IS CREATED
@@ -47,6 +27,11 @@ interface incomeReportType {
 //////////////////////////////////////////
 ///////////// INCOME DATA ///////////////
 ////////////////////////////////////////
+interface incomeReportType {
+  id: number;
+  description: string;
+  amount: number;
+}
 
 const incomeCategories = [
   { name: "Salary", icon: Briefcase },
@@ -111,7 +96,7 @@ const expenseCategories = [
   { name: "Utilities", icon: Zap },
 ];
 
-const categoryExpenses: Record<string, ExpenseItem[]> = {
+const expenseItems: Record<string, ExpenseItem[]> = {
   Groceries: [
     { id: 1, description: "Weekly grocery shopping", amount: 150 },
     { id: 2, description: "Farmers market", amount: 45 },
@@ -161,35 +146,41 @@ interface Asset {
   incomeOrRate: string;
 }
 
-const producingAssets: Asset[] = [
-  {
-    id: 1,
-    name: "Rental Property - Main St",
-    value: 250000,
-    incomeOrRate: "$2,500"
-  },
-  {
-    id: 2,
-    name: "Dividend Stocks Portfolio",
-    value: 150000,
-    incomeOrRate: "$500"
-  },
+const assetCategories = [
+  { name: "Producing Assets", icon: TrendingUp },
+  { name: "Growth Assets", icon: LineChart },
 ];
 
-const growthAssets: Asset[] = [
-  {
-    id: 3,
-    name: "Primary Residence",
-    value: 400000,
-    incomeOrRate: "3.5%"
-  },
-  {
-    id: 4,
-    name: "Growth Stock Portfolio",
-    value: 75000,
-    incomeOrRate: "8.2%"
-  },
-];
+const assetItems: Record<string, Asset[]> = {
+  "Producing Assets": [
+    {
+      id: 1,
+      name: "Rental Property - Main St",
+      value: 250000,
+      incomeOrRate: "$2,500"
+    },
+    {
+      id: 2,
+      name: "Dividend Stocks Portfolio",
+      value: 150000,
+      incomeOrRate: "$500"
+    },
+  ],
+  "Growth Assets": [
+    {
+      id: 3,
+      name: "Primary Residence",
+      value: 400000,
+      incomeOrRate: "3.5%"
+    },
+    {
+      id: 4,
+      name: "Growth Stock Portfolio",
+      value: 75000,
+      incomeOrRate: "8.2%"
+    },
+  ],
+};
 
 const assetsColumns = [
   {
@@ -212,63 +203,46 @@ const assetsColumns = [
   },
 ];
 
-const allCategories = [
-  {
-    name: "Producing Assets",
-    icon: TrendingUp,
-    items: producingAssets,
-  },
-  {
-    name: "Growth Assets",
-    icon: LineChart,
-    items: growthAssets,
-  },
-];
-
 //////////////////////////////////////////
 ////////// LIABILITIES DATA /////////////
 ////////////////////////////////////////
+interface liabilityType {
+  id: number;
+  name: string;
+  balance: number;
+  payment: number;
+  rate: number;
+}
+
 const liabilityCategories = [
-  {
-    name: "Credit Cards",
-    icon: CreditCard,
-    liabilities: [
-      { id: 1, name: "Chase Sapphire", balance: 3500, payment: 150, rate: 18.99 },
-      { id: 2, name: "American Express", balance: 2100, payment: 100, rate: 16.49 },
-    ],
-  },
-  {
-    name: "Auto Loans",
-    icon: Car,
-    liabilities: [
-      { id: 3, name: "Tesla Model 3", balance: 35000, payment: 650, rate: 4.5 },
-    ],
-  },
-  {
-    name: "Student Loans",
-    icon: GraduationCap,
-    liabilities: [
-      { id: 4, name: "Federal Student Loan", balance: 25000, payment: 300, rate: 5.8 },
-    ],
-  },
-  {
-    name: "Real Estate",
-    icon: Home,
-    liabilities: [
-      { id: 5, name: "Primary Mortgage", balance: 320000, payment: 2200, rate: 3.75 },
-      { id: 6, name: "Rental Property Mortgage", balance: 180000, payment: 1400, rate: 4.25 },
-    ],
-  },
-  {
-    name: "Business Loans",
-    icon: Building2,
-    liabilities: [
-      { id: 7, name: "Small Business Loan", balance: 50000, payment: 800, rate: 6.5 },
-    ],
-  },
+  { name: "Credit Cards", icon: CreditCard },
+  { name: "Auto Loans", icon: Car },
+  { name: "Student Loans", icon: GraduationCap },
+  { name: "Real Estate", icon: Home },
+  { name: "Business Loans", icon: Building2 },
 ];
 
-const columns = [
+const liabilitiesItems: Record<string, liabilityType[]> = {
+  "Credit Cards": [
+    { id: 1, name: "Chase Sapphire", balance: 3500, payment: 150, rate: 18.99 },
+    { id: 2, name: "American Express", balance: 2100, payment: 100, rate: 16.49 },
+  ],
+  "Auto Loans": [
+    { id: 3, name: "Tesla Model 3", balance: 35000, payment: 650, rate: 4.5 },
+  ],
+  "Student Loans": [
+    { id: 4, name: "Federal Student Loan", balance: 25000, payment: 300, rate: 5.8 },
+  ],
+  "Real Estate": [
+    { id: 5, name: "Primary Mortgage", balance: 320000, payment: 2200, rate: 3.75 },
+    { id: 6, name: "Rental Property Mortgage", balance: 180000, payment: 1400, rate: 4.25 },
+  ],
+  "Business Loans": [
+    { id: 7, name: "Small Business Loan", balance: 50000, payment: 800, rate: 6.5 },
+  ]
+};
+
+const liabilitiesColumns = [
   {
     key: "name" as const,
     label: "Name",
@@ -300,15 +274,10 @@ const columns = [
   },
 ];
 
-
-
-
-
 export default function Report() {
   const params = useParams();
   const reportType = (params?.type as ReportType) || "income";
 
-  const [data, setData] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   // Simulate API call
@@ -320,12 +289,18 @@ export default function Report() {
     }, 500)
   }, []);
 
-  // const formattedCategories = incomeCategories.map((category) => ({
-  //   name: category.name,
-  //   icon: category.icon,
-  //   items: incomeItem[category.name] || [],
-  // }));
-  //
+
+  if (loading) {
+    return (
+      <section className={styles.container}>
+        <div className={styles.loading}>Loading...</div>
+      </section>
+    )
+  }
+
+  if (reportType === "audit") {
+    return <Audit />;
+  }
 
   const formatCategories = (categories: any[], itemsObject: any) => {
     return categories.map((category) => ({
@@ -336,56 +311,95 @@ export default function Report() {
   };
 
   const formattedIncome = formatCategories(incomeCategories, incomeItem);
+  const formattedExpenses = formatCategories(expenseCategories, expenseItems);
+  const formattedAssets = formatCategories(assetCategories, assetItems);
+  const formattedLiabilities = formatCategories(liabilityCategories, liabilitiesItems);
 
-  const totalIncome = Object.values(incomeItem)
-    .flat()
-    .reduce((sum, income) => sum + income.amount, 0);
-
-
-  const reportConfig = {
+  type ReportConfig = {
     income: {
-      categories: () => formatCategories(incomeCategories,),
+      categories: any[];
+      columns: typeof incomeColumns;
+      totalKey: keyof incomeReportType;
+      name: string;
+      description: string;
+    };
+    expenses: {
+      categories: any[];
+      columns: typeof expensesColumns;
+      totalKey: keyof ExpenseItem;
+      name: string;
+      description: string;
+    };
+    assets: {
+      categories: any[];
+      columns: typeof assetsColumns;
+      totalKey: keyof Asset;
+      name: string;
+      description: string;
+    };
+    liabilities: {
+      categories: any[];
+      columns: typeof liabilitiesColumns;
+      totalKey: keyof liabilityType;
+      name: string;
+      description: string;
+    };
+  };
+
+  const reportConfig: ReportConfig = {
+    income: {
+      categories: formattedIncome,
       columns: incomeColumns,
-      totalKey: "amount"
+      totalKey: "amount",
+      name: "Income",
+      description: "Track and manage income sources",
     },
     expenses: {
-      categories: formattedCategories,
+      categories: formattedExpenses,
       columns: expensesColumns,
-      totalKey: "number",
+      totalKey: "amount",
+      name: "Expenses",
+      description: "Track and manage your monthly expenses"
     },
     assets: {
-      categories: formattedCategories,
-      columns: expensesColumns,
+      categories: formattedAssets,
+      columns: assetsColumns,
       totalKey: "value",
+      name: "Assets",
+      description: "Track your producing and growth assets"
     },
     liabilities: {
-      categories: formattedCategories,
-      columns: expensesColumns,
+      categories: formattedLiabilities,
+      columns: liabilitiesColumns,
       totalKey: "balance",
+      name: "Liabilities",
+      description: "Track your debts and monthly obligations"
     }
   }
 
+  type ValidReportType = Exclude<ReportType, "audit">;
+  const config = reportConfig[reportType as ValidReportType];
 
+  const configCategories = config.categories;
+  const configTotalKey = config.totalKey;
+  const configColumns = config.columns;
 
-  if (loading) {
-    return (
-      <section className={styles.container}>
-        <div className={styles.loading}>Loading...</div>
-      </section>
-    )
-  }
+  const total = config.categories
+    .map(category => category.items)
+    .flat()
+    .reduce((sum, item) => sum + (Number(item[config.totalKey]) || 0), 0);
 
   return (
     <section className={styles.incomeContainer}>
       <div className={styles.header}>
-        <h1>Income</h1>
-        <p>Track and manage income sources</p>
+        <h1>{config.name}</h1>
+        <p>{config.description}</p>
       </div>
 
       <DataTable
-        categories={formattedCategories}
-        columns={columns}
-        totalKey="balance"
+        categories={configCategories}
+        columns={configColumns}
+        totalKey={configTotalKey}
         onAdd={(cat) => console.log("Adding income to", cat)}
         onEdit={(item) => console.log("Editing income", item)}
         onDelete={(item) => console.log("Deleting income", item)}
@@ -393,12 +407,12 @@ export default function Report() {
 
       <div className={styles.grandTotal}>
         <div className={styles.grandTotalContent}>
-          <h2>Total Monthly Income</h2>
+          <h2>Total Monthly {config.name}</h2>
           <span className={styles.grandTotalAmount}>
-            ${totalIncome.toLocaleString()}
+            ${total.toLocaleString()}
           </span>
         </div>
       </div>
     </section>
-  );
+  )
 }
