@@ -23,7 +23,7 @@ const incomeCategories = [
   { name: "Businesses", icon: Building2 },
 ];
 
-const categoryIncome: Record<string, IncomeItem[]> = {
+const categoryItems: Record<string, IncomeItem[]> = {
   Salary: [
     { id: 1, description: "Monthly salary", amount: 5000 },
     { id: 2, description: "Bonus", amount: 1000 },
@@ -64,10 +64,10 @@ export default function Income() {
   const formattedCategories = incomeCategories.map((category) => ({
     name: category.name,
     icon: category.icon,
-    items: categoryIncome[category.name] || [],
+    items: categoryItems[category.name] || [],
   }));
 
-  const totalIncome = Object.values(categoryIncome)
+  const totalIncome = Object.values(categoryItems)
     .flat()
     .reduce((sum, income) => sum + income.amount, 0);
 
