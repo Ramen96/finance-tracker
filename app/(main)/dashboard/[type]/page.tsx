@@ -35,6 +35,12 @@ interface ReportItem {
   rate: number;
 }
 
+interface incomeReportType {
+  id: number;
+  description: string;
+  amount: number;
+}
+
 // ALL OF THE DATA BELOW IS PLACEHOLDER DATA
 // UNTIL AN API IS CREATED
 
@@ -50,7 +56,7 @@ const incomeCategories = [
   { name: "Businesses", icon: Building2 },
 ];
 
-const categoryIncome: Record<string, ReportItem[]> = {
+const incomeItem: Record<string, incomeReportType[]> = {
   Salary: [
     { id: 1, description: "Monthly salary", amount: 5000 },
     { id: 2, description: "Bonus", amount: 1000 },
@@ -329,7 +335,6 @@ export default function Report() {
     }));
   };
 
-  // Usage:
   const formattedIncome = formatCategories(incomeCategories, categoryIncome);
 
   const totalIncome = Object.values(categoryIncome)
@@ -339,7 +344,7 @@ export default function Report() {
 
   const reportConfig = {
     income: {
-      categories: formattedCategories,
+      categories: () => formatCategories(incomeCategories,),
       columns: incomeColumns,
       totalKey: "amount"
     },
