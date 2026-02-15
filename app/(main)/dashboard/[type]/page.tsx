@@ -323,7 +323,7 @@ export default function Report() {
   // const formattedCategories = incomeCategories.map((category) => ({
   //   name: category.name,
   //   icon: category.icon,
-  //   items: categoryIncome[category.name] || [],
+  //   items: incomeItem[category.name] || [],
   // }));
   //
 
@@ -335,9 +335,9 @@ export default function Report() {
     }));
   };
 
-  const formattedIncome = formatCategories(incomeCategories, categoryIncome);
+  const formattedIncome = formatCategories(incomeCategories, incomeItem);
 
-  const totalIncome = Object.values(categoryIncome)
+  const totalIncome = Object.values(incomeItem)
     .flat()
     .reduce((sum, income) => sum + income.amount, 0);
 
