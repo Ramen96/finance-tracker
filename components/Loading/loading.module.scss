@@ -1,0 +1,25 @@
+@use "@/styles/mixins";
+@use "@/styles/mixins/layout" as layout;
+@use "@/styles/mixins/ui" as ui;
+@use "@/styles/mixins/typography" as typography;
+@use "@/styles/variables" as vars;
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  align-self: start;
+  gap: vars.$spacing-2xl;
+  margin: vars.$spacing-2xl;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
