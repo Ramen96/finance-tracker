@@ -1,68 +1,188 @@
-@use "@styles/mixins";
-@use "@/styles/mixins/ui";
-@use "@styles/variables" as vars;
-@use "@styles/mixins/typography" as typography;
+@use "@/styles/mixins" as mixins;
+@use "@/styles/variables" as vars;
 
 .contentContainer {
-  @include mixins.contentContainer;
-  @include ui.hide-scrollbar;
-  overflow-y: auto;
-  overflow-x: hidden;
+  @include mixins.flex(flex-start, stretch);
+  @include mixins.flex-wrap;
+  @include mixins.w-full;
+  padding: vars.$spacing-lg;
+  gap: vars.$spacing-md;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @include mixins.respond("tablet") {
+    padding: vars.$spacing-xl;
+    gap: vars.$spacing-lg;
+  }
 }
 
-.card {
+// Dashboard overview cards
+.overviewCard {
   @include mixins.card;
-  background: var(--bg);
-  width: calc(100% - vars.$spacing-2xl);
-  max-width: 100%;
-  box-sizing: border-box;
+  @include mixins.flex(space-between, center, column);
+  gap: vars.$spacing-md;
+  padding: vars.$spacing-lg;
+  margin: 0;
+  min-height: 140px;
+  flex: 1 1 100%;
+  @include mixins.transition;
+  position: relative;
   overflow: hidden;
 
-  @include typography.respond("laptop-l") {
-    max-width: 1600px;
+  @include mixins.respond("mobile-l") {
+    flex: 1 1 calc(50% - vars.$spacing-md);
+    min-width: 0;
   }
 
-  @include typography.respond-down("laptop") {
-    padding: vars.$spacing-lg;
-  }
-
-  @include typography.respond-down("tablet") {
-    padding: vars.$spacing-md;
-    margin-bottom: vars.$spacing-md;
-  }
-
-  @include typography.respond-down("mobile-l") {
-    width: 100vw !important;
-    padding: vars.$spacing-sm;
-    border-radius: vars.$radius-md;
-  }
-}
-
-.cardItem {
-  @include mixins.card-item;
-}
-
-.cardsContainer {
-  @include mixins.w-full;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: vars.$spacing-xl;
-  padding: vars.$spacing-md;
-  box-sizing: border-box;
-
-  @include typography.respond-down("laptop") {
+  @include mixins.respond("tablet") {
+    flex: 1 1 calc(50% - vars.$spacing-lg);
+    padding: vars.$spacing-xl;
+    min-height: 160px;
     gap: vars.$spacing-lg;
-    padding: vars.$spacing-md vars.$spacing-sm;
   }
 
-  @include typography.respond-down("tablet") {
-    gap: vars.$spacing-md;
-    padding: vars.$spacing-sm;
+  @include mixins.respond("laptop") {
+    flex: 1 1 calc(25% - vars.$spacing-lg);
   }
 
-  @include typography.respond-down("mobile-l") {
-    gap: vars.$spacing-sm;
-    padding: vars.$spacing-xs;
+  &:hover {
+    @include mixins.shadow-lg;
+    transform: translateY(-4px);
+    border-color: var(--primary);
   }
+
+  // Accent bar on left
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--primary);
+    @include mixins.transition;
+  }
+
+  &.income::before {
+    background: var(--primary);
+  }
+
+  &.expenses::before {
+    background: var(--error, #ef4444);
+  }
+
+  &.assets::before {
+    background: var(--secondary);
+  }
+
+  &.liabilities::before {
+    background: #f59e0b;
+  }
+}
+
+.cardHeader {
+  @include mixins.flex(space-between, center);
+  @include mixins.w-full;
+  gap: vars.$spacing-sm;
+}
+
+.cardIcon {
+  @include mixins.flex-center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+
+  @include mixins.respond("tablet") {
+    font-size: 1.75rem;
+  }
+
+  &.income {
+    color: var(--primary);
+  }
+
+  &.expenses {
+    color: var(--error, #ef4444);
+  }
+
+  &.assets {
+    color: var(--secondary);
+  }
+
+  &.liabilities {
+    color: #f59e0b;
+  }
+}
+
+.cardTitle {
+  font-family: var(--font-main), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  @include mixins.respond("tablet") {
+    font-size: 1rem;
+  }
+}
+
+.cardContent {
+  @include mixins.flex(null, flex-start, column);
+  @include mixins.w-full;
+  gap: vars.$spacing-xs;
+}
+
+.cardAmount {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0;
+  letter-spacing: -0.02em;
+
+  @include mixins.respond("tablet") {
+    font-size: 2rem;
+  }
+
+  @include mixins.respond("laptop") {
+    font-size: 2.25rem;
+  }
+
+  &.positive {
+    color: var(--primary);
+  }
+
+  &.negative {
+    color: var(--error, #ef4444);
+  }
+}
+
+.cardChange {
+  @include mixins.flex(flex-start, center);
+  gap: vars.$spacing-xs;
+  font-family: var(--font-main), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  @include mixins.respond("tablet") {
+    font-size: 0.9rem;
+  }
+
+  &.up {
+    color: var(--primary);
+  }
+
+  &.down {
+    color: var(--error, #ef4444);
+  }
+
+  .arrow {
+    font-size: 0.75rem;
+  }
+}
+
+// Full width section for Audit component
+.auditSection {
+  @include mixins.w-full;
+  flex: 1 1 100%;
 }
