@@ -15,6 +15,13 @@
   margin: vars.$spacing-2xl;
 }
 
+.contentContainer {
+  @include mixins.contentContainer;
+  @include ui.hide-scrollbar;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .loading {
   display: flex;
   align-items: center;

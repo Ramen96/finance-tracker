@@ -299,7 +299,11 @@ export default function Report() {
   }
 
   if (reportType === "audit") {
-    return <Audit />;
+    return (
+      <div className={styles.contentContainer}>
+        <Audit />
+      </div>
+    );
   }
 
   const formatCategories = (categories: any[], itemsObject: any) => {
@@ -390,29 +394,31 @@ export default function Report() {
     .reduce((sum, item) => sum + (Number(item[config.totalKey]) || 0), 0);
 
   return (
-    <section className={styles.incomeContainer}>
-      <div className={styles.header}>
-        <h1>{config.name}</h1>
-        <p>{config.description}</p>
-      </div>
-
-      <DataTable
-        categories={configCategories}
-        columns={configColumns}
-        totalKey={configTotalKey}
-        onAdd={(cat) => console.log("Adding income to", cat)}
-        onEdit={(item) => console.log("Editing income", item)}
-        onDelete={(item) => console.log("Deleting income", item)}
-      />
-
-      <div className={styles.grandTotal}>
-        <div className={styles.grandTotalContent}>
-          <h2>Total Monthly {config.name}</h2>
-          <span className={styles.grandTotalAmount}>
-            ${total.toLocaleString()}
-          </span>
+    <div className={styles.contentContainer}>
+      <section className={styles.incomeContainer}>
+        <div className={styles.header}>
+          <h1>{config.name}</h1>
+          <p>{config.description}</p>
         </div>
-      </div>
-    </section>
+
+        <DataTable
+          categories={configCategories}
+          columns={configColumns}
+          totalKey={configTotalKey}
+          onAdd={(cat) => console.log("Adding income to", cat)}
+          onEdit={(item) => console.log("Editing income", item)}
+          onDelete={(item) => console.log("Deleting income", item)}
+        />
+
+        <div className={styles.grandTotal}>
+          <div className={styles.grandTotalContent}>
+            <h2>Total Monthly {config.name}</h2>
+            <span className={styles.grandTotalAmount}>
+              ${total.toLocaleString()}
+            </span>
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }
