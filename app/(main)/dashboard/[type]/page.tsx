@@ -16,6 +16,7 @@ import {
   GraduationCap,
   LineChart
 } from "lucide-react";
+import Loading from "@/components/Loading/loading";
 import Audit from "@/components/Audit/audit";
 import styles from "./reports.module.scss";
 
@@ -292,9 +293,7 @@ export default function Report() {
 
   if (loading) {
     return (
-      <section className={styles.container}>
-        <div className={styles.loading}>Loading...</div>
-      </section>
+      <Loading />
     )
   }
 
