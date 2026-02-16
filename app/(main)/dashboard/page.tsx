@@ -38,12 +38,19 @@ const placeholderData = [
 
 export default function Dashboard() {
 
+  interface pDataType {
+    id: number;
+    name: string;
+    amount: number;
+  }
+
   const [isLoading, setIsloading] = useState(true);
-  const [data, setData] = useState(false);
+  const [data, setData] = useState<pDataType[]>([]);
 
   // Simulate API call
   useEffect(() => {
     setTimeout(() => {
+      setData(placeholderData);
       setIsloading(false);
     }, 500)
   })
@@ -56,7 +63,7 @@ export default function Dashboard() {
 
   return (
     <div id="content" className={styles.contentContainer}>
-      {placeholderData.map((element) =>
+      {data.map((element) =>
         <div key={element.id}>
           <h1>{element.name}</h1>
           <h4>{element.amount}</h4>
