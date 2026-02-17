@@ -2,14 +2,6 @@
 import { useState } from "react";
 import styles from "./settings.module.scss";
 
-interface InputField {
-  id: string;
-  label: string;
-  type: string;
-  value: string;
-  placeholder?: string;
-}
-
 interface SelectOption {
   value: string;
   label: string;
@@ -60,22 +52,6 @@ export default function Settings() {
   const handleSave = () => {
     console.log("Settings saved:", formData);
   };
-
-  // Configuration arrays
-  const personalInfoFields: InputField[] = [
-    { id: "firstName", label: "First Name", type: "text", value: formData.firstName },
-    { id: "lastName", label: "Last Name", type: "text", value: formData.lastName },
-    { id: "email", label: "Email Address", type: "email", value: formData.email },
-    { id: "phone", label: "Phone Number", type: "tel", value: formData.phone },
-    { id: "dateOfBirth", label: "Date of Birth", type: "date", value: formData.dateOfBirth },
-  ];
-
-  const addressFields: InputField[] = [
-    { id: "address", label: "Street Address", type: "text", value: formData.address },
-    { id: "city", label: "City", type: "text", value: formData.city },
-    { id: "state", label: "State", type: "text", value: formData.state },
-    { id: "zipCode", label: "ZIP Code", type: "text", value: formData.zipCode },
-  ];
 
   const generalSettings: SelectField[] = [
     {
@@ -136,50 +112,6 @@ export default function Settings() {
       </div>
 
       <div className={styles.settingsGrid}>
-        {/* Personal Information */}
-        <section className={styles.settingCard}>
-          <div className={styles.sectionHeader}>
-            <div className={styles.sectionIcon}>👤</div>
-            <h2>Personal Information</h2>
-          </div>
-          {personalInfoFields.map((field) => (
-            <div key={field.id} className={styles.settingGroup}>
-              <label htmlFor={field.id} className={styles.settingLabel}>
-                {field.label}
-              </label>
-              <input
-                id={field.id}
-                type={field.type}
-                value={field.value}
-                onChange={(e) => handleInputChange(field.id, e.target.value)}
-                className={styles.textInput}
-                placeholder={field.placeholder}
-              />
-            </div>
-          ))}
-        </section>
-
-        {/* Address */}
-        <section className={styles.settingCard}>
-          <div className={styles.sectionHeader}>
-            <div className={styles.sectionIcon}>📍</div>
-            <h2>Address</h2>
-          </div>
-          {addressFields.map((field) => (
-            <div key={field.id} className={styles.settingGroup}>
-              <label htmlFor={field.id} className={styles.settingLabel}>
-                {field.label}
-              </label>
-              <input
-                id={field.id}
-                type={field.type}
-                value={field.value}
-                onChange={(e) => handleInputChange(field.id, e.target.value)}
-                className={styles.textInput}
-              />
-            </div>
-          ))}
-        </section>
 
         {/* General Settings */}
         <section className={styles.settingCard}>
