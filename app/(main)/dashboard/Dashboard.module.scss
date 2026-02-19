@@ -2,8 +2,6 @@
 @use "@/styles/variables" as vars;
 
 .contentContainer {
-  @include mixins.flex(flex-start, stretch);
-  @include mixins.flex-wrap;
   @include mixins.w-full;
   padding: vars.$spacing-lg;
   gap: vars.$spacing-md;
@@ -16,13 +14,23 @@
   }
 }
 
+.sectionsContainer {
+  @include mixins.w-full;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+
+.header {
+  @include mixins.page-header;
+}
+
 // Dashboard overview cards
 .overviewCard {
   @include mixins.card;
   @include mixins.flex(space-between, center, column);
-  gap: vars.$spacing-md;
   padding: vars.$spacing-lg;
-  margin: 0;
+  margin: vars.$spacing-xs;
   min-height: 140px;
   flex: 1 1 100%;
   @include mixins.transition;

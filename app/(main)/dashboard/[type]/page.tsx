@@ -299,8 +299,10 @@ export default function Report() {
 
   if (reportType === "audit") {
     return (
-      <div className={styles.contentContainer}>
-        <Audit />
+      <div className={styles.container}>
+        <div className={styles.contentContainer}>
+          <Audit />
+        </div>
       </div>
     );
   }

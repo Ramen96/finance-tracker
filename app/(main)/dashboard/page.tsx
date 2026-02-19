@@ -1,6 +1,10 @@
 "use client";
 import Loading from "@/components/Loading/loading";
+import React from "react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { LucideIcon } from "lucide-react";
+import { AlignHorizontalDistributeCenter, ChartSpline, CircleDollarSign, BanknoteArrowDown } from "lucide-react";
 import styles from "./Dashboard.module.scss";
 import Audit from "@/components/Audit/audit";
 
@@ -11,7 +15,7 @@ const placeholderData = [
     name: "Income",
     amount: 1293109,
     change: 12.5,
-    icon: "💰",
+    icon: CircleDollarSign,
     type: "income" as const,
   },
   {
@@ -19,7 +23,7 @@ const placeholderData = [
     name: "Expenses",
     amount: 1231,
     change: -5.2,
-    icon: "💸",
+    icon: BanknoteArrowDown,
     type: "expenses" as const,
   },
   {
@@ -27,7 +31,7 @@ const placeholderData = [
     name: "Assets",
     amount: 400023,
     change: 8.3,
-    icon: "📈",
+    icon: ChartSpline,
     type: "assets" as const,
   },
   {
@@ -35,7 +39,7 @@ const placeholderData = [
     name: "Liabilities",
     amount: 30203,
     change: -2.1,
-    icon: "📊",
+    icon: AlignHorizontalDistributeCenter,
     type: "liabilities" as const,
   },
 ];
@@ -45,11 +49,12 @@ interface DataType {
   name: string;
   amount: number;
   change: number;
-  icon: string;
+  icon: LucideIcon;
   type: "income" | "expenses" | "assets" | "liabilities";
 }
 
 export default function Dashboard() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<DataType[]>([]);
 
@@ -82,42 +87,51 @@ export default function Dashboard() {
 
   return (
     <div id="content" className={styles.contentContainer}>
-      {data.map((element) => (
-        <div
-          key={element.id}
-          className={`${styles.overviewCard} ${styles[element.type]}`}
-        >
-          <div className={styles.cardHeader}>
-            <span className={styles.cardTitle}>{element.name}</span>
-            <span className={`${styles.cardIcon} ${styles[element.type]}`}>
-              {element.icon}
-            </span>
-          </div>
+      <div className={styles.header}>
+        <h1>Dashboard</h1>
+      </div>
+      <div className={styles.sectionsContainer}>
+        {data.map((element) => {
+          const ElementIcon = element.icon;
 
-          <div className={styles.cardContent}>
+          return (
             <div
-              className={`${styles.cardAmount} ${element.type === "income" || element.type === "assets"
-                  ? styles.positive
-                  : ""
-                } ${element.type === "expenses" ? styles.negative : ""}`}
+              key={element.id}
+              className={`${styles.overviewCard} ${styles[element.type]}`}
+              onClick={() => router.push(`/dashboard/${element.type}`)}
             >
-              {formatCurrency(element.amount)}
-            </div>
+              <div className={styles.cardHeader}>
+                <span className={styles.cardTitle}>{element.name}</span>
+                <span className={`${styles.cardIcon} ${styles[element.type]}`}>
+                  <ElementIcon />
+                </span>
+              </div>
 
-            <div
-              className={`${styles.cardChange} ${element.change > 0 ? styles.up : styles.down
-                }`}
-            >
-              <span className={styles.arrow}>
-                {element.change > 0 ? "↑" : "↓"}
-              </span>
-              <span>{formatChange(element.change)}</span>
-              <span>vs last month</span>
-            </div>
-          </div>
-        </div>
-      ))}
+              <div className={styles.cardContent}>
+                <div
+                  className={`${styles.cardAmount} ${element.type === "income" || element.type === "assets"
+                    ? styles.positive
+                    : ""
+                    } ${element.type === "expenses" ? styles.negative : ""}`}
+                >
+                  {formatCurrency(element.amount)}
+                </div>
 
+                <div
+                  className={`${styles.cardChange} ${element.change > 0 ? styles.up : styles.down
+                    }`}
+                >
+                  <span className={styles.arrow}>
+                    {element.change > 0 ? "↑" : "↓"}
+                  </span>
+                  <span>{formatChange(element.change)}</span>
+                  <span>vs last month</span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
       <div className={styles.auditSection}>
         <Audit />
       </div>
