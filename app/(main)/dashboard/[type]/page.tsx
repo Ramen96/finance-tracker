@@ -301,7 +301,9 @@ export default function Report() {
     return (
       <div className={styles.container}>
         <div className={styles.contentContainer}>
-          <Audit />
+          <div className={styles.auditWrapper}>
+            <Audit />
+          </div>
         </div>
       </div>
     );

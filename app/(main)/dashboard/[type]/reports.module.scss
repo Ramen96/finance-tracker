@@ -6,13 +6,18 @@
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  // max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   align-self: start;
   gap: vars.$spacing-2xl;
   margin: vars.$spacing-2xl;
+}
+
+.auditWrapper {
+  @include mixins.w-full;
+  max-width: 1400px;
 }
 
 .contentContainer {
