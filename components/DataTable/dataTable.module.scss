@@ -23,33 +23,30 @@
 // ---- Page header ------------------------------------------------------------
 
 .header {
-  margin-bottom: vars.$spacing-lg;
+  margin-bottom: vars.$spacing-xl;
 
   h1 {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 800;
     color: var(--text);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
     margin-bottom: vars.$spacing-xs;
   }
 
   p {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     color: var(--text-secondary);
+    font-weight: 400;
   }
 }
 
 // ---- Grid -------------------------------------------------------------------
 
 .categoriesGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: vars.$spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-xl;
   width: 100%;
-
-  @include tablet {
-    grid-template-columns: 1fr;
-  }
 }
 
 // ---- Category card ----------------------------------------------------------
@@ -57,26 +54,36 @@
 .categorySection {
   display: flex;
   flex-direction: column;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
+  background: var(--bg-elevated);
+
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--text) 4%, transparent),
+    0 4px 12px color-mix(in srgb, var(--text) 6%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--border) 70%, transparent);
+
   border-radius: vars.$radius-md;
   overflow: hidden;
   width: 100%;
   min-width: 0;
+  border: none;
 }
 
 .categoryHeader {
   display: flex;
   align-items: center;
   gap: vars.$spacing-sm;
-  padding: vars.$spacing-md vars.$spacing-lg;
-  background: var(--primary);
+  padding: vars.$spacing-sm vars.$spacing-lg;
+
+  background: linear-gradient(135deg,
+      var(--primary),
+      color-mix(in srgb, var(--primary) 78%, var(--bg)));
 
   h2 {
-    font-size: 0.9rem;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 800;
     color: var(--primary-text);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     margin: 0;
   }
@@ -84,7 +91,7 @@
 
 .categoryIcon {
   color: var(--primary-text);
-  opacity: 0.6;
+  opacity: 0.4;
 }
 
 // ---- Add button -------------------------------------------------------------
@@ -94,34 +101,33 @@
   align-items: center;
   justify-content: center;
   gap: vars.$spacing-xs;
-  margin: vars.$spacing-sm vars.$spacing-lg;
-  padding: vars.$spacing-xs vars.$spacing-md;
+  margin: vars.$spacing-md vars.$spacing-lg vars.$spacing-xs;
+  padding: 6px vars.$spacing-md;
   background: transparent;
   color: var(--primary);
-  border: 1px dashed color-mix(in srgb, var(--primary) 35%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--primary) 40%, transparent);
   border-radius: vars.$radius-sm;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   cursor: pointer;
   transition: all 0.15s ease;
   align-self: flex-start;
 
   &:hover {
-    background: color-mix(in srgb, var(--primary) 8%, transparent);
+    background: color-mix(in srgb, var(--primary) 7%, transparent);
     border-style: solid;
+    border-color: color-mix(in srgb, var(--primary) 55%, transparent);
   }
 }
 
 // ---- Table shell ------------------------------------------------------------
 
 .dataTable {
-  border-top: 1px solid var(--border);
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
   width: 100%;
   overflow: hidden;
 }
-
-// .tableBody {}
 
 // ---- Header + row grid ------------------------------------------------------
 
@@ -129,7 +135,7 @@
 .tableRow {
   display: grid;
   gap: vars.$spacing-lg;
-  padding: vars.$spacing-md vars.$spacing-lg;
+  padding: 0 vars.$spacing-lg;
   align-items: center;
   width: 100%;
   box-sizing: border-box;
@@ -153,47 +159,69 @@
   }
 }
 
+// Column labels
 .tableHeader {
-  background: var(--bg-secondary);
-  font-size: 0.65rem;
+  height: 34px;
+  background: color-mix(in srgb, var(--bg) 65%, var(--bg-elevated));
+  font-size: 0.58rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.13em;
   color: var(--text-secondary);
-  border-bottom: 1px solid var(--border);
-  padding-top: vars.$spacing-sm;
-  padding-bottom: vars.$spacing-sm;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  opacity: 0.75;
 
   @include tablet {
     display: none;
   }
 }
 
+// Rows
 .tableRow {
-  border-top: 1px solid var(--border);
-  background: var(--bg-secondary);
-  transition: background 0.15s ease, border-left-color 0.15s ease;
-  border-left: 3px solid transparent;
+  height: 52px;
+  background: var(--bg-elevated);
+  border-top: 1px solid color-mix(in srgb, var(--border) 35%, transparent);
+  border-left: 2px solid transparent;
+  font-family: var(--font-main);
+  transition:
+    background 0.1s ease,
+    border-left-color 0.1s ease;
 
   &:first-child {
     border-top: none;
   }
 
   &:hover {
-    background: var(--bg);
+    background: color-mix(in srgb, var(--primary) 5%, var(--bg-elevated));
     border-left-color: var(--primary);
+
+    .nameCol {
+      color: var(--primary);
+    }
   }
 
   @include tablet {
+    height: auto;
     border-top: none;
+    border-left: none;
     border-radius: vars.$radius-sm;
     margin: 0 vars.$spacing-xs vars.$spacing-xs;
     border: 1px solid var(--border);
     padding: vars.$spacing-md;
+    box-shadow: 0 1px 3px color-mix(in srgb, var(--text) 5%, transparent);
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--primary) 45%, transparent);
+      box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 10%, transparent);
+
+      .nameCol {
+        color: var(--primary);
+      }
+    }
 
     >span:not(.actionsCol) {
       display: grid;
-      grid-template-columns: 110px 1fr;
+      grid-template-columns: 100px 1fr;
       gap: vars.$spacing-sm;
       align-items: start;
       padding: vars.$spacing-xs 0;
@@ -202,11 +230,12 @@
 
       &::before {
         content: attr(data-label);
-        font-weight: 600;
+        font-weight: 700;
         color: var(--text-secondary);
         font-size: vars.$font-size-2xs;
         text-transform: uppercase;
-        letter-spacing: 0.05rem;
+        letter-spacing: 0.07rem;
+        padding-top: 1px;
       }
     }
   }
@@ -214,7 +243,7 @@
   @include mobile {
     >span:not(.actionsCol) {
       grid-template-columns: 1fr;
-      gap: vars.$spacing-xs;
+      gap: 2px;
 
       &::before {
         margin-bottom: vars.$spacing-xs;
@@ -224,8 +253,6 @@
 }
 
 // ---- Columns ----------------------------------------------------------------
-
-.nameCol,
 .balanceCol,
 .paymentCol,
 .rateCol {
@@ -233,36 +260,41 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 1rem;
   justify-self: start;
 
   @include tablet {
     overflow: visible;
     text-overflow: initial;
     white-space: normal;
-    font-size: vars.$font-size-xs;
   }
 }
 
 .nameCol {
+  font-size: 0.875rem;
   font-weight: 600;
   color: var(--text);
+  letter-spacing: -0.01em;
+  transition: color 0.1s ease;
 }
 
 .balanceCol {
-  font-weight: 700;
+  font-size: 1.05rem;
+  font-weight: 800;
   color: var(--error);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
 }
 
 .paymentCol {
-  font-weight: 700;
+  font-size: 0.875rem;
+  font-weight: 600;
   color: var(--text);
   font-variant-numeric: tabular-nums;
 }
 
 .rateCol {
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 400;
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
 }
@@ -272,7 +304,7 @@
 .actionsCol {
   display: flex;
   align-items: center;
-  gap: vars.$spacing-xs;
+  gap: 6px;
   justify-content: flex-end;
   justify-self: end;
 
@@ -281,6 +313,7 @@
     justify-self: stretch;
     gap: vars.$spacing-md;
     padding-top: vars.$spacing-sm;
+    margin-top: vars.$spacing-xs;
     border-top: 1px solid var(--border);
 
     &::before {
@@ -293,52 +326,61 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   border-radius: vars.$radius-sm;
+  border: 1px solid transparent;
+  background: transparent;
   cursor: pointer;
   transition: all 0.15s ease;
 
   @include tablet {
     flex: 1;
     width: auto;
-    height: auto;
-    padding: vars.$spacing-sm vars.$spacing-md;
+    height: 34px;
+    padding: 0 vars.$spacing-md;
     gap: vars.$spacing-xs;
     font-size: vars.$font-size-2xs;
+    font-weight: 600;
   }
 }
 
+// Edit
 .editBtn {
   @extend %actionBtn;
-  color: var(--primary);
-  background: color-mix(in srgb, var(--primary) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+  color: color-mix(in srgb, var(--primary) 55%, var(--text-secondary));
 
   &:hover {
-    background: color-mix(in srgb, var(--primary) 20%, transparent);
-    border-color: color-mix(in srgb, var(--primary) 50%, transparent);
+    color: var(--primary);
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
   }
 
   @include tablet {
+    border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+    color: var(--primary);
+
     &::after {
       content: "Edit";
     }
   }
 }
 
+// Delete
 .deleteBtn {
   @extend %actionBtn;
-  color: var(--error);
-  background: color-mix(in srgb, var(--error) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--error) 25%, transparent);
+  color: color-mix(in srgb, var(--text-secondary) 50%, transparent);
 
   &:hover {
-    background: color-mix(in srgb, var(--error) 20%, transparent);
-    border-color: color-mix(in srgb, var(--error) 50%, transparent);
+    color: var(--error);
+    background: color-mix(in srgb, var(--error) 8%, transparent);
+    border-color: color-mix(in srgb, var(--error) 28%, transparent);
   }
 
   @include tablet {
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+
     &::after {
       content: "Delete";
     }
@@ -351,9 +393,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: vars.$spacing-sm vars.$spacing-md;
-  background: color-mix(in srgb, var(--primary) 8%, var(--bg));
-  border-top: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+  padding: vars.$spacing-sm vars.$spacing-lg;
+  background: color-mix(in srgb, var(--primary) 4%, var(--bg));
+  border-top: 1px solid color-mix(in srgb, var(--primary) 10%, transparent);
 
   @include tablet {
     flex-direction: column;
@@ -364,19 +406,20 @@
 }
 
 .totalLabel {
-  font-size: 0.68rem;
+  font-size: 0.58rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   color: var(--primary);
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
 .totalAmount {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 800;
   color: var(--primary);
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
 // ---- Grand totals -----------------------------------------------------------
@@ -384,78 +427,30 @@
 .totalsSection {
   display: flex;
   flex-direction: column;
-  gap: vars.$spacing-lg;
-  margin-top: vars.$spacing-lg;
+  gap: vars.$spacing-md;
+  margin-top: vars.$spacing-xl;
   width: 100%;
 }
 
-.grandTotal {
-  border: 1px solid color-mix(in srgb, var(--error) 30%, transparent);
+%totalCard {
   border-radius: vars.$radius-md;
   overflow: hidden;
-
-  @include tablet {
-    padding: vars.$spacing-md;
-  }
+  box-shadow:
+    0 1px 2px color-mix(in srgb, var(--text) 4%, transparent),
+    0 4px 12px color-mix(in srgb, var(--text) 6%, transparent);
 }
 
-.grandTotalContent {
+%totalContent {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
   padding: vars.$spacing-md vars.$spacing-lg;
-  background: color-mix(in srgb, var(--error) 5%, var(--bg-elevated));
-
-  @include tablet {
-    flex-direction: column;
-    gap: vars.$spacing-sm;
-    text-align: center;
-  }
-}
-
-.grandTotalAmount {
-  font-size: 1.6rem;
-  font-weight: 900;
-  color: var(--error);
-  letter-spacing: -0.03em;
-  font-variant-numeric: tabular-nums;
-
-  @include laptop {
-    font-size: vars.$font-size-xl;
-  }
-
-  @include tablet {
-    font-size: vars.$font-size-large;
-  }
-
-  @include mobile {
-    font-size: vars.$font-size-md;
-  }
-}
-
-.monthlyTotal {
-  border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
-  border-radius: vars.$radius-md;
-  overflow: hidden;
-
-  @include tablet {
-    padding: vars.$spacing-md;
-  }
-}
-
-.monthlyTotalContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: vars.$spacing-md vars.$spacing-lg;
-  background: color-mix(in srgb, var(--primary) 8%, var(--bg-elevated));
 
   h2 {
-    font-size: 0.68rem;
+    font-size: 0.6rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-secondary);
+    letter-spacing: 0.12em;
     margin: 0;
   }
 
@@ -464,19 +459,19 @@
     align-items: center;
     gap: vars.$spacing-sm;
     text-align: center;
+    padding: vars.$spacing-md;
 
     h2 {
-      font-size: vars.$font-size-md;
+      font-size: vars.$font-size-2xs;
     }
   }
 }
 
-.monthlyTotalAmount {
-  font-size: 1.6rem;
+%totalAmount {
   font-weight: 900;
-  color: var(--primary);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   font-variant-numeric: tabular-nums;
+  font-size: 1.75rem;
 
   @include laptop {
     font-size: vars.$font-size-xl;
@@ -489,4 +484,42 @@
   @include mobile {
     font-size: vars.$font-size-md;
   }
+}
+
+.grandTotal {
+  @extend %totalCard;
+  border: 1px solid color-mix(in srgb, var(--error) 18%, transparent);
+}
+
+.grandTotalContent {
+  @extend %totalContent;
+  background: color-mix(in srgb, var(--error) 4%, var(--bg-elevated));
+
+  h2 {
+    color: color-mix(in srgb, var(--error) 55%, var(--text-secondary));
+  }
+}
+
+.grandTotalAmount {
+  @extend %totalAmount;
+  color: var(--error);
+}
+
+.monthlyTotal {
+  @extend %totalCard;
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, transparent);
+}
+
+.monthlyTotalContent {
+  @extend %totalContent;
+  background: color-mix(in srgb, var(--primary) 4%, var(--bg-elevated));
+
+  h2 {
+    color: var(--text-secondary);
+  }
+}
+
+.monthlyTotalAmount {
+  @extend %totalAmount;
+  color: var(--primary);
 }
