@@ -1,145 +1,168 @@
 @use "@styles/mixins";
-@use "@styles/mixins/layout" as layout;
 @use "@styles/variables" as vars;
 
 .auditContainer {
-  @include mixins.page-container;
+  @include mixins.w-full;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: 0;
 }
 
 .header {
-  width: 100%;
-  text-align: left;
-  margin-bottom: vars.$spacing-xl;
+  margin-bottom: vars.$spacing-lg;
 
   h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--text);
+    letter-spacing: -0.02em;
     margin-bottom: vars.$spacing-xs;
   }
 
   p {
-    font-size: 0.95rem;
+    font-size: 0.875rem;
     color: var(--text-secondary);
   }
 }
 
-.auditCard {
-  @include mixins.radius;
-  @include mixins.shadow-sm;
-  width: calc(100% - vars.$spacing-2xl);
-  background: var(--bg-elevated);
+//////////////////////////////////////
+//////// Income / Expense block /////
+////////////////////////////////////
+.block {
   border: 1px solid var(--border);
-  padding: vars.$spacing-lg;
+  border-radius: vars.$radius-md;
+  overflow: hidden;
+  background: var(--bg-elevated);
 }
 
-.incomeRow {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+.blockTag {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  padding: vars.$spacing-sm vars.$spacing-md;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.blockItems {
+  padding: vars.$spacing-xs 0;
+}
+
+.item {
+  display: flex;
   align-items: center;
-  gap: vars.$spacing-md;
-  padding: vars.$spacing-sm 0;
+  gap: vars.$spacing-sm;
+  padding: vars.$spacing-xs vars.$spacing-md;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+
+  span:nth-child(2) {
+    flex: 1;
+  }
 }
 
-.incomeRowBorder {
-  @extend .incomeRow;
-  border-bottom: 2px solid var(--border);
-  padding-bottom: vars.$spacing-md;
+.itemAmount {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
 }
 
-.rowIcon {
+.blockTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: vars.$spacing-sm vars.$spacing-md;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+
+  span:first-child {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+  }
+
+  span:last-child {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+////////////////////////////////////////
+//////////// Operator row /////////////
+//////////////////////////////////////
+.operator {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  padding: vars.$spacing-xs vars.$spacing-md;
+}
+
+.operatorSymbol {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  opacity: 0.4;
+  line-height: 1;
   flex-shrink: 0;
-  color: var(--primary-text);
+}
 
-  &.primary {
+.operatorLine {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  opacity: 0.5;
+}
+
+////////////////////////////////////////
+//////////// Final result /////////////
+//////////////////////////////////////
+.result {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: vars.$spacing-sm;
+  padding: vars.$spacing-md vars.$spacing-lg;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--border);
+}
+
+.result.positive {
+  background: color-mix(in srgb, var(--primary) 8%, var(--bg-elevated));
+  border-color: color-mix(in srgb, var(--primary) 25%, transparent);
+
+  .resultAmount {
     color: var(--primary);
   }
+}
 
-  &.success {
-    color: var(--success);
-  }
+.result.negative {
+  background: color-mix(in srgb, var(--error) 8%, var(--bg-elevated));
+  border-color: color-mix(in srgb, var(--error) 25%, transparent);
 
-  &.error {
+  .resultAmount {
     color: var(--error);
   }
 }
 
-.rowLabel {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text);
-}
-
-.rowAmount {
-  font-size: 1.1rem;
+.resultLabel {
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--text);
-  text-align: right;
-}
-
-.totalRow {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: vars.$spacing-md;
-  padding: vars.$spacing-md 0;
-  background: var(--primary);
-  margin: vars.$spacing-md 0;
-  padding-left: vars.$spacing-lg;
-  padding-right: vars.$spacing-lg;
-  border-radius: vars.$radius-md;
-}
-
-.totalLabel {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--primary-text);
-}
-
-.totalAmount {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--primary-text);
-  text-align: right;
-}
-
-.expenseRow {
-  @extend .incomeRow;
-  margin-top: vars.$spacing-md;
-  padding-top: vars.$spacing-md;
-  border-top: 2px solid var(--border);
-}
-
-.divider {
-  height: 2px;
-  background: var(--border);
-  margin: vars.$spacing-md 0;
-}
-
-.finalTotal {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: vars.$spacing-md;
-  padding: vars.$spacing-md;
-  background: linear-gradient(90deg, var(--primary), var(--primary-hover));
-  margin: vars.$spacing-lg 0 0 0;
-  border-radius: vars.$radius-md;
-}
-
-.finalLabel {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--primary-text);
   text-transform: uppercase;
-  letter-spacing: 0.05rem;
+  letter-spacing: 0.07em;
+  color: var(--text-secondary);
 }
 
-.finalAmount {
-  font-size: 1.5rem;
+.resultAmount {
+  font-size: 1.6rem;
   font-weight: 900;
-  color: var(--primary-text);
-  text-align: right;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
