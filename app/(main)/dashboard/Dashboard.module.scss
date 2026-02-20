@@ -2,7 +2,8 @@
 @use "@/styles/variables" as vars;
 
 .contentContainer {
-  @include mixins.w-full;
+  @include mixins.hide-scrollbar;
+  overflow-y: auto;
   padding: vars.$spacing-lg;
   gap: vars.$spacing-md;
   max-width: 1400px;
