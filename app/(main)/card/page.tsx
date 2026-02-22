@@ -103,162 +103,164 @@ export default function CreditCard() {
   const totalAmount = transactions.reduce((sum, t) => sum + t.amount, 0);
 
   return (
-    <section className={styles.cardContainer}>
-      <div className={styles.header}>
-        <h1>Card Transactions</h1>
-        <p>Log and track your credit and debit card purchases</p>
-      </div>
+    <div>
+      <section className={styles.cardContainer}>
+        <div className={styles.header}>
+          <h1>Card Transactions</h1>
+          <p>Log and track your credit and debit card purchases</p>
+        </div>
 
-      <div className={styles.content}>
-        {/* Add Transaction Form */}
-        <div className={styles.formSection}>
-          <h2>Log New Transaction</h2>
-          <form onSubmit={handleAddTransaction} className={styles.form}>
-            <div className={styles.formGroup}>
-              <label htmlFor="cardName">Card Name *</label>
-              <input
-                type="text"
-                id="cardName"
-                name="cardName"
-                value={formData.cardName}
-                onChange={handleInputChange}
-                placeholder="e.g., Chase Sapphire, Amex Gold"
-                required
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="merchant">Merchant *</label>
-              <input
-                type="text"
-                id="merchant"
-                name="merchant"
-                value={formData.merchant}
-                onChange={handleInputChange}
-                placeholder="Where did you make the purchase?"
-                required
-              />
-            </div>
-
-            <div className={styles.row}>
+        <div className={styles.content}>
+          {/* Add Transaction Form */}
+          <div className={styles.formSection}>
+            <h2>Log New Transaction</h2>
+            <form onSubmit={handleAddTransaction} className={styles.form}>
               <div className={styles.formGroup}>
-                <label htmlFor="amount">Amount *</label>
+                <label htmlFor="cardName">Card Name *</label>
                 <input
-                  type="number"
-                  id="amount"
-                  name="amount"
-                  value={formData.amount}
+                  type="text"
+                  id="cardName"
+                  name="cardName"
+                  value={formData.cardName}
                   onChange={handleInputChange}
-                  placeholder="0.00"
-                  step="0.01"
-                  min="0"
+                  placeholder="e.g., Chase Sapphire, Amex Gold"
                   required
                 />
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="date">Date</label>
+                <label htmlFor="merchant">Merchant *</label>
                 <input
-                  type="date"
-                  id="date"
-                  name="date"
-                  value={formData.date}
+                  type="text"
+                  id="merchant"
+                  name="merchant"
+                  value={formData.merchant}
                   onChange={handleInputChange}
+                  placeholder="Where did you make the purchase?"
+                  required
                 />
               </div>
-            </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="category">Category</label>
-              <select
-                id="category"
-                name="category"
-                value={formData.category}
-                onChange={handleInputChange}
-              >
-                {cardCategories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
-            </div>
+              <div className={styles.row}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="amount">Amount *</label>
+                  <input
+                    type="number"
+                    id="amount"
+                    name="amount"
+                    value={formData.amount}
+                    onChange={handleInputChange}
+                    placeholder="0.00"
+                    step="0.01"
+                    min="0"
+                    required
+                  />
+                </div>
 
-            <div className={styles.formGroup}>
-              <label htmlFor="description">Description (Optional)</label>
-              <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="Add any notes about this transaction"
-                rows={3}
-              />
-            </div>
+                <div className={styles.formGroup}>
+                  <label htmlFor="date">Date</label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    value={formData.date}
+                    onChange={handleInputChange}
+                  />
+                </div>
+              </div>
 
-            <button type="submit" className={styles.submitBtn}>
-              <Plus size={18} />
-              Add Transaction
-            </button>
-          </form>
-        </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="category">Category</label>
+                <select
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                >
+                  {cardCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-        {/* Transactions List */}
-        <div className={styles.listSection}>
-          <h2>Recent Transactions</h2>
+              <div className={styles.formGroup}>
+                <label htmlFor="description">Description (Optional)</label>
+                <textarea
+                  id="description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleInputChange}
+                  placeholder="Add any notes about this transaction"
+                  rows={3}
+                />
+              </div>
 
-          {transactions.length === 0 ? (
-            <p className={styles.emptyState}>
-              No transactions yet. Add one to get started!
-            </p>
-          ) : (
-            <>
-              <div className={styles.transactionsList}>
-                {transactions.map((transaction) => (
-                  <div key={transaction.id} className={styles.transactionItem}>
-                    <div className={styles.transactionInfo}>
-                      <div className={styles.transactionHeader}>
-                        <h3>{transaction.merchant}</h3>
-                        <span className={styles.category}>
-                          {transaction.category}
+              <button type="submit" className={styles.submitBtn}>
+                <Plus size={18} />
+                Add Transaction
+              </button>
+            </form>
+          </div>
+
+          {/* Transactions List */}
+          <div className={styles.listSection}>
+            <h2>Recent Transactions</h2>
+
+            {transactions.length === 0 ? (
+              <p className={styles.emptyState}>
+                No transactions yet. Add one to get started!
+              </p>
+            ) : (
+              <>
+                <div className={styles.transactionsList}>
+                  {transactions.map((transaction) => (
+                    <div key={transaction.id} className={styles.transactionItem}>
+                      <div className={styles.transactionInfo}>
+                        <div className={styles.transactionHeader}>
+                          <h3>{transaction.merchant}</h3>
+                          <span className={styles.category}>
+                            {transaction.category}
+                          </span>
+                        </div>
+                        <div className={styles.transactionDetails}>
+                          <p className={styles.cardName}>{transaction.cardName}</p>
+                          <p className={styles.date}>{transaction.date}</p>
+                        </div>
+                        {transaction.description && (
+                          <p className={styles.description}>
+                            {transaction.description}
+                          </p>
+                        )}
+                      </div>
+                      <div className={styles.transactionAmount}>
+                        <span className={styles.amount}>
+                          ${transaction.amount.toFixed(2)}
                         </span>
+                        <button
+                          onClick={() => handleDeleteTransaction(transaction.id)}
+                          className={styles.deleteBtn}
+                          aria-label="Delete transaction"
+                        >
+                          <Trash2 size={18} />
+                        </button>
                       </div>
-                      <div className={styles.transactionDetails}>
-                        <p className={styles.cardName}>{transaction.cardName}</p>
-                        <p className={styles.date}>{transaction.date}</p>
-                      </div>
-                      {transaction.description && (
-                        <p className={styles.description}>
-                          {transaction.description}
-                        </p>
-                      )}
                     </div>
-                    <div className={styles.transactionAmount}>
-                      <span className={styles.amount}>
-                        ${transaction.amount.toFixed(2)}
-                      </span>
-                      <button
-                        onClick={() => handleDeleteTransaction(transaction.id)}
-                        className={styles.deleteBtn}
-                        aria-label="Delete transaction"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
 
-              <div className={styles.totalSection}>
-                <h3>Total Spent</h3>
-                <span className={styles.totalAmount}>
-                  ${totalAmount.toFixed(2)}
-                </span>
-              </div>
-            </>
-          )}
+                <div className={styles.totalSection}>
+                  <h3>Total Spent</h3>
+                  <span className={styles.totalAmount}>
+                    ${totalAmount.toFixed(2)}
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 }
