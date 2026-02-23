@@ -1,6 +1,5 @@
 "use client";
 import Loading from "@/components/Loading/loading";
-import React from "react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LucideIcon } from "lucide-react";
