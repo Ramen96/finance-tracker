@@ -30,13 +30,14 @@
 .overviewCard {
   @include mixins.card;
   @include mixins.flex(space-between, center, column);
+  @include mixins.transition;
   padding: vars.$spacing-lg;
   margin: vars.$spacing-xs;
   min-height: 140px;
   flex: 1 1 100%;
-  @include mixins.transition;
   position: relative;
   overflow: hidden;
+  cursor: pointer;
 
   @include mixins.respond("mobile-l") {
     flex: 1 1 calc(50% - vars.$spacing-md);
