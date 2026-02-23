@@ -10,6 +10,7 @@
 
 .contentContainer {
   @include mixins.hide-scrollbar;
+  width: calc(100% - vars.$spacing-lg);
   overflow-y: auto;
   padding: vars.$spacing-lg;
   gap: vars.$spacing-md;
