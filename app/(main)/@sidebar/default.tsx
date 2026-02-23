@@ -114,12 +114,6 @@ export default function SideBar() {
       icon: <ReceiptText />,
       onClick: () => router.push('/dashboard/liabilities')
     },
-    {
-      id: 7,
-      name: "Audit",
-      icon: <ShieldCheck />,
-      onClick: () => router.push('/dashboard/audit')
-    },
   ], []);
 
   const bottomButtons = useMemo(() => [
