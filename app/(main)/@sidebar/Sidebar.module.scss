@@ -156,7 +156,7 @@
   @include typography.respond("laptop") {
     position: relative;
     transform: none;
-    flex-shrink: 0; // ← added
+    flex-shrink: 0;
 
     &.collapsed {
       width: 5rem;
