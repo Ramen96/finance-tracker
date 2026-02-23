@@ -103,7 +103,7 @@ export default function CreditCard() {
   const totalAmount = transactions.reduce((sum, t) => sum + t.amount, 0);
 
   return (
-    <div>
+    <div className={styles.contentContainer}>
       <section className={styles.cardContainer}>
         <div className={styles.header}>
           <h1>Card Transactions</h1>

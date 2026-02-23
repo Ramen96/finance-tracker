@@ -8,8 +8,22 @@
 // Container & Layout
 // ========================================
 
+.contentContainer {
+  @include mixins.hide-scrollbar;
+  overflow-y: auto;
+  padding: vars.$spacing-lg;
+  gap: vars.$spacing-md;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @include mixins.respond("tablet") {
+    padding: vars.$spacing-xl;
+    gap: vars.$spacing-lg;
+  }
+}
+
 .cardContainer {
-  @include layout.w-full;
+  width: 100% !important;
   @include layout.flex(null, null, column);
   @include ui.hide-scrollbar;
   width: fit-content;
@@ -27,7 +41,6 @@
   }
 
   @include typography.respond("laptop") {
-    max-width: 1200px;
     margin: 0 auto;
   }
 }
