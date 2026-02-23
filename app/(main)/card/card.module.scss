@@ -79,9 +79,9 @@
   @include layout.flex(null, flex-start, column);
   gap: vars.$spacing-2xl;
   font-family: var(--font-main), sans-serif;
+  flex-direction: column;
 
   @include typography.respond("laptop") {
-    flex-direction: row;
     gap: vars.$spacing-2xl;
   }
 
