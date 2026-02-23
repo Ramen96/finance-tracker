@@ -35,17 +35,19 @@
   user-select: none;
   border-right: 1px solid var(--border);
 
-  // Mobile/Tablet - match sidebar mobile width exactly
   @include mixins.respond-down("laptop") {
     width: 280px;
     max-width: 85vw;
     padding: 1rem 0.5rem;
   }
 
-  // Desktop - match expanded sidebar width
   @include mixins.respond("laptop") {
-    width: 20rem;
+    width: vars.$sidebar-expanded-width;
     padding: 0.25rem;
+  }
+
+  @include mixins.respond("laptop-l") {
+    width: vars.$sidebar-expanded-width-lg;
   }
 }
 

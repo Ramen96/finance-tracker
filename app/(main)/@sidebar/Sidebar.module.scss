@@ -63,17 +63,14 @@
     transform: scale(1.05) rotate(90deg);
   }
 
-  // Tablet: Inside navbar (static position)
   @include typography.respond-between("mobile-l", "laptop") {
     padding: vars.$spacing-lg;
   }
 
-  // Hide on desktop
   @include typography.respond("laptop") {
     display: none;
   }
 }
-
 
 // ========================================
 // Logo
@@ -115,7 +112,6 @@
     }
   }
 
-  // Hide on desktop
   @include typography.respond("laptop") {
     display: none;
   }
@@ -135,7 +131,6 @@
   position: relative;
   z-index: 9999;
 
-  // Mobile & Tablet: Slide-in menu from left
   @include typography.respond-down("laptop") {
     position: fixed;
     left: 0;
@@ -152,24 +147,23 @@
     }
   }
 
-  // Desktop: Collapsible sidebar
   @include typography.respond("laptop") {
     position: relative;
     transform: none;
     flex-shrink: 0;
 
     &.collapsed {
-      width: 5rem;
+      width: vars.$sidebar-collapsed-width;
     }
 
     &.expanded {
-      width: 20rem;
+      width: vars.$sidebar-expanded-width;
     }
   }
 
   @include typography.respond("laptop-l") {
     &.expanded {
-      width: 25rem;
+      width: vars.$sidebar-expanded-width-lg;
     }
   }
 }
@@ -185,7 +179,6 @@
   margin: 0.25rem;
   margin-bottom: 0.75rem;
 
-  // Hide on mobile/tablet
   @include typography.respond-down("laptop") {
     display: none;
   }
@@ -199,7 +192,6 @@
   padding: vars.$spacing-md 0;
   margin-bottom: vars.$spacing-md;
 
-  // Mobile: Absolute positioning at top right
   @include typography.respond-down("mobile-l") {
     position: absolute;
     top: calc(0% - vars.$spacing-sm);
@@ -208,14 +200,12 @@
     margin: 0 0 vars.$spacing-lg 0;
   }
 
-  // Tablet: Static positioning with bottom border
   @include typography.respond-between("mobile-l", "laptop") {
     position: static;
     justify-content: center;
     border-bottom: 1px solid var(--border);
   }
 
-  // Hide on desktop
   @include typography.respond("laptop") {
     display: none;
   }
@@ -319,7 +309,6 @@
     height: 20px;
   }
 
-  // Mobile/Tablet: Modern style (always expanded)
   @include typography.respond-down("laptop") {
     gap: 1rem;
     background: transparent;
@@ -349,7 +338,6 @@
     }
   }
 
-  // Desktop Collapsed: Original btnTertiary style
   @include typography.respond("laptop") {
     .collapsed & {
       @include mixins.btnTertiary;
@@ -359,7 +347,6 @@
       justify-content: center;
     }
 
-    // Desktop Expanded: Modern style
     .expanded & {
       gap: 1rem;
       background: transparent;
