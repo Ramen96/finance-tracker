@@ -131,7 +131,7 @@
   display: flex;
   flex-direction: column;
   padding: 0.25rem;
-  transition: all 0.3s ease;
+  transition: width 0.3s ease, transform 0.3s ease;
   position: relative;
   z-index: 9999;
 
@@ -156,6 +156,7 @@
   @include typography.respond("laptop") {
     position: relative;
     transform: none;
+    flex-shrink: 0; // ← added
 
     &.collapsed {
       width: 5rem;
