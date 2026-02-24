@@ -17,7 +17,6 @@ import {
   BanknoteArrowDown,
   ChartCandlestick,
   ReceiptText,
-  ShieldCheck,
   UserRoundPen,
   Settings,
   Palette
