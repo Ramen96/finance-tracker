@@ -17,10 +17,9 @@ import {
   LineChart
 } from "lucide-react";
 import Loading from "@/components/Loading/loading";
-import Audit from "@/components/Audit/audit";
 import styles from "./reports.module.scss";
 
-type ReportType = "income" | "expenses" | "assets" | "liabilities" | "audit";
+type ReportType = "income" | "expenses" | "assets" | "liabilities";
 
 // ALL OF THE DATA BELOW IS PLACEHOLDER DATA
 // UNTIL AN API IS CREATED
@@ -297,18 +296,6 @@ export default function Report() {
     )
   }
 
-  if (reportType === "audit") {
-    return (
-      <div className={styles.container}>
-        <div className={styles.contentContainer}>
-          <div className={styles.auditWrapper}>
-            <Audit />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   const formatCategories = (categories: any[], itemsObject: any) => {
     return categories.map((category) => ({
       name: category.name,
@@ -384,8 +371,7 @@ export default function Report() {
     }
   }
 
-  type ValidReportType = Exclude<ReportType, "audit">;
-  const config = reportConfig[reportType as ValidReportType];
+  const config = reportConfig[reportType];
 
   const configCategories = config.categories;
   const configTotalKey = config.totalKey;
