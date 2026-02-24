@@ -101,6 +101,7 @@
   z-index: 999;
   backdrop-filter: blur(2px);
   animation: fadeIn 0.3s ease;
+  overflow-y: auto;
 
   @keyframes fadeIn {
     from {
