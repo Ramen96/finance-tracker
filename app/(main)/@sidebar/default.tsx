@@ -208,7 +208,10 @@ export default function SideBar() {
                 <button
                   key={btn.id}
                   className={styles.sideBarBtn}
-                  onClick={() => handleNavClick(btn.onClick)}
+                  onClick={() => {
+                    if (isMobile) setIsOpen(false);
+                    handleNavClick(btn.onClick);
+                  }}
                   data-tooltip={!isMobile && !isExpanded ? btn.name : undefined}
                 >
                   {btn.icon}
