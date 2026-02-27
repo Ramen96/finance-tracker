@@ -31,7 +31,6 @@ export default function SideBar() {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [isThemePickerOpen, setIsThemePickerOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  // const [exdFromThemePicker, setExdFromThemePicker] = useState<boolean>(false);
 
   // Check mobile
   useEffect(() => {
@@ -63,7 +62,6 @@ export default function SideBar() {
     } else {
       setIsExpanded(true);
       setIsThemePickerOpen(true);
-      // setExdFromThemePicker(true);
     }
   }
 
