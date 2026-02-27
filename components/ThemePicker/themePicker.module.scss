@@ -66,6 +66,7 @@
 .header {
   @include mixins.shadow-md;
   @include mixins.flex(space-between, flex-start);
+  width: 65%;
   border-radius: vars.$radius;
   padding: 0.5rem 4.2rem 0.5rem 4.2rem;
   background: var(--bg-secondary);
