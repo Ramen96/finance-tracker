@@ -10,8 +10,10 @@
 
 .contentContainer {
   @include mixins.hide-scrollbar;
-  width: calc(100% - vars.$spacing-lg);
+  width: 100%;
+  box-sizing: border-box;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: vars.$spacing-lg;
   gap: vars.$spacing-md;
   max-width: 1400px;
@@ -24,18 +26,17 @@
 }
 
 .cardContainer {
-  width: 100% !important;
   @include layout.flex(null, null, column);
   @include ui.hide-scrollbar;
-  width: fit-content;
+  width: 100%;
+  box-sizing: border-box;
   gap: vars.$spacing-2xl;
   padding: vars.$spacing-xl;
-  box-sizing: border-box;
-  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   font-family: var(--font-display);
   overflow-y: auto;
+  overflow-x: hidden;
 
   @include typography.respond("tablet") {
     padding: vars.$spacing-xl 2rem;
@@ -43,6 +44,12 @@
 
   @include typography.respond("laptop") {
     margin: 0 auto;
+  }
+
+  @include typography.respond-down("mobile-l") {
+    width: 100%;
+    padding: vars.$spacing-md;
+    margin: 0;
   }
 }
 
@@ -81,6 +88,8 @@
   gap: vars.$spacing-2xl;
   font-family: var(--font-main), sans-serif;
   flex-direction: column;
+  box-sizing: border-box;
+  min-width: 0;
 
   @include typography.respond("laptop") {
     gap: vars.$spacing-2xl;
@@ -99,7 +108,8 @@
 .formSection {
   @include layout.flex(null, null, column);
   @include ui.shadow-md;
-  width: calc(100% - vars.$spacing-2xl);
+  width: 100%;
+  box-sizing: border-box;
   gap: vars.$spacing-lg;
   padding: vars.$spacing-xl;
   background: var(--surface);
@@ -138,6 +148,7 @@
   @include layout.w-full;
   @include layout.flex(null, null, column);
   gap: vars.$spacing-md;
+  box-sizing: border-box;
 
   label {
     font-size: 0.875rem;
@@ -150,6 +161,8 @@
   select,
   textarea {
     @include ui.transition;
+    width: 100%;
+    box-sizing: border-box;
     padding: vars.$spacing-lg;
     border-radius: vars.$radius-md;
     border: 1px solid var(--border);
@@ -179,6 +192,7 @@
   @include layout.w-full;
   @include layout.flex(null, flex-start, row);
   gap: vars.$spacing-lg;
+  box-sizing: border-box;
 
   @include typography.respond-down("mobile-l") {
     flex-direction: column;
@@ -212,6 +226,7 @@
 
 .deleteBtn {
   @include layout.flex-center;
+  flex-shrink: 0;
   padding: vars.$spacing-md;
   border-radius: vars.$radius-md;
   border: 1px solid var(--border);
@@ -233,7 +248,9 @@
 
 .listSection {
   @include layout.flex(null, null, column);
-  width: calc(100% - vars.$spacing-xl);
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
   gap: vars.$spacing-lg;
 
   @include typography.respond("laptop") {
@@ -270,15 +287,21 @@
 .transactionsList {
   @include layout.flex(null, null, column);
   gap: vars.$spacing-lg;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .transactionItem {
   @include layout.w-full;
+  @include layout.flex(space-between, center, row);
   padding: vars.$spacing-lg;
   border-radius: vars.$radius-lg;
   background: var(--surface);
   border: 1px solid var(--border);
   @include ui.transition;
+  box-sizing: border-box;
+  overflow: hidden;
+  min-width: 0;
 
   &:hover {
     background: var(--surface-hover);
@@ -288,6 +311,7 @@
 
   @include typography.respond-down("mobile-m") {
     flex-direction: column;
+    align-items: flex-start;
     gap: vars.$spacing-lg;
     padding: vars.$spacing-md;
   }
@@ -298,18 +322,24 @@
   gap: vars.$spacing-md;
   flex: 1;
   min-width: 0;
+  overflow: hidden;
 }
 
 .transactionHeader {
   @include layout.flex(space-between, center, row);
   gap: vars.$spacing-lg;
+  min-width: 0;
 
   h3 {
-    font-family: var(--font-dilsplay), sans-serif;
+    font-family: var(--font-display), sans-serif;
     margin: 0;
     font-size: 1rem;
     font-weight: 700;
     color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
   }
 
   @include typography.respond-down("mobile-m") {
@@ -320,6 +350,7 @@
 
 .category {
   display: inline-block;
+  flex-shrink: 0;
   padding: 0.35rem 0.75rem;
   border-radius: vars.$radius-full;
   background: var(--primary-light);
@@ -337,10 +368,15 @@
   @include layout.flex(null, center);
   gap: vars.$spacing-lg;
   font-size: 0.875rem;
+  flex-wrap: wrap;
+  min-width: 0;
 
   p {
     margin: 0;
     color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     &.cardName {
       font-weight: 500;
@@ -365,6 +401,8 @@
   font-style: italic;
   padding-top: vars.$spacing-sm;
   border-top: 1px solid var(--border);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .transactionAmount {
@@ -372,10 +410,13 @@
   gap: vars.$spacing-lg;
   align-items: center;
   white-space: nowrap;
+  flex-shrink: 0;
+  padding-left: vars.$spacing-lg;
 
   @include typography.respond-down("mobile-m") {
     width: 100%;
     justify-content: space-between;
+    padding-left: 0;
     flex-wrap: wrap;
   }
 }
@@ -392,7 +433,8 @@
 
 .totalSection {
   @include layout.flex(space-between, center);
-  width: calc(100% - vars.$spacing-lg);
+  width: 100%;
+  box-sizing: border-box;
   padding: vars.$spacing-lg vars.$spacing-xl;
   border-radius: vars.$radius-lg;
   background: linear-gradient(135deg,
