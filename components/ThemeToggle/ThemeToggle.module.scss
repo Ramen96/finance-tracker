@@ -1,6 +1,7 @@
 @use "@styles/mixins";
 @use "@styles/variables" as vars;
 @use "@styles/mixins/ui" as ui;
+@use "@styles/mixins/typography" as typography;
 
 .hideDefault {
   @include ui.hidden;
@@ -15,7 +16,7 @@
 .toggleLabel {
   margin: 0;
   border-radius: vars.$radius-lg;
-  padding: vars.$spacing-lg;
+  padding: vars.$radius-lg;
   width: auto;
   position: static;
   background: var(--bg-secondary);
@@ -37,5 +38,9 @@
   svg {
     width: 20px;
     height: 20px;
+  }
+
+  @include typography.respond-down("tablet") {
+    padding: vars.$spacing-sm;
   }
 }
