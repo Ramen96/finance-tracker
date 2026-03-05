@@ -159,7 +159,7 @@ export default function SideBar() {
       {isMobile && (
         <div className={styles.topNavbar}>
           <div className={styles.logoContainer}>
-            <Image src={logo} alt="logo" width={40} height={40} />
+            <Image src={logo} alt="logo" width={30} height={30} />
           </div>
           {!isOpen && <ThemeToggle />}
         </div>
