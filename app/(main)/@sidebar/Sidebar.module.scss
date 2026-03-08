@@ -13,13 +13,13 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    height: 2.75rem;
+    height: vars.$navbar-height;
     background: var(--bg-elevated);
     border-bottom: 1px solid var(--border);
     padding: 0 vars.$spacing-lg;
     z-index: 998;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    position: relative; // needed so absolute logo child is positioned correctly
+    position: relative;
   }
 
   @include typography.respond-down("tablet") {
