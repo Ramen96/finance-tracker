@@ -1,20 +1,61 @@
+@use "@styles/mixins";
 @use "@/styles/mixins/layout" as layout;
 @use "@/styles/mixins/ui" as ui;
 @use "@/styles/mixins/typography" as typography;
 @use "@/styles/variables" as vars;
 
-.container {
+// ========================================
+// Container & Layout
+// ========================================
+
+.contentContainer {
+  @include mixins.hide-scrollbar;
   width: 100%;
-  max-width: 1000px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: vars.$spacing-lg;
+  gap: vars.$spacing-md;
+  max-width: 1400px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: vars.$spacing-2xl;
+
+  @include mixins.respond("tablet") {
+    padding: vars.$spacing-xl;
+    gap: vars.$spacing-lg;
+  }
 }
 
+.container {
+  @include layout.flex(null, null, column);
+  @include ui.hide-scrollbar;
+  width: 100%;
+  box-sizing: border-box;
+  gap: vars.$spacing-2xl;
+  padding: vars.$spacing-xl;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: var(--font-display);
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  @include typography.respond("tablet") {
+    padding: vars.$spacing-xl 2rem;
+  }
+
+  @include typography.respond-down("mobile-l") {
+    width: 100%;
+    padding: vars.$spacing-md;
+    margin: 0;
+  }
+}
+
+// ========================================
+// Header Section
+// ========================================
+
 .header {
-  display: flex;
-  flex-direction: column;
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
   gap: vars.$spacing-sm;
 
   h1 {
@@ -22,6 +63,7 @@
     font-weight: 800;
     margin: 0;
     color: var(--text);
+    letter-spacing: -0.02em;
   }
 
   p {
@@ -31,29 +73,36 @@
   }
 }
 
+// ========================================
+// Profile Card
+// ========================================
+
 .profileCard {
+  @include ui.shadow-md;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--bg-secondary);
   border-radius: vars.$radius-lg;
   padding: vars.$spacing-xl;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  width: 100%;
 
-  @media (min-width: 768px) {
+  @include typography.respond("tablet") {
     padding: vars.$spacing-2xl;
+  }
+
+  @include typography.respond-down("mobile-l") {
+    padding: vars.$spacing-md;
   }
 }
 
 .profileHeader {
-  display: flex;
-  flex-direction: column;
+  @include layout.flex(null, null, column);
   gap: vars.$spacing-lg;
   padding-bottom: vars.$spacing-xl;
   border-bottom: 1px solid var(--border);
 
-  @media (min-width: 640px) {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  @include typography.respond("mobile-l") {
+    @include layout.flex(space-between, center, row);
   }
 }
 
@@ -63,43 +112,37 @@
   border-radius: 50%;
   background: var(--primary-light);
   color: var(--primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include layout.flex-center;
   flex-shrink: 0;
 }
 
 .headerActions {
-  display: flex;
-  align-items: center;
+  @include layout.flex(null, center);
 }
 
 .editBtn {
   @include ui.btnPrimary;
-  display: flex;
-  align-items: center;
+  @include layout.flex(null, center);
   gap: vars.$spacing-sm;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
 }
 
 .editActions {
-  display: flex;
+  @include layout.flex(null, center);
   gap: vars.$spacing-md;
 }
 
 .saveBtn {
   @include ui.btnPrimary;
-  display: flex;
-  align-items: center;
+  @include layout.flex(null, center);
   gap: vars.$spacing-sm;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
 }
 
 .cancelBtn {
-  display: flex;
-  align-items: center;
+  @include layout.flex(null, center);
   gap: vars.$spacing-sm;
   padding: 0.75rem 1.5rem;
   border-radius: vars.$radius-md;
@@ -108,7 +151,7 @@
   color: var(--text);
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  @include ui.transition;
 
   &:hover {
     background: var(--surface-hover);
@@ -116,13 +159,22 @@
   }
 }
 
+// ========================================
+// Profile Content
+// ========================================
+
 .profileContent {
   padding-top: vars.$spacing-xl;
+  font-family: var(--font-main), sans-serif;
+
+  & h2,
+  label {
+    font-family: var(--font-display);
+  }
 }
 
 .infoSection {
-  display: flex;
-  flex-direction: column;
+  @include layout.flex(null, null, column);
   gap: vars.$spacing-lg;
 
   h2 {
@@ -138,14 +190,13 @@
   grid-template-columns: 1fr;
   gap: vars.$spacing-lg;
 
-  @media (min-width: 640px) {
+  @include typography.respond("mobile-l") {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 .infoItem {
-  display: flex;
-  align-items: flex-start;
+  @include layout.flex(null, flex-start);
   gap: vars.$spacing-md;
   padding: vars.$spacing-md;
   background: var(--bg);
@@ -159,8 +210,7 @@
 }
 
 .infoText {
-  display: flex;
-  flex-direction: column;
+  @include layout.flex(null, null, column);
   gap: 4px;
   flex: 1;
 }
@@ -198,31 +248,39 @@
   }
 }
 
+// ========================================
+// Edit Form
+// ========================================
+
 .editForm {
-  display: flex;
-  flex-direction: column;
+  @include layout.flex(null, null, column);
   gap: vars.$spacing-lg;
 }
 
 .formGroup {
-  display: flex;
-  flex-direction: column;
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
   gap: vars.$spacing-sm;
+  box-sizing: border-box;
 
   label {
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--text);
+    text-transform: capitalize;
   }
 
   input,
   textarea {
+    @include ui.transition;
     width: 100%;
+    box-sizing: border-box;
     padding: vars.$spacing-lg;
     border-radius: vars.$radius-md;
     border: 1px solid var(--border);
     background: var(--bg);
     color: var(--text);
+    font-family: var(--font-main);
     font-size: 0.95rem;
     min-height: 44px;
 
@@ -231,37 +289,46 @@
       border-color: var(--primary);
       background: var(--surface-focus);
     }
+
+    &::placeholder {
+      color: var(--text-secondary);
+    }
   }
 
   textarea {
     resize: vertical;
     min-height: 100px;
-    font-family: inherit;
     line-height: 1.5;
   }
 }
+
+// ========================================
+// Stats Grid
+// ========================================
 
 .statsGrid {
   display: grid;
   grid-template-columns: 1fr;
   gap: vars.$spacing-lg;
 
-  @media (min-width: 640px) {
+  @include typography.respond("laptop") {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
 .statCard {
+  @include ui.shadow-md;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: vars.$radius-lg;
   padding: vars.$spacing-xl;
   text-align: center;
-  transition: all 0.2s;
+  @include ui.transition;
+  box-sizing: border-box;
 
   &:hover {
     border-color: var(--primary);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    @include ui.shadow-md;
   }
 
   h3 {
@@ -271,6 +338,7 @@
     margin: 0 0 vars.$spacing-md 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    font-family: var(--font-display);
   }
 }
 
