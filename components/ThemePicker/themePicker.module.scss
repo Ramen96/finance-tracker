@@ -66,11 +66,12 @@
 .header {
   @include mixins.shadow-md;
   @include mixins.flex(space-between, flex-start);
-  width: 65%;
   border-radius: vars.$radius;
-  padding: 0.5rem 4.2rem 0.5rem 4.2rem;
   background: var(--bg-secondary);
   border: 1px solid var(--border);
+  width: 100%;
+  text-align: center;
+  padding: vars.$spacing-md 0 vars.$spacing-md 0;
 }
 
 .headerContent {
