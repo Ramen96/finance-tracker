@@ -49,8 +49,14 @@ export default function SideBar() {
   }, []);
 
   // Nav logic
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleExpanded = () => setIsExpanded(!isExpanded);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+    if (isThemePickerOpen) setIsThemePickerOpen(false);
+  }
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+    if (isThemePickerOpen) setIsThemePickerOpen(false);
+  }
 
   const handleNavClick = (onClick: () => void) => {
     onClick();
@@ -169,7 +175,10 @@ export default function SideBar() {
       {isMobile && isOpen && (
         <div
           className={styles.overlay}
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            setIsOpen(false);
+            setIsThemePickerOpen(false)
+          }}
         />
       )}
 
