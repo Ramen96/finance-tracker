@@ -10,7 +10,7 @@ interface ThemeContextType {
 
 export const ThemeContext = createContext<ThemeContextType | undefined>({
   theme: 'light',
-  toggleTheme: () => {},
+  toggleTheme: () => { },
 });
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
@@ -18,8 +18,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [mounted, setMounted] = useState<boolean>(false);
 
   const mediaQuery = typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)') : null;
-  
-  const handelSystemThemeChange = (e: MediaQueryListEvent) => {
+
+  const handleSystemThemeChange = (e: MediaQueryListEvent) => {
     const newTheme = e.matches ? 'dark' : 'light';
     setTheme(newTheme);
     document.body.setAttribute('data-theme', newTheme);
@@ -41,8 +41,8 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     }
 
     if (mediaQuery) {
-      mediaQuery.addEventListener('change', handelSystemThemeChange);
-      return () => mediaQuery.removeEventListener('change', handelSystemThemeChange);
+      mediaQuery.addEventListener('change', handleSystemThemeChange);
+      return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
     }
   }, []);
 
@@ -53,7 +53,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     document.body.setAttribute("data-theme", newTheme);
   }
 
-  if (!mounted) return<>{ children }</>;
+  if (!mounted) return <>{children}</>;
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
