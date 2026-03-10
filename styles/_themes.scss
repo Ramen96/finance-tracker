@@ -12,3 +12,8 @@
   --spacing: 1rem;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+body::selection {
+  background: var(--primary);
+  color: var(--text);
+}
