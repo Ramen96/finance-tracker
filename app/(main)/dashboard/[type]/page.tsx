@@ -449,6 +449,7 @@ export default function Report() {
           onEdit={(item) => onEdit(item)}
           onDelete={(item) => onDelete(item)}
           showAddForm={showAddForm}
+          setShowAddForm={setShowAddForm}
           isEdit={isEdit}
           isItemLoading={isItemLoading}
         />

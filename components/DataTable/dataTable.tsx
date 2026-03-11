@@ -27,6 +27,7 @@ type DataTableProps<DataItem> = {
   onDelete?: (item: DataItem) => void;
   totalKey?: keyof DataItem;
   showAddForm: string | null;
+  setShowAddForm: any;
   isEdit: boolean;
   isItemLoading: boolean;
 };
@@ -65,6 +66,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
   onDelete,
   totalKey,
   showAddForm,
+  setShowAddForm,
   isEdit,
   isItemLoading
 }: DataTableProps<DataItem>) {
@@ -94,6 +96,15 @@ export default function DataTable<DataItem extends { id: number | string }>({
               >
                 <Plus size={18} />
                 Add {category.name}
+              </button>
+            )}
+
+            {showAddForm === category.name && (
+              <button
+                className={styles.addBtn}
+                onClick={() => setShowAddForm(null)}
+              >
+                Cancel
               </button>
             )}
 
