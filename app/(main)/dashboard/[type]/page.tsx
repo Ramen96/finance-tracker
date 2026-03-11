@@ -279,8 +279,9 @@ export default function Report() {
   const reportType = (params?.type as ReportType) || "income";
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [isAdd, setIsAdd] = useState<boolean>(false);
+  const [isAdd, setIsAdd] = useState<string | null>(null);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isItemLoading, setIsItemLoading] = useState(false)
 
   // Simulate API call
   useEffect(() => {
@@ -399,8 +400,8 @@ export default function Report() {
     })
   }
 
-  const onAdd = async (item: any) => {
-    setIsAdd(true);
+  const onAdd = async (categoryName: string) => {
+    setIsAdd(categoryName);
   }
 
   const onAddSubmit = async (item: any) => {
@@ -409,7 +410,7 @@ export default function Report() {
     } catch (error) {
       console.error("Simulated error", error);
     }
-    setIsAdd(false);
+    setIsAdd("");
   }
 
   const onEdit = (item: any) => {
@@ -444,9 +445,12 @@ export default function Report() {
           categories={configCategories}
           columns={configColumns}
           totalKey={configTotalKey}
-          onAdd={(item) => onAdd(item)}
+          onAdd={onAdd}
           onEdit={(item) => onEdit(item)}
           onDelete={(item) => onDelete(item)}
+          isAdd={isAdd}
+          isEdit={isEdit}
+          isItemLoading={isItemLoading}
         />
 
         <div className={styles.grandTotal}>

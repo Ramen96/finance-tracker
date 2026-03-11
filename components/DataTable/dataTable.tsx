@@ -22,16 +22,41 @@ type Category<DataItem> = {
 type DataTableProps<DataItem> = {
   categories: Category<DataItem>[];
   columns: ColumnConfig<DataItem, keyof DataItem>[];
-  onAdd?: (categoryName: string) => void;
+  onAdd?: any;
   onEdit?: (item: DataItem) => void;
   onDelete?: (item: DataItem) => void;
   totalKey?: keyof DataItem;
+  isAdd: string | null;
+  isEdit: boolean;
+  isItemLoading: boolean;
 };
 
 // ============================================================================
 // COMPONENT
 // ============================================================================
-
+function AddForm() {
+  return (
+    <div
+      className={styles.tableRow}
+      data-column-count={1}
+    >
+      <span className={styles.actionsCol}>
+        <button
+          className={styles.editBtn}
+          aria-label="Edit item"
+        >
+          <Edit2 size={16} />
+        </button>
+        <button
+          className={styles.deleteBtn}
+          aria-label="Delete item"
+        >
+          <Trash2 size={16} />
+        </button>
+      </span>
+    </div>
+  )
+}
 export default function DataTable<DataItem extends { id: number | string }>({
   categories,
   columns,
@@ -39,6 +64,9 @@ export default function DataTable<DataItem extends { id: number | string }>({
   onEdit,
   onDelete,
   totalKey,
+  isAdd,
+  isEdit,
+  isItemLoading
 }: DataTableProps<DataItem>) {
 
   const calculateCategoryTotal = (items: DataItem[]) => {
@@ -125,6 +153,9 @@ export default function DataTable<DataItem extends { id: number | string }>({
                     </span>
                   </div>
                 ))}
+                {isAdd === category.name && (
+                  <AddForm />
+                )}
               </div>
 
               {/* Category Total */}
