@@ -279,7 +279,7 @@ export default function Report() {
   const reportType = (params?.type as ReportType) || "income";
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [isAdd, setIsAdd] = useState<string | null>(null);
+  const [showAddForm, setShowAddForm] = useState<string | null>(null);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isItemLoading, setIsItemLoading] = useState(false)
 
@@ -401,7 +401,7 @@ export default function Report() {
   }
 
   const onAdd = async (categoryName: string) => {
-    setIsAdd(categoryName);
+    setShowAddForm(categoryName);
   }
 
   const onAddSubmit = async (item: any) => {
@@ -410,7 +410,7 @@ export default function Report() {
     } catch (error) {
       console.error("Simulated error", error);
     }
-    setIsAdd("");
+    setShowAddForm("");
   }
 
   const onEdit = (item: any) => {
@@ -448,7 +448,7 @@ export default function Report() {
           onAdd={onAdd}
           onEdit={(item) => onEdit(item)}
           onDelete={(item) => onDelete(item)}
-          isAdd={isAdd}
+          showAddForm={showAddForm}
           isEdit={isEdit}
           isItemLoading={isItemLoading}
         />

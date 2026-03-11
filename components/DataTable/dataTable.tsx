@@ -26,7 +26,7 @@ type DataTableProps<DataItem> = {
   onEdit?: (item: DataItem) => void;
   onDelete?: (item: DataItem) => void;
   totalKey?: keyof DataItem;
-  isAdd: string | null;
+  showAddForm: string | null;
   isEdit: boolean;
   isItemLoading: boolean;
 };
@@ -64,7 +64,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
   onEdit,
   onDelete,
   totalKey,
-  isAdd,
+  showAddForm,
   isEdit,
   isItemLoading
 }: DataTableProps<DataItem>) {
@@ -153,7 +153,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
                     </span>
                   </div>
                 ))}
-                {isAdd === category.name && (
+                {showAddForm === category.name && (
                   <AddForm />
                 )}
               </div>
