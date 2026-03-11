@@ -279,6 +279,8 @@ export default function Report() {
   const reportType = (params?.type as ReportType) || "income";
 
   const [loading, setLoading] = useState<boolean>(true);
+  const [isAdd, setIsAdd] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState<boolean>(false);
 
   // Simulate API call
   useEffect(() => {
@@ -371,6 +373,7 @@ export default function Report() {
     }
   }
 
+  // Data Config
   const config = reportConfig[reportType];
 
   const configCategories = config.categories;
@@ -381,6 +384,53 @@ export default function Report() {
     .map(category => category.items)
     .flat()
     .reduce((sum, item) => sum + (Number(item[config.totalKey]) || 0), 0);
+
+  // Data manipulation
+  const handleAPI = async (method: "POST" | "PUT" | "DELETE", endpoint: string, data?: any) => {
+    // Simulate for now
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const mockData = {
+          status: 200,
+          message: "Successfully retrived mock data"
+        };
+        resolve(mockData);
+      }, 500);
+    })
+  }
+
+  const onAdd = async (item: any) => {
+    setIsAdd(true);
+  }
+
+  const onAddSubmit = async (item: any) => {
+    try {
+      console.log(await handleAPI("POST", "/api/items", item));
+    } catch (error) {
+      console.error("Simulated error", error);
+    }
+    setIsAdd(false);
+  }
+
+  const onEdit = (item: any) => {
+    setIsEdit(true);
+  }
+
+  const onEditSubmit = async (item: any) => {
+    try {
+      console.log(await handleAPI("PUT", `/api/items/${item.id}`));
+    } catch (error) {
+      console.error("Simulated error", error);
+    }
+  }
+
+  const onDelete = async (item: any) => {
+    try {
+      console.log(await handleAPI("DELETE", `/api/items/${item.id}`));
+    } catch (error) {
+      console.error("Simulated error", error);
+    }
+  }
 
   return (
     <div className={styles.contentContainer}>
@@ -394,9 +444,9 @@ export default function Report() {
           categories={configCategories}
           columns={configColumns}
           totalKey={configTotalKey}
-          onAdd={(cat) => console.log("Adding income to", cat)}
-          onEdit={(item) => console.log("Editing income", item)}
-          onDelete={(item) => console.log("Deleting income", item)}
+          onAdd={(item) => onAdd(item)}
+          onEdit={(item) => onEdit(item)}
+          onDelete={(item) => onDelete(item)}
         />
 
         <div className={styles.grandTotal}>
@@ -409,5 +459,5 @@ export default function Report() {
         </div>
       </section>
     </div>
-  )
+  );
 }
