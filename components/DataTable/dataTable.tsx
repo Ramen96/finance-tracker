@@ -1,5 +1,5 @@
 import { Plus, Edit2, Trash2 } from "lucide-react";
-import { LucideIcon, CircleX } from "lucide-react";
+import { LucideIcon, X } from "lucide-react";
 import styles from "./dataTable.module.scss";
 
 // ============================================================================
@@ -89,25 +89,27 @@ export default function DataTable<DataItem extends { id: number | string }>({
               <h2>{category.name}</h2>
             </div>
 
-            {onAdd && (
-              <button
-                className={styles.outlineBtn}
-                onClick={() => onAdd(category.name)}
-              >
-                <Plus size={18} />
-                Add {category.name}
-              </button>
-            )}
+            <div className={styles.btnWrapper}>
+              {onAdd && (
+                <button
+                  className={styles.outlineBtn}
+                  onClick={() => onAdd(category.name)}
+                >
+                  <Plus size={18} />
+                  Add {category.name}
+                </button>
+              )}
 
-            {showAddForm === category.name && (
-              <button
-                className={styles.outlineBtn}
-                onClick={() => setShowAddForm(null)}
-              >
-                <CircleX size={18} />
-                Cancel
-              </button>
-            )}
+              {showAddForm === category.name && (
+                <button
+                  className={styles.outlineBtn}
+                  onClick={() => setShowAddForm(null)}
+                >
+                  <X size={18} />
+                  Cancel
+                </button>
+              )}
+            </div>
 
             <div className={styles.dataTable}>
               {/* Dynamic Table Header - Desktop only */}
