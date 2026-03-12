@@ -94,7 +94,7 @@
   opacity: 0.4;
 }
 
-// ---- Add button -------------------------------------------------------------
+// ---- Buttons -------------------------------------------------------------
 
 .outlineBtn {
   display: flex;
@@ -119,6 +119,12 @@
     border-style: solid;
     border-color: color-mix(in srgb, var(--primary) 55%, transparent);
   }
+}
+
+.btnWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 // ---- Table shell ------------------------------------------------------------
