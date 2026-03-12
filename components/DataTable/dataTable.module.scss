@@ -1,4 +1,5 @@
 @use "@styles/mixins";
+@use "@styles/mixins/ui" as ui;
 @use "@styles/variables" as vars;
 @use "@styles/mixins/typography" as typography;
 
@@ -522,4 +523,12 @@
 .monthlyTotalAmount {
   @extend %totalAmount;
   color: var(--primary);
+}
+
+// ---- Inputs --------------------------------------------------------------
+
+.textInputPrimary {
+  @include ui.textInputPrimary;
+  margin: 0px;
+  padding: vars.$spacing-sm;
 }
