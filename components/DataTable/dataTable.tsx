@@ -35,26 +35,24 @@ type DataTableProps<DataItem> = {
 // ============================================================================
 // COMPONENT
 // ============================================================================
+
+
 function AddForm() {
   return (
     <div
       className={styles.tableRow}
       data-column-count={1}
     >
-      <span className={styles.actionsCol}>
-        <button
-          className={styles.editBtn}
-          aria-label="Edit item"
-        >
-          <Edit2 size={16} />
-        </button>
-        <button
-          className={styles.deleteBtn}
-          aria-label="Delete item"
-        >
-          <Trash2 size={16} />
-        </button>
-      </span>
+      <form>
+        <label htmlFor={"1"} className="sr-only">{ }</label>
+        <input
+          id="1"
+          name="input"
+          type="text"
+          className={`${styles.textInputPrimary} ${styles.withIcon}`}
+          placeholder="Item name"
+        />
+      </form>
     </div>
   )
 }
