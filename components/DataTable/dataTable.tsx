@@ -50,7 +50,7 @@ function AddForm() {
           name="input"
           type="text"
           className={`${styles.textInputPrimary} ${styles.withIcon}`}
-          placeholder="Item name"
+          placeholder="Item Name"
         />
       </form>
     </div>
