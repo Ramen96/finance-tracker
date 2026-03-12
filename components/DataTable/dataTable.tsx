@@ -1,5 +1,5 @@
 import { Plus, Edit2, Trash2 } from "lucide-react";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, CircleX } from "lucide-react";
 import styles from "./dataTable.module.scss";
 
 // ============================================================================
@@ -91,7 +91,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
 
             {onAdd && (
               <button
-                className={styles.addBtn}
+                className={styles.outlineBtn}
                 onClick={() => onAdd(category.name)}
               >
                 <Plus size={18} />
@@ -101,9 +101,10 @@ export default function DataTable<DataItem extends { id: number | string }>({
 
             {showAddForm === category.name && (
               <button
-                className={styles.addBtn}
+                className={styles.outlineBtn}
                 onClick={() => setShowAddForm(null)}
               >
+                <CircleX size={18} />
                 Cancel
               </button>
             )}
