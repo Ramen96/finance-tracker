@@ -25,9 +25,9 @@ type DataTableProps<DataItem> = {
   onAdd?: any;
   onEdit?: (item: DataItem) => void;
   onDelete?: (item: DataItem) => void;
+  onCancel?: () => void;
   totalKey?: keyof DataItem;
   showAddForm: string | null;
-  setShowAddForm: any;
   isEdit: boolean;
   isItemLoading: boolean;
 };
@@ -64,9 +64,9 @@ export default function DataTable<DataItem extends { id: number | string }>({
   onAdd,
   onEdit,
   onDelete,
+  onCancel,
   totalKey,
   showAddForm,
-  setShowAddForm,
   isEdit,
   isItemLoading
 }: DataTableProps<DataItem>) {
@@ -89,8 +89,16 @@ export default function DataTable<DataItem extends { id: number | string }>({
               <h2>{category.name}</h2>
             </div>
 
-            <div className={styles.btnWrapper}>
-              {onAdd && (
+            {showAddForm === category.name ?
+              (
+                <button
+                  className={styles.outlineBtn}
+                  onClick={() => onCancel?.()}
+                >
+                  <X size={18} />
+                  Cancel
+                </button>
+              ) : (
                 <button
                   className={styles.outlineBtn}
                   onClick={() => onAdd(category.name)}
@@ -98,18 +106,8 @@ export default function DataTable<DataItem extends { id: number | string }>({
                   <Plus size={18} />
                   Add {category.name}
                 </button>
-              )}
-
-              {showAddForm === category.name && (
-                <button
-                  className={styles.outlineBtn}
-                  onClick={() => setShowAddForm(null)}
-                >
-                  <X size={18} />
-                  Cancel
-                </button>
-              )}
-            </div>
+              )
+            }
 
             <div className={styles.dataTable}>
               {/* Dynamic Table Header - Desktop only */}
