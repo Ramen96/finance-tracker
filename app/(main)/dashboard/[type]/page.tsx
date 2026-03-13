@@ -142,6 +142,7 @@ const expensesColumns = [
 interface Asset {
   id: number;
   name: string;
+  qty: number | null;
   value: number;
   incomeOrRate: string;
 }
@@ -156,12 +157,14 @@ const assetItems: Record<string, Asset[]> = {
     {
       id: 1,
       name: "Rental Property - Main St",
+      qty: 340,
       value: 250000,
       incomeOrRate: "$2,500"
     },
     {
       id: 2,
       name: "Dividend Stocks Portfolio",
+      qty: 23132,
       value: 150000,
       incomeOrRate: "$500"
     },
@@ -170,12 +173,14 @@ const assetItems: Record<string, Asset[]> = {
     {
       id: 3,
       name: "Primary Residence",
+      qty: null,
       value: 400000,
       incomeOrRate: "3.5%"
     },
     {
       id: 4,
       name: "Growth Stock Portfolio",
+      qty: null,
       value: 75000,
       incomeOrRate: "8.2%"
     },
@@ -186,6 +191,11 @@ const assetsColumns = [
   {
     key: "name" as const,
     label: "Asset Name",
+    format: (value: string | number) => String(value),
+  },
+  {
+    key: "qty" as const,
+    label: "Qty",
     format: (value: string | number) => String(value),
   },
   {
