@@ -22,7 +22,6 @@ type Category<DataItem> = {
 
 type DataTableProps<DataItem> = {
   categories: Category<DataItem>[];
-  columns: ColumnConfig<DataItem, keyof DataItem>[];
   onAdd?: any;
   onEdit?: (item: DataItem) => void;
   onDelete?: (item: DataItem) => void;
@@ -59,7 +58,6 @@ function AddForm() {
 }
 export default function DataTable<DataItem extends { id: number | string }>({
   categories,
-  columns,
   onAdd,
   onEdit,
   onDelete,
@@ -112,9 +110,9 @@ export default function DataTable<DataItem extends { id: number | string }>({
               {/* Dynamic Table Header - Desktop only */}
               <div
                 className={styles.tableHeader}
-                data-column-count={columns.length + 1}
+                data-column-count={category.dataItemConfig.length + 1}
               >
-                {columns.map((col) => (
+                {category.dataItemConfig.map((col) => (
                   <span
                     key={String(col.key)}
                     className={col.className || styles[`${String(col.key)}Col`]}
@@ -131,7 +129,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
                   <div
                     key={item.id}
                     className={styles.tableRow}
-                    data-column-count={columns.length + 1}
+                    data-column-count={category.dataItemConfig.length + 1}
                   >
                     {category.dataItemConfig.map((col) => (
                       <span
