@@ -17,6 +17,7 @@ type Category<DataItem> = {
   name: string;
   icon: LucideIcon;
   items: DataItem[];
+  dataItemConfig: ColumnConfig<DataItem>[];
 };
 
 type DataTableProps<DataItem> = {
@@ -132,7 +133,7 @@ export default function DataTable<DataItem extends { id: number | string }>({
                     className={styles.tableRow}
                     data-column-count={columns.length + 1}
                   >
-                    {columns.map((col) => (
+                    {category.dataItemConfig.map((col) => (
                       <span
                         key={String(col.key)}
                         className={col.className || styles[`${String(col.key)}Col`]}
