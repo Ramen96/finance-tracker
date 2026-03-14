@@ -200,14 +200,14 @@ const assetItems: Record<string, Asset[]> = {
       name: "Rental Property - Main St",
       qty: 340,
       value: 250000,
-      incomeOrRate: "$2,500"
+      incomeOrRate: "12.3%"
     },
     {
       id: 2,
       name: "Dividend Stocks Portfolio",
       qty: 23132,
       value: 150000,
-      incomeOrRate: "$500"
+      incomeOrRate: "5.2%"
     },
   ],
   "Growth Assets": [
@@ -488,7 +488,6 @@ export default function Report() {
 
         <DataTable
           categories={configCategories}
-          columns={configColumns}
           totalKey={configTotalKey}
           onAdd={onAdd}
           onEdit={(item) => onEdit(item)}
