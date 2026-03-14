@@ -33,14 +33,6 @@ interface incomeReportType {
   amount: number;
 }
 
-const incomeCategories = [
-  { name: "Salary", icon: Briefcase },
-  { name: "Interest", icon: DollarSign },
-  { name: "Dividends", icon: TrendingUp },
-  { name: "Real Estate", icon: Home },
-  { name: "Businesses", icon: Building2 },
-];
-
 const incomeItem: Record<string, incomeReportType[]> = {
   Salary: [
     { id: 1, description: "Monthly salary", amount: 5000 },
@@ -78,6 +70,14 @@ const incomeColumns = [
   },
 ];
 
+const incomeCategories = [
+  { name: "Salary", icon: Briefcase, columns: incomeColumns },
+  { name: "Interest", icon: DollarSign, columns: incomeColumns },
+  { name: "Dividends", icon: TrendingUp, columns: incomeColumns },
+  { name: "Real Estate", icon: Home, columns: incomeColumns },
+  { name: "Businesses", icon: Building2, columns: incomeColumns },
+];
+
 //////////////////////////////////////////
 /////////// EXPENSES DATA ///////////////
 ////////////////////////////////////////
@@ -87,14 +87,6 @@ interface ExpenseItem {
   description: string;
   amount: number;
 }
-
-const expenseCategories = [
-  { name: "Groceries", icon: Utensils },
-  { name: "Housing", icon: Home },
-  { name: "Transportation", icon: Car },
-  { name: "Healthcare", icon: Heart },
-  { name: "Utilities", icon: Zap },
-];
 
 const expenseItems: Record<string, ExpenseItem[]> = {
   Groceries: [
@@ -134,6 +126,14 @@ const expensesColumns = [
       return `$${num.toLocaleString()}`;
     },
   },
+];
+
+const expenseCategories = [
+  { name: "Groceries", icon: Utensils, columns: expensesColumns },
+  { name: "Housing", icon: Home, columns: expensesColumns },
+  { name: "Transportation", icon: Car, columns: expensesColumns },
+  { name: "Healthcare", icon: Heart, columns: expensesColumns },
+  { name: "Utilities", icon: Zap, columns: expensesColumns },
 ];
 
 ////////////////////////////////////////////////
@@ -226,27 +226,6 @@ const assetItems: Record<string, Asset[]> = {
   ],
 };
 
-const assetsColumns = [
-  {
-    key: "name" as const,
-    label: "Asset Name",
-    format: (value: string | number) => String(value),
-  },
-  {
-    key: "value" as const,
-    label: "Value",
-    format: (value: string | number) => {
-      const num = typeof value === "number" ? value : Number(value || 0);
-      return `$${num.toLocaleString()}`;
-    },
-  },
-  {
-    key: "incomeOrRate" as const,
-    label: "Income/Rate",
-    format: (value: string | number) => String(value),
-  },
-];
-
 //////////////////////////////////////////
 ////////// LIABILITIES DATA /////////////
 ////////////////////////////////////////
@@ -257,14 +236,6 @@ interface liabilityType {
   payment: number;
   rate: number;
 }
-
-const liabilityCategories = [
-  { name: "Credit Cards", icon: CreditCard },
-  { name: "Auto Loans", icon: Car },
-  { name: "Student Loans", icon: GraduationCap },
-  { name: "Real Estate", icon: Home },
-  { name: "Business Loans", icon: Building2 },
-];
 
 const liabilitiesItems: Record<string, liabilityType[]> = {
   "Credit Cards": [
@@ -318,6 +289,14 @@ const liabilitiesColumns = [
   },
 ];
 
+const liabilityCategories = [
+  { name: "Credit Cards", icon: CreditCard, columns: liabilitiesColumns },
+  { name: "Auto Loans", icon: Car, columns: liabilitiesColumns },
+  { name: "Student Loans", icon: GraduationCap, columns: liabilitiesColumns },
+  { name: "Real Estate", icon: Home, columns: liabilitiesColumns },
+  { name: "Business Loans", icon: Building2, columns: liabilitiesColumns },
+];
+
 export default function Report() {
   const params = useParams();
   const reportType = (params?.type as ReportType) || "income";
@@ -360,28 +339,24 @@ export default function Report() {
   type ReportConfig = {
     income: {
       categories: any[];
-      columns: typeof incomeColumns;
       totalKey: keyof incomeReportType;
       name: string;
       description: string;
     };
     expenses: {
       categories: any[];
-      columns: typeof expensesColumns;
       totalKey: keyof ExpenseItem;
       name: string;
       description: string;
     };
     assets: {
       categories: any[];
-      columns: typeof assetsColumns;
       totalKey: keyof Asset;
       name: string;
       description: string;
     };
     liabilities: {
       categories: any[];
-      columns: typeof liabilitiesColumns;
       totalKey: keyof liabilityType;
       name: string;
       description: string;
@@ -391,28 +366,24 @@ export default function Report() {
   const reportConfig: ReportConfig = {
     income: {
       categories: formattedIncome,
-      columns: incomeColumns,
       totalKey: "amount",
       name: "Income",
       description: "Track and manage income sources",
     },
     expenses: {
       categories: formattedExpenses,
-      columns: expensesColumns,
       totalKey: "amount",
       name: "Expenses",
       description: "Track and manage your monthly expenses"
     },
     assets: {
       categories: formattedAssets,
-      columns: assetsColumns,
       totalKey: "value",
       name: "Assets",
       description: "Track your producing and growth assets"
     },
     liabilities: {
       categories: formattedLiabilities,
-      columns: liabilitiesColumns,
       totalKey: "balance",
       name: "Liabilities",
       description: "Track your debts and monthly obligations"
@@ -424,7 +395,7 @@ export default function Report() {
 
   const configCategories = config.categories;
   const configTotalKey = config.totalKey;
-  const configColumns = config.columns;
+  // const configColumns = config.columns;
 
   const total = config.categories
     .map(category => category.items)
