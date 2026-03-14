@@ -395,7 +395,6 @@ export default function Report() {
 
   const configCategories = config.categories;
   const configTotalKey = config.totalKey;
-  // const configColumns = config.columns;
 
   const total = config.categories
     .map(category => category.items)
@@ -426,7 +425,7 @@ export default function Report() {
     } catch (error) {
       console.error("Simulated error", error);
     }
-    setShowAddForm("");
+    setShowAddForm(null);
   }
 
   const onEdit = (item: any) => {
