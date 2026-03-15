@@ -27,8 +27,8 @@ export default function SideBar() {
   const router = useRouter();
 
   // States
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
+  const [isDeskOpen, setIsDeskOpen] = useState<boolean>(true);
   const [isThemePickerOpen, setIsThemePickerOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
@@ -39,7 +39,7 @@ export default function SideBar() {
       setIsMobile(width < 1024);
 
       if (width >= 1024) {
-        setIsOpen(false);
+        setIsMobileOpen(false);
       }
     };
 
@@ -50,11 +50,11 @@ export default function SideBar() {
 
   // Nav logic
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsMobileOpen(!isMobileOpen);
     if (isThemePickerOpen) setIsThemePickerOpen(false);
   }
   const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
+    setIsDeskOpen(!isDeskOpen);
     if (isThemePickerOpen) setIsThemePickerOpen(false);
   }
 
@@ -63,10 +63,10 @@ export default function SideBar() {
   };
 
   const handleThemePickerClick = () => {
-    if (isExpanded) {
+    if (isDeskOpen) {
       setIsThemePickerOpen(true);
     } else {
-      setIsExpanded(true);
+      setIsDeskOpen(true);
       setIsThemePickerOpen(true);
     }
   }
@@ -152,11 +152,11 @@ export default function SideBar() {
       {isMobile && (
         <>
           <button
-            className={`${styles.hamburger} ${isOpen ? styles.open : ''}`}
+            className={`${styles.hamburger} ${isMobileOpen ? styles.open : ''}`}
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X size={16} /> : <Menu size={16} />}
+            {isMobileOpen ? <X size={16} /> : <Menu size={16} />}
           </button>
 
         </>
@@ -167,16 +167,16 @@ export default function SideBar() {
           <div className={styles.logoContainer}>
             <Image src={logo} alt="logo" width={30} height={30} />
           </div>
-          {!isOpen && <ThemeToggle />}
+          {!isMobileOpen && <ThemeToggle />}
         </div>
       )}
 
       {/* Overlay */}
-      {isMobile && isOpen && (
+      {isMobile && isMobileOpen && (
         <div
           className={styles.overlay}
           onClick={() => {
-            setIsOpen(false);
+            setIsMobileOpen(false);
             setIsThemePickerOpen(false)
           }}
         />
@@ -184,12 +184,12 @@ export default function SideBar() {
 
       {/* Sidebar */}
       <aside
-        className={`${styles.sideBarContainer} ${isOpen ? styles.open : ''} ${isExpanded ? styles.expanded : styles.collapsed}`}
+        className={`${styles.sideBarContainer} ${isMobileOpen ? styles.open : ''} ${isDeskOpen ? styles.expanded : styles.collapsed}`}
       >
         <ThemePicker
           isThemePickerOpen={isThemePickerOpen}
           setIsThemePickerOpen={() => setIsThemePickerOpen(false)}
-          setIsExpanded={setIsExpanded}
+          setIsDeskOpen={setIsDeskOpen}
         />
 
         {/* Top Control Bar - Only visible on desktop */}
@@ -199,9 +199,9 @@ export default function SideBar() {
               className={styles.toggleBtn}
               onClick={toggleExpanded}
             >
-              {isExpanded ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
+              {isDeskOpen ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
             </button>
-            {isExpanded && (
+            {isDeskOpen && (
               <ThemeToggle />
             )}
           </div>
@@ -210,7 +210,7 @@ export default function SideBar() {
         <nav className={styles.btnsContainer}>
           {navigationGroups.map((group, index) => (
             <section key={index} className={styles.menu}>
-              {(isMobile || isExpanded) && (
+              {(isMobile || isDeskOpen) && (
                 <h3 className={styles.sectionLabel}>{group.label}</h3>
               )}
               {group.items.map((btn) => (
@@ -218,13 +218,13 @@ export default function SideBar() {
                   key={btn.id}
                   className={styles.sideBarBtn}
                   onClick={() => {
-                    if (isMobile && (btn.name !== "Theme")) setIsOpen(false);
+                    if (isMobile && (btn.name !== "Theme")) setIsMobileOpen(false);
                     handleNavClick(btn.onClick);
                   }}
-                  data-tooltip={!isMobile && !isExpanded ? btn.name : undefined}
+                  data-tooltip={!isMobile && !isDeskOpen ? btn.name : undefined}
                 >
                   {btn.icon}
-                  {(isMobile || isExpanded) && (
+                  {(isMobile || isDeskOpen) && (
                     <span className={styles.sidebarBtnTxt}>{btn.name}</span>
                   )}
                 </button>
