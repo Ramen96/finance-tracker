@@ -7,7 +7,7 @@ import styles from "./themePicker.module.scss";
 type ThemePickerProps = {
   isThemePickerOpen: boolean;
   setIsThemePickerOpen: any;
-  setIsExpanded: any;
+  setIsDeskOpen: any;
 }
 
 const THEME_MAP = {
