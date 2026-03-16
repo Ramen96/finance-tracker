@@ -1,4 +1,3 @@
-"use client";
 import { X } from "lucide-react";
 import type { Palette } from "@/context/usePalette";
 import { usePalette } from "@/context/usePalette";
@@ -6,8 +5,8 @@ import styles from "./themePicker.module.scss";
 
 type ThemePickerProps = {
   isThemePickerOpen: boolean;
-  setIsThemePickerOpen: any;
-  setIsDeskOpen: any;
+  setIsThemePickerOpen: (boolType: boolean) => void;
+  setIsDeskOpen: (boolType: boolean) => void;
 }
 
 const THEME_MAP = {

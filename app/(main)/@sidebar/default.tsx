@@ -146,6 +146,10 @@ export default function SideBar() {
     { label: "System", items: bottomButtons },
   ], [topButtons, middleButtons, bottomButtons]);
 
+  const handleDeskCB = (boolType: boolean) => {
+    setIsDeskOpen(boolType);
+  }
+
   return (
     <>
       {/* Top Navbar (Mobile & Tablet) */}
@@ -188,8 +192,8 @@ export default function SideBar() {
       >
         <ThemePicker
           isThemePickerOpen={isThemePickerOpen}
-          setIsThemePickerOpen={() => setIsThemePickerOpen(false)}
-          setIsDeskOpen={setIsDeskOpen}
+          setIsThemePickerOpen={(boolType: boolean) => setIsThemePickerOpen(boolType)}
+          setIsDeskOpen={(boolType: boolean) => setIsDeskOpen(boolType)}
         />
 
         {/* Top Control Bar - Only visible on desktop */}
