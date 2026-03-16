@@ -196,7 +196,8 @@
     background: color-mix(in srgb, var(--primary) 5%, var(--bg-elevated));
     border-left-color: var(--primary);
 
-    .nameCol {
+    .nameCol,
+    .descriptionCol {
       color: var(--primary);
     }
   }
@@ -215,7 +216,8 @@
       border-color: color-mix(in srgb, var(--primary) 45%, transparent);
       box-shadow: 0 2px 8px color-mix(in srgb, var(--primary) 10%, transparent);
 
-      .nameCol {
+      .nameCol,
+      .descriptionCol {
         color: var(--primary);
       }
     }
@@ -270,7 +272,8 @@
   }
 }
 
-.nameCol {
+.nameCol,
+.descriptionCol {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--text);
@@ -294,6 +297,23 @@
 }
 
 .rateCol {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.amountCol,
+.valueCol {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+}
+
+.qtyCol,
+.incomeOrRateCol {
   font-size: 0.75rem;
   font-weight: 400;
   color: var(--text-secondary);
