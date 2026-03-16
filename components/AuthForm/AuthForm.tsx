@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Check, X } from "lucide-react";
 import styles from "./AuthForm.module.scss";
 import { useAuth } from "@/context/useAuth";
-import SignUpFields from "../SignUpFields/SignUpFields";
 
 // ─── Password strength ────────────────────────────────────────────────────────
 
