@@ -16,7 +16,7 @@ export default function AddForm({
       <form>
         {columnConfig?.map((element: any) => (
           <span key={element.key}>
-            <label htmlFor={"1"} className="sr-only">{ }</label>
+            <label htmlFor={`${element.key}`} className="sr-only">{ }</label>
             <input
               id={`${element.key}`}
               name="input"
