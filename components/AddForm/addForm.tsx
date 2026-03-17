@@ -8,13 +8,6 @@ export default function AddForm({
   columnConfig
 }: AddFormPropTypes) {
 
-  (() => {
-    columnConfig.map((e: any) => (
-      console.log(e.format())
-    ));
-  })();
-
-
   return (
     <div
       className={styles.tableRow}
@@ -27,7 +20,7 @@ export default function AddForm({
             <input
               id={`${element.key}`}
               name="input"
-              type="text"
+              type={element.isNumber ? "number" : "text"}
               className={`${styles.textInputPrimary} ${styles.withIcon}`}
               placeholder={`${element.label}`}
             />
