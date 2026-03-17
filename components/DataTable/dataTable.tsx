@@ -1,5 +1,6 @@
 import { Plus, Edit2, Trash2 } from "lucide-react";
 import { LucideIcon, X } from "lucide-react";
+import AddForm from "../AddForm/addForm";
 import styles from "./dataTable.module.scss";
 
 // ============================================================================
@@ -36,26 +37,6 @@ type DataTableProps<DataItem> = {
 // COMPONENT
 // ============================================================================
 
-
-function AddForm() {
-  return (
-    <div
-      className={styles.tableRow}
-      data-column-count={1}
-    >
-      <form>
-        <label htmlFor={"1"} className="sr-only">{ }</label>
-        <input
-          id="1"
-          name="input"
-          type="text"
-          className={`${styles.textInputPrimary} ${styles.withIcon}`}
-          placeholder="Item Name"
-        />
-      </form>
-    </div>
-  )
-}
 export default function DataTable<DataItem extends { id: number | string }>({
   categories,
   onAdd,
