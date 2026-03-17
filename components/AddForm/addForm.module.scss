@@ -1,0 +1,20 @@
+@use "@styles/mixins";
+@use "@styles/mixins/ui" as ui;
+@use "@styles/variables" as vars;
+
+// ---- Inputs -----------------------------------------------------------------
+
+.textInputPrimary {
+  @include ui.textInputPrimary;
+  margin: 0px;
+  padding: vars.$spacing-xs;
+  font-family: var(--font-display);
+  letter-spacing: vars.$letter-spacing;
+  font-size: vars.$font-size-sm;
+}
+
+// ---- Form row grid ----------------------------------------------------------
+
+.tableRow {
+  @include mixins.data-table-grid;
+}
