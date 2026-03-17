@@ -144,7 +144,9 @@ export default function DataTable<DataItem extends { id: number | string }>({
                   </div>
                 ))}
                 {showAddForm === category.name && (
-                  <AddForm />
+                  <AddForm
+                    columnConfig={category.dataItemConfig}
+                  />
                 )}
               </div>
 
