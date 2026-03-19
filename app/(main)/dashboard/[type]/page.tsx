@@ -58,11 +58,13 @@ const incomeColumns = [
   {
     key: "description" as const,
     label: "Description",
+    inputType: "text",
     format: (value: string | number) => String(value),
   },
   {
     key: "amount" as const,
     label: "Cash Flow",
+    inputType: "number",
     format: (value: string | number) => {
       const num = typeof value === "number" ? value : Number(value || 0);
       return `$${num.toLocaleString()}`;
@@ -116,11 +118,13 @@ const expensesColumns = [
   {
     key: "description" as const,
     label: "Item",
+    inputType: "text",
     format: (value: string | number) => String(value),
   },
   {
     key: "amount" as const,
     label: "Amount",
+    inputType: "number",
     format: (value: string | number) => {
       const num = typeof value === "number" ? value : Number(value || 0);
       return `$${num.toLocaleString()}`;
@@ -151,21 +155,25 @@ const producingAssetsColumns = [
   {
     key: "name" as const,
     label: "Asset",
+    inputType: "text",
     format: (value: string | number) => String(value)
   },
   {
     key: "qty" as const,
     label: "Qty",
+    inputType: "number",
     format: (value: string | number) => String(value)
   },
   {
     key: "value" as const,
     label: "Value" as const,
+    inputType: null,
     format: (value: string | number) => String(value)
   },
   {
     key: "incomeOrRate" as const,
     label: "Rate",
+    inputType: null,
     format: (value: string | number) => String(value)
   }
 ];
@@ -174,16 +182,19 @@ const growthAssetsColumns = [
   {
     key: "name" as const,
     label: "Asset",
+    inputType: "text",
     format: (value: string | number) => String(value)
   },
   {
     key: "value" as const,
     label: "Value" as const,
+    inputType: "number",
     format: (value: string | number) => String(value)
   },
   {
     key: "incomeOrRate" as const,
     label: "Rate",
+    inputType: null,
     format: (value: string | number) => String(value)
   }
 ];
@@ -261,11 +272,13 @@ const liabilitiesColumns = [
   {
     key: "name" as const,
     label: "Name",
+    inputType: "text",
     format: (value: string | number) => String(value),
   },
   {
     key: "balance" as const,
     label: "Balance",
+    inputType: null,
     format: (value: string | number) => {
       const num = typeof value === "number" ? value : Number(value || 0);
       return `$${num.toLocaleString()}`;
@@ -274,6 +287,7 @@ const liabilitiesColumns = [
   {
     key: "payment" as const,
     label: "Payment",
+    inputType: "number",
     format: (value: string | number) => {
       const num = typeof value === "number" ? value : Number(value || 0);
       return `$${num.toLocaleString()}`;
@@ -282,6 +296,7 @@ const liabilitiesColumns = [
   {
     key: "rate" as const,
     label: "Rate",
+    inputType: "number",
     format: (value: string | number) => {
       const num = typeof value === "number" ? value : Number(value || 0);
       return `${num}%`;
