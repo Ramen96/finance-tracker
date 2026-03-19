@@ -11,6 +11,7 @@ type ColumnConfig<DataItem, K extends keyof DataItem = keyof DataItem> = {
   key: K;
   label: string;
   className?: string;
+  inputType?: "text" | "number" | null;
   format: (value: DataItem[K]) => string | number;
 };
 
