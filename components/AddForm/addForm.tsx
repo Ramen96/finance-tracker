@@ -15,18 +15,19 @@ export default function AddForm({
     >
       <form>
         {columnConfig?.map((element: any) => (
-          <span key={element.key}>
-            <label htmlFor={`${element.key}`} className="sr-only">{ }</label>
-            <input
-              id={`${element.key}`}
-              name="input"
-              type={element.isNumber ? "number" : "text"}
-              className={`${styles.textInputPrimary} ${styles.withIcon}`}
-              placeholder={`${element.label}`}
-            />
-          </span>
+          element.inputType && (
+            <span key={element.key}>
+              <label htmlFor={`${element.key}`} className="sr-only">{ }</label>
+              <input
+                id={`${element.key}`}
+                name="input"
+                type={element.inputType === "number" ? "number" : "text"}
+                className={`${styles.textInputPrimary} ${styles.withIcon}`}
+                placeholder={`${element.label}`}
+              />
+            </span>
+          )
         ))}
-
       </form>
     </div>
   );
