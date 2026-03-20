@@ -2,6 +2,9 @@
 @use "@styles/mixins/ui" as ui;
 @use "@styles/variables" as vars;
 
+
+
+
 // ---- Inputs -----------------------------------------------------------------
 
 .textInputPrimary {
@@ -17,4 +20,10 @@
 
 .tableRow {
   @include mixins.data-table-grid;
+}
+
+// ---- Actions ----------------------------------------------------------------
+
+.actionsCol {
+  @include mixins.actions-col;
 }
