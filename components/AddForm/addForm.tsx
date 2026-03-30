@@ -11,23 +11,25 @@ export default function AddForm({
   return (
     <form
       className={styles.tableRow}
-      data-column-count={columnConfig.filter((e: any) => e.inputType).length + 1}
+      data-column-count={columnConfig.length + 1}
     >
       {columnConfig?.map((element: any) => (
-        element.inputType && (
+        element.inputType ? (
           <span
+            className={styles.inputWrapper}
             key={element.key}
-            data-table-grid={columnConfig.length}
           >
-            <label htmlFor={`${element.key}`} className="sr-only">{ }</label>
+            <label htmlFor={`${element.key}`} className="sr-only">{element.label}</label>
             <input
               id={`${element.key}`}
-              name="input"
+              name={element.key}
               type={element.inputType === "number" ? "number" : "text"}
-              className={`${styles.textInputPrimary} ${styles.withIcon}`}
-              placeholder={`${element.label}`}
+              className={styles.textInputPrimary}
+              placeholder={element.label}
             />
           </span>
+        ) : (
+          <span key={element.key} aria-hidden="true" />
         )
       ))}
       <span className={styles.actionsCol}>
