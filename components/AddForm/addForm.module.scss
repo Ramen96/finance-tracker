@@ -1,53 +1,114 @@
 @use "@styles/mixins";
 @use "@styles/mixins/ui" as ui;
 @use "@styles/variables" as vars;
+@use "@styles/mixins/typography" as typography;
 
-// ---- Inputs -----------------------------------------------------------------
+// ---- Container --------------------------------------------------------------
 
-.inputWrapper {
-  display: block;
+.formContainer {
   width: 100%;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-}
-
-.textInputPrimary {
-  @include ui.textInputPrimary;
-  display: block;
-  margin: 0;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
+  background: var(--bg-elevated);
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  border-left: 2px solid var(--primary);
+  padding: vars.$spacing-sm vars.$spacing-lg;
   box-sizing: border-box;
-  padding: vars.$spacing-xs 0;
-  font-family: var(--font-display);
-  letter-spacing: vars.$letter-spacing;
-  font-size: vars.$font-size-sm;
 }
 
-.textInputPrimary[type="number"] {
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.025em;
-  appearance: textfield;
-  -moz-appearance: textfield;
+// ---- Form row ---------------------------------------------------------------
 
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.form {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-lg;
+  width: 100%;
+  margin: 0;
+}
+
+// ---- Individual field -------------------------------------------------------
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-xs;
+  flex: 1;
+  min-width: 0;
+
+  // Name/text fields get more space
+  &:first-child {
+    flex: 2;
   }
 }
 
-// ---- Form row grid ----------------------------------------------------------
-
-.tableRow {
-  @include mixins.data-table-grid;
-  align-items: stretch;
+.label {
+  font-size: vars.$font-size-2xs;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07rem;
+  color: var(--text-secondary);
 }
 
-// ---- Actions ----------------------------------------------------------------
+.input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: vars.$spacing-xs vars.$spacing-sm;
+  height: vars.$input-height;
+  background: var(--text-input-bg);
+  color: var(--text-input-text);
+  border: 1px solid var(--border);
+  border-radius: vars.$radius-sm;
+  font-family: var(--font-display);
+  font-size: vars.$font-size-sm;
+  outline: none;
+  caret-shape: block;
+  transition: border-color 0.15s ease;
 
-.actionsCol {
-  @include mixins.actions-col;
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &:focus {
+    border-color: var(--primary);
+  }
+
+  &[type="number"] {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.025em;
+    appearance: textfield;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+// ---- Save button ------------------------------------------------------------
+
+.saveBtn {
+  @include mixins.icon-action-btn-edit;
+  height: vars.$input-height;
+  padding: 0 vars.$spacing-lg;
+  font-size: vars.$font-size-sm;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+// ---- Tablet -----------------------------------------------------------------
+
+@include typography.respond-down("tablet") {
+  .form {
+    flex-wrap: wrap;
+  }
+
+  .field {
+    flex: 1 1 calc(50% - vars.$spacing-lg);
+  }
+
+  .saveBtn {
+    width: 100%;
+  }
 }
