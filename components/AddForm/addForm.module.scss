@@ -18,7 +18,7 @@
 // ---- Form row ---------------------------------------------------------------
 
 .form {
-  @include layout.flex(null, center);
+  @include layout.flex(null, flex-end);
   gap: vars.$spacing-lg;
   @include layout.w-full;
   margin: 0;
@@ -54,7 +54,7 @@
   display: block;
   box-sizing: border-box;
   margin: 0;
-  padding: vars.$spacing-xs vars.$spacing-sm;
+  padding: vars.$spacing-md vars.$spacing-lg;
   height: vars.$input-height;
   background: var(--text-input-bg);
   color: var(--text-input-text);
@@ -91,10 +91,11 @@
 .saveBtn {
   @include mixins.icon-action-btn-edit;
   height: vars.$input-height;
-  padding: 0 vars.$spacing-lg;
+  padding: 0 vars.$spacing-xl;
   font-size: vars.$font-size-sm;
   white-space: nowrap;
   flex-shrink: 0;
+  align-self: flex-end;
 }
 
 // ---- Tablet -----------------------------------------------------------------
