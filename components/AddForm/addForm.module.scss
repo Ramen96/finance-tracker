@@ -1,12 +1,13 @@
 @use "@styles/mixins";
 @use "@styles/mixins/ui" as ui;
+@use "@styles/mixins/layout" as layout;
 @use "@styles/variables" as vars;
 @use "@styles/mixins/typography" as typography;
 
 // ---- Container --------------------------------------------------------------
 
 .formContainer {
-  width: 100%;
+  @include layout.w-full;
   background: var(--bg-elevated);
   border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
   border-left: 2px solid var(--primary);
@@ -17,23 +18,20 @@
 // ---- Form row ---------------------------------------------------------------
 
 .form {
-  display: flex;
-  align-items: center;
+  @include layout.flex(null, center);
   gap: vars.$spacing-lg;
-  width: 100%;
+  @include layout.w-full;
   margin: 0;
 }
 
 // ---- Individual field -------------------------------------------------------
 
 .field {
-  display: flex;
-  flex-direction: column;
+  @include layout.flex(null, null, column);
   gap: vars.$spacing-xs;
   flex: 1;
   min-width: 0;
 
-  // Name/text fields get more space
   &:first-child {
     flex: 2;
   }
@@ -47,9 +45,13 @@
   color: var(--text-secondary);
 }
 
+// ---- Input ------------------------------------------------------------------
+
 .input {
+  @include layout.w-full;
+  @include layout.radius-sm;
+  @include ui.transition;
   display: block;
-  width: 100%;
   box-sizing: border-box;
   margin: 0;
   padding: vars.$spacing-xs vars.$spacing-sm;
@@ -57,12 +59,10 @@
   background: var(--text-input-bg);
   color: var(--text-input-text);
   border: 1px solid var(--border);
-  border-radius: vars.$radius-sm;
   font-family: var(--font-display);
   font-size: vars.$font-size-sm;
   outline: none;
   caret-shape: block;
-  transition: border-color 0.15s ease;
 
   &::placeholder {
     color: var(--text-muted);
@@ -109,6 +109,6 @@
   }
 
   .saveBtn {
-    width: 100%;
+    @include layout.w-full;
   }
 }
