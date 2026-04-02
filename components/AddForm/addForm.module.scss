@@ -8,20 +8,41 @@
 
 .formContainer {
   @include layout.w-full;
+  box-sizing: border-box;
   background: var(--bg-elevated);
   border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
   border-left: 2px solid var(--primary);
   padding: vars.$spacing-sm vars.$spacing-lg;
-  box-sizing: border-box;
+
+  @include typography.respond-down("tablet") {
+    border-left: none;
+    border-top: 2px solid var(--primary);
+    padding: vars.$spacing-md;
+  }
+
+  @include typography.respond-down("mobile-l") {
+    padding: vars.$spacing-sm;
+  }
 }
 
 // ---- Form row ---------------------------------------------------------------
 
 .form {
   @include layout.flex(null, flex-end);
-  gap: vars.$spacing-lg;
   @include layout.w-full;
+  gap: vars.$spacing-lg;
   margin: 0;
+
+  @include typography.respond-down("tablet") {
+    flex-wrap: wrap;
+    gap: vars.$spacing-md;
+    align-items: stretch;
+  }
+
+  @include typography.respond-down("mobile-l") {
+    flex-direction: column;
+    gap: vars.$spacing-sm;
+  }
 }
 
 // ---- Individual field -------------------------------------------------------
@@ -35,7 +56,25 @@
   &:first-child {
     flex: 2;
   }
+
+  @include typography.respond-down("tablet") {
+    flex: 1 1 calc(50% - vars.$spacing-md);
+
+    &:first-child {
+      flex: 1 1 100%;
+    }
+  }
+
+  @include typography.respond-down("mobile-l") {
+    flex: 1 1 100%;
+
+    &:first-child {
+      flex: 1 1 100%;
+    }
+  }
 }
+
+// ---- Label ------------------------------------------------------------------
 
 .label {
   font-size: vars.$font-size-2xs;
@@ -89,27 +128,31 @@
 // ---- Save button ------------------------------------------------------------
 
 .saveBtn {
-  @include mixins.icon-action-btn-edit;
+  @include mixins.icon-action-btn;
+  @include ui.transition;
+  @include layout.flex-center;
   height: vars.$input-height;
   padding: 0 vars.$spacing-xl;
   font-size: vars.$font-size-sm;
+  font-weight: 700;
   white-space: nowrap;
   flex-shrink: 0;
   align-self: flex-end;
-}
+  color: var(--primary);
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+  border-radius: vars.$radius-sm;
+  background: transparent;
+  cursor: pointer;
 
-// ---- Tablet -----------------------------------------------------------------
-
-@include typography.respond-down("tablet") {
-  .form {
-    flex-wrap: wrap;
+  &:hover {
+    background: color-mix(in srgb, var(--primary) 10%, transparent);
+    border-color: color-mix(in srgb, var(--primary) 55%, transparent);
   }
 
-  .field {
-    flex: 1 1 calc(50% - vars.$spacing-lg);
-  }
-
-  .saveBtn {
+  @include typography.respond-down("tablet") {
     @include layout.w-full;
+    align-self: stretch;
+    flex: 1 1 100%;
+    padding: vars.$spacing-md;
   }
 }
