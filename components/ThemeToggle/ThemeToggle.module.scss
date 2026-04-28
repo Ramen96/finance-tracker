@@ -14,33 +14,34 @@
 }
 
 .toggleLabel {
+  @include mixins.transition;
   margin: 0;
-  border-radius: vars.$radius-lg;
-  padding: vars.$radius-lg;
+  border-radius: vars.$radius-md;
+  padding: vars.$spacing-sm;
   width: auto;
   position: static;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
 
   &:hover {
-    background: var(--primary);
-    color: var(--primary-text);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
+    background: var(--bg-secondary);
+    color: var(--primary);
+
+    svg {
+      color: var(--primary);
+    }
   }
 
   &:active {
-    transform: translateY(0);
+    transform: scale(0.95);
   }
 
   svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  @include typography.respond-down("tablet") {
-    padding: vars.$spacing-sm;
+    width: vars.$icon-size;
+    height: vars.$icon-size;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
   }
 }
