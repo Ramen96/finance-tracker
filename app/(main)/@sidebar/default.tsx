@@ -2,7 +2,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import ThemePicker from "components/ThemePicker/themePicker";
-import ThemeToggle from "components/ThemeToggle/ThemeToggle";
 import Image from "next/image";
 import logo from "public/Penros-Triangle.svg";
 import {
@@ -171,7 +170,6 @@ export default function SideBar() {
           <div className={styles.logoContainer}>
             <Image src={logo} alt="logo" width={30} height={30} />
           </div>
-          {!isMobileOpen && <ThemeToggle />}
         </div>
       )}
 
@@ -205,9 +203,6 @@ export default function SideBar() {
             >
               {isDeskOpen ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
             </button>
-            {isDeskOpen && (
-              <ThemeToggle />
-            )}
           </div>
         )}
 
