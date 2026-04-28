@@ -16,9 +16,9 @@
     height: vars.$navbar-height;
     background: var(--bg-elevated);
     border-bottom: 1px solid var(--border);
-    padding: 0 vars.$spacing-lg;
+    padding: 0 vars.$spacing-md;
     z-index: 998;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     position: relative;
   }
 
@@ -37,10 +37,10 @@
 .hamburger {
   @include mixins.flex-center;
   position: fixed;
-  top: vars.$spacing-sm;
-  left: vars.$spacing-xl;
-  border-radius: vars.$radius-lg;
-  padding: 0.45rem;
+  top: vars.$spacing-xs;
+  left: vars.$spacing-md;
+  border-radius: vars.$radius-md;
+  padding: vars.$spacing-sm;
   background: var(--primary);
   color: var(--primary-text);
   border: none;
@@ -65,7 +65,7 @@
   }
 
   @include typography.respond-between("mobile-l", "laptop") {
-    padding: vars.$spacing-md;
+    padding: vars.$spacing-sm;
   }
 
   @include typography.respond("laptop") {
@@ -80,7 +80,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); // fixed: was missing comma
+  transform: translate(-50%, -50%);
   width: auto;
   height: auto;
   display: flex;
@@ -97,7 +97,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 999;
   backdrop-filter: blur(2px);
   animation: fadeIn 0.3s ease;
@@ -127,7 +127,7 @@
   background: var(--bg-elevated);
   display: flex;
   flex-direction: column;
-  padding: 0.25rem;
+  padding: vars.$spacing-xs;
   transition: width 0.3s ease, transform 0.3s ease;
   position: relative;
   z-index: 9999;
@@ -136,12 +136,12 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: 240px;
-    max-width: 80vw;
+    width: 220px;
+    max-width: 75vw;
     height: 100vh;
     z-index: 1000;
     transform: translateX(-100%);
-    padding: 0.75rem 0.4rem;
+    padding: vars.$spacing-md vars.$spacing-sm;
 
     &.open {
       transform: translateX(0);
@@ -176,10 +176,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  width: calc(100% - 0.5rem);
-  margin: 0.25rem;
-  margin-bottom: 0.75rem;
+  gap: vars.$spacing-sm;
+  width: calc(100% - vars.$spacing-sm);
+  margin: vars.$spacing-xs;
+  margin-bottom: vars.$spacing-md;
 
   @include typography.respond-down("laptop") {
     display: none;
@@ -191,15 +191,15 @@
 // ========================================
 .mobileControlBar {
   @include mixins.flex-center;
-  padding: vars.$spacing-md 0;
-  margin-bottom: vars.$spacing-md;
+  padding: vars.$spacing-sm 0;
+  margin-bottom: vars.$spacing-sm;
 
   @include typography.respond-down("mobile-l") {
     position: absolute;
-    top: calc(0% - vars.$spacing-sm);
+    top: calc(0% - vars.$spacing-xs);
     right: 0;
-    padding: vars.$spacing-lg;
-    margin: 0 0 vars.$spacing-lg 0;
+    padding: vars.$spacing-md;
+    margin: 0 0 vars.$spacing-md 0;
   }
 
   @include typography.respond-between("mobile-l", "laptop") {
@@ -222,7 +222,7 @@
   border-radius: vars.$radius-md;
   position: relative;
   transition: all 0.3s ease;
-  margin: none;
+  margin: 0;
 
   svg {
     flex-shrink: 0;
@@ -254,38 +254,38 @@
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 8px 0;
+  gap: 1px;
+  padding: vars.$spacing-sm 0;
 
   &:last-child {
     margin-top: auto;
   }
 
   @include typography.respond("laptop") {
-    gap: 4px;
-    padding: 12px 0;
+    gap: 2px;
+    padding: vars.$spacing-lg 0;
   }
 }
 
 .sectionLabel {
-  font-size: 0.65rem;
+  font-size: vars.$font-size-2xs;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05rem;
+  letter-spacing: vars.$letter-spacing;
   color: var(--text);
-  margin: 4px 0 3px 8px;
-  opacity: 0.8;
-  padding-bottom: 0.35rem;
+  margin: vars.$spacing-xs 0 2px vars.$spacing-sm;
+  opacity: 0.7;
+  padding-bottom: vars.$spacing-xs;
   border-bottom: 1px solid var(--text-muted);
 
   @include typography.respond("tablet") {
-    font-size: 0.75rem;
-    margin: 8px 0 4px 10px;
+    font-size: vars.$font-size-xs;
+    margin: vars.$spacing-sm 0 vars.$spacing-xs vars.$spacing-lg;
   }
 
   @include typography.respond("laptop") {
-    font-size: 0.8rem;
-    margin: 8px 0 4px 12px;
+    font-size: vars.$font-size-xs;
+    margin: vars.$spacing-md 0 vars.$spacing-xs vars.$spacing-xl;
   }
 }
 
@@ -299,7 +299,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 0.7rem;
+  padding: vars.$spacing-md;
   border: none;
   cursor: pointer;
   font-family: var(--font-main);
@@ -307,24 +307,24 @@
 
   svg {
     flex-shrink: 0;
-    width: 20px;
-    height: 20px;
+    width: vars.$icon-size;
+    height: vars.$icon-size;
   }
 
   @include typography.respond-down("laptop") {
-    gap: 0.75rem;
+    gap: vars.$spacing-lg;
     background: transparent;
     color: var(--text);
-    font-size: 0.9rem;
+    font-size: vars.$font-size-sm;
     font-weight: 500;
     text-align: left;
     justify-content: flex-start;
-    padding: 0.55rem 0.75rem;
+    padding: vars.$spacing-sm vars.$spacing-lg;
     border-radius: vars.$radius-md;
 
     svg {
-      width: 17px;
-      height: 17px;
+      width: vars.$icon-size;
+      height: vars.$icon-size;
       color: var(--text-secondary);
       transition: color 0.3s ease;
     }
@@ -346,18 +346,37 @@
 
   @include typography.respond("laptop") {
     .collapsed & {
-      @include mixins.btnTertiary;
-      @include mixins.shadow-md;
-      width: calc(100% - 0.75rem);
-      padding: 0.7rem;
+      width: calc(vars.$sidebar-collapsed-width - vars.$spacing-xl);
+      height: calc(vars.$sidebar-collapsed-width - vars.$spacing-xl);
+      padding: vars.$spacing-sm;
+      margin: 0 auto;
       justify-content: center;
+      border-radius: vars.$radius-md;
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+
+      svg {
+        width: vars.$icon-size;
+        height: vars.$icon-size;
+      }
+
+      &:hover {
+        background: var(--bg-secondary);
+        color: var(--primary);
+        @include mixins.shadow-sm;
+
+        svg {
+          color: var(--primary);
+        }
+      }
     }
 
     .expanded & {
-      gap: 1rem;
+      gap: vars.$spacing-lg;
       background: transparent;
       color: var(--text);
-      font-size: 0.95rem;
+      font-size: vars.$font-size-sm;
       font-weight: 500;
       text-align: left;
       justify-content: flex-start;
@@ -387,26 +406,26 @@
 .sidebarBtnTxt {
   @include mixins.flex-center;
   justify-content: start;
-  margin: 0.25rem;
+  margin: vars.$spacing-xs;
   font-weight: 300;
   padding: 0;
   display: flex;
   align-items: center;
-  font-size: 1rem;
-  padding-left: 0.5rem;
+  font-size: vars.$font-size-sm;
+  padding-left: vars.$spacing-sm;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 
   @include typography.respond-down("laptop") {
-    font-size: 1rem;
+    font-size: vars.$font-size-sm;
   }
 
   @include typography.respond("laptop") {
-    font-size: 1.1rem;
+    font-size: vars.$font-size-md;
   }
 }
 
 .marginRight {
-  margin-right: 1rem;
+  margin-right: vars.$spacing-lg;
 }
