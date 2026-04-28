@@ -1,11 +1,15 @@
 @use "@/styles/mixins" as mixins;
 @use "@/styles/variables" as vars;
 
+// ========================================
+// Overlay
+// ========================================
 .overlay {
   @include mixins.position(fixed, 0, 0, 0, 0);
   z-index: 1000;
-  background: transparent;
-  pointer-events: none;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
   animation: fadeIn 0.2s ease-out;
 }
 
@@ -19,31 +23,30 @@
   }
 }
 
+// ========================================
+// Panel
+// ========================================
 .panel {
   @include mixins.shadow-lg;
   position: fixed;
   top: 0;
   left: 0;
+  height: 100%;
   background: var(--bg-elevated);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  align-items: center;
   overflow: hidden;
-  height: 100%;
-  animation: slideInFromLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: auto;
-  user-select: none;
-  border-right: 1px solid var(--border);
+  animation: slideInFromLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   @include mixins.respond-down("laptop") {
-    width: 280px;
-    max-width: 85vw;
-    padding: 1rem 0.5rem;
+    width: 240px;
+    max-width: 75vw;
   }
 
   @include mixins.respond("laptop") {
     width: vars.$sidebar-expanded-width;
-    padding: 0.25rem;
   }
 
   @include mixins.respond("laptop-l") {
@@ -63,68 +66,52 @@
   }
 }
 
+// ========================================
+// Header
+// ========================================
 .header {
-  @include mixins.shadow-md;
-  @include mixins.flex(space-between, flex-start);
-  border-radius: vars.$radius;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  width: 100%;
-  text-align: center;
-  padding: vars.$spacing-md 0 vars.$spacing-md 0;
-}
-
-.headerContent {
-  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: vars.$spacing-sm vars.$spacing-lg;
+  border-bottom: 1px solid var(--border);
 }
 
 .title {
-  margin: 0;
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: vars.$font-size-2xs;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: vars.$letter-spacing;
   color: var(--text);
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-
-  @include mixins.respond-down(mobile-l) {
-    font-size: 1rem;
-  }
+  opacity: 0.7;
 }
 
-.subtitle {
-  margin: 0.25rem 0 0 0;
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  font-weight: 400;
-  line-height: 1.4;
-
-  @include mixins.respond-down(mobile-l) {
-    font-size: 0.75rem;
-  }
-}
-
+// ========================================
+// Close Button
+// ========================================
 .closeBtn {
   @include mixins.pointer;
   @include mixins.flex-center;
+  @include mixins.transition;
   background: transparent;
   border: none;
-  color: var(--text-muted);
-  padding: vars.$spacing-sm;
+  color: var(--text-secondary);
+  padding: vars.$spacing-xs;
   border-radius: vars.$radius-md;
-  transition: all 0.15s ease;
-  flex-shrink: 0;
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
 
-  @include mixins.respond-down("laptop") {
-    top: 1rem;
-    right: 0.5rem;
+  svg {
+    width: vars.$icon-size;
+    height: vars.$icon-size;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
   }
 
   &:hover {
-    background: var(--hover-overlay);
-    color: var(--text);
+    background: var(--bg-secondary);
+
+    svg {
+      color: var(--primary);
+    }
   }
 
   &:active {
@@ -132,92 +119,149 @@
   }
 }
 
-.content {
-  @include mixins.flex(null, null, column);
-  @include mixins.w-full;
-  padding: 1rem;
-  gap: 0.5rem;
+// ========================================
+// Hero (active theme)
+// ========================================
+.hero {
+  margin: vars.$spacing-md vars.$spacing-md vars.$spacing-xs;
+  padding: vars.$spacing-lg;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--primary);
+  background: var(--bg-secondary);
+}
 
-  @include mixins.respond-down("laptop") {
-    padding: 0.5rem;
-    gap: 0.25rem;
+.heroSwatches {
+  display: flex;
+  gap: vars.$spacing-xs;
+  margin-bottom: vars.$spacing-md;
+}
+
+.heroSwatch {
+  flex: 1;
+  height: 1.25rem;
+  border-radius: vars.$radius-sm;
+}
+
+.heroName {
+  font-size: vars.$font-size-sm;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 2px;
+}
+
+.heroTag {
+  font-size: vars.$font-size-2xs;
+  color: var(--primary);
+  font-weight: 500;
+  opacity: 0.85;
+  text-transform: uppercase;
+  letter-spacing: vars.$letter-spacing;
+}
+
+// ========================================
+// Content / list
+// ========================================
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  gap: 1px;
+  padding: vars.$spacing-sm 0;
+  flex: 1;
+}
+
+// ========================================
+// Section Label
+// ========================================
+.sectionLabel {
+  display: block;
+  font-size: vars.$font-size-2xs;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: vars.$letter-spacing;
+  color: var(--text);
+  opacity: 0.7;
+  padding-bottom: vars.$spacing-xs;
+  border-bottom: 1px solid var(--text-muted);
+  margin: vars.$spacing-sm 0 2px vars.$spacing-sm;
+
+  @include mixins.respond("tablet") {
+    margin: vars.$spacing-sm 0 vars.$spacing-xs vars.$spacing-lg;
+  }
+
+  @include mixins.respond("laptop") {
+    margin: vars.$spacing-md 0 vars.$spacing-xs vars.$spacing-xl;
   }
 }
 
+// ========================================
+// Theme Option (inactive rows)
+// ========================================
 .themeOption {
-  @include mixins.shadow-md;
-  @include mixins.flex(space-between, center);
+  @include mixins.transition;
   @include mixins.pointer;
-  @include mixins.text-left;
-  @include mixins.w-full;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  padding: 1rem 1.25rem;
-  border-radius: vars.$radius;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
   gap: vars.$spacing-lg;
-  position: relative;
-
-  @include mixins.respond-down(mobile-l) {
-    padding: 0.875rem 1rem;
-  }
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: vars.$spacing-sm vars.$spacing-lg;
+  border-radius: vars.$radius-md;
+  font-family: var(--font-main);
+  text-align: left;
 
   &:hover {
-    border-color: var(--border-hover);
     background: var(--bg-secondary);
-    transform: translateX(3px);
-    box-shadow: var(--shadow-md);
-  }
-
-  &:active {
-    transform: translateX(1px);
-  }
-
-  &.active {
-    background: var(--primary-light);
-    border-color: var(--primary);
-    box-shadow:
-      0 0 0 3px var(--primary-light),
-      var(--shadow-sm);
-
-    &:hover {
-      transform: translateX(2px);
-    }
+    @include mixins.shadow-sm;
 
     .themeName {
       color: var(--primary);
-      font-weight: 600;
+    }
+
+    .dot {
+      box-shadow: 0 0 0 2px var(--primary);
     }
   }
+
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
+// ========================================
+// Dot
+// ========================================
+.dot {
+  width: vars.$spacing-lg;
+  height: vars.$spacing-lg;
+  border-radius: vars.$radius-full;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  transition: box-shadow 0.2s ease;
+}
+
+// ========================================
+// Header Actions
+// ========================================
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-xs;
+}
+
+// ========================================
+// Theme Name
+// ========================================
 .themeName {
-  font-size: 0.9375rem;
+  font-size: vars.$font-size-sm;
   color: var(--text);
   font-weight: 500;
-  letter-spacing: -0.005em;
   flex: 1;
-
-  @include mixins.respond-down(mobile-l) {
-    font-size: 0.875rem;
-  }
-}
-
-.checkmark {
-  @include mixins.flex-center;
-  width: 22px;
-  height: 22px;
-  background: var(--primary);
-  color: var(--primary-text);
-  border-radius: 50%;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  flex-shrink: 0;
-  line-height: 1;
-
-  @include mixins.respond-down(mobile-l) {
-    width: 20px;
-    height: 20px;
-    font-size: 0.625rem;
-  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
 }
