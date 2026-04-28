@@ -1,14 +1,14 @@
-$card-width: 25rem;
-$card-height: 30rem;
-$form-height: 20rem;
-$text-box-height: 10rem;
-$head-height: 6rem;
-$btn-container-width: 20rem;
+$card-width: 18rem;
+$card-height: 22rem;
+$form-height: 16rem;
+$text-box-height: 7rem;
+$head-height: 4rem;
+$btn-container-width: 14rem;
 
 // Sidebar
 $sidebar-collapsed-width: 3.75rem;
 $sidebar-expanded-width: 20rem;
-$sidebar-expanded-width-lg: 25rem;
+$sidebar-expanded-width-lg: 18rem;
 
 // Navbar
 $navbar-height: 3rem;
@@ -31,22 +31,22 @@ $radius-2xl: 1.5rem;
 $radius-full: 9999px;
 
 // Font
-$letter-spacing: 0.1rem;
-$font-size-2xs: xx-small;
-$font-size-xs: x-small;
-$font-size-sm: small;
-$font-size-md: medium;
-$font-size-large: larger;
-$font-size-xl: x-large;
-$font-size-2xl: xx-large;
-$font-size-3xl: xxx-large;
+$letter-spacing: 0.05rem;
+$font-size-2xs: 0.625rem; // 10px
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-md: 1rem; // 16px
+$font-size-large: 1.125rem; // 18px
+$font-size-xl: 1.25rem; // 20px
+$font-size-2xl: 1.5rem; // 24px
+$font-size-3xl: 1.875rem; // 30px
 
 // Dimensions
-$input-width: 20rem;
-$input-height: 30px;
-$checkbox-size: 10rem;
-$icon-size: 3px;
-$eye-btn-distance: 1rem;
+$input-width: 16rem;
+$input-height: 36px;
+$checkbox-size: 1rem;
+$icon-size: 1rem;
+$eye-btn-distance: 0.75rem;
 
 // Breakpoints
 $breakpoints: (
