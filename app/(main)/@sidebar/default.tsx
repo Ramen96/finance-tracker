@@ -7,8 +7,8 @@ import logo from "public/Penros-Triangle.svg";
 import {
   Menu,
   X,
-  PanelLeftOpen,
-  PanelLeftClose,
+  ChevronsLeft,
+  ChevronsRight,
   ScanBarcode,
   CreditCard,
   LayoutDashboard,
@@ -201,7 +201,7 @@ export default function SideBar() {
               className={styles.toggleBtn}
               onClick={toggleExpanded}
             >
-              {isDeskOpen ? <PanelLeftClose size={20} /> : <PanelLeftOpen size={20} />}
+              {isDeskOpen ? <ChevronsLeft size={16} /> : <ChevronsRight size={16} />}
             </button>
           </div>
         )}
