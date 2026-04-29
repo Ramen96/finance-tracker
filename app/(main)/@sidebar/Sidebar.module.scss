@@ -167,19 +167,28 @@
       width: vars.$sidebar-expanded-width-lg;
     }
   }
+
+
 }
 
 // ========================================
 // Top Control Bar (Desktop only)
 // ========================================
 .topControlBar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: vars.$spacing-sm;
-  width: calc(100% - vars.$spacing-sm);
-  margin: vars.$spacing-xs;
-  margin-bottom: vars.$spacing-md;
+  z-index: 10;
+
+  .expanded & {
+    position: absolute;
+    top: vars.$spacing-md;
+    right: vars.$spacing-xs;
+  }
+
+  .collapsed & {
+    position: static;
+    display: flex;
+    justify-content: center;
+    margin: vars.$spacing-md auto vars.$spacing-sm;
+  }
 
   @include typography.respond-down("laptop") {
     display: none;
@@ -217,23 +226,63 @@
 // Toggle Button (Desktop only)
 // ========================================
 .toggleBtn {
-  @include mixins.btnPrimary;
   @include mixins.flex-center;
-  border-radius: vars.$radius-md;
-  position: relative;
-  transition: all 0.3s ease;
+  @include mixins.transition;
+  cursor: pointer;
   margin: 0;
 
   svg {
     flex-shrink: 0;
-  }
-
-  .collapsed & {
-    width: 100%;
+    width: vars.$icon-size;
+    height: vars.$icon-size;
+    transition: color 0.3s ease;
   }
 
   .expanded & {
-    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    border-radius: vars.$radius-md;
+    padding: vars.$spacing-sm;
+
+    svg {
+      color: var(--text-secondary);
+    }
+
+    &:hover {
+      background: var(--bg-secondary);
+
+      svg {
+        color: var(--primary);
+      }
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .collapsed & {
+    background: var(--primary);
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    color: var(--primary-text);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    svg {
+      color: var(--primary-text);
+    }
+
+    &:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
   }
 }
 
