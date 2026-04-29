@@ -140,6 +140,22 @@
   flex: 1;
   height: 1.25rem;
   border-radius: vars.$radius-sm;
+
+  &[data-swatch="bg"] {
+    background: var(--bg);
+  }
+
+  &[data-swatch="primary"] {
+    background: var(--primary);
+  }
+
+  &[data-swatch="secondary"] {
+    background: var(--secondary);
+  }
+
+  &[data-swatch="accent"] {
+    background: var(--accent);
+  }
 }
 
 .heroName {
@@ -232,7 +248,7 @@
 }
 
 // ========================================
-// Dot
+// Dot — scoped via data-palette on the button
 // ========================================
 .dot {
   width: vars.$spacing-lg;
@@ -241,6 +257,7 @@
   flex-shrink: 0;
   border: 1px solid var(--border);
   transition: box-shadow 0.2s ease;
+  background: var(--primary);
 }
 
 // ========================================

@@ -11,41 +11,13 @@ type ThemePickerProps = {
 };
 
 const THEME_MAP = {
-  tokyoNight: {
-    id: "tokyo-night",
-    name: "Tokyo Night",
-    swatches: ["--bg", "--primary", "--success", "--accent"],
-  },
-  nord: {
-    id: "nord",
-    name: "Nord",
-    swatches: ["--bg", "--secondary", "--success", "--accent"],
-  },
-  gruvbox: {
-    id: "gruvbox",
-    name: "Gruvbox",
-    swatches: ["--bg", "--primary", "--success", "--accent"],
-  },
-  rosePine: {
-    id: "rose-pine",
-    name: "Rosé Pine",
-    swatches: ["--bg", "--accent", "--secondary", "--primary"],
-  },
-  zenburn: {
-    id: "zenburn",
-    name: "Zenburn",
-    swatches: ["--bg", "--warning", "--success", "--error"],
-  },
-  catppuccin: {
-    id: "catppuccin",
-    name: "Catppuccin",
-    swatches: ["--bg", "--primary", "--success", "--warning"],
-  },
-  everforest: {
-    id: "everforest",
-    name: "Everforest",
-    swatches: ["--bg", "--success", "--secondary", "--error"],
-  },
+  tokyoNight: { id: "tokyo-night", name: "Tokyo Night" },
+  nord: { id: "nord", name: "Nord" },
+  gruvbox: { id: "gruvbox", name: "Gruvbox" },
+  rosePine: { id: "rose-pine", name: "Rosé Pine" },
+  zenburn: { id: "zenburn", name: "Zenburn" },
+  catppuccin: { id: "catppuccin", name: "Catppuccin" },
+  everforest: { id: "everforest", name: "Everforest" },
 };
 
 type Theme = (typeof THEME_MAP)[keyof typeof THEME_MAP];
@@ -68,13 +40,10 @@ export default function ThemePicker({
   const ThemeRow = ({ theme }: { theme: Theme }) => (
     <button
       className={styles.themeOption}
+      data-palette={theme.id}
       onClick={() => handleSelect(theme.id)}
     >
-      <div
-        className={styles.dot}
-        style={{ background: `var(--primary)` }}
-        data-palette={theme.id}
-      />
+      <div className={styles.dot} />
       <span className={styles.themeName}>{theme.name}</span>
     </button>
   );
@@ -94,13 +63,10 @@ export default function ThemePicker({
 
         <div className={styles.hero}>
           <div className={styles.heroSwatches}>
-            {activeTheme.swatches.map((cssVar) => (
-              <div
-                key={cssVar}
-                className={styles.heroSwatch}
-                style={{ background: `var(${cssVar})` }}
-              />
-            ))}
+            <div className={styles.heroSwatch} data-swatch="bg" />
+            <div className={styles.heroSwatch} data-swatch="primary" />
+            <div className={styles.heroSwatch} data-swatch="secondary" />
+            <div className={styles.heroSwatch} data-swatch="accent" />
           </div>
           <p className={styles.heroName}>{activeTheme.name}</p>
           <p className={styles.heroTag}>Currently active</p>
