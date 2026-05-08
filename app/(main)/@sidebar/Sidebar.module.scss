@@ -450,6 +450,16 @@
       }
     }
   }
+
+  &[data-active] {
+    --active-color: oklch(from var(--primary) l calc(c * 1.45) h);
+    background: color-mix(in srgb, var(--primary) 15%, transparent);
+    color: var(--active-color);
+
+    svg {
+      color: var(--active-color);
+    }
+  }
 }
 
 .sidebarBtnTxt {
