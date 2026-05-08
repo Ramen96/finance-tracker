@@ -39,11 +39,6 @@ export default function SideBar() {
   const [isThemePickerOpen, setIsThemePickerOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  const path = usePathname();
-  useEffect(() => {
-    console.log(path);
-  }, [path]);
-
   // Check mobile
   useEffect(() => {
     const checkViewport = () => {
@@ -112,6 +107,13 @@ export default function SideBar() {
     { label: "System", items: bottomButtons },
   ], [topButtons, middleButtons, bottomButtons]);
 
+  const url = usePathname();
+  const [currentPath, setCurrentPath] = useState<string>(url);
+
+  useEffect(() => {
+    setCurrentPath(url);
+  }, [url])
+
   return (
     <>
       {/* Top Navbar (Mobile & Tablet) */}
@@ -178,6 +180,7 @@ export default function SideBar() {
                 <button
                   key={btn.id}
                   className={styles.sideBarBtn}
+                  data-active={btn.path === currentPath || undefined}
                   onClick={() => {
                     if (isMobile && btn.name !== "Theme") setIsMobileOpen(false);
                     handleNavClick(btn);
