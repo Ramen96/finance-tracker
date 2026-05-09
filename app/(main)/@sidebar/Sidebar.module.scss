@@ -4,68 +4,72 @@
 @use "@styles/mixins/layout" as layout;
 
 // ========================================
-// Top Navbar Container (Mobile & Tablet)
+// Swipe zone — invisible full-screen gesture catcher
 // ========================================
-.topNavbar {
-  display: none;
+.swipeZone {
+  position: fixed;
+  inset: 0;
+  bottom: 40px; // leave room above pill so it doesn't eat pill taps
+  z-index: 990;
+  pointer-events: none; // only captures touch, not clicks, so page stays interactive
 
-  @include typography.respond-down("laptop") {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: vars.$navbar-height;
-    background: var(--bg-elevated);
-    border-bottom: 1px solid var(--border);
-    padding: 0 vars.$spacing-md;
-    z-index: 998;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
-    position: relative;
-  }
-
-  @include typography.respond-down("tablet") {
-    position: relative;
-  }
-
-  @include typography.respond-between("mobile-l", "tablet") {
-    position: relative;
+  @include typography.respond("laptop") {
+    display: none;
   }
 }
 
 // ========================================
-// Hamburger Menu Button
+// Swipe pill — fixed bottom-centre
 // ========================================
-.hamburger {
+.swipePill {
   @include mixins.flex-center;
+  gap: vars.$spacing-xs;
   position: fixed;
-  top: vars.$spacing-xs;
-  left: vars.$spacing-md;
-  border-radius: vars.$radius-md;
-  padding: vars.$spacing-sm;
-  background: var(--primary);
-  color: var(--primary-text);
-  border: none;
+  bottom: vars.$spacing-lg;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: vars.$spacing-xs vars.$spacing-md;
   cursor: pointer;
   z-index: 1010;
-  transition:
-    left 0.8s cubic-bezier(0.68, 0.13, 0.27, 1.21),
-    transform 0.8s cubic-bezier(0.68, 0.13, 0.27, 1.21);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-main);
+  font-size: vars.$font-size-xs;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+
+  svg {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    flex-shrink: 0;
+  }
 
   &:hover {
-    background: var(--primary-hover);
-    transform: scale(1.05);
+    background: var(--bg-secondary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+    color: var(--text);
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: translateX(-50%) scale(0.96);
   }
 
-  &.open {
-    left: calc(100vw - vars.$spacing-2xl - 2.5rem);
-    transform: scale(1.05) rotate(90deg);
-  }
+  &.pillOpen {
+    background: var(--primary);
+    color: var(--primary-text);
+    border-color: var(--primary);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
 
-  @include typography.respond-between("mobile-l", "laptop") {
-    padding: vars.$spacing-sm;
+    svg {
+      transform: rotate(180deg);
+    }
+
+    &:hover {
+      background: var(--primary-hover);
+    }
   }
 
   @include typography.respond("laptop") {
@@ -74,34 +78,14 @@
 }
 
 // ========================================
-// Logo
-// ========================================
-.logoContainer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: auto;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-// ========================================
-// Overlay
+// Overlay — plain dim, no blur
 // ========================================
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
   z-index: 999;
-  backdrop-filter: blur(2px);
-  animation: fadeIn 0.3s ease;
-  overflow-y: auto;
+  animation: fadeIn 0.2s ease;
 
   @keyframes fadeIn {
     from {
@@ -119,7 +103,137 @@
 }
 
 // ========================================
-// Sidebar Container
+// Bottom Sheet
+// ========================================
+.bottomSheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-elevated);
+  border-radius: vars.$radius-lg vars.$radius-lg 0 0;
+  border-top: 1px solid var(--border);
+  z-index: 1000;
+  padding: vars.$spacing-sm vars.$spacing-md vars.$spacing-xl;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12);
+
+  @include typography.respond("laptop") {
+    display: none;
+  }
+
+  &.sheetOpen {
+    transform: translateY(0);
+  }
+}
+
+// Drag handle
+.sheetHandle {
+  width: 36px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: vars.$spacing-xs auto vars.$spacing-md;
+}
+
+// ========================================
+// Sheet Navigation
+// ========================================
+.sheetNav {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-md;
+}
+
+.sheetSection {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-xs;
+}
+
+.sheetSectionLabel {
+  font-size: vars.$font-size-2xs;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: vars.$letter-spacing;
+  color: var(--text);
+  opacity: 0.6;
+  padding: 0 vars.$spacing-xs vars.$spacing-xs;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: vars.$spacing-xs;
+}
+
+// Icon-grid row of tappable tiles
+.sheetItems {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: vars.$spacing-sm;
+}
+
+.sheetItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: vars.$spacing-xs;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: vars.$radius-md;
+  padding: vars.$spacing-sm vars.$spacing-xs;
+  cursor: pointer;
+  font-family: var(--font-main);
+  transition: background 0.15s ease, color 0.15s ease;
+  min-height: 64px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    transition: color 0.15s ease;
+  }
+
+  &:hover {
+    background: var(--bg-primary);
+
+    svg {
+      color: var(--primary);
+    }
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  &[data-active] {
+    background: color-mix(in srgb, var(--primary) 15%, transparent);
+    border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+
+    svg {
+      color: var(--primary);
+    }
+
+    .sheetItemLabel {
+      color: var(--primary);
+    }
+  }
+}
+
+.sheetItemLabel {
+  font-size: vars.$font-size-2xs;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  line-height: 1.2;
+}
+
+// ========================================
+// Desktop Sidebar Container
 // ========================================
 .sideBarContainer {
   @include mixins.h-full;
@@ -128,38 +242,17 @@
   display: flex;
   flex-direction: column;
   padding: vars.$spacing-xs;
-  transition: width 0.3s ease, transform 0.3s ease;
+  transition: width 0.3s ease;
   position: relative;
   z-index: 9999;
+  flex-shrink: 0;
 
-  @include typography.respond-down("laptop") {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 220px;
-    max-width: 75vw;
-    height: 100vh;
-    z-index: 1000;
-    transform: translateX(-100%);
-    padding: vars.$spacing-md vars.$spacing-sm;
-
-    &.open {
-      transform: translateX(0);
-    }
+  &.collapsed {
+    width: vars.$sidebar-collapsed-width;
   }
 
-  @include typography.respond("laptop") {
-    position: relative;
-    transform: none;
-    flex-shrink: 0;
-
-    &.collapsed {
-      width: vars.$sidebar-collapsed-width;
-    }
-
-    &.expanded {
-      width: vars.$sidebar-expanded-width;
-    }
+  &.expanded {
+    width: vars.$sidebar-expanded-width;
   }
 
   @include typography.respond("laptop-l") {
@@ -167,8 +260,6 @@
       width: vars.$sidebar-expanded-width-lg;
     }
   }
-
-
 }
 
 // ========================================
@@ -188,37 +279,6 @@
     display: flex;
     justify-content: center;
     margin: vars.$spacing-md auto vars.$spacing-sm;
-  }
-
-  @include typography.respond-down("laptop") {
-    display: none;
-  }
-}
-
-// ========================================
-// Mobile Control Bar
-// ========================================
-.mobileControlBar {
-  @include mixins.flex-center;
-  padding: vars.$spacing-sm 0;
-  margin-bottom: vars.$spacing-sm;
-
-  @include typography.respond-down("mobile-l") {
-    position: absolute;
-    top: calc(0% - vars.$spacing-xs);
-    right: 0;
-    padding: vars.$spacing-md;
-    margin: 0 0 vars.$spacing-md 0;
-  }
-
-  @include typography.respond-between("mobile-l", "laptop") {
-    position: static;
-    justify-content: center;
-    border-bottom: 1px solid var(--border);
-  }
-
-  @include typography.respond("laptop") {
-    display: none;
   }
 }
 
@@ -287,7 +347,7 @@
 }
 
 // ========================================
-// Navigation Container
+// Desktop Navigation Container
 // ========================================
 .btnsContainer {
   @include mixins.h-full;
@@ -298,55 +358,39 @@
 }
 
 // ========================================
-// Menu Sections
+// Desktop Menu Sections
 // ========================================
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  padding: vars.$spacing-sm 0;
+  gap: 2px;
+  padding: vars.$spacing-lg 0;
 
   &:last-child {
     margin-top: auto;
   }
-
-  @include typography.respond("laptop") {
-    gap: 2px;
-    padding: vars.$spacing-lg 0;
-  }
 }
 
 .sectionLabel {
-  font-size: vars.$font-size-2xs;
+  font-size: vars.$font-size-xs;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: vars.$letter-spacing;
   color: var(--text);
-  margin: vars.$spacing-xs 0 2px vars.$spacing-sm;
+  margin: vars.$spacing-md 0 vars.$spacing-xs vars.$spacing-xl;
   opacity: 0.7;
   padding-bottom: vars.$spacing-xs;
   border-bottom: 1px solid var(--text-muted);
-
-  @include typography.respond("tablet") {
-    font-size: vars.$font-size-xs;
-    margin: vars.$spacing-sm 0 vars.$spacing-xs vars.$spacing-lg;
-  }
-
-  @include typography.respond("laptop") {
-    font-size: vars.$font-size-xs;
-    margin: vars.$spacing-md 0 vars.$spacing-xs vars.$spacing-xl;
-  }
 }
 
 // ========================================
-// Navigation Buttons
+// Desktop Navigation Buttons
 // ========================================
 .sideBarBtn {
   @include mixins.radius;
   @include mixins.transition;
   display: flex;
   align-items: center;
-  justify-content: center;
   width: 100%;
   padding: vars.$spacing-md;
   border: none;
@@ -360,20 +404,37 @@
     height: vars.$icon-size;
   }
 
-  @include typography.respond-down("laptop") {
+  .collapsed & {
+    justify-content: center;
+    width: calc(vars.$sidebar-collapsed-width - vars.$spacing-xl);
+    height: calc(vars.$sidebar-collapsed-width - vars.$spacing-xl);
+    padding: vars.$spacing-sm;
+    margin: 0 auto;
+    border-radius: vars.$radius-md;
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+
+    &:hover {
+      background: var(--bg-secondary);
+      color: var(--primary);
+      @include mixins.shadow-sm;
+
+      svg {
+        color: var(--primary);
+      }
+    }
+  }
+
+  .expanded & {
     gap: vars.$spacing-lg;
     background: transparent;
     color: var(--text);
     font-size: vars.$font-size-sm;
     font-weight: 500;
-    text-align: left;
     justify-content: flex-start;
-    padding: vars.$spacing-sm vars.$spacing-lg;
-    border-radius: vars.$radius-md;
 
     svg {
-      width: vars.$icon-size;
-      height: vars.$icon-size;
       color: var(--text-secondary);
       transition: color 0.3s ease;
     }
@@ -393,64 +454,6 @@
     }
   }
 
-  @include typography.respond("laptop") {
-    .collapsed & {
-      width: calc(vars.$sidebar-collapsed-width - vars.$spacing-xl);
-      height: calc(vars.$sidebar-collapsed-width - vars.$spacing-xl);
-      padding: vars.$spacing-sm;
-      margin: 0 auto;
-      justify-content: center;
-      border-radius: vars.$radius-md;
-      background: transparent;
-      color: var(--text-secondary);
-      border: none;
-
-      svg {
-        width: vars.$icon-size;
-        height: vars.$icon-size;
-      }
-
-      &:hover {
-        background: var(--bg-secondary);
-        color: var(--primary);
-        @include mixins.shadow-sm;
-
-        svg {
-          color: var(--primary);
-        }
-      }
-    }
-
-    .expanded & {
-      gap: vars.$spacing-lg;
-      background: transparent;
-      color: var(--text);
-      font-size: vars.$font-size-sm;
-      font-weight: 500;
-      text-align: left;
-      justify-content: flex-start;
-
-      svg {
-        color: var(--text-secondary);
-        transition: color 0.3s ease;
-      }
-
-      &:hover {
-        background: var(--bg-secondary);
-        color: var(--primary);
-        @include mixins.shadow-sm;
-
-        svg {
-          color: var(--primary);
-        }
-      }
-
-      &:active {
-        transform: scale(0.98);
-      }
-    }
-  }
-
   &[data-active] {
     --active-color: oklch(from var(--primary) l calc(c * 1.45) h);
     background: color-mix(in srgb, var(--primary) 15%, transparent);
@@ -463,28 +466,12 @@
 }
 
 .sidebarBtnTxt {
-  @include mixins.flex-center;
-  justify-content: start;
-  margin: vars.$spacing-xs;
-  font-weight: 300;
-  padding: 0;
   display: flex;
   align-items: center;
-  font-size: vars.$font-size-sm;
+  font-weight: 300;
+  font-size: vars.$font-size-md;
   padding-left: vars.$spacing-sm;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  @include typography.respond-down("laptop") {
-    font-size: vars.$font-size-sm;
-  }
-
-  @include typography.respond("laptop") {
-    font-size: vars.$font-size-md;
-  }
-}
-
-.marginRight {
-  margin-right: vars.$spacing-lg;
 }

@@ -1,12 +1,8 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import ThemePicker from "components/ThemePicker/themePicker";
-import Image from "next/image";
-import logo from "public/Penros-Triangle.svg";
 import {
-  Menu,
-  X,
   ChevronsLeft,
   ChevronsRight,
   ScanBarcode,
@@ -18,7 +14,8 @@ import {
   ReceiptText,
   UserRoundPen,
   Settings,
-  Palette
+  Palette,
+  ChevronUp,
 } from "lucide-react";
 import styles from "./Sidebar.module.scss";
 
@@ -33,37 +30,46 @@ type NavItem = {
 export default function SideBar() {
   const router = useRouter();
 
-  // States
-  const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
+  const [isSheetOpen, setIsSheetOpen] = useState<boolean>(false);
   const [isDeskOpen, setIsDeskOpen] = useState<boolean>(true);
   const [isThemePickerOpen, setIsThemePickerOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const touchStartY = useRef<number | null>(null);
 
-  // Check mobile
   useEffect(() => {
     const checkViewport = () => {
       const width = window.innerWidth;
       setIsMobile(width < 1024);
-
-      if (width >= 1024) {
-        setIsMobileOpen(false);
-      }
+      if (width >= 1024) setIsSheetOpen(false);
     };
-
     checkViewport();
-    window.addEventListener('resize', checkViewport);
-    return () => window.removeEventListener('resize', checkViewport);
+    window.addEventListener("resize", checkViewport);
+    return () => window.removeEventListener("resize", checkViewport);
   }, []);
 
-  // Nav logic
-  const toggleMenu = () => {
-    setIsMobileOpen(!isMobileOpen);
+  // Close sheet on outside tap
+  useEffect(() => {
+    if (!isSheetOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (sheetRef.current && !sheetRef.current.contains(e.target as Node)) {
+        setIsSheetOpen(false);
+        setIsThemePickerOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [isSheetOpen]);
+
+  const toggleSheet = () => {
+    setIsSheetOpen((prev) => !prev);
     if (isThemePickerOpen) setIsThemePickerOpen(false);
-  }
+  };
+
   const toggleExpanded = () => {
-    setIsDeskOpen(!isDeskOpen);
+    setIsDeskOpen((prev) => !prev);
     if (isThemePickerOpen) setIsThemePickerOpen(false);
-  }
+  };
 
   const handleThemePickerClick = () => {
     if (isDeskOpen) {
@@ -72,7 +78,7 @@ export default function SideBar() {
       setIsDeskOpen(true);
       setIsThemePickerOpen(true);
     }
-  }
+  };
 
   const handleNavClick = (btn: NavItem) => {
     if (btn.path) {
@@ -82,121 +88,166 @@ export default function SideBar() {
     }
   };
 
-  const topButtons = useMemo<NavItem[]>(() => [
-    { id: 0, name: "Dashboard", icon: <LayoutDashboard />, path: "/dashboard" },
-    { id: 1, name: "Credit/Debit", icon: <CreditCard />, path: "/card" },
-    { id: 2, name: "Log New Transaction", icon: <ScanBarcode />, path: "/transaction" },
-  ], []);
+  const topButtons = useMemo<NavItem[]>(
+    () => [
+      { id: 0, name: "Dashboard", icon: <LayoutDashboard />, path: "/dashboard" },
+      { id: 1, name: "Credit/Debit", icon: <CreditCard />, path: "/card" },
+      { id: 2, name: "Log New Transaction", icon: <ScanBarcode />, path: "/transaction" },
+    ],
+    []
+  );
 
-  const middleButtons = useMemo<NavItem[]>(() => [
-    { id: 3, name: "Income", icon: <BanknoteArrowUp />, path: "/dashboard/income" },
-    { id: 4, name: "Expenses", icon: <BanknoteArrowDown />, path: "/dashboard/expenses" },
-    { id: 5, name: "Assets", icon: <ChartCandlestick />, path: "/dashboard/assets" },
-    { id: 6, name: "Liabilities", icon: <ReceiptText />, path: "/dashboard/liabilities" },
-  ], []);
+  const middleButtons = useMemo<NavItem[]>(
+    () => [
+      { id: 3, name: "Income", icon: <BanknoteArrowUp />, path: "/dashboard/income" },
+      { id: 4, name: "Expenses", icon: <BanknoteArrowDown />, path: "/dashboard/expenses" },
+      { id: 5, name: "Assets", icon: <ChartCandlestick />, path: "/dashboard/assets" },
+      { id: 6, name: "Liabilities", icon: <ReceiptText />, path: "/dashboard/liabilities" },
+    ],
+    []
+  );
 
-  const bottomButtons = useMemo<NavItem[]>(() => [
-    { id: 8, name: "Theme", icon: <Palette />, onClick: () => handleThemePickerClick() },
-    { id: 9, name: "Profile", icon: <UserRoundPen />, path: "/profile" },
-    { id: 10, name: "Settings", icon: <Settings />, path: "/settings" }
-  ], []);
+  const bottomButtons = useMemo<NavItem[]>(
+    () => [
+      { id: 8, name: "Theme", icon: <Palette />, onClick: () => handleThemePickerClick() },
+      { id: 9, name: "Profile", icon: <UserRoundPen />, path: "/profile" },
+      { id: 10, name: "Settings", icon: <Settings />, path: "/settings" },
+    ],
+    []
+  );
 
-  const navigationGroups = useMemo(() => [
-    { label: "Workspace", items: topButtons },
-    { label: "Ledger", items: middleButtons },
-    { label: "System", items: bottomButtons },
-  ], [topButtons, middleButtons, bottomButtons]);
+  const navigationGroups = useMemo(
+    () => [
+      { label: "Workspace", items: topButtons },
+      { label: "Ledger", items: middleButtons },
+      { label: "System", items: bottomButtons },
+    ],
+    [topButtons, middleButtons, bottomButtons]
+  );
 
   const url = usePathname();
   const [currentPath, setCurrentPath] = useState<string>(url);
-
   useEffect(() => {
     setCurrentPath(url);
-  }, [url])
+  }, [url]);
 
-  return (
-    <>
-      {/* Top Navbar (Mobile & Tablet) */}
-      {isMobile && (
-        <>
-          <button
-            className={`${styles.hamburger} ${isMobileOpen ? styles.open : ''}`}
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            {isMobileOpen ? <X size={16} /> : <Menu size={16} />}
-          </button>
-        </>
-      )}
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
 
-      {isMobile && (
-        <div className={styles.topNavbar}>
-          <div className={styles.logoContainer}>
-            <Image src={logo} alt="logo" width={30} height={30} />
-          </div>
-        </div>
-      )}
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartY.current === null) return;
+    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
+    // swipe up ≥40px opens, swipe down ≥40px closes
+    if (!isSheetOpen && deltaY > 40) setIsSheetOpen(true);
+    if (isSheetOpen && deltaY < -40) {
+      setIsSheetOpen(false);
+      setIsThemePickerOpen(false);
+    }
+    touchStartY.current = null;
+  };
 
-      {/* Overlay */}
-      {isMobile && isMobileOpen && (
+  // ─── Mobile layout ────────────────────────────────────────────────────────
+  if (isMobile) {
+    return (
+      <>
+        {/* Swipe zone — covers full screen for gesture capture */}
         <div
-          className={styles.overlay}
-          onClick={() => {
-            setIsMobileOpen(false);
-            setIsThemePickerOpen(false);
-          }}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={`${styles.sideBarContainer} ${isMobileOpen ? styles.open : ''} ${isDeskOpen ? styles.expanded : styles.collapsed}`}
-      >
-        <ThemePicker
-          isThemePickerOpen={isThemePickerOpen}
-          setIsThemePickerOpen={(boolType: boolean) => setIsThemePickerOpen(boolType)}
-          setIsDeskOpen={(boolType: boolean) => setIsDeskOpen(boolType)}
+          className={styles.swipeZone}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         />
 
-        {/* Top Control Bar - Only visible on desktop */}
-        {!isMobile && (
-          <div className={styles.topControlBar}>
-            <button
-              className={styles.toggleBtn}
-              onClick={toggleExpanded}
-            >
-              {isDeskOpen ? <ChevronsLeft size={16} /> : <ChevronsRight size={16} />}
-            </button>
-          </div>
+        {/* Swipe pill — fixed bottom-centre */}
+        <button
+          className={`${styles.swipePill} ${isSheetOpen ? styles.pillOpen : ""}`}
+          onClick={toggleSheet}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          aria-label={isSheetOpen ? "Close navigation" : "Open navigation"}
+        >
+          <ChevronUp size={14} />
+          <span>{isSheetOpen ? "close" : "menu"}</span>
+        </button>
+
+        {/* Overlay */}
+        {isSheetOpen && (
+          <div className={styles.overlay} onClick={() => setIsSheetOpen(false)} />
         )}
 
-        <nav className={styles.btnsContainer}>
-          {navigationGroups.map((group, index) => (
-            <section key={index} className={styles.menu}>
-              {(isMobile || isDeskOpen) && (
-                <h3 className={styles.sectionLabel}>{group.label}</h3>
-              )}
-              {group.items.map((btn) => (
-                <button
-                  key={btn.id}
-                  className={styles.sideBarBtn}
-                  data-active={btn.path === currentPath || undefined}
-                  onClick={() => {
-                    if (isMobile && btn.name !== "Theme") setIsMobileOpen(false);
-                    handleNavClick(btn);
-                  }}
-                  data-tooltip={!isMobile && !isDeskOpen ? btn.name : undefined}
-                >
-                  {btn.icon}
-                  {(isMobile || isDeskOpen) && (
-                    <span className={styles.sidebarBtnTxt}>{btn.name}</span>
-                  )}
-                </button>
-              ))}
-            </section>
-          ))}
-        </nav>
-      </aside>
-    </>
+        {/* Bottom sheet */}
+        <div
+          ref={sheetRef}
+          className={`${styles.bottomSheet} ${isSheetOpen ? styles.sheetOpen : ""}`}
+        >
+          <div className={styles.sheetHandle} />
+
+          <nav className={styles.sheetNav}>
+            {navigationGroups.map((group, index) => (
+              <section key={index} className={styles.sheetSection}>
+                <h3 className={styles.sheetSectionLabel}>{group.label}</h3>
+                <div className={styles.sheetItems}>
+                  {group.items.map((btn) => (
+                    <button
+                      key={btn.id}
+                      className={styles.sheetItem}
+                      data-active={btn.path === currentPath || undefined}
+                      onClick={() => {
+                        if (btn.name !== "Theme") setIsSheetOpen(false);
+                        handleNavClick(btn);
+                      }}
+                    >
+                      {btn.icon}
+                      <span className={styles.sheetItemLabel}>{btn.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </nav>
+        </div>
+      </>
+    );
+  }
+
+  // ─── Desktop layout (unchanged) ───────────────────────────────────────────
+  return (
+    <aside
+      className={`${styles.sideBarContainer} ${isDeskOpen ? styles.expanded : styles.collapsed}`}
+    >
+      <ThemePicker
+        isThemePickerOpen={isThemePickerOpen}
+        setIsThemePickerOpen={(b: boolean) => setIsThemePickerOpen(b)}
+        setIsDeskOpen={(b: boolean) => setIsDeskOpen(b)}
+      />
+
+      <div className={styles.topControlBar}>
+        <button className={styles.toggleBtn} onClick={toggleExpanded}>
+          {isDeskOpen ? <ChevronsLeft size={16} /> : <ChevronsRight size={16} />}
+        </button>
+      </div>
+
+      <nav className={styles.btnsContainer}>
+        {navigationGroups.map((group, index) => (
+          <section key={index} className={styles.menu}>
+            {isDeskOpen && <h3 className={styles.sectionLabel}>{group.label}</h3>}
+            {group.items.map((btn) => (
+              <button
+                key={btn.id}
+                className={styles.sideBarBtn}
+                data-active={btn.path === currentPath || undefined}
+                data-tooltip={!isDeskOpen ? btn.name : undefined}
+                onClick={() => handleNavClick(btn)}
+              >
+                {btn.icon}
+                {isDeskOpen && (
+                  <span className={styles.sidebarBtnTxt}>{btn.name}</span>
+                )}
+              </button>
+            ))}
+          </section>
+        ))}
+      </nav>
+    </aside>
   );
 }
