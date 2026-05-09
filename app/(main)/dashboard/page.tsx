@@ -3,11 +3,15 @@ import Loading from "@/components/Loading/loading";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LucideIcon } from "lucide-react";
-import { AlignHorizontalDistributeCenter, ChartSpline, CircleDollarSign, BanknoteArrowDown } from "lucide-react";
+import {
+  AlignHorizontalDistributeCenter,
+  ChartSpline,
+  CircleDollarSign,
+  BanknoteArrowDown,
+} from "lucide-react";
 import styles from "./Dashboard.module.scss";
 import Audit from "@/components/Audit/audit";
 
-// PLACEHOLDER DATA
 const placeholderData = [
   {
     id: 1,
@@ -57,13 +61,11 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<DataType[]>([]);
 
-  // Simulate API call
   useEffect(() => {
     const timer = setTimeout(() => {
       setData(placeholderData);
       setIsLoading(false);
     }, 500);
-
     return () => clearTimeout(timer);
   }, []);
 
@@ -80,18 +82,25 @@ export default function Dashboard() {
     return `${change > 0 ? "+" : ""}${change.toFixed(1)}%`;
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // Progress bar: what % of the max amount across all cards is this card?
+  const maxAmount = Math.max(...placeholderData.map((d) => d.amount));
+  const getBarWidth = (amount: number): number =>
+    Math.round((amount / maxAmount) * 100);
+
+  if (isLoading) return <Loading />;
 
   return (
     <div id="content" className={styles.contentContainer}>
       <div className={styles.header}>
         <h1>Dashboard</h1>
       </div>
+
       <div className={styles.sectionsContainer}>
         {data.map((element) => {
           const ElementIcon = element.icon;
+          const isPositiveType =
+            element.type === "income" || element.type === "assets";
+          const isNegativeType = element.type === "expenses";
 
           return (
             <div
@@ -99,23 +108,24 @@ export default function Dashboard() {
               className={`${styles.overviewCard} ${styles[element.type]}`}
               onClick={() => router.push(`/dashboard/${element.type}`)}
             >
+              {/* Header: label + icon */}
               <div className={styles.cardHeader}>
                 <span className={styles.cardTitle}>{element.name}</span>
                 <span className={`${styles.cardIcon} ${styles[element.type]}`}>
-                  <ElementIcon />
+                  <ElementIcon size={18} />
                 </span>
               </div>
 
-              <div className={styles.cardContent}>
-                <div
-                  className={`${styles.cardAmount} ${element.type === "income" || element.type === "assets"
-                    ? styles.positive
-                    : ""
-                    } ${element.type === "expenses" ? styles.negative : ""}`}
-                >
-                  {formatCurrency(element.amount)}
-                </div>
+              {/* Amount */}
+              <div
+                className={`${styles.cardAmount} ${isPositiveType ? styles.positive : ""
+                  } ${isNegativeType ? styles.negative : ""}`}
+              >
+                {formatCurrency(element.amount)}
+              </div>
 
+              {/* Bottom row: delta + progress bar */}
+              <div className={styles.cardFooter}>
                 <div
                   className={`${styles.cardChange} ${element.change > 0 ? styles.up : styles.down
                     }`}
@@ -124,13 +134,21 @@ export default function Dashboard() {
                     {element.change > 0 ? "↑" : "↓"}
                   </span>
                   <span>{formatChange(element.change)}</span>
-                  <span>vs last month</span>
+                  <span className={styles.vsText}>vs last month</span>
+                </div>
+
+                <div className={styles.miniBarTrack}>
+                  <div
+                    className={`${styles.miniBarFill} ${styles[element.type]}`}
+                    style={{ width: `${getBarWidth(element.amount)}%` }}
+                  />
                 </div>
               </div>
             </div>
           );
         })}
       </div>
+
       <div className={styles.auditSection}>
         <Audit />
       </div>

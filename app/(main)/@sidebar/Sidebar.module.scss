@@ -25,12 +25,11 @@
   @include mixins.flex-center;
   gap: vars.$spacing-xs;
   position: fixed;
-  bottom: vars.$spacing-lg;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--bg-elevated);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
+  top: vars.$spacing-lg;
+  right: vars.$spacing-lg;
+  background: color-mix(in srgb, var(--primary) 12%, var(--bg-elevated));
+  color: var(--primary);
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
   border-radius: 999px;
   padding: vars.$spacing-xs vars.$spacing-md;
   cursor: pointer;
@@ -48,13 +47,13 @@
   }
 
   &:hover {
-    background: var(--bg-secondary);
+    background: color-mix(in srgb, var(--primary) 22%, var(--bg-elevated));
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
-    color: var(--text);
+    color: var(--primary);
   }
 
   &:active {
-    transform: translateX(-50%) scale(0.96);
+    transform: scale(0.96);
   }
 
   &.pillOpen {

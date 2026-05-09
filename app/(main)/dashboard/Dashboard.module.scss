@@ -15,25 +15,31 @@
   }
 }
 
-.sectionsContainer {
-  @include mixins.w-full;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 3rem;
-}
-
 .header {
   @include mixins.page-header;
 }
 
-// Dashboard overview cards
+// ========================================
+// Card grid
+// ========================================
+.sectionsContainer {
+  @include mixins.w-full;
+  display: flex;
+  flex-wrap: wrap;
+  // margin-top: 3rem;
+}
+
+// ========================================
+// Overview card — compact, info-dense
+// ========================================
 .overviewCard {
   @include mixins.card;
-  @include mixins.flex(space-between, center, column);
   @include mixins.transition;
-  padding: vars.$spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-sm;
+  padding: vars.$spacing-md vars.$spacing-lg;
   margin: vars.$spacing-xs;
-  min-height: 140px;
   flex: 1 1 100%;
   position: relative;
   overflow: hidden;
@@ -46,9 +52,8 @@
 
   @include mixins.respond("tablet") {
     flex: 1 1 calc(50% - vars.$spacing-lg);
-    padding: vars.$spacing-xl;
-    min-height: 160px;
-    gap: vars.$spacing-lg;
+    padding: vars.$spacing-lg vars.$spacing-xl;
+    gap: vars.$spacing-md;
   }
 
   @include mixins.respond("laptop") {
@@ -57,7 +62,7 @@
 
   &:hover {
     @include mixins.shadow-lg;
-    transform: translateY(-4px);
+    transform: translateY(-3px);
     border-color: var(--primary);
   }
 
@@ -69,7 +74,6 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background: var(--primary);
     @include mixins.transition;
   }
 
@@ -90,20 +94,27 @@
   }
 }
 
+// ========================================
+// Card header: label + icon
+// ========================================
 .cardHeader {
   @include mixins.flex(space-between, center);
   @include mixins.w-full;
-  gap: vars.$spacing-sm;
+}
+
+.cardTitle {
+  font-family: var(--font-main), sans-serif;
+  font-size: vars.$font-size-xs;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
 }
 
 .cardIcon {
   @include mixins.flex-center;
-  font-size: 1.5rem;
   flex-shrink: 0;
-
-  @include mixins.respond("tablet") {
-    font-size: 1.75rem;
-  }
+  opacity: 0.75;
 
   &.income {
     color: var(--primary);
@@ -122,40 +133,23 @@
   }
 }
 
-.cardTitle {
-  font-family: var(--font-main), sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-
-  @include mixins.respond("tablet") {
-    font-size: 1rem;
-  }
-}
-
-.cardContent {
-  @include mixins.flex(null, flex-start, column);
-  @include mixins.w-full;
-  gap: vars.$spacing-xs;
-}
-
+// ========================================
+// Amount — uses display font, consistent with existing brand
+// ========================================
 .cardAmount {
   font-family: var(--font-display), sans-serif;
-  font-size: 1.75rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: var(--text);
-  margin: 0;
   letter-spacing: -0.02em;
+  line-height: 1;
 
   @include mixins.respond("tablet") {
-    font-size: 2rem;
+    font-size: 1.85rem;
   }
 
   @include mixins.respond("laptop") {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 
   &.positive {
@@ -167,16 +161,22 @@
   }
 }
 
+// ========================================
+// Footer: delta text + mini bar
+// ========================================
+.cardFooter {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-xs;
+  @include mixins.w-full;
+}
+
 .cardChange {
   @include mixins.flex(flex-start, center);
   gap: vars.$spacing-xs;
   font-family: var(--font-main), sans-serif;
-  font-size: 0.85rem;
+  font-size: vars.$font-size-xs;
   font-weight: 600;
-
-  @include mixins.respond("tablet") {
-    font-size: 0.9rem;
-  }
 
   &.up {
     color: var(--primary);
@@ -187,11 +187,51 @@
   }
 
   .arrow {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 }
 
-// Full width section for Audit component
+.vsText {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+// ========================================
+// Mini progress bar
+// ========================================
+.miniBarTrack {
+  width: 100%;
+  height: 3px;
+  background: var(--bg-secondary);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.miniBarFill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.income {
+    background: var(--primary);
+  }
+
+  &.expenses {
+    background: var(--error, #ef4444);
+  }
+
+  &.assets {
+    background: var(--secondary);
+  }
+
+  &.liabilities {
+    background: #f59e0b;
+  }
+}
+
+// ========================================
+// Audit section
+// ========================================
 .auditSection {
   @include mixins.w-full;
   flex: 1 1 100%;
