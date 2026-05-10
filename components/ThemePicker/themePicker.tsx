@@ -8,6 +8,7 @@ type ThemePickerProps = {
   isThemePickerOpen: boolean;
   setIsThemePickerOpen: (boolType: boolean) => void;
   setIsDeskOpen: (boolType: boolean) => void;
+  isMobile?: boolean;
 };
 
 const THEME_MAP = {
@@ -25,16 +26,16 @@ type Theme = (typeof THEME_MAP)[keyof typeof THEME_MAP];
 export default function ThemePicker({
   isThemePickerOpen,
   setIsThemePickerOpen,
+  isMobile = false,
 }: ThemePickerProps) {
+  const { palette, setPalette } = usePalette();
+
   if (!isThemePickerOpen) return null;
 
-  const { palette, setPalette } = usePalette();
   const handleClose = () => setIsThemePickerOpen(false);
-
   const allThemes = Object.values(THEME_MAP);
   const activeTheme = allThemes.find((t) => t.id === palette) ?? allThemes[0];
   const inactiveThemes = allThemes.filter((t) => t.id !== palette);
-
   const handleSelect = (id: string) => setPalette(id as Palette);
 
   const ThemeRow = ({ theme }: { theme: Theme }) => (
@@ -48,6 +49,57 @@ export default function ThemePicker({
     </button>
   );
 
+  // ─── Mobile: bottom sheet ─────────────────────────────────────────────────
+  if (isMobile) {
+    return (
+      <div className={styles.mobileOverlay} onClick={handleClose}>
+        <div
+          className={styles.mobileSheet}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Drag handle */}
+          <div className={styles.mobileHandle} />
+
+          {/* Header */}
+          <div className={styles.header}>
+            <span className={styles.title}>Theme</span>
+            <div className={styles.headerActions}>
+              <ThemeToggle />
+              <button
+                className={styles.closeBtn}
+                onClick={handleClose}
+                aria-label="Close theme picker"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          </div>
+
+          {/* Active theme hero */}
+          <div className={styles.hero}>
+            <div className={styles.heroSwatches}>
+              <div className={styles.heroSwatch} data-swatch="bg" />
+              <div className={styles.heroSwatch} data-swatch="primary" />
+              <div className={styles.heroSwatch} data-swatch="secondary" />
+              <div className={styles.heroSwatch} data-swatch="accent" />
+            </div>
+            <p className={styles.heroName}>{activeTheme.name}</p>
+            <p className={styles.heroTag}>Currently active</p>
+          </div>
+
+          {/* Theme list */}
+          <div className={styles.content}>
+            <span className={styles.sectionLabel}>Palettes</span>
+            {inactiveThemes.map((theme) => (
+              <ThemeRow key={theme.id} theme={theme} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ─── Desktop: side panel ──────────────────────────────────────────────────
   return (
     <div className={styles.overlay} onClick={handleClose}>
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
@@ -55,7 +107,11 @@ export default function ThemePicker({
           <span className={styles.title}>Theme</span>
           <div className={styles.headerActions}>
             <ThemeToggle />
-            <button className={styles.closeBtn} onClick={handleClose} aria-label="Close">
+            <button
+              className={styles.closeBtn}
+              onClick={handleClose}
+              aria-label="Close theme picker"
+            >
               <X size={16} />
             </button>
           </div>

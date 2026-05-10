@@ -2,7 +2,7 @@
 @use "@/styles/variables" as vars;
 
 // ========================================
-// Overlay
+// Desktop Overlay
 // ========================================
 .overlay {
   @include mixins.position(fixed, 0, 0, 0, 0);
@@ -24,7 +24,7 @@
 }
 
 // ========================================
-// Panel
+// Desktop Panel
 // ========================================
 .panel {
   @include mixins.shadow-lg;
@@ -67,7 +67,64 @@
 }
 
 // ========================================
-// Header
+// Mobile Overlay
+// ========================================
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  background: rgba(0, 0, 0, 0.45);
+  animation: fadeIn 0.2s ease-out;
+  pointer-events: auto;
+}
+
+// ========================================
+// Mobile Bottom Sheet
+// ========================================
+.mobileSheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-elevated);
+  border-radius: vars.$radius-lg vars.$radius-lg 0 0;
+  border-top: 1px solid var(--border);
+  z-index: 1051;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  pointer-events: auto;
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+  animation: slideUpSheet 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@keyframes slideUpSheet {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// ========================================
+// Mobile drag handle
+// ========================================
+.mobileHandle {
+  width: 36px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: vars.$spacing-sm auto vars.$spacing-xs;
+  flex-shrink: 0;
+}
+
+// ========================================
+// Header (shared)
 // ========================================
 .header {
   display: flex;
@@ -75,6 +132,7 @@
   justify-content: space-between;
   padding: vars.$spacing-sm vars.$spacing-lg;
   border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
 .title {
@@ -87,7 +145,7 @@
 }
 
 // ========================================
-// Close Button
+// Close Button (shared)
 // ========================================
 .closeBtn {
   @include mixins.pointer;
@@ -120,7 +178,7 @@
 }
 
 // ========================================
-// Hero (active theme)
+// Hero — active theme (shared)
 // ========================================
 .hero {
   margin: vars.$spacing-md vars.$spacing-md vars.$spacing-xs;
@@ -128,6 +186,7 @@
   border-radius: vars.$radius-md;
   border: 1px solid var(--primary);
   background: var(--bg-secondary);
+  flex-shrink: 0;
 }
 
 .heroSwatches {
@@ -175,7 +234,7 @@
 }
 
 // ========================================
-// Content / list
+// Content / list (shared, scrollable)
 // ========================================
 .content {
   display: flex;
@@ -189,7 +248,7 @@
 }
 
 // ========================================
-// Section Label
+// Section Label (shared)
 // ========================================
 .sectionLabel {
   display: block;
@@ -213,7 +272,7 @@
 }
 
 // ========================================
-// Theme Option (inactive rows)
+// Theme Option rows (shared)
 // ========================================
 .themeOption {
   @include mixins.transition;
@@ -247,9 +306,6 @@
   }
 }
 
-// ========================================
-// Dot — scoped via data-palette on the button
-// ========================================
 .dot {
   width: vars.$spacing-lg;
   height: vars.$spacing-lg;
@@ -261,7 +317,7 @@
 }
 
 // ========================================
-// Header Actions
+// Header Actions (shared)
 // ========================================
 .headerActions {
   display: flex;
@@ -270,7 +326,7 @@
 }
 
 // ========================================
-// Theme Name
+// Theme Name (shared)
 // ========================================
 .themeName {
   font-size: vars.$font-size-sm;
