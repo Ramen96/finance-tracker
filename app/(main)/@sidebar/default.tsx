@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import ThemePicker from "components/ThemePicker/themePicker";
 import {
@@ -35,7 +35,6 @@ export default function SideBar() {
   const [isThemePickerOpen, setIsThemePickerOpen] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const sheetRef = useRef<HTMLDivElement>(null);
-  const touchStartY = useRef<number | null>(null);
 
   useEffect(() => {
     const checkViewport = () => {
@@ -71,7 +70,7 @@ export default function SideBar() {
     if (isThemePickerOpen) setIsThemePickerOpen(false);
   };
 
-  const handleThemePickerClick = () => {
+  const handleThemePickerClick = useCallback(() => {
     if (isMobile) {
       setIsSheetOpen(false);
       setIsThemePickerOpen(true);
@@ -81,7 +80,7 @@ export default function SideBar() {
       setIsDeskOpen(true);
       setIsThemePickerOpen(true);
     }
-  };
+  }, [isMobile, isDeskOpen]);
 
   const handleNavClick = (btn: NavItem) => {
     if (btn.path) {
@@ -116,7 +115,7 @@ export default function SideBar() {
       { id: 9, name: "Profile", icon: <UserRoundPen />, path: "/profile" },
       { id: 10, name: "Settings", icon: <Settings />, path: "/settings" },
     ],
-    []
+    [handleThemePickerClick]
   );
 
   const navigationGroups = useMemo(
@@ -134,21 +133,7 @@ export default function SideBar() {
     setCurrentPath(url);
   }, [url]);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY;
-  };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartY.current === null) return;
-    const deltaY = touchStartY.current - e.changedTouches[0].clientY;
-    // swipe up ≥40px opens, swipe down ≥40px closes
-    if (!isSheetOpen && deltaY > 40) setIsSheetOpen(true);
-    if (isSheetOpen && deltaY < -40) {
-      setIsSheetOpen(false);
-      setIsThemePickerOpen(false);
-    }
-    touchStartY.current = null;
-  };
 
   // ─── Mobile layout ────────────────────────────────────────────────────────
   if (isMobile) {
@@ -161,19 +146,10 @@ export default function SideBar() {
           setIsDeskOpen={setIsDeskOpen}
           isMobile={true}
         />
-        {/* Swipe zone — covers full screen for gesture capture */}
-        <div
-          className={styles.swipeZone}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        />
-
-        {/* Swipe pill — fixed bottom-centre */}
+        {/* Swipe pill — fixed top-right */}
         <button
           className={`${styles.swipePill} ${isSheetOpen ? styles.pillOpen : ""}`}
           onClick={toggleSheet}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
           aria-label={isSheetOpen ? "Close navigation" : "Open navigation"}
         >
           <ChevronUp size={14} />

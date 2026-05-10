@@ -3,23 +3,9 @@
 @use "@styles/variables" as vars;
 @use "@styles/mixins/layout" as layout;
 
-// ========================================
-// Swipe zone — invisible full-screen gesture catcher
-// ========================================
-.swipeZone {
-  position: fixed;
-  inset: 0;
-  bottom: 40px; // leave room above pill so it doesn't eat pill taps
-  z-index: 990;
-  pointer-events: none; // only captures touch, not clicks, so page stays interactive
-
-  @include typography.respond("laptop") {
-    display: none;
-  }
-}
 
 // ========================================
-// Swipe pill — fixed bottom-centre
+// Swipe pill — fixed top-right
 // ========================================
 .swipePill {
   @include mixins.flex-center;
