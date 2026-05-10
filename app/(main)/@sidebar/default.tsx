@@ -72,7 +72,10 @@ export default function SideBar() {
   };
 
   const handleThemePickerClick = () => {
-    if (isDeskOpen) {
+    if (isMobile) {
+      setIsSheetOpen(false);
+      setIsThemePickerOpen(true);
+    } else if (isDeskOpen) {
       setIsThemePickerOpen(true);
     } else {
       setIsDeskOpen(true);
@@ -92,7 +95,7 @@ export default function SideBar() {
     () => [
       { id: 0, name: "Dashboard", icon: <LayoutDashboard />, path: "/dashboard" },
       { id: 1, name: "Credit/Debit", icon: <CreditCard />, path: "/card" },
-      { id: 2, name: "Log New Transaction", icon: <ScanBarcode />, path: "/transaction" },
+      { id: 2, name: "Log Transaction", icon: <ScanBarcode />, path: "/transaction" },
     ],
     []
   );
@@ -151,6 +154,13 @@ export default function SideBar() {
   if (isMobile) {
     return (
       <>
+        {/* Mobile theme picker — bottom sheet */}
+        <ThemePicker
+          isThemePickerOpen={isThemePickerOpen}
+          setIsThemePickerOpen={setIsThemePickerOpen}
+          setIsDeskOpen={setIsDeskOpen}
+          isMobile={true}
+        />
         {/* Swipe zone — covers full screen for gesture capture */}
         <div
           className={styles.swipeZone}
