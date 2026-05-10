@@ -82,10 +82,17 @@ export default function Dashboard() {
     return `${change > 0 ? "+" : ""}${change.toFixed(1)}%`;
   };
 
-  // Progress bar: what % of the max amount across all cards is this card?
-  const maxAmount = Math.max(...placeholderData.map((d) => d.amount));
-  const getBarWidth = (amount: number): number =>
-    Math.round((amount / maxAmount) * 100);
+  // Log-scale bar: normalises each card so even small values show a meaningful bar.
+  const logMax = Math.log(Math.max(...placeholderData.map((d) => d.amount)));
+  const getBarWidth = (amount: number): number => {
+    const pct = (Math.log(amount) / logMax) * 100;
+    return Math.round(Math.max(15, pct));
+  };
+
+  const currentMonth = new Date().toLocaleString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
 
   if (isLoading) return <Loading />;
 
@@ -93,6 +100,7 @@ export default function Dashboard() {
     <div id="content" className={styles.contentContainer}>
       <div className={styles.header}>
         <h1>Dashboard</h1>
+        <p className={styles.headerSub}>Overview · {currentMonth}</p>
       </div>
 
       <div className={styles.sectionsContainer}>
