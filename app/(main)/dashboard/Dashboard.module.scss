@@ -17,6 +17,24 @@
 
 .header {
   @include mixins.page-header;
+
+  h1 {
+    font-size: 1.75rem;
+
+    @include mixins.respond("tablet") {
+      font-size: 2rem;
+    }
+  }
+}
+
+.headerSub {
+  font-family: var(--font-main), sans-serif;
+  font-size: vars.$font-size-xs;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-top: vars.$spacing-xs;
 }
 
 // ========================================
@@ -26,7 +44,7 @@
   @include mixins.w-full;
   display: flex;
   flex-wrap: wrap;
-  // margin-top: 3rem;
+  margin-top: vars.$spacing-lg;
 }
 
 // ========================================
@@ -235,4 +253,7 @@
 .auditSection {
   @include mixins.w-full;
   flex: 1 1 100%;
+  margin-top: vars.$spacing-xl;
+  padding-top: vars.$spacing-lg;
+  border-top: 1px solid var(--border);
 }
