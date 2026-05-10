@@ -142,6 +142,7 @@
   letter-spacing: vars.$letter-spacing;
   color: var(--text);
   opacity: 0.7;
+  font-family: var(--font-main);
 }
 
 // ========================================
@@ -222,6 +223,7 @@
   font-weight: 600;
   color: var(--text);
   margin: 0 0 2px;
+  font-family: var(--font-display);
 }
 
 .heroTag {
@@ -231,6 +233,7 @@
   opacity: 0.85;
   text-transform: uppercase;
   letter-spacing: vars.$letter-spacing;
+  font-family: var(--font-main);
 }
 
 // ========================================
@@ -261,6 +264,7 @@
   padding-bottom: vars.$spacing-xs;
   border-bottom: 1px solid var(--text-muted);
   margin: vars.$spacing-sm 0 2px vars.$spacing-sm;
+  font-family: var(--font-main);
 
   @include mixins.respond("tablet") {
     margin: vars.$spacing-sm 0 vars.$spacing-xs vars.$spacing-lg;
@@ -337,4 +341,5 @@
   overflow: hidden;
   text-overflow: ellipsis;
   transition: color 0.2s ease;
+  font-family: var(--font-main);
 }

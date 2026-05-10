@@ -1,4 +1,6 @@
 import { X } from "lucide-react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import type { Palette } from "@/context/usePalette";
 import { usePalette } from "@/context/usePalette";
 import ThemeToggle from "@/components/ThemeToggle/ThemeToggle";
@@ -19,9 +21,26 @@ const THEME_MAP = {
   zenburn: { id: "zenburn", name: "Zenburn" },
   catppuccin: { id: "catppuccin", name: "Catppuccin" },
   everforest: { id: "everforest", name: "Everforest" },
-};
+} as const;
 
 type Theme = (typeof THEME_MAP)[keyof typeof THEME_MAP];
+
+const ThemeRow = ({
+  theme,
+  onSelect,
+}: {
+  theme: Theme;
+  onSelect: (id: string) => void;
+}) => (
+  <button
+    className={styles.themeOption}
+    data-palette={theme.id}
+    onClick={() => onSelect(theme.id)}
+  >
+    <div className={styles.dot} />
+    <span className={styles.themeName}>{theme.name}</span>
+  </button>
+);
 
 export default function ThemePicker({
   isThemePickerOpen,
@@ -29,6 +48,11 @@ export default function ThemePicker({
   isMobile = false,
 }: ThemePickerProps) {
   const { palette, setPalette } = usePalette();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   if (!isThemePickerOpen) return null;
 
@@ -38,68 +62,49 @@ export default function ThemePicker({
   const inactiveThemes = allThemes.filter((t) => t.id !== palette);
   const handleSelect = (id: string) => setPalette(id as Palette);
 
-  const ThemeRow = ({ theme }: { theme: Theme }) => (
-    <button
-      className={styles.themeOption}
-      data-palette={theme.id}
-      onClick={() => handleSelect(theme.id)}
-    >
-      <div className={styles.dot} />
-      <span className={styles.themeName}>{theme.name}</span>
-    </button>
-  );
-
-  // ─── Mobile: bottom sheet ─────────────────────────────────────────────────
-  if (isMobile) {
-    return (
-      <div className={styles.mobileOverlay} onClick={handleClose}>
-        <div
-          className={styles.mobileSheet}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Drag handle */}
-          <div className={styles.mobileHandle} />
-
-          {/* Header */}
-          <div className={styles.header}>
-            <span className={styles.title}>Theme</span>
-            <div className={styles.headerActions}>
-              <ThemeToggle />
-              <button
-                className={styles.closeBtn}
-                onClick={handleClose}
-                aria-label="Close theme picker"
-              >
-                <X size={16} />
-              </button>
-            </div>
-          </div>
-
-          {/* Active theme hero */}
-          <div className={styles.hero}>
-            <div className={styles.heroSwatches}>
-              <div className={styles.heroSwatch} data-swatch="bg" />
-              <div className={styles.heroSwatch} data-swatch="primary" />
-              <div className={styles.heroSwatch} data-swatch="secondary" />
-              <div className={styles.heroSwatch} data-swatch="accent" />
-            </div>
-            <p className={styles.heroName}>{activeTheme.name}</p>
-            <p className={styles.heroTag}>Currently active</p>
-          </div>
-
-          {/* Theme list */}
-          <div className={styles.content}>
-            <span className={styles.sectionLabel}>Palettes</span>
-            {inactiveThemes.map((theme) => (
-              <ThemeRow key={theme.id} theme={theme} />
-            ))}
-          </div>
+  const sharedContent = (
+    <>
+      <div className={styles.mobileHandle} />
+      <div className={styles.header}>
+        <span className={styles.title}>Theme</span>
+        <div className={styles.headerActions}>
+          <ThemeToggle />
+          <button className={styles.closeBtn} onClick={handleClose} aria-label="Close theme picker">
+            <X size={16} />
+          </button>
         </div>
       </div>
+      <div className={styles.hero}>
+        <div className={styles.heroSwatches}>
+          <div className={styles.heroSwatch} data-swatch="bg" />
+          <div className={styles.heroSwatch} data-swatch="primary" />
+          <div className={styles.heroSwatch} data-swatch="secondary" />
+          <div className={styles.heroSwatch} data-swatch="accent" />
+        </div>
+        <p className={styles.heroName}>{activeTheme.name}</p>
+        <p className={styles.heroTag}>Currently active</p>
+      </div>
+      <div className={styles.content}>
+        <span className={styles.sectionLabel}>Palettes</span>
+        {inactiveThemes.map((theme) => (
+          <ThemeRow key={theme.id} theme={theme} onSelect={handleSelect} />
+        ))}
+      </div>
+    </>
+  );
+
+  if (isMobile) {
+    if (!isMounted) return null;
+    return createPortal(
+      <div className={styles.mobileOverlay} onClick={handleClose}>
+        <div className={styles.mobileSheet} onClick={(e) => e.stopPropagation()}>
+          {sharedContent}
+        </div>
+      </div>,
+      document.body
     );
   }
 
-  // ─── Desktop: side panel ──────────────────────────────────────────────────
   return (
     <div className={styles.overlay} onClick={handleClose}>
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
@@ -107,16 +112,11 @@ export default function ThemePicker({
           <span className={styles.title}>Theme</span>
           <div className={styles.headerActions}>
             <ThemeToggle />
-            <button
-              className={styles.closeBtn}
-              onClick={handleClose}
-              aria-label="Close theme picker"
-            >
+            <button className={styles.closeBtn} onClick={handleClose} aria-label="Close theme picker">
               <X size={16} />
             </button>
           </div>
         </div>
-
         <div className={styles.hero}>
           <div className={styles.heroSwatches}>
             <div className={styles.heroSwatch} data-swatch="bg" />
@@ -127,11 +127,10 @@ export default function ThemePicker({
           <p className={styles.heroName}>{activeTheme.name}</p>
           <p className={styles.heroTag}>Currently active</p>
         </div>
-
         <div className={styles.content}>
           <span className={styles.sectionLabel}>Palettes</span>
           {inactiveThemes.map((theme) => (
-            <ThemeRow key={theme.id} theme={theme} />
+            <ThemeRow key={theme.id} theme={theme} onSelect={handleSelect} />
           ))}
         </div>
       </div>
