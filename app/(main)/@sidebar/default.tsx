@@ -6,7 +6,6 @@ import {
   ChevronsLeft,
   ChevronsRight,
   ScanBarcode,
-  CreditCard,
   LayoutDashboard,
   BanknoteArrowUp,
   BanknoteArrowDown,
