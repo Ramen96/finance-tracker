@@ -151,9 +151,10 @@
 
 // Icon-grid row of tappable tiles
 .sheetItems {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
   gap: vars.$spacing-sm;
+  justify-content: space-evenly;
 }
 
 .sheetItem {
@@ -170,6 +171,7 @@
   font-family: var(--font-main);
   transition: background 0.15s ease, color 0.15s ease;
   min-height: 64px;
+  width: 100%;
 
   svg {
     width: 20px;
