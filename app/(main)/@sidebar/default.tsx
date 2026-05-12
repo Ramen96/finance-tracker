@@ -16,6 +16,7 @@ import {
   Settings,
   Palette,
   ChevronUp,
+  History
 } from "lucide-react";
 import styles from "./Sidebar.module.scss";
 
@@ -93,8 +94,8 @@ export default function SideBar() {
   const topButtons = useMemo<NavItem[]>(
     () => [
       { id: 0, name: "Dashboard", icon: <LayoutDashboard />, path: "/dashboard" },
-      { id: 1, name: "Credit/Debit", icon: <CreditCard />, path: "/card" },
-      { id: 2, name: "Log Transaction", icon: <ScanBarcode />, path: "/transaction" },
+      { id: 1, name: "Log New Transaction", icon: <ScanBarcode />, path: "/card" },
+      { id: 2, name: "Transaction History", icon: <History />, path: "/transaction" },
     ],
     []
   );
