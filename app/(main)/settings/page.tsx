@@ -1,5 +1,19 @@
 "use client";
 import { useState } from "react";
+import {
+  Settings2,
+  Bell,
+  ShieldCheck,
+  Database,
+  Lock,
+  KeyRound,
+  ShieldPlus,
+  MonitorSmartphone,
+  Download,
+  Upload,
+  Trash2,
+  UserX,
+} from "lucide-react";
 import styles from "./settings.module.scss";
 
 interface SelectOption {
@@ -24,20 +38,11 @@ interface ButtonAction {
   label: string;
   variant: "primary" | "secondary" | "danger";
   helperText?: string;
+  icon: React.ReactNode;
 }
 
 export default function Settings() {
-  // State management
   const [formData, setFormData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@example.com",
-    phone: "+1 (555) 123-4567",
-    dateOfBirth: "1990-01-01",
-    address: "123 Main St",
-    city: "Fort Mill",
-    state: "South Carolina",
-    zipCode: "29715",
     currency: "USD",
     theme: "catppuccin",
     notifications: true,
@@ -89,34 +94,52 @@ export default function Settings() {
   ];
 
   const securityActions: ButtonAction[] = [
-    { label: "Change Password", variant: "secondary" },
-    { label: "Enable Two-Factor Authentication", variant: "secondary" },
-    { label: "Manage Sessions", variant: "secondary" },
+    { label: "Change Password", variant: "secondary", icon: <KeyRound size={15} /> },
+    { label: "Enable Two-Factor Authentication", variant: "secondary", icon: <ShieldPlus size={15} /> },
+    { label: "Manage Sessions", variant: "secondary", icon: <MonitorSmartphone size={15} /> },
   ];
 
   const dataActions: ButtonAction[] = [
-    { label: "Export All Data", variant: "secondary", helperText: "Download your financial data in CSV format" },
-    { label: "Import Data", variant: "secondary", helperText: "Import transactions from another app" },
-    { label: "Delete All Data", variant: "danger", helperText: "Permanently delete all your financial records" },
+    { label: "Export All Data", variant: "secondary", icon: <Download size={15} />, helperText: "Download your financial data in CSV format" },
+    { label: "Import Data", variant: "secondary", icon: <Upload size={15} />, helperText: "Import transactions from another app" },
+    { label: "Delete All Data", variant: "danger", icon: <Trash2 size={15} />, helperText: "Permanently delete all your financial records" },
   ];
 
   const privacyActions: ButtonAction[] = [
-    { label: "Delete Account", variant: "danger", helperText: "This action cannot be undone" },
+    { label: "Delete Account", variant: "danger", icon: <UserX size={15} />, helperText: "This action cannot be undone" },
   ];
+
+  const getBtnClass = (variant: ButtonAction["variant"]) => {
+    if (variant === "primary") return styles.btnPrimary;
+    if (variant === "danger") return styles.btnDanger;
+    return styles.btnSecondary;
+  };
+
+  const ActionButton = ({ action }: { action: ButtonAction }) => (
+    <div className={`${styles.settingGroup} ${action.variant === "danger" ? styles.dangerGroup : ""}`}>
+      <button className={getBtnClass(action.variant)}>
+        {action.icon}
+        {action.label}
+      </button>
+      {action.helperText && (
+        <p className={styles.helperText}>{action.helperText}</p>
+      )}
+    </div>
+  );
 
   return (
     <div className={styles.contentContainer}>
       <div className={styles.pageHeader}>
         <h1>Settings</h1>
-        <p>Customize your finance tracking experience</p>
+        <p className={styles.headerSub}>Customize your experience</p>
       </div>
 
       <div className={styles.settingsGrid}>
 
-        {/* General Settings */}
+        {/* General */}
         <section className={styles.settingCard}>
           <div className={styles.sectionHeader}>
-            <div className={styles.sectionIcon}>⚙️</div>
+            <span className={styles.sectionIcon}><Settings2 size={16} /></span>
             <h2>General</h2>
           </div>
           {generalSettings.map((field) => (
@@ -143,19 +166,23 @@ export default function Settings() {
         {/* Notifications */}
         <section className={styles.settingCard}>
           <div className={styles.sectionHeader}>
-            <div className={styles.sectionIcon}>🔔</div>
+            <span className={styles.sectionIcon}><Bell size={16} /></span>
             <h2>Notifications</h2>
           </div>
           {notificationSettings.map((field) => (
             <div key={field.id} className={styles.settingGroup}>
-              <label className={styles.checkboxLabel}>
-                <input
-                  type="checkbox"
-                  checked={field.checked}
-                  onChange={(e) => handleInputChange(field.id, e.target.checked)}
-                  className={styles.checkbox}
-                />
+              <label className={styles.toggleLabel}>
                 <span>{field.label}</span>
+                <div className={styles.toggleWrapper}>
+                  <input
+                    type="checkbox"
+                    checked={field.checked}
+                    onChange={(e) => handleInputChange(field.id, e.target.checked)}
+                    className={styles.toggleInput}
+                  />
+                  <div className={styles.toggleTrack} />
+                  <div className={styles.toggleThumb} />
+                </div>
               </label>
             </div>
           ))}
@@ -164,59 +191,41 @@ export default function Settings() {
         {/* Account Security */}
         <section className={styles.settingCard}>
           <div className={styles.sectionHeader}>
-            <div className={styles.sectionIcon}>🔐</div>
+            <span className={styles.sectionIcon}><ShieldCheck size={16} /></span>
             <h2>Account Security</h2>
           </div>
           {securityActions.map((action, index) => (
-            <div key={index} className={styles.settingGroup}>
-              <button className={styles[`btn${action.variant.charAt(0).toUpperCase() + action.variant.slice(1)}`]}>
-                {action.label}
-              </button>
-            </div>
+            <ActionButton key={index} action={action} />
           ))}
         </section>
 
         {/* Data Management */}
         <section className={styles.settingCard}>
           <div className={styles.sectionHeader}>
-            <div className={styles.sectionIcon}>💾</div>
+            <span className={styles.sectionIcon}><Database size={16} /></span>
             <h2>Data Management</h2>
           </div>
           {dataActions.map((action, index) => (
-            <div key={index} className={styles.settingGroup}>
-              <button className={styles[`btn${action.variant.charAt(0).toUpperCase() + action.variant.slice(1)}`]}>
-                {action.label}
-              </button>
-              {action.helperText && (
-                <p className={styles.helperText}>{action.helperText}</p>
-              )}
-            </div>
+            <ActionButton key={index} action={action} />
           ))}
         </section>
 
         {/* Privacy */}
-        <section className={styles.settingCard}>
-          <div className={styles.sectionHeader}>
-            <div className={styles.sectionIcon}>🔒</div>
+        <section className={`${styles.settingCard} ${styles.dangerCard}`}>
+          <div className={`${styles.sectionHeader} ${styles.dangerSectionHeader}`}>
+            <span className={`${styles.sectionIcon} ${styles.dangerIcon}`}><Lock size={16} /></span>
             <h2>Privacy</h2>
           </div>
           {privacyActions.map((action, index) => (
-            <div key={index} className={styles.settingGroup}>
-              <button className={styles[`btn${action.variant.charAt(0).toUpperCase() + action.variant.slice(1)}`]}>
-                {action.label}
-              </button>
-              {action.helperText && (
-                <p className={styles.helperText}>{action.helperText}</p>
-              )}
-            </div>
+            <ActionButton key={index} action={action} />
           ))}
         </section>
+
       </div>
 
-      {/* Save Button */}
       <div className={styles.saveContainer}>
         <button onClick={handleSave} className={styles.btnPrimary}>
-          Save All Changes
+          Save Changes
         </button>
       </div>
     </div>

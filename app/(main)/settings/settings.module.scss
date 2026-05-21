@@ -15,12 +15,37 @@
   width: 100%;
 }
 
+// ========================================
+// Header
+// ========================================
 .pageHeader {
   @include mixins.page-header;
   width: 100%;
   box-sizing: border-box;
+
+  h1 {
+    font-size: 1.75rem;
+
+    @include mixins.respond("tablet") {
+      font-size: 2rem;
+    }
+  }
 }
 
+.headerSub {
+  font-family: var(--font-main), sans-serif;
+  font-size: vars.$font-size-xs;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-top: vars.$spacing-xs;
+}
+
+// ========================================
+// Grid — align-items: start so cards don't
+// stretch to match their tallest neighbour
+// ========================================
 .settingsGrid {
   width: 100%;
   display: grid;
@@ -28,79 +53,110 @@
   gap: vars.$spacing-lg;
   box-sizing: border-box;
   min-width: 0;
+  margin-top: vars.$spacing-lg;
+  align-items: start;
 
   @include mixins.respond("tablet") {
     grid-template-columns: repeat(2, 1fr);
     gap: vars.$spacing-xl;
   }
-
-  @include mixins.respond("laptop") {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
+// ========================================
+// Card
+// ========================================
 .settingCard {
   @include mixins.card;
   @include mixins.flex(null, null, column);
-  gap: vars.$spacing-md;
-  padding: vars.$spacing-lg;
+  gap: vars.$spacing-sm;
+  padding: vars.$spacing-md vars.$spacing-lg;
   margin: 0;
   width: 100%;
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  align-self: start;
 
   @include mixins.respond("tablet") {
-    gap: vars.$spacing-lg;
-    padding: vars.$spacing-xl;
+    gap: vars.$spacing-md;
+    padding: vars.$spacing-lg vars.$spacing-xl;
   }
 }
 
+// ========================================
+// Section header
+// ========================================
 .sectionHeader {
-  @include mixins.section-header;
-  width: 100%;
-  box-sizing: border-box;
-  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  padding-bottom: vars.$spacing-sm;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: vars.$spacing-xs;
+
+  h2 {
+    font-family: var(--font-main), sans-serif;
+    font-size: vars.$font-size-xs;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text);
+    opacity: 0.7;
+    margin: 0;
+  }
 }
 
 .sectionIcon {
-  @include mixins.section-icon;
+  display: flex;
+  align-items: center;
+  color: var(--primary);
   flex-shrink: 0;
 }
 
+// ========================================
+// Setting group
+// ========================================
 .settingGroup {
   @include mixins.flex(null, null, column);
   gap: vars.$spacing-xs;
   width: 100%;
   box-sizing: border-box;
   min-width: 0;
+
+  // Danger actions get a top border to visually separate them
+  // from safe actions above
+  &.dangerGroup {
+    margin-top: vars.$spacing-sm;
+    padding-top: vars.$spacing-sm;
+    border-top: 1px solid var(--border);
+  }
 }
 
 .settingLabel {
   font-family: var(--font-main), sans-serif;
-  font-size: 0.9rem;
+  font-size: vars.$font-size-xs;
   font-weight: 600;
-  color: var(--text);
-
-  @include mixins.respond("tablet") {
-    font-size: 0.95rem;
-  }
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.textInput {
+// ========================================
+// Inputs
+// ========================================
+.textInput,
+.selectInput {
   @include mixins.radius;
   @include mixins.no-outline;
+  @include mixins.transition;
   width: 100%;
-  height: vars.$input-height;
-  padding: 0.75rem 1rem;
-  margin: 0;
+  padding: vars.$spacing-sm vars.$spacing-md;
   border: 1px solid var(--border);
   color: var(--text);
   font-family: var(--font-main), sans-serif;
-  font-size: 0.95rem;
-  background: var(--bg-elevated);
-  @include mixins.transition;
+  font-size: vars.$font-size-sm;
+  background: var(--bg-secondary);
   box-sizing: border-box;
   min-width: 0;
 
@@ -116,167 +172,212 @@
   &:hover {
     border-color: var(--primary);
   }
-
-  @include mixins.respond("tablet") {
-    font-size: 1rem;
-  }
 }
 
 .selectInput {
-  @include mixins.radius;
-  @include mixins.no-outline;
   @include mixins.pointer;
+}
+
+// ========================================
+// Toggle switch
+// ========================================
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  height: vars.$input-height;
-  padding: 0.75rem 1rem;
+  cursor: pointer;
+  padding: vars.$spacing-xs 0;
+  font-family: var(--font-main), sans-serif;
+  font-size: vars.$font-size-sm;
+  font-weight: 500;
+  color: var(--text);
+  gap: vars.$spacing-md;
+
+  &:hover span {
+    color: var(--primary);
+  }
+}
+
+.toggleWrapper {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.toggleInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+
+  &:checked+.toggleTrack {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+
+  &:checked~.toggleThumb {
+    transform: translateX(16px);
+    background: var(--primary-text, #fff);
+  }
+}
+
+.toggleTrack {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  transition: background 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
+  pointer-events: none;
+}
+
+// ========================================
+// Buttons
+// ========================================
+.btnPrimary {
+  @include mixins.btnPrimary;
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  width: 100%;
+  max-width: 240px;
   margin: 0;
+  box-sizing: border-box;
+  font-size: vars.$font-size-sm;
+}
+
+// Secondary: ghost outline — subdued, not loud
+.btnSecondary {
+  @include mixins.transition;
+  @include mixins.radius;
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
+  width: 100%;
+  margin: 0;
+  padding: vars.$spacing-sm vars.$spacing-md;
+  background: transparent;
   border: 1px solid var(--border);
   color: var(--text);
   font-family: var(--font-main), sans-serif;
-  font-size: 0.95rem;
-  background: var(--bg-elevated);
-  @include mixins.transition;
+  font-size: vars.$font-size-sm;
+  font-weight: 500;
+  cursor: pointer;
   box-sizing: border-box;
-  min-width: 0;
+  text-align: left;
 
-  &:focus {
-    border-color: var(--primary);
-    @include mixins.shadow-sm;
+  svg {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    transition: color 0.2s ease;
   }
 
   &:hover {
+    background: var(--bg-secondary);
     border-color: var(--primary);
-  }
-
-  @include mixins.respond("tablet") {
-    font-size: 1rem;
-  }
-}
-
-.checkboxLabel {
-  @include mixins.flex(flex-start, center);
-  gap: vars.$spacing-md;
-  font-family: var(--font-main), sans-serif;
-  font-size: 0.9rem;
-  color: var(--text);
-  @include mixins.pointer;
-  padding: vars.$spacing-sm 0;
-  width: 100%;
-  box-sizing: border-box;
-  min-width: 0;
-
-  span {
-    font-weight: 500;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &:hover {
     color: var(--primary);
 
-    .checkbox {
-      border-color: var(--primary);
+    svg {
+      color: var(--primary);
     }
   }
 
-  @include mixins.respond("tablet") {
-    font-size: 0.95rem;
+  &:active {
+    transform: scale(0.98);
   }
 }
 
-.checkbox {
-  @include mixins.radius;
-  @include mixins.size(1.25rem);
-  margin: 0;
-  cursor: pointer;
-  accent-color: var(--primary);
-  flex-shrink: 0;
-
-  &:hover {
-    filter: brightness(1.1);
-  }
-
-  @include mixins.respond("tablet") {
-    @include mixins.size(1.5rem);
-  }
-}
-
-.btnPrimary {
-  @include mixins.btnPrimary;
-  width: 100%;
-  max-width: 300px;
-  margin: 0;
-  box-sizing: border-box;
-
-  @include mixins.respond("tablet") {
-    padding: 0.75rem 1.5rem;
-    font-size: 1.05rem;
-  }
-}
-
-.btnSecondary {
-  @include mixins.btnSecondary;
-  width: 100%;
-  margin: 0;
-  box-sizing: border-box;
-
-  @include mixins.respond("tablet") {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-  }
-}
-
+// Danger: red tinted outline — clearly destructive without being shouty
 .btnDanger {
-  @include mixins.btn-base;
-  @include mixins.shadow-sm;
+  @include mixins.transition;
+  @include mixins.radius;
+  display: flex;
+  align-items: center;
+  gap: vars.$spacing-sm;
   width: 100%;
   margin: 0;
-  color: white;
-  background: var(--error, #ef4444);
-  padding: 0.625rem 1.25rem;
+  padding: vars.$spacing-sm vars.$spacing-md;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--error, #ef4444) 40%, transparent);
+  color: var(--error, #ef4444);
+  font-family: var(--font-main), sans-serif;
+  font-size: vars.$font-size-sm;
+  font-weight: 500;
+  cursor: pointer;
   box-sizing: border-box;
+  text-align: left;
+
+  svg {
+    flex-shrink: 0;
+  }
 
   &:hover {
-    background: var(--error-hover, #dc2626);
-    transform: translateY(-2px);
-    @include mixins.shadow-md;
+    background: color-mix(in srgb, var(--error, #ef4444) 10%, transparent);
+    border-color: var(--error, #ef4444);
   }
 
   &:active {
-    transform: translateY(0);
-  }
-
-  @include mixins.respond("tablet") {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+    transform: scale(0.98);
   }
 }
 
+// ========================================
+// Helper text
+// ========================================
 .helperText {
   font-family: var(--font-main), sans-serif;
-  font-size: 0.8rem;
-  color: var(--text-secondary);
+  font-size: vars.$font-size-2xs;
+  color: var(--text-muted);
   margin: 0;
-  margin-top: vars.$spacing-xs;
   font-weight: 400;
   line-height: 1.4;
+}
 
-  @include mixins.respond("tablet") {
-    font-size: 0.85rem;
+// ========================================
+// Privacy — danger card variant
+// ========================================
+.dangerCard {
+  background: color-mix(in srgb, var(--error, #ef4444) 5%, var(--bg-elevated));
+  border-color: color-mix(in srgb, var(--error, #ef4444) 20%, var(--border));
+}
+
+.dangerSectionHeader {
+  border-bottom-color: color-mix(in srgb, var(--error, #ef4444) 25%, var(--border));
+
+  h2 {
+    color: var(--error, #ef4444);
+    opacity: 1;
   }
 }
 
-.saveContainer {
-  @include mixins.flex-center;
-  @include mixins.w-full;
-  margin-top: vars.$spacing-lg;
-  padding-top: vars.$spacing-lg;
-  border-top: 2px solid var(--tertiary);
-  box-sizing: border-box;
+.dangerIcon {
+  color: var(--error, #ef4444);
+}
 
-  @include mixins.respond("tablet") {
-    margin-top: vars.$spacing-2xl;
-    padding-top: vars.$spacing-2xl;
-  }
+// ========================================
+// Save bar — left aligned, understated
+// ========================================
+.saveContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: vars.$spacing-xl;
+  padding-top: vars.$spacing-lg;
+  border-top: 1px solid var(--border);
+  box-sizing: border-box;
 }
