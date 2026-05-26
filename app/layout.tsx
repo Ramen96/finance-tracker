@@ -31,8 +31,6 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${orbitron.variable} ${spaceGrotesk.variable}`}>
-      <head>
-      </head>
       <body data-palette={paletteTheme} className="antialiased">
         <ThemeProvider>
           <PaletteProvider initialPalette={paletteTheme}>
