@@ -18,6 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "Finance Tracker",
   description: "A web application to help you track your spending daily",
+  manifest: "/site.webmanifest",
 };
 
 export default async function RootLayout({
