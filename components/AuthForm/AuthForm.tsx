@@ -217,7 +217,7 @@ export default function AuthForm({ mode }: Props) {
   const passwordField = getPasswordState(password, passwordTouched, mode);
   const confirmField = getConfirmState(confirm, password, confirmTouched);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
     // Mark all as touched to surface any remaining errors
     setEmailTouched(true);

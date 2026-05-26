@@ -67,7 +67,7 @@ export default function CreditCard() {
     }));
   };
 
-  const handleAddTransaction = (e: React.FormEvent) => {
+  const handleAddTransaction = (e: React.SubmitEvent) => {
     e.preventDefault();
 
     if (!formData.cardName || !formData.merchant || !formData.amount) {
