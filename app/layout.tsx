@@ -32,7 +32,6 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${orbitron.variable} ${spaceGrotesk.variable}`}>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body data-palette={paletteTheme} className="antialiased">
         <ThemeProvider>
