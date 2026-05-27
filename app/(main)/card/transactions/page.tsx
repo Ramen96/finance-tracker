@@ -60,8 +60,7 @@ export default function CreditCard() {
     },
   ]);
 
-  // State to manage visibility of the transaction form UI
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(true);
 
   const [formData, setFormData] = useState({
     cardName: "",
@@ -109,7 +108,7 @@ export default function CreditCard() {
       date: new Date().toISOString().split("T")[0],
       description: "",
     });
-    setIsFormOpen(false); // Close form panel after success
+    setIsFormOpen(false);
   };
 
   const handleDeleteTransaction = (id: number) => {
