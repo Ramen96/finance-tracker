@@ -93,7 +93,7 @@ export default function SideBar() {
   const topButtons = useMemo<NavItem[]>(
     () => [
       { id: 0, name: "Dashboard", icon: <LayoutDashboard />, path: "/dashboard" },
-      { id: 1, name: "Log New Transaction", icon: <ScanBarcode />, path: "/card" },
+      { id: 1, name: "Log New Transaction", icon: <ScanBarcode />, path: "/card/transactions" },
       { id: 2, name: "Transaction History", icon: <History />, path: "/transaction" },
     ],
     []
