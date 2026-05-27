@@ -42,10 +42,6 @@
     padding: vars.$spacing-xl 2rem;
   }
 
-  @include typography.respond("laptop") {
-    margin: 0 auto;
-  }
-
   @include typography.respond-down("mobile-l") {
     width: 100%;
     padding: vars.$spacing-md;
@@ -87,13 +83,8 @@
   @include layout.flex(null, flex-start, column);
   gap: vars.$spacing-2xl;
   font-family: var(--font-main), sans-serif;
-  flex-direction: column;
   box-sizing: border-box;
   min-width: 0;
-
-  @include typography.respond("laptop") {
-    gap: vars.$spacing-2xl;
-  }
 
   & h2,
   label {
@@ -102,8 +93,103 @@
 }
 
 // ========================================
-// Form Section
+// Section 1: User Tracked Cards UI
 // ========================================
+
+.cardsOverviewSection {
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-lg;
+}
+
+.sectionHeader {
+  @include layout.w-full;
+  @include layout.flex(space-between, center, row);
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+  }
+}
+
+.manageCardsBtn {
+  @include layout.flex(center, center);
+  gap: vars.$spacing-sm;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  @include ui.transition;
+
+  &:hover {
+    background: var(--surface-hover);
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: vars.$spacing-lg;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cardInfoTile {
+  @include layout.flex(null, center, row);
+  gap: vars.$spacing-lg;
+  padding: vars.$spacing-lg;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: vars.$radius-lg;
+  box-sizing: border-box;
+
+  svg {
+    color: var(--primary);
+    flex-shrink: 0;
+  }
+
+  h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.825rem;
+    color: var(--text-secondary);
+  }
+}
+
+// ========================================
+// Section 2: Action Trigger & Form Panel
+// ========================================
+
+.actionSection {
+  @include layout.w-full;
+  @include layout.flex(null, null, column);
+  gap: vars.$spacing-lg;
+}
+
+.toggleFormBtn {
+  @include ui.btnPrimary;
+  @include layout.w-full;
+  @include layout.flex(center, center);
+  gap: vars.$spacing-md;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
 
 .formSection {
   @include layout.flex(null, null, column);
@@ -116,12 +202,6 @@
   border-radius: vars.$radius-lg;
   border: 1px solid var(--bg-secondary);
 
-  @include typography.respond("laptop") {
-    flex: 0 0 35%;
-    position: sticky;
-    top: vars.$spacing-xl;
-  }
-
   @include typography.respond-down("mobile-l") {
     padding: vars.$spacing-md;
   }
@@ -133,10 +213,6 @@
     margin: 0;
   }
 }
-
-// ========================================
-// Form Styles
-// ========================================
 
 .form {
   @include layout.w-full;
@@ -205,10 +281,6 @@
   }
 }
 
-// ========================================
-// Button Styles
-// ========================================
-
 .submitBtn {
   @include ui.btnPrimary;
   @include layout.w-full;
@@ -217,33 +289,27 @@
   padding: 0.875rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
-
-  @include typography.respond-down("mobile-l") {
-    padding: 0.65rem 1rem;
-    font-size: 0.95rem;
-  }
 }
 
-.deleteBtn {
-  @include layout.flex-center;
-  flex-shrink: 0;
-  padding: vars.$spacing-md;
-  border-radius: vars.$radius-md;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-secondary);
-  cursor: pointer;
-  @include ui.transition;
+// Animation utility
+.fadeIn {
+  animation: formReveal 0.2s ease-out forwards;
+}
 
-  &:hover {
-    background: var(--surface-hover);
-    color: var(--primary);
-    border-color: var(--primary);
+@keyframes formReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 // ========================================
-// List Section
+// Section 3: List Layout & Items
 // ========================================
 
 .listSection {
@@ -253,10 +319,6 @@
   min-width: 0;
   gap: vars.$spacing-lg;
 
-  @include typography.respond("laptop") {
-    flex: 1;
-  }
-
   h2 {
     font-size: 1.25rem;
     font-weight: 700;
@@ -264,10 +326,6 @@
     margin: 0;
   }
 }
-
-// ========================================
-// Empty State
-// ========================================
 
 .emptyState {
   @include layout.w-full;
@@ -279,10 +337,6 @@
   text-align: center;
   font-style: italic;
 }
-
-// ========================================
-// Transactions List
-// ========================================
 
 .transactionsList {
   @include layout.flex(null, null, column);
@@ -427,8 +481,26 @@
   color: var(--primary);
 }
 
+.deleteBtn {
+  @include layout.flex-center;
+  flex-shrink: 0;
+  padding: vars.$spacing-md;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  @include ui.transition;
+
+  &:hover {
+    background: var(--surface-hover);
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+}
+
 // ========================================
-// Total Section
+// Total Summary Display
 // ========================================
 
 .totalSection {
@@ -437,9 +509,7 @@
   box-sizing: border-box;
   padding: vars.$spacing-lg vars.$spacing-xl;
   border-radius: vars.$radius-lg;
-  background: linear-gradient(135deg,
-      var(--primary-light),
-      var(--secondary-light));
+  background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
   border: 2px solid var(--primary);
 
   h3 {

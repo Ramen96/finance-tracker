@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import styles from "../card.module.scss";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, Settings, CreditCard as CardIcon } from "lucide-react";
 
 const cardCategories = [
   "Groceries",
@@ -22,9 +23,22 @@ type CardTransaction = {
   category: string;
   date: string;
   description: string | undefined;
-}
+};
+
+// Mock tracked cards state to populate the form and the cards section
+type TrackedCard = {
+  id: string;
+  name: string;
+  network: string;
+};
 
 export default function CreditCard() {
+  // Mocking global data state of cards a user already set up to track
+  const [trackedCards] = useState<TrackedCard[]>([
+    { id: "1", name: "Chase Sapphire", network: "Visa" },
+    { id: "2", name: "Amex Gold", network: "Amex" },
+  ]);
+
   const [transactions, setTransactions] = useState<CardTransaction[]>([
     {
       id: 1,
@@ -46,6 +60,9 @@ export default function CreditCard() {
     },
   ]);
 
+  // State to manage visibility of the transaction form UI
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     cardName: "",
     merchant: "",
@@ -56,9 +73,7 @@ export default function CreditCard() {
   });
 
   const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -82,7 +97,7 @@ export default function CreditCard() {
       amount: parseFloat(formData.amount),
       category: formData.category,
       date: formData.date,
-      description: formData.description,
+      description: formData.description || undefined,
     };
 
     setTransactions((prev) => [newTransaction, ...prev]);
@@ -94,6 +109,7 @@ export default function CreditCard() {
       date: new Date().toISOString().split("T")[0],
       description: "",
     });
+    setIsFormOpen(false); // Close form panel after success
   };
 
   const handleDeleteTransaction = (id: number) => {
@@ -105,112 +121,154 @@ export default function CreditCard() {
   return (
     <div className={styles.contentContainer}>
       <section className={styles.cardContainer}>
+
         <div className={styles.header}>
           <h1>Card Transactions</h1>
           <p>Log and track your credit and debit card purchases</p>
         </div>
 
         <div className={styles.content}>
-          {/* Add Transaction Form */}
-          <div className={styles.formSection}>
-            <h2>Log New Transaction</h2>
-            <form onSubmit={handleAddTransaction} className={styles.form}>
-              <div className={styles.formGroup}>
-                <label htmlFor="cardName">Card Name *</label>
-                <input
-                  type="text"
-                  id="cardName"
-                  name="cardName"
-                  value={formData.cardName}
-                  onChange={handleInputChange}
-                  placeholder="e.g., Chase Sapphire, Amex Gold"
-                  required
-                />
-              </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="merchant">Merchant *</label>
-                <input
-                  type="text"
-                  id="merchant"
-                  name="merchant"
-                  value={formData.merchant}
-                  onChange={handleInputChange}
-                  placeholder="Where did you make the purchase?"
-                  required
-                />
-              </div>
+          {/* ================= SECTION 1: USER TRACKED CARDS ================= */}
+          <div className={styles.cardsOverviewSection}>
+            <div className={styles.sectionHeader}>
+              <h2>Your Tracked Cards</h2>
+              <Link href="/card/manage-cards" className={styles.manageCardsBtn}>
+                <Settings size={16} />
+                Edit Cards
+              </Link>
+            </div>
 
-              <div className={styles.row}>
-                <div className={styles.formGroup}>
-                  <label htmlFor="amount">Amount *</label>
-                  <input
-                    type="number"
-                    id="amount"
-                    name="amount"
-                    value={formData.amount}
-                    onChange={handleInputChange}
-                    placeholder="0.00"
-                    step="0.01"
-                    min="0"
-                    required
-                  />
+            <div className={styles.cardsGrid}>
+              {trackedCards.map((card) => (
+                <div key={card.id} className={styles.cardInfoTile}>
+                  <CardIcon size={24} />
+                  <div>
+                    <h4>{card.name}</h4>
+                    <p>{card.network}</p>
+                  </div>
                 </div>
-
-                <div className={styles.formGroup}>
-                  <label htmlFor="date">Date</label>
-                  <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="category">Category</label>
-                <select
-                  id="category"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                >
-                  {cardCategories.map((cat) => (
-                    <option key={cat} value={cat}>
-                      {cat}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className={styles.formGroup}>
-                <label htmlFor="description">Description (Optional)</label>
-                <textarea
-                  id="description"
-                  name="description"
-                  value={formData.description}
-                  onChange={handleInputChange}
-                  placeholder="Add any notes about this transaction"
-                  rows={3}
-                />
-              </div>
-
-              <button type="submit" className={styles.submitBtn}>
-                <Plus size={18} />
-                Add Transaction
-              </button>
-            </form>
+              ))}
+            </div>
           </div>
 
-          {/* Transactions List */}
+          {/* ================= SECTION 2: ADD TRANSACTION ACTION & FORM ================= */}
+          <div className={styles.actionSection}>
+            <button
+              onClick={() => setIsFormOpen((prev) => !prev)}
+              className={styles.toggleFormBtn}
+            >
+              <Plus size={18} />
+              {isFormOpen ? "Cancel New Transaction" : "Log New Transaction"}
+            </button>
+
+            {isFormOpen && (
+              <div className={`${styles.formSection} ${styles.fadeIn}`}>
+                <h2>Enter Transaction Details</h2>
+                <form onSubmit={handleAddTransaction} className={styles.form}>
+
+                  <div className={styles.formGroup}>
+                    <label htmlFor="cardName">Select Card Used *</label>
+                    <select
+                      id="cardName"
+                      name="cardName"
+                      value={formData.cardName}
+                      onChange={handleInputChange}
+                      required
+                    >
+                      <option value="">-- Choose a Card --</option>
+                      {trackedCards.map((card) => (
+                        <option key={card.id} value={card.name}>
+                          {card.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label htmlFor="merchant">Merchant *</label>
+                    <input
+                      type="text"
+                      id="merchant"
+                      name="merchant"
+                      value={formData.merchant}
+                      onChange={handleInputChange}
+                      placeholder="e.g., Target, Starbucks"
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.row}>
+                    <div className={styles.formGroup}>
+                      <label htmlFor="amount">Amount *</label>
+                      <input
+                        type="number"
+                        id="amount"
+                        name="amount"
+                        value={formData.amount}
+                        onChange={handleInputChange}
+                        placeholder="0.00"
+                        step="0.01"
+                        min="0"
+                        required
+                      />
+                    </div>
+
+                    <div className={styles.formGroup}>
+                      <label htmlFor="date">Date</label>
+                      <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label htmlFor="category">Category</label>
+                    <select
+                      id="category"
+                      name="category"
+                      value={formData.category}
+                      onChange={handleInputChange}
+                    >
+                      {cardCategories.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label htmlFor="description">Description (Optional)</label>
+                    <textarea
+                      id="description"
+                      name="description"
+                      value={formData.description}
+                      onChange={handleInputChange}
+                      placeholder="Add specific notes"
+                      rows={2}
+                    />
+                  </div>
+
+                  <button type="submit" className={styles.submitBtn}>
+                    Save Transaction
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+
+          {/* ================= SECTION 3: RECENT TRANSACTIONS ================= */}
           <div className={styles.listSection}>
             <h2>Recent Transactions</h2>
 
             {transactions.length === 0 ? (
               <p className={styles.emptyState}>
-                No transactions yet. Add one to get started!
+                No transactions tracked yet.
               </p>
             ) : (
               <>
@@ -259,6 +317,7 @@ export default function CreditCard() {
               </>
             )}
           </div>
+
         </div>
       </section>
     </div>
