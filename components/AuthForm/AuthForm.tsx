@@ -153,7 +153,10 @@ function LoginExtras() {
 
 // ─── Validation helpers ───────────────────────────────────────────────────────
 
-function getEmailState(email: string, touched: boolean): { state: FieldState; error?: string } {
+function getEmailState(
+  email: string,
+  touched: boolean
+): { state: FieldState; error?: string } {
   if (!touched || !email) return { state: "idle" };
   const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   return valid
@@ -192,9 +195,9 @@ type Props = {
 export default function AuthForm({ mode }: Props) {
   const router = useRouter();
 
-  // setActive lives on the hook, not on signIn/signUp objects
-  const { signIn, setActive: setSignInActive, isLoaded: signInLoaded } = useSignIn();
-  const { signUp, setActive: setSignUpActive, isLoaded: signUpLoaded } = useSignUp();
+  // Core 3 / v7 API — no setActive destructured here
+  const { signIn, fetchStatus: signInStatus } = useSignIn();
+  const { signUp, fetchStatus: signUpStatus } = useSignUp();
 
   const uid = useId();
 
@@ -236,30 +239,51 @@ export default function AuthForm({ mode }: Props) {
       setLoading(true);
 
       if (mode === "login") {
-        if (!signInLoaded || !signIn) return;
+        if (!signInStatus || !signIn) return;
 
-        const result = await signIn.create({
-          identifier: email,
+        // Core 3 API: signIn.password() instead of signIn.create()
+        const { error: signInError } = await signIn.password({
+          emailAddress: email,
           password,
         });
 
-        if (result.status === "complete") {
-          await setSignInActive({ session: result.createdSessionId });
-          router.push("/dashboard");
+        if (signInError) {
+          setError(signInError.message ?? "Login failed");
+          return;
+        }
+
+        if (signIn.status === "complete") {
+          // Core 3 API: finalize() instead of setActive()
+          await signIn.finalize({
+            navigate: ({ decorateUrl }) => {
+              const url = decorateUrl("/dashboard");
+              if (url.startsWith("http")) {
+                window.location.href = url;
+              } else {
+                router.push(url);
+              }
+            },
+          });
         } else {
           setError("Login incomplete — please try again");
         }
 
       } else {
-        if (!signUpLoaded || !signUp) return;
+        if (!signUpStatus || !signUp) return;
 
-        await signUp.create({
+        // Core 3 API: signUp.create() then signUp.verifications.sendEmailCode()
+        const { error: createError } = await signUp.create({
           emailAddress: email,
           password,
         });
 
+        if (createError) {
+          setError(createError.message ?? "Sign up failed");
+          return;
+        }
+
         // Send verification email
-        await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+        await signUp.verifications.sendEmailCode();
 
         // Redirect to verification page
         router.push("/verify-email");
@@ -288,7 +312,7 @@ export default function AuthForm({ mode }: Props) {
           <form
             className={styles.textBoxContainer}
             id="auth-form"
-            onSubmit={handleSubmit as unknown as React.FormEventHandler<HTMLFormElement>}
+            onSubmit={handleSubmit as unknown as React.SubmitEventHandler<HTMLFormElement>}
           >
             <FloatingField
               id={`${uid}-email`}
@@ -322,9 +346,7 @@ export default function AuthForm({ mode }: Props) {
               }
             />
 
-            {mode === "signup" && (
-              <PasswordStrength password={password} />
-            )}
+            {mode === "signup" && <PasswordStrength password={password} />}
 
             {mode === "signup" && (
               <FloatingField

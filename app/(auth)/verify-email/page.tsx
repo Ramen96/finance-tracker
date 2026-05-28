@@ -4,34 +4,56 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function VerifyEmail() {
-  const { signUp, setActive, isLoaded } = useSignUp();
+  const { signUp, fetchStatus } = useSignUp();
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
   async function handleVerify(e: SubmitEvent) {
     e.preventDefault();
-    if (!isLoaded || !signUp) return;
+    if (fetchStatus === "fetching" || !signUp) return;
 
-    try {
-      const result = await signUp.attemptEmailAddressVerification({ code });
-      if (result.status === "complete") {
-        await setActive({ session: result.createdSessionId });
-        router.push("/dashboard");
-      }
-    } catch (err: unknown) {
-      const clerkError = err as { errors?: { message: string }[] };
-      setError(clerkError?.errors?.[0]?.message ?? "Invalid code");
+    const { error: verifyError } = await signUp.verifications.verifyEmailCode({ code });
+
+    if (verifyError) {
+      setError(verifyError.message ?? "Invalid code");
+      return;
+    }
+
+    if (signUp.status === "complete") {
+      await signUp.finalize({
+        navigate: ({ decorateUrl }) => {
+          const url = decorateUrl("/dashboard");
+          if (url.startsWith("http")) {
+            window.location.href = url;
+          } else {
+            router.push(url);
+          }
+        },
+      });
     }
   }
 
   return (
-    <main style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh" }}>
+    <main
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+      }}
+    >
       <h1>Check your email</h1>
       <p>We sent a verification code to your email address.</p>
       <form
         onSubmit={handleVerify as unknown as React.FormEventHandler<HTMLFormElement>}
-        style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "1rem",
+          marginTop: "1rem",
+        }}
       >
         <input
           type="text"
@@ -40,7 +62,9 @@ export default function VerifyEmail() {
           onChange={(e) => setCode(e.target.value)}
         />
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <button type="submit">Verify</button>
+        <button type="submit" disabled={fetchStatus === "fetching"}>
+          {fetchStatus === "fetching" ? "Verifying..." : "Verify"}
+        </button>
       </form>
     </main>
   );
