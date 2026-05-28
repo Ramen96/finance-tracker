@@ -2,8 +2,8 @@
 import React, { useState, useId } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, Check, X } from "lucide-react";
+import { useSignIn, useSignUp } from "@clerk/nextjs";
 import styles from "./AuthForm.module.scss";
-import { useAuth } from "@/context/useAuth";
 
 // ─── Password strength ────────────────────────────────────────────────────────
 
@@ -55,7 +55,7 @@ interface FloatingFieldProps {
   autoComplete?: string;
   fieldState?: FieldState;
   fieldError?: string;
-  rightSlot?: React.ReactNode; // for the eye button
+  rightSlot?: React.ReactNode;
 }
 
 function FloatingField({
@@ -80,7 +80,6 @@ function FloatingField({
       data-error={fieldState === "error" ? "true" : "false"}
       data-valid={fieldState === "valid" ? "true" : "false"}
     >
-      {/* The password wrapper handles the eye button row */}
       {rightSlot ? (
         <div className={styles.passwdWrapper}>
           <label htmlFor={id} className="sr-only">{label}</label>
@@ -116,12 +115,10 @@ function FloatingField({
         </>
       )}
 
-      {/* Floating label */}
       <span className={styles.floatingLabel} aria-hidden="true">
         {label}
       </span>
 
-      {/* Inline validation icon — not shown when there's an eye button */}
       {!rightSlot && fieldState !== "idle" && (
         <span className={styles.fieldIcon}>
           {fieldState === "valid"
@@ -130,7 +127,6 @@ function FloatingField({
         </span>
       )}
 
-      {/* Inline field-level error */}
       {fieldState === "error" && fieldError && (
         <p className={styles.fieldError} role="alert">{fieldError}</p>
       )}
@@ -195,8 +191,12 @@ type Props = {
 
 export default function AuthForm({ mode }: Props) {
   const router = useRouter();
-  const auth = useAuth();
-  const uid = useId(); // stable prefix for IDs
+
+  // setActive lives on the hook, not on signIn/signUp objects
+  const { signIn, setActive: setSignInActive, isLoaded: signInLoaded } = useSignIn();
+  const { signUp, setActive: setSignUpActive, isLoaded: signUpLoaded } = useSignUp();
+
+  const uid = useId();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -206,7 +206,6 @@ export default function AuthForm({ mode }: Props) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Track which fields have been touched for inline validation
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [confirmTouched, setConfirmTouched] = useState(false);
@@ -217,9 +216,8 @@ export default function AuthForm({ mode }: Props) {
   const passwordField = getPasswordState(password, passwordTouched, mode);
   const confirmField = getConfirmState(confirm, password, confirmTouched);
 
-  async function handleSubmit(e: React.SubmitEvent) {
+  async function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    // Mark all as touched to surface any remaining errors
     setEmailTouched(true);
     setPasswordTouched(true);
     if (mode === "signup") setConfirmTouched(true);
@@ -236,14 +234,44 @@ export default function AuthForm({ mode }: Props) {
 
     try {
       setLoading(true);
+
       if (mode === "login") {
-        await auth.login(email, password);
+        if (!signInLoaded || !signIn) return;
+
+        const result = await signIn.create({
+          identifier: email,
+          password,
+        });
+
+        if (result.status === "complete") {
+          await setSignInActive({ session: result.createdSessionId });
+          router.push("/dashboard");
+        } else {
+          setError("Login incomplete — please try again");
+        }
+
       } else {
-        await auth.signup(email, password);
+        if (!signUpLoaded || !signUp) return;
+
+        await signUp.create({
+          emailAddress: email,
+          password,
+        });
+
+        // Send verification email
+        await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+
+        // Redirect to verification page
+        router.push("/verify-email");
       }
-      router.push("/dashboard");
-    } catch (err) {
-      setError((err as Error)?.message || "An error occurred");
+
+    } catch (err: unknown) {
+      const clerkError = err as { errors?: { message: string }[] };
+      const message =
+        clerkError?.errors?.[0]?.message ??
+        (err as Error)?.message ??
+        "An error occurred";
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -252,19 +280,16 @@ export default function AuthForm({ mode }: Props) {
   return (
     <main className={styles.mainContainer}>
       <section className={styles.card} id="card">
-        {/* Header */}
         <div className={styles.headContainer}>
           <h1 className={styles.loginH1}>{title}</h1>
         </div>
 
-        {/* Form */}
         <div id="form-container" className={styles.formContainer}>
           <form
             className={styles.textBoxContainer}
             id="auth-form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit as unknown as React.FormEventHandler<HTMLFormElement>}
           >
-            {/* Email */}
             <FloatingField
               id={`${uid}-email`}
               label="Email"
@@ -276,7 +301,6 @@ export default function AuthForm({ mode }: Props) {
               fieldError={emailField.error}
             />
 
-            {/* Password */}
             <FloatingField
               id={`${uid}-password`}
               label={mode === "login" ? "Password" : "Create Password"}
@@ -298,12 +322,10 @@ export default function AuthForm({ mode }: Props) {
               }
             />
 
-            {/* Password strength — signup only */}
             {mode === "signup" && (
               <PasswordStrength password={password} />
             )}
 
-            {/* Confirm password — signup only */}
             {mode === "signup" && (
               <FloatingField
                 id={`${uid}-confirm`}
@@ -327,15 +349,12 @@ export default function AuthForm({ mode }: Props) {
               />
             )}
 
-            {/* Form-level error */}
             {error && (
-              // key forces re-mount so shake animation replays on repeated errors
               <div key={error} className={styles.error} role="alert">
                 {error}
               </div>
             )}
 
-            {/* Actions */}
             <div className={styles.btnContainer} id="btn-container">
               <button
                 type="submit"
@@ -347,9 +366,7 @@ export default function AuthForm({ mode }: Props) {
 
               <button
                 type="button"
-                onClick={() =>
-                  router.push(mode === "login" ? "/signup" : "/login")
-                }
+                onClick={() => router.push(mode === "login" ? "/signup" : "/login")}
                 className={styles.btnSecondary}
               >
                 {mode === "login" ? "Create an account" : "Back to login"}
