@@ -3,6 +3,7 @@ import { Orbitron, Space_Grotesk } from "next/font/google";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "@/context/useTheme";
 import { Palette, PaletteProvider } from "@/context/usePalette";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.scss";
 
 const orbitron = Orbitron({
@@ -30,14 +31,16 @@ export default async function RootLayout({
   const paletteTheme = cookiesStore.get('palette')?.value as Palette || 'everforest';
 
   return (
-    <html lang="en" className={`${orbitron.variable} ${spaceGrotesk.variable}`}>
-      <body data-palette={paletteTheme} className="antialiased">
-        <ThemeProvider>
-          <PaletteProvider initialPalette={paletteTheme}>
-            {children}
-          </PaletteProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={`${orbitron.variable} ${spaceGrotesk.variable}`}>
+        <body data-palette={paletteTheme} className="antialiased">
+          <ThemeProvider>
+            <PaletteProvider initialPalette={paletteTheme}>
+              {children}
+            </PaletteProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
