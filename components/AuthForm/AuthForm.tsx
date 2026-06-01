@@ -99,10 +99,6 @@ function FloatingField({
         </div>
       ) : (
         <>
-          {/* The line belwo is causing some kind of issue with hydration
-              see https://react.dev/reference/react-dom/client/hydrateRoot#hydrating-server-rendered-html
-              and https://nextjs.org/docs/messages/react-hydration-error
-          */}
           <label htmlFor={id} className="sr-only">{label}</label>
           <input
             id={id}
