@@ -47,7 +47,7 @@ export default function VerifyEmail() {
       <h1>Check your email</h1>
       <p>We sent a verification code to your email address.</p>
       <form
-        onSubmit={handleVerify as unknown as React.FormEventHandler<HTMLFormElement>}
+        onSubmit={handleVerify as unknown as React.SubmitEventHandler<HTMLFormElement>}
         style={{
           display: "flex",
           flexDirection: "column",
