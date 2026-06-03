@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
 import ThemePicker from "components/ThemePicker/themePicker";
 import {
   ChevronsLeft,
@@ -201,6 +202,7 @@ export default function SideBar() {
     <aside
       className={`${styles.sideBarContainer} ${isDeskOpen ? styles.expanded : styles.collapsed}`}
     >
+      <UserButton />
       <ThemePicker
         isThemePickerOpen={isThemePickerOpen}
         setIsThemePickerOpen={(b: boolean) => setIsThemePickerOpen(b)}
