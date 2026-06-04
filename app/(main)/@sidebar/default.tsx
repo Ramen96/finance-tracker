@@ -110,27 +110,6 @@ export default function SideBar() {
     []
   );
 
-  // const bottomButtons = useMemo<NavItem[]>(
-  //   () => [
-  //     { id: 8, name: "Theme", icon: <Palette />, onClick: () => handleThemePickerClick() },
-  //     {
-  //       id: 9,
-  //       name: "Profile",
-  //       icon: <UserButton appearance={{
-  //         elements: {
-  //           avatarbox: {
-  //             width: 16,
-  //             height: 16
-  //           }
-  //         }
-  //       }} />,
-  //       path: "/profile"
-  //     },
-  //     { id: 10, name: "Settings", icon: <Settings />, path: "/settings" },
-  //   ],
-  //   [handleThemePickerClick]
-  // );
-
   // Remove the Profile entry from bottomButtons entirely
   const bottomButtons = useMemo<NavItem[]>(
     () => [
