@@ -110,10 +110,31 @@ export default function SideBar() {
     []
   );
 
+  // const bottomButtons = useMemo<NavItem[]>(
+  //   () => [
+  //     { id: 8, name: "Theme", icon: <Palette />, onClick: () => handleThemePickerClick() },
+  //     {
+  //       id: 9,
+  //       name: "Profile",
+  //       icon: <UserButton appearance={{
+  //         elements: {
+  //           avatarbox: {
+  //             width: 16,
+  //             height: 16
+  //           }
+  //         }
+  //       }} />,
+  //       path: "/profile"
+  //     },
+  //     { id: 10, name: "Settings", icon: <Settings />, path: "/settings" },
+  //   ],
+  //   [handleThemePickerClick]
+  // );
+
+  // Remove the Profile entry from bottomButtons entirely
   const bottomButtons = useMemo<NavItem[]>(
     () => [
       { id: 8, name: "Theme", icon: <Palette />, onClick: () => handleThemePickerClick() },
-      { id: 9, name: "Profile", icon: <UserRoundPen />, path: "/profile" },
       { id: 10, name: "Settings", icon: <Settings />, path: "/settings" },
     ],
     [handleThemePickerClick]
@@ -202,7 +223,6 @@ export default function SideBar() {
     <aside
       className={`${styles.sideBarContainer} ${isDeskOpen ? styles.expanded : styles.collapsed}`}
     >
-      <UserButton />
       <ThemePicker
         isThemePickerOpen={isThemePickerOpen}
         setIsThemePickerOpen={(b: boolean) => setIsThemePickerOpen(b)}
@@ -236,6 +256,10 @@ export default function SideBar() {
           </section>
         ))}
       </nav>
+      <div className={styles.sidebarFooter}>
+        <UserButton appearance={{ elements: { avatarBox: { width: 32, height: 32 } } }} />
+        {isDeskOpen && <span className={styles.footerUsername}>My Account</span>}
+      </div>
     </aside>
   );
 }

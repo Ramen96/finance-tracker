@@ -460,3 +460,33 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
+.sideBarContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.btnsContainer {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebarFooter {
+  display: flex;
+  align-items: center;
+  padding: vars.$spacing-md;
+  border-top: 1px solid var(--text-muted);
+  gap: vars.$spacing-lg;
+
+  .collapsed & {
+    justify-content: center;
+    padding: vars.$spacing-sm;
+  }
+
+  .footerUsername {
+    font-size: vars.$font-size-md;
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+}
