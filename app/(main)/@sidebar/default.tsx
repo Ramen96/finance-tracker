@@ -191,8 +191,8 @@ export default function SideBar() {
                 </div>
               </section>
             ))}
-            <div className={styles.sidebarFooter}>
-              <UserButton appearance={{ elements: { avatarBox: { width: 32, height: 32 } } }} />
+            <div className={styles.sidebarFooter} data-ui-mode="mobile">
+              <UserButton appearance={{ elements: { avatarBox: { width: 34, height: 34 } } }} />
               <span className={styles.footerUsername}>My Account</span>
             </div>
           </nav>
@@ -240,7 +240,7 @@ export default function SideBar() {
         ))}
       </nav>
       <div className={styles.sidebarFooter}>
-        <UserButton appearance={{ elements: { avatarBox: { width: 32, height: 32 } } }} />
+        <UserButton appearance={{ elements: { avatarBox: { width: 34, height: 34 } } }} />
         {isDeskOpen && <span className={styles.footerUsername}>My Account</span>}
       </div>
     </aside>
