@@ -475,13 +475,15 @@
 .sidebarFooter {
   display: flex;
   align-items: center;
-  padding: vars.$spacing-md;
+  padding: vars.$spacing-xl;
+  margin-bottom: vars.$spacing-lg;
   border-top: 1px solid var(--text-muted);
   gap: vars.$spacing-lg;
 
   .collapsed & {
     justify-content: center;
     padding: vars.$spacing-sm;
+    border: none;
   }
 
   .footerUsername {
@@ -489,4 +491,10 @@
     font-weight: 500;
     color: var(--text-secondary);
   }
+}
+
+.sidebarFooter[data-ui-mode="mobile"] {
+  margin-bottom: 0px !important;
+  padding: 0px;
+  padding-top: vars.$spacing-lg
 }
