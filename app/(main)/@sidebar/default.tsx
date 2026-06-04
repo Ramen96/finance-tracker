@@ -212,6 +212,10 @@ export default function SideBar() {
                 </div>
               </section>
             ))}
+            <div className={styles.sidebarFooter}>
+              <UserButton appearance={{ elements: { avatarBox: { width: 32, height: 32 } } }} />
+              <span className={styles.footerUsername}>My Account</span>
+            </div>
           </nav>
         </div>
       </>
