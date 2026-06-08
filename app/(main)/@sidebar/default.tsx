@@ -193,7 +193,7 @@ export default function SideBar() {
             ))}
             <div className={styles.sidebarFooter} data-ui-mode="mobile">
               <UserButton appearance={{ elements: { avatarBox: { width: 34, height: 34 } } }} />
-              <span className={styles.footerUsername}>My Account</span>
+              <button onClick={() => router.push('/profile')} className={styles.footerUsername}>My Account</button>
             </div>
           </nav>
         </div>
@@ -241,7 +241,7 @@ export default function SideBar() {
       </nav>
       <div className={styles.sidebarFooter}>
         <UserButton appearance={{ elements: { avatarBox: { width: 34, height: 34 } } }} />
-        {isDeskOpen && <span className={styles.footerUsername}>My Account</span>}
+        {isDeskOpen && <span onClick={() => router.push('/profile')} className={styles.footerUsername}>My Account</span>}
       </div>
     </aside>
   );
