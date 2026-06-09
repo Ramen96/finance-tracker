@@ -1,5 +1,4 @@
 import { X } from "lucide-react";
-import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import type { Palette } from "@/context/usePalette";
 import { usePalette } from "@/context/usePalette";
@@ -48,11 +47,6 @@ export default function ThemePicker({
   isMobile = false,
 }: ThemePickerProps) {
   const { palette, setPalette } = usePalette();
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   if (!isThemePickerOpen) return null;
 
@@ -94,7 +88,6 @@ export default function ThemePicker({
   );
 
   if (isMobile) {
-    if (!isMounted) return null;
     return createPortal(
       <div className={styles.mobileOverlay} onClick={handleClose}>
         <div className={styles.mobileSheet} onClick={(e) => e.stopPropagation()}>
