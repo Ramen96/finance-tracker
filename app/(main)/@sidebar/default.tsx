@@ -127,13 +127,7 @@ export default function SideBar() {
     [topButtons, middleButtons, bottomButtons]
   );
 
-  const url = usePathname();
-  const [currentPath, setCurrentPath] = useState<string>(url);
-  useEffect(() => {
-    setCurrentPath(url);
-  }, [url]);
-
-
+  const currentPath = usePathname();
 
   // ─── Mobile layout ────────────────────────────────────────────────────────
   if (isMobile) {
