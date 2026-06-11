@@ -26,5 +26,13 @@
     "sass": "^1.97.3",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.5.6": true,
+    "sharp@0.34.5": true,
+    "unrs-resolver@1.12.2": true
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
   }
 }
