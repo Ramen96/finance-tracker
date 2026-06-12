@@ -1,4 +1,3 @@
-"use client";
 import { UserProfile } from '@clerk/nextjs'
 import styles from "./profile.module.scss";
 
