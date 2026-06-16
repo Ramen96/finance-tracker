@@ -2,6 +2,7 @@
 import Loading from "@/components/Loading/loading";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useApi } from "@/lib/api";
 import { LucideIcon } from "lucide-react";
 import {
   AlignHorizontalDistributeCenter,
@@ -60,6 +61,22 @@ export default function Dashboard() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<DataType[]>([]);
+  const { authFetch } = useApi();
+  const [status, setStatus] = useState<string>("idle");
+
+  useEffect(() => {
+    async function test() {
+      try {
+        setStatus("loading...");
+        const data = await authFetch("api/accounts");
+        setStatus("api connected response: " + JSON.stringify(data));
+      } catch (err) {
+        setStatus("Error: " + (err as Error).message);
+      }
+    }
+    test();
+    console.log(status);
+  }, [authFetch, status]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
