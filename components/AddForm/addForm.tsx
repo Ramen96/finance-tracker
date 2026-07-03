@@ -2,9 +2,33 @@ import styles from "./addForm.module.scss";
 
 type AddFormPropTypes = {
   columnConfig: any;
+  onSubmit: (data: Record<string, string | number>) => null;
+  onCancel: () => void;
 }
 
-export default function AddForm({ columnConfig }: AddFormPropTypes) {
+export default function AddForm({
+  columnConfig,
+  onSubmit,
+  onCancel
+}: AddFormPropTypes) {
+
+  function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const data: Record<string, string | number> = {};
+
+    columnConfig.forEach((col: any) => {
+      if (col.inputType) {
+        const value = formData.get(col.key);
+        data[col.key] = col.inputType === "number"
+          ? Number(value)
+          : String(value);
+      }
+    });
+    onSubmit(data);
+  }
+
   return (
     <div className={styles.formContainer}>
       <form className={styles.form}>
