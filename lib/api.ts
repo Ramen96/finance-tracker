@@ -6,6 +6,13 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export function useApi() {
   const { getToken } = useAuth();
 
+  const endpointMap = {
+    income: "api/transactions",
+    expenses: "api/transactions",
+    assets: "api/assets",
+    liabilities: "api/liabilities"
+  }
+
   const authFetch = useCallback(
     async (path: string, options: RequestInit = {}) => {
       const token = await getToken();
