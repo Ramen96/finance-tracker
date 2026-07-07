@@ -2,7 +2,7 @@ import styles from "./addForm.module.scss";
 
 type AddFormPropTypes = {
   columnConfig: any;
-  onSubmit: (data: Record<string, string | number>) => null;
+  onSubmit: (data: Record<string, string | number>) => void;
   onCancel: () => void;
 }
 
