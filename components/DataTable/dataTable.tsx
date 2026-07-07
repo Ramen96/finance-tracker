@@ -24,7 +24,7 @@ type Category<DataItem> = {
 
 type DataTableProps<DataItem> = {
   categories: Category<DataItem>[];
-  onAdd?: any;
+  onAdd: (categoryName: string, data?: Record<string, string | number>) => void;
   onEdit?: (item: DataItem) => void;
   onDelete?: (item: DataItem) => void;
   onCancel?: () => void;
