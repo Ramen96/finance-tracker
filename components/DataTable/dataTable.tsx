@@ -147,6 +147,8 @@ export default function DataTable<DataItem extends { id: number | string }>({
                 {showAddForm === category.name && (
                   <AddForm
                     columnConfig={category.dataItemConfig}
+                    onSubmit={(data) => onAdd(category.name, data)}
+                    onCancel={(): void | undefined => onCancel?.()}
                   />
                 )}
               </div>
