@@ -3,15 +3,17 @@ import { useCallback } from "react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+export const endpointMap = {
+  income: "api/transactions",
+  expenses: "api/transactions",
+  assets: "api/assets",
+  liabilities: "api/liabilities"
+} as const;
+
+export type ReportType = keyof typeof endpointMap;
+
 export function useApi() {
   const { getToken } = useAuth();
-
-  const endpointMap = {
-    income: "api/transactions",
-    expenses: "api/transactions",
-    assets: "api/assets",
-    liabilities: "api/liabilities"
-  }
 
   const authFetch = useCallback(
     async (path: string, options: RequestInit = {}) => {
