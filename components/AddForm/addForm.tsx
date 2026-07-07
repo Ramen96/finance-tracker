@@ -31,7 +31,7 @@ export default function AddForm({
 
   return (
     <div className={styles.formContainer}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         {columnConfig?.map((element: any) => (
           element.inputType && (
             <div className={styles.field} key={element.key}>
