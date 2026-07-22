@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+import { useApi } from "@/lib/api";
 import DataTable from "@/components/DataTable/dataTable";
 import {
   Briefcase,
@@ -18,302 +19,13 @@ import {
 } from "lucide-react";
 import Loading from "@/components/Loading/loading";
 import styles from "./reports.module.scss";
+import { get } from "node:http";
 
 type ReportType = "income" | "expenses" | "assets" | "liabilities";
 
-// ALL OF THE DATA BELOW IS PLACEHOLDER DATA
-// UNTIL AN API IS CREATED
-
-//////////////////////////////////////////
-///////////// INCOME DATA ///////////////
-////////////////////////////////////////
-interface incomeReportType {
-  id: number;
-  description: string;
-  amount: number;
-}
-
-const incomeItem: Record<string, incomeReportType[]> = {
-  Salary: [
-    { id: 1, description: "Monthly salary", amount: 5000 },
-    { id: 2, description: "Bonus", amount: 1000 },
-  ],
-  Interest: [
-    { id: 3, description: "Savings account", amount: 50 },
-    { id: 4, description: "CD interest", amount: 75 },
-  ],
-  Dividends: [
-    { id: 5, description: "Stock dividends", amount: 200 },
-  ],
-  "Real Estate": [
-    { id: 6, description: "Rental property #1", amount: 1500 },
-    { id: 7, description: "Rental property #2", amount: 1800 },
-  ],
-  Businesses: [
-    { id: 8, description: "Side business", amount: 800 },
-  ],
-};
-
-const incomeColumns = [
-  {
-    key: "description" as const,
-    label: "Description",
-    inputType: "text",
-    format: (value: string | number) => String(value),
-  },
-  {
-    key: "amount" as const,
-    label: "Cash Flow",
-    inputType: "number",
-    format: (value: string | number) => {
-      const num = typeof value === "number" ? value : Number(value || 0);
-      return `$${num.toLocaleString()}`;
-    },
-  },
-];
-
-const incomeCategories = [
-  { name: "Salary", icon: Briefcase, columns: incomeColumns },
-  { name: "Interest", icon: DollarSign, columns: incomeColumns },
-  { name: "Dividends", icon: TrendingUp, columns: incomeColumns },
-  { name: "Real Estate", icon: Home, columns: incomeColumns },
-  { name: "Businesses", icon: Building2, columns: incomeColumns },
-];
-
-//////////////////////////////////////////
-/////////// EXPENSES DATA ///////////////
-////////////////////////////////////////
-
-interface ExpenseItem {
-  id: number;
-  description: string;
-  amount: number;
-}
-
-const expenseItems: Record<string, ExpenseItem[]> = {
-  Groceries: [
-    { id: 1, description: "Weekly grocery shopping", amount: 150 },
-    { id: 2, description: "Farmers market", amount: 45 },
-  ],
-  Housing: [
-    { id: 3, description: "Rent/Mortgage", amount: 2000 },
-    { id: 4, description: "Home insurance", amount: 150 },
-    { id: 5, description: "Maintenance", amount: 200 },
-  ],
-  Transportation: [
-    { id: 6, description: "Gas", amount: 150 },
-    { id: 7, description: "Car insurance", amount: 120 },
-  ],
-  Healthcare: [
-    { id: 8, description: "Doctor visit", amount: 100 },
-  ],
-  Utilities: [
-    { id: 9, description: "Electricity", amount: 120 },
-    { id: 10, description: "Water", amount: 60 },
-    { id: 11, description: "Internet", amount: 80 },
-  ],
-};
-
-const expensesColumns = [
-  {
-    key: "description" as const,
-    label: "Item",
-    inputType: "text",
-    format: (value: string | number) => String(value),
-  },
-  {
-    key: "amount" as const,
-    label: "Amount",
-    inputType: "number",
-    format: (value: string | number) => {
-      const num = typeof value === "number" ? value : Number(value || 0);
-      return `$${num.toLocaleString()}`;
-    },
-  },
-];
-
-const expenseCategories = [
-  { name: "Groceries", icon: Utensils, columns: expensesColumns },
-  { name: "Housing", icon: Home, columns: expensesColumns },
-  { name: "Transportation", icon: Car, columns: expensesColumns },
-  { name: "Healthcare", icon: Heart, columns: expensesColumns },
-  { name: "Utilities", icon: Zap, columns: expensesColumns },
-];
-
-////////////////////////////////////////////////
-/////////////// ASSETS DATA ///////////////////
-//////////////////////////////////////////////
-interface Asset {
-  id: number;
-  name: string;
-  qty?: number | null;
-  value: number;
-  incomeOrRate: string;
-}
-
-const producingAssetsColumns = [
-  {
-    key: "name" as const,
-    label: "Asset",
-    inputType: "text",
-    format: (value: string | number) => String(value)
-  },
-  {
-    key: "qty" as const,
-    label: "Qty",
-    inputType: "number",
-    format: (value: string | number) => String(value)
-  },
-  {
-    key: "value" as const,
-    label: "Value" as const,
-    inputType: null,
-    format: (value: string | number) => String(value)
-  },
-  {
-    key: "incomeOrRate" as const,
-    label: "Rate",
-    inputType: null,
-    format: (value: string | number) => String(value)
-  }
-];
-
-const growthAssetsColumns = [
-  {
-    key: "name" as const,
-    label: "Asset",
-    inputType: "text",
-    format: (value: string | number) => String(value)
-  },
-  {
-    key: "value" as const,
-    label: "Value" as const,
-    inputType: "number",
-    format: (value: string | number) => String(value)
-  },
-  {
-    key: "incomeOrRate" as const,
-    label: "Rate",
-    inputType: null,
-    format: (value: string | number) => String(value)
-  }
-];
-
-const assetCategories = [
-  { name: "Producing Assets", icon: TrendingUp, columns: producingAssetsColumns },
-  { name: "Growth Assets", icon: LineChart, columns: growthAssetsColumns },
-];
-
-const assetItems: Record<string, Asset[]> = {
-  "Producing Assets": [
-    {
-      id: 1,
-      name: "Rental Property - Main St",
-      qty: 340,
-      value: 250000,
-      incomeOrRate: "12.3%"
-    },
-    {
-      id: 2,
-      name: "Dividend Stocks Portfolio",
-      qty: 23132,
-      value: 150000,
-      incomeOrRate: "5.2%"
-    },
-  ],
-  "Growth Assets": [
-    {
-      id: 3,
-      name: "Primary Residence",
-      value: 400000,
-      incomeOrRate: "3.5%"
-    },
-    {
-      id: 4,
-      name: "Growth Stock Portfolio",
-      value: 75000,
-      incomeOrRate: "8.2%"
-    },
-  ],
-};
-
-//////////////////////////////////////////
-////////// LIABILITIES DATA /////////////
-////////////////////////////////////////
-interface liabilityType {
-  id: number;
-  name: string;
-  balance: number;
-  payment: number;
-  rate: number;
-}
-
-const liabilitiesItems: Record<string, liabilityType[]> = {
-  "Credit Cards": [
-    { id: 1, name: "Chase Sapphire", balance: 3500, payment: 150, rate: 18.99 },
-    { id: 2, name: "American Express", balance: 2100, payment: 100, rate: 16.49 },
-  ],
-  "Auto Loans": [
-    { id: 3, name: "Tesla Model 3", balance: 35000, payment: 650, rate: 4.5 },
-  ],
-  "Student Loans": [
-    { id: 4, name: "Federal Student Loan", balance: 25000, payment: 300, rate: 5.8 },
-  ],
-  "Real Estate": [
-    { id: 5, name: "Primary Mortgage", balance: 320000, payment: 2200, rate: 3.75 },
-    { id: 6, name: "Rental Property Mortgage", balance: 180000, payment: 1400, rate: 4.25 },
-  ],
-  "Business Loans": [
-    { id: 7, name: "Small Business Loan", balance: 50000, payment: 800, rate: 6.5 },
-  ]
-};
-
-const liabilitiesColumns = [
-  {
-    key: "name" as const,
-    label: "Name",
-    inputType: "text",
-    format: (value: string | number) => String(value),
-  },
-  {
-    key: "balance" as const,
-    label: "Balance",
-    inputType: null,
-    format: (value: string | number) => {
-      const num = typeof value === "number" ? value : Number(value || 0);
-      return `$${num.toLocaleString()}`;
-    },
-  },
-  {
-    key: "payment" as const,
-    label: "Payment",
-    inputType: "number",
-    format: (value: string | number) => {
-      const num = typeof value === "number" ? value : Number(value || 0);
-      return `$${num.toLocaleString()}`;
-    },
-  },
-  {
-    key: "rate" as const,
-    label: "Rate",
-    inputType: "number",
-    format: (value: string | number) => {
-      const num = typeof value === "number" ? value : Number(value || 0);
-      return `${num}%`;
-    },
-  },
-];
-
-const liabilityCategories = [
-  { name: "Credit Cards", icon: CreditCard, columns: liabilitiesColumns },
-  { name: "Auto Loans", icon: Car, columns: liabilitiesColumns },
-  { name: "Student Loans", icon: GraduationCap, columns: liabilitiesColumns },
-  { name: "Real Estate", icon: Home, columns: liabilitiesColumns },
-  { name: "Business Loans", icon: Building2, columns: liabilitiesColumns },
-];
-
 export default function Report() {
   const params = useParams();
+  const { authFetch } = useApi();
   const reportType = (params?.type as ReportType) || "income";
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -322,13 +34,18 @@ export default function Report() {
   const [isItemLoading, setIsItemLoading] = useState(false)
 
   // Simulate API call
-  useEffect(() => {
+  // useEffect(() => {
+  //
+  //   setTimeout(() => {
+  //
+  //     setLoading(false);
+  //   }, 500)
+  // }, []);
 
-    setTimeout(() => {
 
-      setLoading(false);
-    }, 500)
-  }, []);
+  authFetch(`api/report/income`).then(res => {
+    console.log(res);
+  });
 
 
   if (loading) {
