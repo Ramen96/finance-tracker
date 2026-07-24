@@ -32,19 +32,20 @@ export default function Report() {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [isItemLoading, setIsItemLoading] = useState(false);
 
-  // Simulate API call
-  // useEffect(() => {
-  //
-  //   setTimeout(() => {
-  //
-  //     setLoading(false);
-  //   }, 500)
-  // }, []);
+  const [reportData, setReportData] = useState<{
+    categories: { name: string, items: unknown[] }[];
+    total: number;
+  } | null>(null);
 
-
-  authFetch(`api/report/income`).then(res => {
-    console.log(res);
-  });
+  // API init
+  useEffect(() => {
+    authFetch(`api/report/${reportType}`)
+      .then(data => {
+        setReportData(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  }, [reportType, authFetch]);
 
 
   if (loading) {
