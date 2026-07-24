@@ -63,64 +63,12 @@ export default function Report() {
     }));
   };
 
-  const formattedIncome = formatCategories(incomeCategories, incomeItem);
-  const formattedExpenses = formatCategories(expenseCategories, expenseItems);
-  const formattedAssets = formatCategories(assetCategories, assetItems);
-  const formattedLiabilities = formatCategories(liabilityCategories, liabilitiesItems);
-
-  type ReportConfig = {
-    income: {
-      categories: any[];
-      totalKey: keyof incomeReportType;
-      name: string;
-      description: string;
-    };
-    expenses: {
-      categories: any[];
-      totalKey: keyof ExpenseItem;
-      name: string;
-      description: string;
-    };
-    assets: {
-      categories: any[];
-      totalKey: keyof Asset;
-      name: string;
-      description: string;
-    };
-    liabilities: {
-      categories: any[];
-      totalKey: keyof liabilityType;
-      name: string;
-      description: string;
-    };
-  };
-
-  const reportConfig: ReportConfig = {
-    income: {
-      categories: formattedIncome,
-      totalKey: "amount",
-      name: "Income",
-      description: "Track and manage income sources",
-    },
-    expenses: {
-      categories: formattedExpenses,
-      totalKey: "amount",
-      name: "Expenses",
-      description: "Track and manage your monthly expenses"
-    },
-    assets: {
-      categories: formattedAssets,
-      totalKey: "value",
-      name: "Assets",
-      description: "Track your producing and growth assets"
-    },
-    liabilities: {
-      categories: formattedLiabilities,
-      totalKey: "balance",
-      name: "Liabilities",
-      description: "Track your debts and monthly obligations"
-    }
-  }
+  const reportConfig = {
+    income: { name: "Income", description: "Track and manage income sources", totalKey: "amount" },
+    expenses: { name: "Expenses", description: "Track and manage your monthly expenses", totalKey: "amount" },
+    assets: { name: "Assets", description: "Track your producing and growth assets", totalKey: "value" },
+    liabilities: { name: "Liabilities", description: "Track your debts and monthly obligations", totalKey: "balance" },
+  } as const;
 
   // Data Config
   const config = reportConfig[reportType];
