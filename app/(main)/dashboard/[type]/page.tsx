@@ -51,7 +51,7 @@ export default function Report() {
   if (loading) {
     return (
       <Loading />
-    )
+    );
   }
 
   const formatCategories = (categories: any[], itemsObject: any) => {
