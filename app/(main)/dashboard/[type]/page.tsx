@@ -30,7 +30,7 @@ export default function Report() {
   const [loading, setLoading] = useState<boolean>(true);
   const [showAddForm, setShowAddForm] = useState<string | null>(null);
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isItemLoading, setIsItemLoading] = useState(false)
+  const [isItemLoading, setIsItemLoading] = useState(false);
 
   // Simulate API call
   // useEffect(() => {
