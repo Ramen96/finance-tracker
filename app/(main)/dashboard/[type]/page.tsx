@@ -73,10 +73,10 @@ export default function Report() {
   // Data Config
   const config = reportConfig[reportType];
 
-  const configCategories = config.categories;
+  const configCategories = reportData?.categories;
   const configTotalKey = config.totalKey;
 
-  const total = config.categories
+  const total = reportData?.categories
     .map(category => category.items)
     .flat()
     .reduce((sum, item) => sum + (Number(item[config.totalKey]) || 0), 0);
