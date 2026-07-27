@@ -49,7 +49,6 @@ export default function Report() {
     liabilities: { name: "Liabilities", description: "Track your debts and monthly obligations", totalKey: "balance" },
   } as const;
 
-  // Data Config
   const config = reportConfig[reportType];
 
   const categoryConfigs = {
@@ -82,7 +81,20 @@ export default function Report() {
   const onAddSubmit = async (item: any) => {
     setIsItemLoading(true);
     try {
-      console.log(await handleAPI("POST", "/api/items", item));
+      const created = await authFetch(`api/report/${reportType}/items`, {
+        method: "POST",
+        body: JSON.stringify(item),
+      });
+      setReportData((prev) =>
+        prev
+          ? {
+            ...prev,
+            categories: prev.categories.map((c) =>
+              c.name === item.category ? { ...c, items: [...c.items, created] } : c
+            ),
+          }
+          : prev
+      );
     } catch (error) {
       console.error("Failed to add item", error);
     } finally {
@@ -97,20 +109,49 @@ export default function Report() {
   };
 
   const onEditSubmit = async (item: any) => {
+    setIsItemLoading(true);
     try {
-      console.log(await handleAPI("PUT", `/api/items/${item.id}`));
+      const updated = await authFetch(`api/report/items/${item.id}`, {
+        method: "PUT",
+        body: JSON.stringify(item),
+      });
+      setReportData((prev) =>
+        prev
+          ? {
+            ...prev,
+            categories: prev.categories.map((c) => ({
+              ...c,
+              items: c.items.map((i: any) => (i.id === item.id ? updated : i)),
+            })),
+          }
+          : prev
+      );
     } catch (error) {
-      console.error("Simulated error", error);
+      console.error("Failed to update item", error);
+    } finally {
+      setIsItemLoading(false);
+      setIsEdit(false);
     }
-  }
+  };
 
   const onDelete = async (item: any) => {
     try {
-      console.log(await handleAPI("DELETE", `/api/items/${item.id}`));
+      await authFetch(`api/report/items/${item.id}`, { method: "DELETE" });
+      setReportData((prev) =>
+        prev
+          ? {
+            ...prev,
+            categories: prev.categories.map((c) => ({
+              ...c,
+              items: c.items.filter((i: any) => i.id !== item.id),
+            })),
+          }
+          : prev
+      );
     } catch (error) {
-      console.error("Simulated error", error);
+      console.error("Failed to delete item", error);
     }
-  }
+  };
 
   return (
     <div className={styles.contentContainer}>
@@ -124,8 +165,8 @@ export default function Report() {
           categories={configCategories}
           totalKey={configTotalKey}
           onAdd={onAdd}
-          onEdit={(item) => onEdit(item)}
-          onDelete={(item) => onDelete(item)}
+          onEdit={onEdit}
+          onDelete={onDelete}
           showAddForm={showAddForm}
           onCancel={() => setShowAddForm(null)}
           isEdit={isEdit}
@@ -135,9 +176,7 @@ export default function Report() {
         <div className={styles.grandTotal}>
           <div className={styles.grandTotalContent}>
             <h2>Total Monthly {config.name}</h2>
-            <span className={styles.grandTotalAmount}>
-              ${total.toLocaleString()}
-            </span>
+            <span className={styles.grandTotalAmount}>${total.toLocaleString()}</span>
           </div>
         </div>
       </section>
