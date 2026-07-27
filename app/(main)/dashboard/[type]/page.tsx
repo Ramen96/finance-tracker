@@ -29,7 +29,6 @@ export default function Report() {
     total: number;
   } | null>(null);
 
-  // API init
   useEffect(() => {
     authFetch(`api/report/${reportType}`)
       .then(data => {
@@ -41,9 +40,7 @@ export default function Report() {
 
 
   if (loading) {
-    return (
-      <Loading />
-    );
+    return <Loading />;
   }
 
   const formatCategories = (categories: any[], itemsObject: any) => {
