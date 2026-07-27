@@ -4,19 +4,11 @@ import { useParams } from "next/navigation";
 import { useApi } from "@/lib/api";
 import DataTable from "@/components/DataTable/dataTable";
 import {
-  Briefcase,
-  DollarSign,
-  TrendingUp,
-  Home,
-  Building2,
-  Utensils,
-  Car,
-  Heart,
-  Zap,
-  CreditCard,
-  GraduationCap,
-  LineChart
-} from "lucide-react";
+  incomeCategories,
+  expenseCategories,
+  assetCategories,
+  liabilityCategories,
+} from "@/config/categories";
 import Loading from "@/components/Loading/loading";
 import styles from "./reports.module.scss";
 
