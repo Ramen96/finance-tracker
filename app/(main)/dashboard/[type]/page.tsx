@@ -25,7 +25,7 @@ export default function Report() {
   const [isItemLoading, setIsItemLoading] = useState(false);
 
   const [reportData, setReportData] = useState<{
-    categories: { name: string, items: unknown[] }[];
+    categories: { name: string; items: unknown[] }[];
     total: number;
   } | null>(null);
 
