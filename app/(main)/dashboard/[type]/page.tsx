@@ -38,19 +38,9 @@ export default function Report() {
       .catch(() => setLoading(false));
   }, [reportType, authFetch]);
 
-
   if (loading) {
     return <Loading />;
   }
-
-  const formatCategories = (categories: any[], itemsObject: any) => {
-    return categories.map((category) => ({
-      name: category.name,
-      icon: category.icon,
-      items: itemsObject[category.name] || [],
-      dataItemConfig: category.columns || [],
-    }));
-  };
 
   const reportConfig = {
     income: { name: "Income", description: "Track and manage income sources", totalKey: "amount" },
@@ -62,44 +52,49 @@ export default function Report() {
   // Data Config
   const config = reportConfig[reportType];
 
-  const configCategories = reportData?.categories;
+  const categoryConfigs = {
+    income: incomeCategories,
+    expenses: expenseCategories,
+    assets: assetCategories,
+    liabilities: liabilityCategories,
+  };
+
+  // Merge frontend config (icon, column defs) with API data (actual items)
+  const configCategories = categoryConfigs[reportType].map((category) => ({
+    name: category.name,
+    icon: category.icon,
+    dataItemConfig: category.columns,
+    items: reportData?.categories.find((c) => c.name === category.name)?.items ?? [],
+  }));
+
   const configTotalKey = config.totalKey;
 
-  const total = reportData?.categories
-    .map(category => category.items)
-    .flat()
-    .reduce((sum, item) => sum + (Number(item[config.totalKey]) || 0), 0);
-
-  // Data manipulation
-  const handleAPI = async (method: "POST" | "PUT" | "DELETE", endpoint: string, data?: any) => {
-    // Simulate for now
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const mockData = {
-          status: 200,
-          message: "Successfully retrived mock data"
-        };
-        resolve(mockData);
-      }, 500);
-    })
-  }
+  const total =
+    reportData?.categories
+      .map((category) => category.items)
+      .flat()
+      .reduce((sum: number, item: any) => sum + (Number(item[config.totalKey]) || 0), 0) ?? 0;
 
   const onAdd = async (categoryName: string) => {
     setShowAddForm(categoryName);
-  }
+  };
 
   const onAddSubmit = async (item: any) => {
+    setIsItemLoading(true);
     try {
       console.log(await handleAPI("POST", "/api/items", item));
     } catch (error) {
-      console.error("Simulated error", error);
+      console.error("Failed to add item", error);
+    } finally {
+      setIsItemLoading(false);
+      setShowAddForm(null);
     }
-    setShowAddForm(null);
-  }
+  };
 
   const onEdit = (item: any) => {
     setIsEdit(true);
-  }
+    setShowAddForm(item.category);
+  };
 
   const onEditSubmit = async (item: any) => {
     try {
