@@ -17,7 +17,7 @@ type ColumnConfig<DataItem, K extends keyof DataItem = keyof DataItem> = {
 
 type Category<DataItem> = {
   name: string;
-  icon: LucideIcon;
+  icon: React.ComponentType<{ className?: string; size?: number }>;
   items: DataItem[];
   dataItemConfig: ColumnConfig<DataItem>[];
 };

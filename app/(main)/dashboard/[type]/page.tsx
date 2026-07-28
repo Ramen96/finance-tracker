@@ -58,12 +58,21 @@ export default function Report() {
     liabilities: liabilityCategories,
   };
 
-  // Merge frontend config (icon, column defs) with API data (actual items)
-  const configCategories = categoryConfigs[reportType].map((category) => ({
+  interface ReportItem {
+    id: number | string;
+    [key: string]: unknown;
+  }
+
+  const configCategories: {
+    name: string;
+    icon: React.ComponentType<{ className?: string; size?: number }>;
+    dataItemConfig: { key: keyof ReportItem; label: string; className?: string; inputType?: "text" | "number" | null; format: (value: any) => string | number }[];
+    items: ReportItem[];
+  }[] = categoryConfigs[reportType].map((category) => ({
     name: category.name,
     icon: category.icon,
-    dataItemConfig: category.columns,
-    items: reportData?.categories.find((c) => c.name === category.name)?.items ?? [],
+    dataItemConfig: category.columns as any,
+    items: (reportData?.categories.find((c) => c.name === category.name)?.items ?? []) as ReportItem[],
   }));
 
   const configTotalKey = config.totalKey;
