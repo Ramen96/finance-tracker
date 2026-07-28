@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import styles from "./Dashboard.module.scss";
 import Audit from "@/components/Audit/audit";
+import { useAuth } from "@clerk/nextjs";
 
 const placeholderData = [
   {
@@ -65,10 +66,12 @@ export default function Dashboard() {
   const [status, setStatus] = useState<string>("idle");
 
   useEffect(() => {
+    // TODO: 
+    // - create new API for dashboard home, just need to get totals for each category + name in an array of objects
     async function test() {
       try {
         setStatus("loading...");
-        const data = await authFetch("api/accounts");
+        const data = await authFetch("api/report/income");
         setStatus("api connected response: " + JSON.stringify(data));
       } catch (err) {
         setStatus("Error: " + (err as Error).message);
