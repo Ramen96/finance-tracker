@@ -27,7 +27,6 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<DataType[]>([]);
   const { authFetch } = useApi();
-  const [status, setStatus] = useState<string>("idle");
 
   useEffect(() => {
     // TODO: 
