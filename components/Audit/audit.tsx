@@ -16,6 +16,9 @@ interface Block {
   items: LineItem[];
 }
 
+// TODO: 
+// get data from parent component put here and do math
+
 export default function Audit() {
   const salary = 0.00;
   const passiveIncome = 0.00;
