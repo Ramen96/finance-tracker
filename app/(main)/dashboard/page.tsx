@@ -28,29 +28,31 @@ export default function Dashboard() {
   const [data, setData] = useState<DataType[]>([]);
   const { authFetch } = useApi();
 
+  // Initialize API call
   useEffect(() => {
-    // TODO: 
-    // - create new API for dashboard home, just need to get totals for each category + name in an array of objects
-    async function test() {
+    async function fetchDashboard() {
       try {
-        setStatus("loading...");
-        const data = await authFetch("api/report/income");
-        setStatus("api connected response: " + JSON.stringify(data));
+        const response = await authFetch("api/dashboard");
+        const dashboardConfig = [
+          { id: 1, name: "Income", icon: CircleDollarSign, type: "income" as const },
+          { id: 2, name: "Expenses", icon: BanknoteArrowDown, type: "expenses" as const },
+          { id: 3, name: "Assets", icon: ChartSpline, type: "assets" as const },
+          { id: 4, name: "Liabilities", icon: AlignHorizontalDistributeCenter, type: "liabilities" as const },
+        ];
+        const apiData = dashboardConfig.map(item => ({
+          ...item,
+          amount: response[item.type + "Total"] ?? 0,
+          change: 0
+        }))
+        setData(apiData);
       } catch (err) {
-        setStatus("Error: " + (err as Error).message);
+        console.error("Error: ", err);
+      } finally {
+        setIsLoading(false);
       }
     }
-    test();
-    console.log(status);
-  }, [authFetch, status]);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setData(placeholderData);
-      setIsLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
+    fetchDashboard();
+  }, [authFetch]);
 
   const formatCurrency = (amount: number): string => {
     return new Intl.NumberFormat("en-US", {
@@ -66,7 +68,7 @@ export default function Dashboard() {
   };
 
   // Log-scale bar: normalises each card so even small values show a meaningful bar.
-  const logMax = Math.log(Math.max(...placeholderData.map((d) => d.amount)));
+  const logMax = Math.log(Math.max(...data.map((d) => d.amount)));
   const getBarWidth = (amount: number): number => {
     const pct = (Math.log(amount) / logMax) * 100;
     return Math.round(Math.max(15, pct));
