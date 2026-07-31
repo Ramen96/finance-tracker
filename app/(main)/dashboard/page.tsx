@@ -12,42 +12,6 @@ import {
 } from "lucide-react";
 import styles from "./Dashboard.module.scss";
 import Audit from "@/components/Audit/audit";
-import { useAuth } from "@clerk/nextjs";
-
-const placeholderData = [
-  {
-    id: 1,
-    name: "Income",
-    amount: 1293109,
-    change: 12.5,
-    icon: CircleDollarSign,
-    type: "income" as const,
-  },
-  {
-    id: 2,
-    name: "Expenses",
-    amount: 1231,
-    change: -5.2,
-    icon: BanknoteArrowDown,
-    type: "expenses" as const,
-  },
-  {
-    id: 3,
-    name: "Assets",
-    amount: 400023,
-    change: 8.3,
-    icon: ChartSpline,
-    type: "assets" as const,
-  },
-  {
-    id: 4,
-    name: "Liabilities",
-    amount: 30203,
-    change: -2.1,
-    icon: AlignHorizontalDistributeCenter,
-    type: "liabilities" as const,
-  },
-];
 
 interface DataType {
   id: number;
