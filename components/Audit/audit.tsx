@@ -1,20 +1,10 @@
 import { Fragment } from "react";
 import styles from "./audit.module.scss";
-import { Briefcase, TrendingUp, ShoppingCart, LucideIcon } from "lucide-react";
+import { Briefcase, TrendingUp, ShoppingCart } from "lucide-react";
+import { AuditData } from "@/lib/types/audit";
 
 const fmt = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD" });
-
-interface LineItem {
-  icon: LucideIcon;
-  label: string;
-  amount: number;
-}
-
-interface Block {
-  tag: string;
-  items: LineItem[];
-}
 
 // TODO: 
 // get data from parent component put here and do math
@@ -24,7 +14,7 @@ export default function Audit() {
   const passiveIncome = 0.00;
   const totalExpenses = 0.00;
 
-  const blocks: Block[] = [
+  const blocks: AuditData[] = [
     {
       tag: "Income",
       items: [
