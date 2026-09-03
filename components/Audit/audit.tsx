@@ -9,10 +9,16 @@ const fmt = (n: number) =>
 // TODO: 
 // get data from parent component put here and do math
 
-export default function Audit() {
-  const salary = 0.00;
-  const passiveIncome = 0.00;
-  const totalExpenses = 0.00;
+interface AuditPropTypes {
+  activeIncomeTotal: number,
+  passiveIncomeTotal: number,
+  expensesTotal: number
+};
+
+export default function Audit({ activeIncomeTotal, passiveIncomeTotal, expensesTotal }: AuditPropTypes) {
+  const salary = activeIncomeTotal;
+  const passiveIncome = passiveIncomeTotal;
+  const totalExpenses = expensesTotal;
 
   const blocks: AuditData[] = [
     {

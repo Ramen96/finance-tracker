@@ -9,6 +9,7 @@ import {
   ChartSpline,
   CircleDollarSign,
   BanknoteArrowDown,
+  BanknoteArrowUp
 } from "lucide-react";
 import styles from "./Dashboard.module.scss";
 import Audit from "@/components/Audit/audit";
@@ -19,7 +20,7 @@ interface DataType {
   amount: number;
   change: number;
   icon: LucideIcon;
-  type: "income" | "expenses" | "assets" | "liabilities";
+  type: "income" | "expenses" | "assets" | "liabilities" | "activeIncome" | "passiveIncome";
 }
 
 export default function Dashboard() {
@@ -38,6 +39,8 @@ export default function Dashboard() {
           { id: 2, name: "Expenses", icon: BanknoteArrowDown, type: "expenses" as const },
           { id: 3, name: "Assets", icon: ChartSpline, type: "assets" as const },
           { id: 4, name: "Liabilities", icon: AlignHorizontalDistributeCenter, type: "liabilities" as const },
+          { id: 5, name: "Active Income", icon: BanknoteArrowUp, type: "activeIncome" as const },
+          { id: 6, name: "Passive Income", icon: BanknoteArrowUp, type: "passiveIncome" as const }
         ];
         const apiData = dashboardConfig.map(item => ({
           ...item,
@@ -143,7 +146,11 @@ export default function Dashboard() {
       </div>
 
       <div className={styles.auditSection}>
-        <Audit />
+        <Audit
+          activeIncomeTotal={data.find(d => d.type === "activeIncome")?.amount ?? 0}
+          passiveIncomeTotal={data.find(d => d.type === "passiveIncome")?.amount ?? 0}
+          expensesTotal={data.find(d => d.type === "expenses")?.amount ?? 0}
+        />
       </div>
     </div>
   );
