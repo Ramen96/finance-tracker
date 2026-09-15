@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useApi } from "@/lib/api";
 import Link from "next/link";
 import styles from "../card.module.scss";
 import { Plus, Trash2, Settings, CreditCard as CardIcon } from "lucide-react";
+import { auth } from "@clerk/nextjs";
 
 const cardCategories = [
   "Groceries",
@@ -17,7 +19,7 @@ const cardCategories = [
 
 type CardTransaction = {
   id: number;
-  cardName: string;
+  accountId: string;
   merchant: string;
   amount: number;
   category: string;
@@ -32,6 +34,12 @@ type TrackedCard = {
   network: string;
 };
 
+type Account = {
+  id: string;
+  name: string;
+  type: string;
+}
+
 export default function CreditCard() {
   // Mocking global data state of cards a user already set up to track
   const [trackedCards] = useState<TrackedCard[]>([
@@ -39,10 +47,33 @@ export default function CreditCard() {
     { id: "2", name: "Amex Gold", network: "Amex" },
   ]);
 
+  const [accounts, setAccounts] = useState<Account[]>([]);
+  const [isPageLoading, setIsPageLoading] = useState(true);
+  const { authFetch } = useApi();
+
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const [accountsData, transactionsData] = await Promise.all([
+          authFetch("api/accounts"),
+          authFetch("api/transactions")
+        ]);
+        setAccounts(accountsData);
+        setTransactions(transactionsData);
+      } catch (error) {
+        console.error("Error fetching data: ", error)
+      } finally {
+        setIsPageLoading(false);
+      }
+    }
+    fetchData();
+  }, [authFetch]);
+
   const [transactions, setTransactions] = useState<CardTransaction[]>([
     {
       id: 1,
-      cardName: "Chase Sapphire",
+      accountId: "Chase Sapphire",
       merchant: "Whole Foods",
       amount: 125.50,
       category: "Groceries",
@@ -51,7 +82,7 @@ export default function CreditCard() {
     },
     {
       id: 2,
-      cardName: "Amex Gold",
+      accountId: "Amex Gold",
       merchant: "Restaurant XYZ",
       amount: 85.00,
       category: "Dining",
@@ -63,7 +94,7 @@ export default function CreditCard() {
   const [isFormOpen, setIsFormOpen] = useState(true);
 
   const [formData, setFormData] = useState({
-    cardName: "",
+    accountId: "",
     merchant: "",
     amount: "",
     category: "Groceries",
@@ -84,14 +115,14 @@ export default function CreditCard() {
   const handleAddTransaction = (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    if (!formData.cardName || !formData.merchant || !formData.amount) {
+    if (!formData.accountId || !formData.merchant || !formData.amount) {
       alert("Please fill in all required fields");
       return;
     }
 
     const newTransaction: CardTransaction = {
       id: Date.now(),
-      cardName: formData.cardName,
+      accountId: formData.accountId,
       merchant: formData.merchant,
       amount: parseFloat(formData.amount),
       category: formData.category,
@@ -101,7 +132,7 @@ export default function CreditCard() {
 
     setTransactions((prev) => [newTransaction, ...prev]);
     setFormData({
-      cardName: "",
+      accountId: "",
       merchant: "",
       amount: "",
       category: "Groceries",
@@ -167,11 +198,11 @@ export default function CreditCard() {
                 <form onSubmit={handleAddTransaction} className={styles.form}>
 
                   <div className={styles.formGroup}>
-                    <label htmlFor="cardName">Select Card Used *</label>
+                    <label htmlFor="accountId">Select Card Used *</label>
                     <select
-                      id="cardName"
-                      name="cardName"
-                      value={formData.cardName}
+                      id="accountId"
+                      name="accountId"
+                      value={formData.accountId}
                       onChange={handleInputChange}
                       required
                     >
@@ -282,7 +313,7 @@ export default function CreditCard() {
                           </span>
                         </div>
                         <div className={styles.transactionDetails}>
-                          <p className={styles.cardName}>{transaction.cardName}</p>
+                          <p className={styles.accountId}>{transaction.accountId}</p>
                           <p className={styles.date}>{transaction.date}</p>
                         </div>
                         {transaction.description && (
