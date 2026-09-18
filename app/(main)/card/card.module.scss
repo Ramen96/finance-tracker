@@ -116,6 +116,7 @@
 
 .manageCardsBtn {
   @include layout.flex(center, center);
+  @include layout.pointer;
   gap: vars.$spacing-sm;
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
@@ -168,6 +169,10 @@
     font-size: 0.825rem;
     color: var(--text-secondary);
   }
+}
+
+.cardTileDelete {
+  margin-left: auto;
 }
 
 // ========================================
