@@ -33,7 +33,12 @@ export function useApi() {
         throw new Error(error || `Request failed: ${res.status}`)
       }
 
-      return res.json();
+      if (res.status === 204) {
+        return null;
+      }
+
+      const text = await res.text();
+      return text ? JSON.parse(text) : null;
     },
     [getToken]
   );
