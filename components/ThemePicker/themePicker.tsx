@@ -20,6 +20,7 @@ const THEME_MAP = {
   zenburn: { id: "zenburn", name: "Zenburn" },
   catppuccin: { id: "catppuccin", name: "Catppuccin" },
   everforest: { id: "everforest", name: "Everforest" },
+  ledger: { id: "ledger", name: "Ledger" },
 } as const;
 
 type Theme = (typeof THEME_MAP)[keyof typeof THEME_MAP];

@@ -79,6 +79,7 @@ export default function Settings() {
         { value: "catppuccin", label: "Catppuccin" },
         { value: "everforest", label: "Everforest" },
         { value: "gruvbox", label: "Gruvbox" },
+        { value: "ledger", label: "Ledger" },
         { value: "nord", label: "Nord" },
         { value: "rose-pine", label: "Rose Pine" },
         { value: "tokyo-night", label: "Tokyo Night" },

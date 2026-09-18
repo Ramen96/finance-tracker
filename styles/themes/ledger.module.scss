@@ -1,0 +1,118 @@
+/* Light theme - Ledger Paper */
+body[data-palette="ledger"][data-theme="light"] {
+  /* backgrounds - aged ledger paper */
+  --bg: #f4ecd8;
+  --bg-secondary: #eee2c8;
+  --bg-tertiary: #e6d7b8;
+  --bg-elevated: #f9f3e3;
+
+  /* text - fountain-pen ink */
+  --text: #21304a;
+  --text-secondary: #3d4f6b;
+  --text-muted: #7c8496;
+
+  /* primary colors - bank-ledger green */
+  --primary: #1f6f4a;
+  --primary-hover: #185a3b;
+  --primary-light: #dcebe1;
+  --primary-text: #f4ecd8;
+
+  /* secondary colors - ruled-line navy */
+  --secondary: #2c4870;
+  --secondary-hover: #1f3555;
+  --secondary-light: #dde5ef;
+  --secondary-text: #f4ecd8;
+
+  /* tertiary colors - brass accent */
+  --tertiary: #8a6a1d;
+  --tertiary-hover: #71560f;
+  --tertiary-text: #f9f3e3;
+
+  /* accent colors - verdigris copper */
+  --accent: #4f7d76;
+
+  /* semantic colors */
+  --success: #2f8f5b;
+  --success-light: #dcebe1;
+  --warning: #a9791f;
+  --warning-light: #f3e6c8;
+  --error: #9c3b3b;
+  --error-hover: #7f2f2f;
+
+  /* borders */
+  --border: #d9c9a3;
+  --border-focus: #1f6f4a;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(33, 48, 74, 0.06);
+  --shadow: 0 1px 3px 0 rgba(33, 48, 74, 0.12), 0 1px 2px 0 rgba(33, 48, 74, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(33, 48, 74, 0.12), 0 2px 4px -1px rgba(33, 48, 74, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(33, 48, 74, 0.12), 0 4px 6px -2px rgba(33, 48, 74, 0.06);
+
+  /* input */
+  --text-input-bg: #f9f3e3;
+  --text-input-text: #21304a;
+}
+
+/* Dark theme - Vault Night */
+body[data-palette="ledger"][data-theme="dark"] {
+  /* backgrounds - the vault after hours */
+  --bg: #101826;
+  --bg-secondary: #0b121d;
+  --bg-tertiary: #1a2436;
+  --bg-elevated: #212d42;
+
+  /* text - parchment glow */
+  --text: #e8dcc0;
+  --text-secondary: #c7bb9e;
+  --text-muted: #8b93a3;
+
+  /* primary colors - bank-ledger green */
+  --primary: #3fa876;
+  --primary-hover: #56c08d;
+  --primary-light: #1a2436;
+  --primary-text: #0b1710;
+
+  /* secondary colors - ruled-line navy */
+  --secondary: #6f93c2;
+  --secondary-hover: #8aa8d1;
+  --secondary-light: #1a2436;
+  --secondary-text: #0f1a2c;
+
+  /* tertiary colors - brass accent */
+  --tertiary: #d4a94a;
+  --tertiary-hover: #e6bd63;
+  --tertiary-text: #1a1206;
+
+  /* accent colors - verdigris copper */
+  --accent: #6fada3;
+
+  /* semantic colors */
+  --success: #4fbb85;
+  --success-light: #1a2436;
+  --warning: #e0b04a;
+  --warning-light: #1a2436;
+  --error: #d9726a;
+  --error-hover: #e8938c;
+
+  /* borders */
+  --border: #26314a;
+  --border-focus: #3fa876;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+
+  /* input */
+  --text-input-bg: #1a2436;
+  --text-input-text: #e8dcc0;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

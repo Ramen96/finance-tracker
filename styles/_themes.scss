@@ -1,6 +1,7 @@
 @use "themes/catppuccin.module.scss";
 @use "themes/everforest.module.scss";
 @use "themes/gruvbox.module.scss";
+@use "themes/ledger.module.scss";
 @use "themes/nord.module.scss";
 @use "themes/rose-pine.module.scss";
 @use "themes/tokyo-night.module.scss";
@@ -11,6 +12,18 @@
   --radius: 8px;
   --spacing: 1rem;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Structural aliases: components reference these semantic names, but no
+     theme defines them directly - each theme only owns the underlying
+     background and primary tokens. Without these, --surface,
+     --surface-hover, --surface-focus, --bg-primary and --active-color all
+     resolve to nothing in every theme, and every "surface" background in
+     the app renders transparent. */
+  --surface: var(--bg-elevated);
+  --surface-hover: var(--bg-tertiary);
+  --surface-focus: var(--bg-secondary);
+  --bg-primary: var(--bg);
+  --active-color: var(--primary);
 }
 
 body::selection {
