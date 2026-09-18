@@ -1,0 +1,298 @@
+@use "@/styles/mixins" as mixins;
+@use "@/styles/variables" as vars;
+
+// ========================================
+// Overlay & Panel
+// ========================================
+.overlay {
+  @include mixins.position(fixed, 0, 0, 0, 0);
+  @include mixins.flex-center;
+  z-index: 1000;
+  padding: vars.$spacing-lg;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.panel {
+  @include mixins.shadow-lg;
+  width: 100%;
+  max-width: 480px;
+  max-height: min(640px, 90vh);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: vars.$radius-lg;
+  animation: panelIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+// ========================================
+// Header
+// ========================================
+.header {
+  @include mixins.flex(space-between, center, row);
+  flex-shrink: 0;
+  padding: vars.$spacing-lg vars.$spacing-xl;
+  border-bottom: 1px solid var(--border);
+
+  h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    font-family: var(--font-display);
+  }
+}
+
+.closeBtn {
+  @include mixins.pointer;
+  @include mixins.flex-center;
+  @include mixins.transition;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: vars.$spacing-xs;
+  border-radius: vars.$radius-md;
+
+  &:hover {
+    background: var(--bg-secondary);
+    color: var(--primary);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// ========================================
+// Scrollable Content
+// ========================================
+.content {
+  @include mixins.hide-scrollbar;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-lg;
+  padding: vars.$spacing-xl;
+}
+
+.emptyState {
+  padding: vars.$spacing-xl;
+  border-radius: vars.$radius-md;
+  background: var(--surface);
+  color: var(--text-secondary);
+  text-align: center;
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+// ========================================
+// Account List
+// ========================================
+.accountList {
+  display: flex;
+  flex-direction: column;
+  gap: vars.$spacing-md;
+}
+
+.accountRow {
+  @include mixins.flex(null, center, row);
+  gap: vars.$spacing-md;
+  padding: vars.$spacing-md;
+  border: 1px solid var(--border);
+  border-radius: vars.$radius-md;
+  background: var(--surface);
+  @include mixins.transition;
+
+  &:hover {
+    border-color: var(--primary);
+  }
+}
+
+.accountIcon {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.accountInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.accountName {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accountMeta {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deleteBtn {
+  @include mixins.icon-action-btn-delete;
+  flex-shrink: 0;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.spinner {
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ========================================
+// Add Card Trigger
+// ========================================
+.addBtn {
+  @include mixins.flex-center;
+  @include mixins.pointer;
+  @include mixins.transition;
+  gap: vars.$spacing-sm;
+  width: 100%;
+  padding: vars.$spacing-md;
+  border-radius: vars.$radius-md;
+  border: 1px dashed var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  &:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+  }
+}
+
+// ========================================
+// Inline Add Form
+// ========================================
+.form {
+  @include mixins.flex(null, null, column);
+  gap: vars.$spacing-lg;
+  padding: vars.$spacing-lg;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  animation: panelIn 0.15s ease-out;
+}
+
+.formGroup {
+  @include mixins.flex(null, null, column);
+  gap: vars.$spacing-sm;
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  input,
+  select {
+    @include mixins.transition;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.7rem vars.$spacing-md;
+    border-radius: vars.$radius-md;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: var(--surface-focus);
+    }
+  }
+}
+
+.row {
+  @include mixins.flex(null, flex-start, row);
+  gap: vars.$spacing-md;
+
+  .formGroup {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.formActions {
+  @include mixins.flex(flex-end, center, row);
+  gap: vars.$spacing-md;
+}
+
+.cancelBtn {
+  @include mixins.pointer;
+  @include mixins.transition;
+  padding: 0.6rem vars.$spacing-lg;
+  border-radius: vars.$radius-md;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  &:hover {
+    background: var(--bg-secondary);
+    color: var(--text);
+  }
+}
+
+.submitBtn {
+  @include mixins.btnPrimary;
+  @include mixins.pointer;
+  padding: 0.6rem vars.$spacing-lg;
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
