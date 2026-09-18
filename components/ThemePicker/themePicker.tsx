@@ -13,14 +13,14 @@ type ThemePickerProps = {
 };
 
 const THEME_MAP = {
-  tokyoNight: { id: "tokyo-night", name: "Tokyo Night" },
-  nord: { id: "nord", name: "Nord" },
-  gruvbox: { id: "gruvbox", name: "Gruvbox" },
-  rosePine: { id: "rose-pine", name: "Rosé Pine" },
-  zenburn: { id: "zenburn", name: "Zenburn" },
-  catppuccin: { id: "catppuccin", name: "Catppuccin" },
-  everforest: { id: "everforest", name: "Everforest" },
   ledger: { id: "ledger", name: "Ledger" },
+  ticker: { id: "ticker", name: "Ticker" },
+  sterling: { id: "sterling", name: "Sterling" },
+  cipher: { id: "cipher", name: "Cipher" },
+  bourbon: { id: "bourbon", name: "Bourbon" },
+  zenburn: { id: "zenburn", name: "Zenburn" },
+  macaron: { id: "macaron", name: "Macaron" },
+  bullion: { id: "bullion", name: "Bullion" },
 } as const;
 
 type Theme = (typeof THEME_MAP)[keyof typeof THEME_MAP];

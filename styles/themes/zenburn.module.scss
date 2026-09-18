@@ -1,111 +1,118 @@
-/* Light theme - Zenburn Sunset */
+/* Light theme - Zenburn Morning */
 body[data-palette="zenburn"][data-theme="light"] {
-  /* backgrounds */
-  --bg: #f2e8e0;
-  --bg-secondary: #ede2d8;
-  --bg-tertiary: #e6dcc8;
-  --bg-elevated: #ddd3c0;
+  /* backgrounds - crisp porcelain white */
+  --bg: #fbfaf8;
+  --bg-secondary: #f3f1ed;
+  --bg-tertiary: #ece9e3;
+  --bg-elevated: #ffffff;
 
-  /* text */
-  --text: #42372f;
-  --text-secondary: #5c4f45;
-  --text-muted: #736960;
+  /* text - soft charcoal-navy */
+  --text: #2b2f36;
+  --text-secondary: #565c66;
+  --text-muted: #8b909a;
 
-  /* primary colors - burnt orange */
-  --primary: #d97757;
-  --primary-hover: #c9673f;
-  --primary-light: #e6dcc8;
-  --primary-text: #1a1a1a;
+  /* primary colors - coral */
+  --primary: #e8604c;
+  --primary-hover: #d14c39;
+  --primary-light: #fce3de;
+  --primary-text: #fbfaf8;
 
-  /* secondary colors - muted clay */
-  --secondary: #b8956f;
-  --secondary-hover: #a8855f;
-  --secondary-light: #e6dcc8;
-  --secondary-text: #42372f;
+  /* secondary colors - teal-mint */
+  --secondary: #1f9c8a;
+  --secondary-hover: #187d6e;
+  --secondary-light: #dcf3ee;
+  --secondary-text: #fbfaf8;
 
-  /* tertiary colors - surface */
-  --tertiary: #ddd3c0;
-  --tertiary-hover: #d0c6b3;
-  --tertiary-text: #42372f;
+  /* tertiary colors - slate-blue */
+  --tertiary: #5a6b8c;
+  --tertiary-hover: #47546f;
+  --tertiary-text: #fbfaf8;
 
-  /* accent colors - coral */
-  --accent: #e8957f;
+  /* accent colors - warm peach */
+  --accent: #f0a05a;
 
   /* semantic colors */
-  --success: #9faf9f;
-  --success-light: #e6dcc8;
-  --warning: #d97757;
-  --warning-light: #e6dcc8;
-  --error: #a8453a;
-  --error-hover: #8f392f;
+  --success: #1f9c6a;
+  --success-light: #dcf3e6;
+  --warning: #d98c1f;
+  --warning-light: #f7e6c8;
+  --error: #b82b3a;
+  --error-hover: #96222e;
 
   /* borders */
-  --border: #d0c6b3;
-  --border-focus: #d97757;
+  --border: #e6e2da;
+  --border-focus: #e8604c;
 
   /* shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(66, 55, 47, 0.05);
-  --shadow: 0 1px 3px 0 rgba(66, 55, 47, 0.12), 0 1px 2px 0 rgba(66, 55, 47, 0.08);
-  --shadow-md: 0 4px 6px -1px rgba(66, 55, 47, 0.12), 0 2px 4px -1px rgba(66, 55, 47, 0.08);
-  --shadow-lg: 0 10px 15px -3px rgba(66, 55, 47, 0.12), 0 4px 6px -2px rgba(66, 55, 47, 0.06);
+  --shadow-sm: 0 1px 2px 0 rgba(43, 47, 54, 0.06);
+  --shadow: 0 1px 3px 0 rgba(43, 47, 54, 0.12), 0 1px 2px 0 rgba(43, 47, 54, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(43, 47, 54, 0.12), 0 2px 4px -1px rgba(43, 47, 54, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(43, 47, 54, 0.12), 0 4px 6px -2px rgba(43, 47, 54, 0.06);
 
   /* input */
-  --text-input-bg: #ede2d8;
-  --text-input-text: #42372f;
+  --text-input-bg: #ffffff;
+  --text-input-text: #2b2f36;
 }
 
-/* Dark theme - Zenburn Sunset */
+/* Dark theme - Zenburn Night */
 body[data-palette="zenburn"][data-theme="dark"] {
-  /* backgrounds */
-  --bg: #1a1a1a;
-  --bg-secondary: #0f0f0f;
-  --bg-tertiary: #252525;
-  --bg-elevated: #303030;
+  /* backgrounds - soft charcoal, not harsh black */
+  --bg: #1c1f24;
+  --bg-secondary: #16181c;
+  --bg-tertiary: #262a30;
+  --bg-elevated: #2d3138;
 
-  /* text */
-  --text: #dcdccc;
-  --text-secondary: #c3bf9f;
-  --text-muted: #9f9f8f;
+  /* text - warm porcelain white */
+  --text: #ece9e3;
+  --text-secondary: #bdbab3;
+  --text-muted: #82878f;
 
-  /* primary colors - burnt orange */
-  --primary: #d97757;
-  --primary-hover: #e98767;
-  --primary-light: #252525;
-  --primary-text: #1a1a1a;
+  /* primary colors - coral */
+  --primary: #ff7a63;
+  --primary-hover: #ff9280;
+  --primary-light: #262a30;
+  --primary-text: #2b0e08;
 
-  /* secondary colors - muted clay */
-  --secondary: #c8a585;
-  --secondary-hover: #d8b595;
-  --secondary-light: #252525;
-  --secondary-text: #1a1a1a;
+  /* secondary colors - teal-mint */
+  --secondary: #2bc4ac;
+  --secondary-hover: #4fd8c0;
+  --secondary-light: #262a30;
+  --secondary-text: #04211b;
 
-  /* tertiary colors - surface */
-  --tertiary: #252525;
-  --tertiary-hover: #303030;
-  --tertiary-text: #dcdccc;
+  /* tertiary colors - slate-blue */
+  --tertiary: #7d8fb3;
+  --tertiary-hover: #96a6c4;
+  --tertiary-text: #131a2b;
 
-  /* accent colors - coral */
-  --accent: #e8957f;
+  /* accent colors - warm peach */
+  --accent: #ffb374;
 
   /* semantic colors */
-  --success: #9faf9f;
-  --success-light: #252525;
-  --warning: #d97757;
-  --warning-light: #252525;
-  --error: #d87f6f;
-  --error-hover: #e89686;
+  --success: #2fcf8a;
+  --success-light: #262a30;
+  --warning: #f0ab4a;
+  --warning-light: #262a30;
+  --error: #ff6b78;
+  --error-hover: #ff8a94;
 
   /* borders */
-  --border: #303030;
-  --border-focus: #d97757;
+  --border: #33383f;
+  --border-focus: #ff7a63;
 
   /* shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.6);
-  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.7), 0 1px 2px 0 rgba(0, 0, 0, 0.6);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.7), 0 2px 4px -1px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.8), 0 4px 6px -2px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
 
   /* input */
-  --text-input-bg: #252525;
-  --text-input-text: #dcdccc;
+  --text-input-bg: #262a30;
+  --text-input-text: #ece9e3;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
 }

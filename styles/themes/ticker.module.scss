@@ -1,0 +1,118 @@
+/* Light theme - Exchange Floor */
+body[data-palette="ticker"][data-theme="light"] {
+  /* backgrounds - trading floor daylight */
+  --bg: #f0f2f5;
+  --bg-secondary: #e6e9ee;
+  --bg-tertiary: #dde1e8;
+  --bg-elevated: #f7f8fa;
+
+  /* text - terminal ink */
+  --text: #1a1f26;
+  --text-secondary: #3f4650;
+  --text-muted: #7c8591;
+
+  /* primary colors - ticker green (up) */
+  --primary: #0e8a4b;
+  --primary-hover: #0b6f3c;
+  --primary-light: #dcf0e3;
+  --primary-text: #f0f2f5;
+
+  /* secondary colors - ticker red (down) */
+  --secondary: #c62839;
+  --secondary-hover: #a31f2e;
+  --secondary-light: #f7dde0;
+  --secondary-text: #f0f2f5;
+
+  /* tertiary colors - board-light amber */
+  --tertiary: #b8790a;
+  --tertiary-hover: #966209;
+  --tertiary-text: #f7f8fa;
+
+  /* accent colors - monitor steel-blue */
+  --accent: #4a6b8a;
+
+  /* semantic colors */
+  --success: #158a4f;
+  --success-light: #dcf0e3;
+  --warning: #b8790a;
+  --warning-light: #f3e3c4;
+  --error: #b3222f;
+  --error-hover: #8f1b26;
+
+  /* borders */
+  --border: #d6dae1;
+  --border-focus: #0e8a4b;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(26, 31, 38, 0.06);
+  --shadow: 0 1px 3px 0 rgba(26, 31, 38, 0.12), 0 1px 2px 0 rgba(26, 31, 38, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(26, 31, 38, 0.12), 0 2px 4px -1px rgba(26, 31, 38, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(26, 31, 38, 0.12), 0 4px 6px -2px rgba(26, 31, 38, 0.06);
+
+  /* input */
+  --text-input-bg: #f7f8fa;
+  --text-input-text: #1a1f26;
+}
+
+/* Dark theme - After-Hours Terminal */
+body[data-palette="ticker"][data-theme="dark"] {
+  /* backgrounds - the terminal after close */
+  --bg: #14171c;
+  --bg-secondary: #0e1115;
+  --bg-tertiary: #1c2028;
+  --bg-elevated: #232830;
+
+  /* text - screen glow */
+  --text: #e4e7ec;
+  --text-secondary: #b7bcc6;
+  --text-muted: #7e8591;
+
+  /* primary colors - ticker green (up) */
+  --primary: #2ecc71;
+  --primary-hover: #45d885;
+  --primary-light: #1c2028;
+  --primary-text: #06210f;
+
+  /* secondary colors - ticker red (down) */
+  --secondary: #ff4d5e;
+  --secondary-hover: #ff6b7a;
+  --secondary-light: #1c2028;
+  --secondary-text: #2b0509;
+
+  /* tertiary colors - board-light amber */
+  --tertiary: #f0a83a;
+  --tertiary-hover: #f5bb5c;
+  --tertiary-text: #2b1a02;
+
+  /* accent colors - monitor steel-blue */
+  --accent: #5b8fc7;
+
+  /* semantic colors */
+  --success: #2ecc71;
+  --success-light: #1c2028;
+  --warning: #f0a83a;
+  --warning-light: #1c2028;
+  --error: #ff4d5e;
+  --error-hover: #ff7480;
+
+  /* borders */
+  --border: #262b34;
+  --border-focus: #2ecc71;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+
+  /* input */
+  --text-input-bg: #1c2028;
+  --text-input-text: #e4e7ec;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

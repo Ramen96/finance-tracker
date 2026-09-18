@@ -2,7 +2,7 @@
 import { useEffect, useState, ReactNode, createContext, useContext } from "react";
 import { updatePaletteCookiesAction } from "@/lib/actions/palette";
 
-export type Palette = 'everforest' | 'nord' | 'catppuccin' | 'rose-pine' | 'zenburn' | 'gruvbox' | 'tokyo-night' | 'ledger';
+export type Palette = 'ledger' | 'ticker' | 'sterling' | 'cipher' | 'bourbon' | 'zenburn' | 'macaron' | 'bullion';
 
 type PaletteContextType = {
   palette: Palette;

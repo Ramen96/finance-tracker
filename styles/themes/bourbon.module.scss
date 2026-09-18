@@ -1,0 +1,118 @@
+/* Light theme - Reading Room */
+body[data-palette="bourbon"][data-theme="light"] {
+  /* backgrounds - warm oatmeal paper */
+  --bg: #f0e4d3;
+  --bg-secondary: #e8d9c3;
+  --bg-tertiary: #ddc9ab;
+  --bg-elevated: #f6ede0;
+
+  /* text - walnut ink */
+  --text: #2e1f14;
+  --text-secondary: #4f3a28;
+  --text-muted: #8a7561;
+
+  /* primary colors - whiskey amber */
+  --primary: #b5651d;
+  --primary-hover: #96521a;
+  --primary-light: #f0ddc2;
+  --primary-text: #f6ede0;
+
+  /* secondary colors - leather burgundy */
+  --secondary: #7a2530;
+  --secondary-hover: #611d27;
+  --secondary-light: #f0dde0;
+  --secondary-text: #f6ede0;
+
+  /* tertiary colors - muted brass */
+  --tertiary: #8a6d3a;
+  --tertiary-hover: #715a2f;
+  --tertiary-text: #f6ede0;
+
+  /* accent colors - faded gold */
+  --accent: #c9a13b;
+
+  /* semantic colors */
+  --success: #4a7c3f;
+  --success-light: #dfe9d8;
+  --warning: #a67c1a;
+  --warning-light: #f0e0bd;
+  --error: #8f2c2c;
+  --error-hover: #732323;
+
+  /* borders */
+  --border: #d6c2a1;
+  --border-focus: #b5651d;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(46, 31, 20, 0.06);
+  --shadow: 0 1px 3px 0 rgba(46, 31, 20, 0.12), 0 1px 2px 0 rgba(46, 31, 20, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(46, 31, 20, 0.12), 0 2px 4px -1px rgba(46, 31, 20, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(46, 31, 20, 0.12), 0 4px 6px -2px rgba(46, 31, 20, 0.06);
+
+  /* input */
+  --text-input-bg: #f6ede0;
+  --text-input-text: #2e1f14;
+}
+
+/* Dark theme - Smoking Room */
+body[data-palette="bourbon"][data-theme="dark"] {
+  /* backgrounds - deep mahogany */
+  --bg: #1a120c;
+  --bg-secondary: #120c08;
+  --bg-tertiary: #241a12;
+  --bg-elevated: #2d2117;
+
+  /* text - warm cream */
+  --text: #ecd9bf;
+  --text-secondary: #c9b190;
+  --text-muted: #8f7c65;
+
+  /* primary colors - whiskey amber */
+  --primary: #d97f2e;
+  --primary-hover: #e89544;
+  --primary-light: #241a12;
+  --primary-text: #1f1006;
+
+  /* secondary colors - leather burgundy */
+  --secondary: #b3495a;
+  --secondary-hover: #c76274;
+  --secondary-light: #241a12;
+  --secondary-text: #1f0a0d;
+
+  /* tertiary colors - muted brass */
+  --tertiary: #c9a24a;
+  --tertiary-hover: #d9b768;
+  --tertiary-text: #1f1806;
+
+  /* accent colors - faded gold */
+  --accent: #dbb24a;
+
+  /* semantic colors */
+  --success: #6fae5e;
+  --success-light: #241a12;
+  --warning: #d9ab4a;
+  --warning-light: #241a12;
+  --error: #d5665e;
+  --error-hover: #e07670;
+
+  /* borders */
+  --border: #2f2318;
+  --border-focus: #d97f2e;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.6), 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.6);
+
+  /* input */
+  --text-input-bg: #241a12;
+  --text-input-text: #ecd9bf;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

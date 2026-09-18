@@ -1,0 +1,118 @@
+/* Light theme - Clean Lab */
+body[data-palette="cipher"][data-theme="light"] {
+  /* backgrounds - stark lab white */
+  --bg: #f2f3f7;
+  --bg-secondary: #e9eaf0;
+  --bg-tertiary: #dfe0e8;
+  --bg-elevated: #f8f8fc;
+
+  /* text - deep violet-black ink */
+  --text: #16121f;
+  --text-secondary: #3a3350;
+  --text-muted: #7c7690;
+
+  /* primary colors - electric magenta */
+  --primary: #c724b1;
+  --primary-hover: #a81d94;
+  --primary-light: #f3ddf0;
+  --primary-text: #f2f3f7;
+
+  /* secondary colors - signal cyan */
+  --secondary: #0891b2;
+  --secondary-hover: #0e7490;
+  --secondary-light: #d7f0f5;
+  --secondary-text: #f2f3f7;
+
+  /* tertiary colors - acid violet */
+  --tertiary: #7c3aed;
+  --tertiary-hover: #6425cc;
+  --tertiary-text: #f8f8fc;
+
+  /* accent colors - electric indigo */
+  --accent: #4338ca;
+
+  /* semantic colors */
+  --success: #16a34a;
+  --success-light: #dcf5e3;
+  --warning: #d97706;
+  --warning-light: #fbe8cc;
+  --error: #c41c1c;
+  --error-hover: #a11717;
+
+  /* borders */
+  --border: #dcdde6;
+  --border-focus: #c724b1;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(22, 18, 31, 0.06);
+  --shadow: 0 1px 3px 0 rgba(22, 18, 31, 0.12), 0 1px 2px 0 rgba(22, 18, 31, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(22, 18, 31, 0.12), 0 2px 4px -1px rgba(22, 18, 31, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(22, 18, 31, 0.12), 0 4px 6px -2px rgba(22, 18, 31, 0.06);
+
+  /* input */
+  --text-input-bg: #f8f8fc;
+  --text-input-text: #16121f;
+}
+
+/* Dark theme - Neon Noir */
+body[data-palette="cipher"][data-theme="dark"] {
+  /* backgrounds - deep purple-black */
+  --bg: #0a0612;
+  --bg-secondary: #060410;
+  --bg-tertiary: #150f24;
+  --bg-elevated: #1c1430;
+
+  /* text - cool neon-lit white */
+  --text: #ece9f7;
+  --text-secondary: #c3bbdc;
+  --text-muted: #8b81a8;
+
+  /* primary colors - electric magenta */
+  --primary: #ff2fd4;
+  --primary-hover: #ff5fdf;
+  --primary-light: #1c1430;
+  --primary-text: #1a0316;
+
+  /* secondary colors - signal cyan */
+  --secondary: #22e5ff;
+  --secondary-hover: #5eecff;
+  --secondary-light: #1c1430;
+  --secondary-text: #012026;
+
+  /* tertiary colors - acid violet */
+  --tertiary: #a259ff;
+  --tertiary-hover: #b87dff;
+  --tertiary-text: #1c0433;
+
+  /* accent colors - electric indigo */
+  --accent: #4d7cff;
+
+  /* semantic colors */
+  --success: #39e88f;
+  --success-light: #1c1430;
+  --warning: #ffb84d;
+  --warning-light: #1c1430;
+  --error: #ff4d6d;
+  --error-hover: #ff7189;
+
+  /* borders */
+  --border: #2a2140;
+  --border-focus: #ff2fd4;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+
+  /* input */
+  --text-input-bg: #1c1430;
+  --text-input-text: #ece9f7;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

@@ -28,7 +28,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookiesStore = await cookies();
-  const paletteTheme = cookiesStore.get('palette')?.value as Palette || 'everforest';
+  const paletteTheme = cookiesStore.get('palette')?.value as Palette || 'ledger';
 
   return (
     <ClerkProvider>

@@ -1,0 +1,118 @@
+/* Light theme - Pâtisserie */
+body[data-palette="macaron"][data-theme="light"] {
+  /* backgrounds - bakery-case cream */
+  --bg: #faf6f2;
+  --bg-secondary: #f4ece5;
+  --bg-tertiary: #ede1d7;
+  --bg-elevated: #fffbf8;
+
+  /* text - soft plum-brown */
+  --text: #4a3b47;
+  --text-secondary: #6d5c68;
+  --text-muted: #a292a0;
+
+  /* primary colors - lavender */
+  --primary: #9b7fd4;
+  --primary-hover: #8267ba;
+  --primary-light: #ece4f7;
+  --primary-text: #241f2b;
+
+  /* secondary colors - mint */
+  --secondary: #4cb894;
+  --secondary-hover: #3c9b7c;
+  --secondary-light: #dff3ea;
+  --secondary-text: #241f2b;
+
+  /* tertiary colors - peach */
+  --tertiary: #e8926a;
+  --tertiary-hover: #d17851;
+  --tertiary-text: #241f2b;
+
+  /* accent colors - soft pink */
+  --accent: #e88fb0;
+
+  /* semantic colors */
+  --success: #4a9c6e;
+  --success-light: #dcf0e2;
+  --warning: #d19a3a;
+  --warning-light: #f5e6c8;
+  --error: #96354a;
+  --error-hover: #7a2b3c;
+
+  /* borders */
+  --border: #ecdfd3;
+  --border-focus: #9b7fd4;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(74, 59, 71, 0.06);
+  --shadow: 0 1px 3px 0 rgba(74, 59, 71, 0.12), 0 1px 2px 0 rgba(74, 59, 71, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(74, 59, 71, 0.12), 0 2px 4px -1px rgba(74, 59, 71, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(74, 59, 71, 0.12), 0 4px 6px -2px rgba(74, 59, 71, 0.06);
+
+  /* input */
+  --text-input-bg: #fffbf8;
+  --text-input-text: #4a3b47;
+}
+
+/* Dark theme - Midnight Pâtisserie */
+body[data-palette="macaron"][data-theme="dark"] {
+  /* backgrounds - deep plum-black */
+  --bg: #241f2b;
+  --bg-secondary: #1c1822;
+  --bg-tertiary: #2e2836;
+  --bg-elevated: #362f40;
+
+  /* text - soft pastel white-pink */
+  --text: #f3e9f0;
+  --text-secondary: #cbbdc7;
+  --text-muted: #8f8298;
+
+  /* primary colors - lavender */
+  --primary: #b79af0;
+  --primary-hover: #c9b3f5;
+  --primary-light: #2e2836;
+  --primary-text: #1c0f36;
+
+  /* secondary colors - mint */
+  --secondary: #63d4ae;
+  --secondary-hover: #82e0c2;
+  --secondary-light: #2e2836;
+  --secondary-text: #052c1f;
+
+  /* tertiary colors - peach */
+  --tertiary: #f5a878;
+  --tertiary-hover: #f8bd96;
+  --tertiary-text: #331705;
+
+  /* accent colors - soft pink */
+  --accent: #f5a3c4;
+
+  /* semantic colors */
+  --success: #63d49a;
+  --success-light: #2e2836;
+  --warning: #e8b559;
+  --warning-light: #2e2836;
+  --error: #e87f96;
+  --error-hover: #f09aac;
+
+  /* borders */
+  --border: #3a3342;
+  --border-focus: #b79af0;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+
+  /* input */
+  --text-input-bg: #2e2836;
+  --text-input-text: #f3e9f0;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

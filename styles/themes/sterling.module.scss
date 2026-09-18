@@ -1,0 +1,118 @@
+/* Light theme - Platinum Bank */
+body[data-palette="sterling"][data-theme="light"] {
+  /* backgrounds - brushed platinum */
+  --bg: #eef0f2;
+  --bg-secondary: #e5e8ec;
+  --bg-tertiary: #dadde3;
+  --bg-elevated: #f6f7f9;
+
+  /* text - slate ink */
+  --text: #1e2733;
+  --text-secondary: #3c4756;
+  --text-muted: #7a8494;
+
+  /* primary colors - sapphire */
+  --primary: #1d4e89;
+  --primary-hover: #163e6d;
+  --primary-light: #dde6f0;
+  --primary-text: #eef0f2;
+
+  /* secondary colors - brushed steel */
+  --secondary: #5b6b7d;
+  --secondary-hover: #475463;
+  --secondary-light: #e3e7ec;
+  --secondary-text: #eef0f2;
+
+  /* tertiary colors - slate accent */
+  --tertiary: #6e7885;
+  --tertiary-hover: #5a6270;
+  --tertiary-text: #eef0f2;
+
+  /* accent colors - icy cyan */
+  --accent: #3fa7c9;
+
+  /* semantic colors */
+  --success: #1f8f5f;
+  --success-light: #dcefe4;
+  --warning: #b8860a;
+  --warning-light: #f3e6c4;
+  --error: #b23a4a;
+  --error-hover: #8f2e3b;
+
+  /* borders */
+  --border: #d3d8de;
+  --border-focus: #1d4e89;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(30, 39, 51, 0.06);
+  --shadow: 0 1px 3px 0 rgba(30, 39, 51, 0.12), 0 1px 2px 0 rgba(30, 39, 51, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(30, 39, 51, 0.12), 0 2px 4px -1px rgba(30, 39, 51, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(30, 39, 51, 0.12), 0 4px 6px -2px rgba(30, 39, 51, 0.06);
+
+  /* input */
+  --text-input-bg: #f6f7f9;
+  --text-input-text: #1e2733;
+}
+
+/* Dark theme - Vault at Midnight */
+body[data-palette="sterling"][data-theme="dark"] {
+  /* backgrounds - the vault, lights off */
+  --bg: #0d131c;
+  --bg-secondary: #090e15;
+  --bg-tertiary: #161d29;
+  --bg-elevated: #1d2534;
+
+  /* text - platinum glow */
+  --text: #e2e6ec;
+  --text-secondary: #b8c0cc;
+  --text-muted: #7c8697;
+
+  /* primary colors - sapphire */
+  --primary: #4d84c4;
+  --primary-hover: #6a9bd6;
+  --primary-light: #161d29;
+  --primary-text: #06111d;
+
+  /* secondary colors - brushed steel */
+  --secondary: #8a97a8;
+  --secondary-hover: #a3aebc;
+  --secondary-light: #161d29;
+  --secondary-text: #0c1119;
+
+  /* tertiary colors - slate accent */
+  --tertiary: #9aa7b8;
+  --tertiary-hover: #b0bbc9;
+  --tertiary-text: #10151d;
+
+  /* accent colors - icy cyan */
+  --accent: #5fc2e0;
+
+  /* semantic colors */
+  --success: #3fb586;
+  --success-light: #161d29;
+  --warning: #d9a53f;
+  --warning-light: #161d29;
+  --error: #d9636f;
+  --error-hover: #e6838d;
+
+  /* borders */
+  --border: #232b3a;
+  --border-focus: #4d84c4;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+
+  /* input */
+  --text-input-bg: #161d29;
+  --text-input-text: #e2e6ec;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

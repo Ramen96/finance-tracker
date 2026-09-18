@@ -1,0 +1,118 @@
+/* Light theme - Gold Reserve */
+body[data-palette="bullion"][data-theme="light"] {
+  /* backgrounds - fine ivory stationery */
+  --bg: #f7f1e3;
+  --bg-secondary: #efe6d0;
+  --bg-tertiary: #e6d9bd;
+  --bg-elevated: #fbf7ec;
+
+  /* text - warm espresso ink */
+  --text: #211a10;
+  --text-secondary: #453824;
+  --text-muted: #8a7a5c;
+
+  /* primary colors - champagne gold */
+  --primary: #a87c1f;
+  --primary-hover: #8c6819;
+  --primary-light: #f0e2bd;
+  --primary-text: #f7f1e3;
+
+  /* secondary colors - bronze */
+  --secondary: #8a5a2e;
+  --secondary-hover: #714a25;
+  --secondary-light: #ecdcc4;
+  --secondary-text: #f7f1e3;
+
+  /* tertiary colors - obsidian charcoal */
+  --tertiary: #3a342a;
+  --tertiary-hover: #2a251e;
+  --tertiary-text: #f7f1e3;
+
+  /* accent colors - rose gold */
+  --accent: #c08552;
+
+  /* semantic colors */
+  --success: #5a7c3a;
+  --success-light: #e4ecd5;
+  --warning: #a67c1a;
+  --warning-light: #f0e0bd;
+  --error: #8f2c2c;
+  --error-hover: #732323;
+
+  /* borders */
+  --border: #ddd0b0;
+  --border-focus: #a87c1f;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(33, 26, 16, 0.06);
+  --shadow: 0 1px 3px 0 rgba(33, 26, 16, 0.12), 0 1px 2px 0 rgba(33, 26, 16, 0.08);
+  --shadow-md: 0 4px 6px -1px rgba(33, 26, 16, 0.12), 0 2px 4px -1px rgba(33, 26, 16, 0.08);
+  --shadow-lg: 0 10px 15px -3px rgba(33, 26, 16, 0.12), 0 4px 6px -2px rgba(33, 26, 16, 0.06);
+
+  /* input */
+  --text-input-bg: #fbf7ec;
+  --text-input-text: #211a10;
+}
+
+/* Dark theme - Obsidian Vault */
+body[data-palette="bullion"][data-theme="dark"] {
+  /* backgrounds - true obsidian black */
+  --bg: #0d0b08;
+  --bg-secondary: #070605;
+  --bg-tertiary: #17140e;
+  --bg-elevated: #1f1b13;
+
+  /* text - warm ivory-gold */
+  --text: #f0e6cc;
+  --text-secondary: #cbbf9c;
+  --text-muted: #8f836a;
+
+  /* primary colors - champagne gold */
+  --primary: #e0b84a;
+  --primary-hover: #edc968;
+  --primary-light: #17140e;
+  --primary-text: #1f1503;
+
+  /* secondary colors - bronze */
+  --secondary: #c98a4e;
+  --secondary-hover: #d9a066;
+  --secondary-light: #17140e;
+  --secondary-text: #1f1206;
+
+  /* tertiary colors - warm charcoal */
+  --tertiary: #6b6255;
+  --tertiary-hover: #837968;
+  --tertiary-text: #f0e6cc;
+
+  /* accent colors - rose gold */
+  --accent: #d9a06e;
+
+  /* semantic colors */
+  --success: #7fae5e;
+  --success-light: #17140e;
+  --warning: #d9ab4a;
+  --warning-light: #17140e;
+  --error: #c9564f;
+  --error-hover: #d67670;
+
+  /* borders */
+  --border: #241f16;
+  --border-focus: #e0b84a;
+
+  /* shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.6), 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.6);
+
+  /* input */
+  --text-input-bg: #17140e;
+  --text-input-text: #f0e6cc;
+}
+
+/* System preference fallback to dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

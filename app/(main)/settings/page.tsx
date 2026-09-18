@@ -44,7 +44,7 @@ interface ButtonAction {
 export default function Settings() {
   const [formData, setFormData] = useState({
     currency: "USD",
-    theme: "catppuccin",
+    theme: "ledger",
     notifications: true,
     emailUpdates: false,
     budgetAlerts: true,
@@ -76,13 +76,13 @@ export default function Settings() {
       label: "Theme",
       value: formData.theme,
       options: [
-        { value: "catppuccin", label: "Catppuccin" },
-        { value: "everforest", label: "Everforest" },
-        { value: "gruvbox", label: "Gruvbox" },
+        { value: "bourbon", label: "Bourbon" },
+        { value: "bullion", label: "Bullion" },
+        { value: "cipher", label: "Cipher" },
         { value: "ledger", label: "Ledger" },
-        { value: "nord", label: "Nord" },
-        { value: "rose-pine", label: "Rose Pine" },
-        { value: "tokyo-night", label: "Tokyo Night" },
+        { value: "macaron", label: "Macaron" },
+        { value: "sterling", label: "Sterling" },
+        { value: "ticker", label: "Ticker" },
         { value: "zenburn", label: "Zenburn" },
       ],
     },
