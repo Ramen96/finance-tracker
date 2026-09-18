@@ -194,6 +194,18 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.formHint {
+  font-size: 0.825rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin: 0;
 }
 
 .formSection {
@@ -217,6 +229,31 @@
     color: var(--text);
     margin: 0;
   }
+}
+
+.formHeader {
+  @include layout.flex(null, center, row);
+  gap: vars.$spacing-lg;
+
+  h2 {
+    margin: 0;
+  }
+
+  p {
+    margin: 2px 0 0;
+    font-size: 0.825rem;
+    color: var(--text-secondary);
+  }
+}
+
+.formHeaderIcon {
+  @include layout.flex-center;
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: vars.$radius-md;
+  background: var(--primary-light);
+  color: var(--primary);
 }
 
 .form {
@@ -269,6 +306,67 @@
   }
 }
 
+.chipPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: vars.$spacing-md;
+}
+
+.chip {
+  @include layout.flex(center, center, row);
+  @include ui.transition;
+  gap: vars.$spacing-sm;
+  padding: 0.5rem 1rem;
+  border-radius: vars.$radius-full;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+.chipActive {
+  border-color: var(--primary);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.amountGroup {
+  flex: 1.2;
+}
+
+.amountInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    padding-left: 1.75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+}
+
+.currencyPrefix {
+  position: absolute;
+  left: vars.$spacing-lg;
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
 .row {
   @include layout.w-full;
   @include layout.flex(null, flex-start, row);
@@ -294,6 +392,11 @@
   padding: 0.875rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 // Animation utility
@@ -501,6 +604,77 @@
     background: var(--surface-hover);
     color: var(--primary);
     border-color: var(--primary);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover {
+      background: transparent;
+      color: var(--text-secondary);
+      border-color: var(--border);
+    }
+  }
+}
+
+.spinner {
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ========================================
+// Error Banner
+// ========================================
+
+.errorBanner {
+  @include layout.w-full;
+  @include layout.flex(space-between, center, row);
+  gap: vars.$spacing-md;
+  padding: vars.$spacing-md vars.$spacing-lg;
+  border-radius: vars.$radius-md;
+  border: 1px solid color-mix(in srgb, var(--error) 35%, transparent);
+  background: color-mix(in srgb, var(--error) 8%, transparent);
+  color: var(--error);
+  font-size: 0.875rem;
+  box-sizing: border-box;
+
+  > button {
+    @include layout.flex-center;
+    @include layout.pointer;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: inherit;
+    padding: 2px;
+  }
+}
+
+.errorActions {
+  @include layout.flex(null, center, row);
+  gap: vars.$spacing-md;
+  flex-shrink: 0;
+}
+
+.retryBtn {
+  @include layout.pointer;
+  @include ui.transition;
+  flex-shrink: 0;
+  padding: 0.3rem 0.75rem;
+  border-radius: vars.$radius-sm;
+  border: 1px solid color-mix(in srgb, var(--error) 40%, transparent);
+  background: transparent;
+  color: var(--error);
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  &:hover {
+    background: color-mix(in srgb, var(--error) 12%, transparent);
   }
 }
 

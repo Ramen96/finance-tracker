@@ -2,10 +2,23 @@
 import { useEffect, useState } from "react";
 import { useApi } from "@/lib/api";
 import styles from "../card.module.scss";
-import { Plus, Trash2, Settings, CreditCard as CardIcon } from "lucide-react";
+import { Plus, Trash2, Settings, CreditCard as CardIcon, X, Loader2, Receipt } from "lucide-react";
 import Loading from "@/components/Loading/loading";
 import ManageCards from "@/components/ManageCards/manageCards";
 import { TransactionType, accountTypeLabels } from "@/lib/types/enums";
+
+const formatDate = (iso: string): string =>
+  new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+const formatCurrency = (amount: number): string =>
+  amount.toLocaleString("en-US", { style: "currency", currency: "USD" });
+
+const sortByDateDesc = (list: CardTransaction[]): CardTransaction[] =>
+  [...list].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
 const cardCategories = [
   "Groceries",
@@ -41,6 +54,8 @@ export default function CreditCard() {
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [transactions, setTransactions] = useState<CardTransaction[]>([]);
   const [isPageLoading, setIsPageLoading] = useState(true);
+  const [error, setError] = useState<{ message: string; retryable: boolean } | null>(null);
+  const [refreshToken, setRefreshToken] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -50,17 +65,29 @@ export default function CreditCard() {
           authFetch("api/transactions"),
         ]);
         setAccounts(accountsData);
-        setTransactions(transactionsData);
+        setTransactions(sortByDateDesc(transactionsData));
       } catch (error) {
         console.error("Error fetching data: ", error);
+        setError({
+          message: "Couldn't load your cards and transactions.",
+          retryable: true,
+        });
       } finally {
         setIsPageLoading(false);
       }
     }
     fetchData();
-  }, [authFetch]);
+  }, [authFetch, refreshToken]);
+
+  const handleRetry = () => {
+    setIsPageLoading(true);
+    setError(null);
+    setRefreshToken((prev) => prev + 1);
+  };
 
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [showManageCards, setShowManageCards] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -81,14 +108,24 @@ export default function CreditCard() {
     }));
   };
 
+  const handleSelectAccount = (accountId: string) => {
+    setFormData((prev) => ({ ...prev, accountId }));
+  };
+
+  const handleSelectCategory = (category: string) => {
+    setFormData((prev) => ({ ...prev, category }));
+  };
+
   const handleAddTransaction = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    if (!formData.accountId || !formData.description || !formData.amount) {
-      alert("Please fill in all required fields");
+    if (!formData.accountId) {
+      setError({ message: "Please select which card you used.", retryable: false });
       return;
     }
 
+    setIsSubmitting(true);
+    setError(null);
     try {
       const created = await authFetch("api/transactions", {
         method: "POST",
@@ -102,7 +139,7 @@ export default function CreditCard() {
         }),
       });
 
-      setTransactions((prev) => [created, ...prev]);
+      setTransactions((prev) => sortByDateDesc([created, ...prev]));
       setFormData({
         accountId: "",
         description: "",
@@ -113,17 +150,23 @@ export default function CreditCard() {
       setIsFormOpen(false);
     } catch (error) {
       console.error("Failed to add transaction: ", error);
-      alert("Failed to save transaction");
+      setError({ message: "Couldn't save that transaction. Please try again.", retryable: false });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const handleDeleteTransaction = async (id: string) => {
+    setDeletingId(id);
+    setError(null);
     try {
       await authFetch(`api/transactions/${id}`, { method: "DELETE" });
       setTransactions((prev) => prev.filter((t) => t.id !== id));
     } catch (error) {
       console.error("Failed to delete transaction: ", error);
-      alert("Failed to delete transaction");
+      setError({ message: "Couldn't delete that transaction. Please try again.", retryable: false });
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -146,6 +189,22 @@ export default function CreditCard() {
         </div>
 
         <div className={styles.content}>
+
+          {error && (
+            <div className={styles.errorBanner} role="alert">
+              <span>{error.message}</span>
+              <div className={styles.errorActions}>
+                {error.retryable && (
+                  <button onClick={handleRetry} className={styles.retryBtn}>
+                    Retry
+                  </button>
+                )}
+                <button onClick={() => setError(null)} aria-label="Dismiss error">
+                  <X size={14} />
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* ================= SECTION 1: USER TRACKED CARDS ================= */}
           <div className={styles.cardsOverviewSection}>
@@ -184,32 +243,47 @@ export default function CreditCard() {
             <button
               onClick={() => setIsFormOpen((prev) => !prev)}
               className={styles.toggleFormBtn}
+              disabled={accounts.length === 0}
             >
               <Plus size={18} />
               {isFormOpen ? "Cancel New Transaction" : "Log New Transaction"}
             </button>
 
+            {accounts.length === 0 && (
+              <p className={styles.formHint}>
+                Add a card above before logging a transaction.
+              </p>
+            )}
+
             {isFormOpen && (
               <div className={`${styles.formSection} ${styles.fadeIn}`}>
-                <h2>Enter Transaction Details</h2>
+                <div className={styles.formHeader}>
+                  <div className={styles.formHeaderIcon}>
+                    <Receipt size={18} />
+                  </div>
+                  <div>
+                    <h2>Enter Transaction Details</h2>
+                    <p>Log a new purchase against one of your cards</p>
+                  </div>
+                </div>
+
                 <form onSubmit={handleAddTransaction} className={styles.form}>
 
                   <div className={styles.formGroup}>
-                    <label htmlFor="accountId">Select Card Used *</label>
-                    <select
-                      id="accountId"
-                      name="accountId"
-                      value={formData.accountId}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">-- Choose a Card --</option>
+                    <label>Select Card Used *</label>
+                    <div className={styles.chipPicker}>
                       {accounts.map((account) => (
-                        <option key={account.id} value={account.id}>
+                        <button
+                          type="button"
+                          key={account.id}
+                          onClick={() => handleSelectAccount(account.id)}
+                          className={`${styles.chip} ${formData.accountId === account.id ? styles.chipActive : ""}`}
+                        >
+                          <CardIcon size={14} />
                           {account.name}
-                        </option>
+                        </button>
                       ))}
-                    </select>
+                    </div>
                   </div>
 
                   <div className={styles.formGroup}>
@@ -221,24 +295,28 @@ export default function CreditCard() {
                       value={formData.description}
                       onChange={handleInputChange}
                       placeholder="e.g., Target, Starbucks"
+                      autoFocus
                       required
                     />
                   </div>
 
                   <div className={styles.row}>
-                    <div className={styles.formGroup}>
+                    <div className={`${styles.formGroup} ${styles.amountGroup}`}>
                       <label htmlFor="amount">Amount *</label>
-                      <input
-                        type="number"
-                        id="amount"
-                        name="amount"
-                        value={formData.amount}
-                        onChange={handleInputChange}
-                        placeholder="0.00"
-                        step="0.01"
-                        min="0"
-                        required
-                      />
+                      <div className={styles.amountInputWrapper}>
+                        <span className={styles.currencyPrefix}>$</span>
+                        <input
+                          type="number"
+                          id="amount"
+                          name="amount"
+                          value={formData.amount}
+                          onChange={handleInputChange}
+                          placeholder="0.00"
+                          step="0.01"
+                          min="0"
+                          required
+                        />
+                      </div>
                     </div>
 
                     <div className={styles.formGroup}>
@@ -254,23 +332,23 @@ export default function CreditCard() {
                   </div>
 
                   <div className={styles.formGroup}>
-                    <label htmlFor="category">Category</label>
-                    <select
-                      id="category"
-                      name="category"
-                      value={formData.category}
-                      onChange={handleInputChange}
-                    >
+                    <label>Category</label>
+                    <div className={styles.chipPicker}>
                       {cardCategories.map((cat) => (
-                        <option key={cat} value={cat}>
+                        <button
+                          type="button"
+                          key={cat}
+                          onClick={() => handleSelectCategory(cat)}
+                          className={`${styles.chip} ${formData.category === cat ? styles.chipActive : ""}`}
+                        >
                           {cat}
-                        </option>
+                        </button>
                       ))}
-                    </select>
+                    </div>
                   </div>
 
-                  <button type="submit" className={styles.submitBtn}>
-                    Save Transaction
+                  <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+                    {isSubmitting ? "Saving..." : "Save Transaction"}
                   </button>
                 </form>
               </div>
@@ -301,19 +379,24 @@ export default function CreditCard() {
                           <p className={styles.accountId}>
                             {getAccountName(transaction.accountId)}
                           </p>
-                          <p className={styles.date}>{transaction.date}</p>
+                          <p className={styles.date}>{formatDate(transaction.date)}</p>
                         </div>
                       </div>
                       <div className={styles.transactionAmount}>
                         <span className={styles.amount}>
-                          ${transaction.amount.toFixed(2)}
+                          {formatCurrency(transaction.amount)}
                         </span>
                         <button
                           onClick={() => handleDeleteTransaction(transaction.id)}
                           className={styles.deleteBtn}
+                          disabled={deletingId === transaction.id}
                           aria-label="Delete transaction"
                         >
-                          <Trash2 size={18} />
+                          {deletingId === transaction.id ? (
+                            <Loader2 size={18} className={styles.spinner} />
+                          ) : (
+                            <Trash2 size={18} />
+                          )}
                         </button>
                       </div>
                     </div>
@@ -323,7 +406,7 @@ export default function CreditCard() {
                 <div className={styles.totalSection}>
                   <h3>Total Spent</h3>
                   <span className={styles.totalAmount}>
-                    ${totalAmount.toFixed(2)}
+                    {formatCurrency(totalAmount)}
                   </span>
                 </div>
               </>
