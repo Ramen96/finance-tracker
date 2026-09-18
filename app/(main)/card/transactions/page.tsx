@@ -2,7 +2,25 @@
 import { useEffect, useState } from "react";
 import { useApi } from "@/lib/api";
 import styles from "../card.module.scss";
-import { Plus, Trash2, Settings, CreditCard as CardIcon, X, Loader2, Receipt } from "lucide-react";
+import {
+  Plus,
+  Trash2,
+  Settings,
+  CreditCard as CardIcon,
+  X,
+  Loader2,
+  Receipt,
+  CalendarDays,
+  ShoppingCart,
+  UtensilsCrossed,
+  Car,
+  Clapperboard,
+  Zap,
+  ShoppingBag,
+  HeartPulse,
+  Tag,
+  type LucideIcon,
+} from "lucide-react";
 import Loading from "@/components/Loading/loading";
 import ManageCards from "@/components/ManageCards/manageCards";
 import { TransactionType, accountTypeLabels } from "@/lib/types/enums";
@@ -30,6 +48,17 @@ const cardCategories = [
   "Healthcare",
   "Other",
 ];
+
+const categoryIcons: Record<string, LucideIcon> = {
+  Groceries: ShoppingCart,
+  Dining: UtensilsCrossed,
+  Transportation: Car,
+  Entertainment: Clapperboard,
+  Utilities: Zap,
+  Shopping: ShoppingBag,
+  Healthcare: HeartPulse,
+  Other: Tag,
+};
 
 type CardTransaction = {
   id: string;
@@ -240,14 +269,17 @@ export default function CreditCard() {
 
           {/* ================= SECTION 2: ADD TRANSACTION ACTION & FORM ================= */}
           <div className={styles.actionSection}>
-            <button
-              onClick={() => setIsFormOpen((prev) => !prev)}
-              className={styles.toggleFormBtn}
-              disabled={accounts.length === 0}
-            >
-              <Plus size={18} />
-              {isFormOpen ? "Cancel New Transaction" : "Log New Transaction"}
-            </button>
+
+            {isFormOpen === false && transactions.length > 0 && (
+              <button
+                onClick={() => setIsFormOpen((prev) => !prev)}
+                className={styles.toggleFormBtn}
+                disabled={accounts.length === 0}
+              >
+                <Plus size={18} />
+                Log New Transaction
+              </button>
+            )}
 
             {accounts.length === 0 && (
               <p className={styles.formHint}>
@@ -265,6 +297,11 @@ export default function CreditCard() {
                     <h2>Enter Transaction Details</h2>
                     <p>Log a new purchase against one of your cards</p>
                   </div>
+                  <button
+                    className={styles.closeFormBtn}
+                    onClick={() => setIsFormOpen(false)}>
+                    <X size={18} />
+                  </button>
                 </div>
 
                 <form onSubmit={handleAddTransaction} className={styles.form}>
@@ -357,50 +394,86 @@ export default function CreditCard() {
 
           {/* ================= SECTION 3: RECENT TRANSACTIONS ================= */}
           <div className={styles.listSection}>
-            <h2>Recent Transactions</h2>
 
-            {transactions.length === 0 ? (
-              <p className={styles.emptyState}>
-                No transactions tracked yet.
-              </p>
+            <div className={styles.sectionHeader}>
+              <h2>Recent Transactions</h2>
+              {transactions.length > 0 && (
+                <span className={styles.transactionCount}>
+                  {transactions.length} {transactions.length === 1 ? "transaction" : "transactions"}
+                </span>
+              )}
+            </div>
+
+            {isFormOpen === false && transactions.length === 0 ? (
+              <div className={styles.transactionsEmptyState}>
+                <div className={styles.transactionsEmptyIcon}>
+                  <Receipt size={28} />
+                </div>
+                <h3>No transactions yet</h3>
+                <p>Log your first purchase to start tracking your spending.</p>
+                {accounts.length > 0 && (
+                  <button
+                    className={styles.emptyStateBtn}
+                    onClick={() => setIsFormOpen(true)}
+                  >
+                    <Plus size={16} />
+                    Log Transaction
+                  </button>
+                )}
+              </div>
             ) : (
               <>
                 <div className={styles.transactionsList}>
-                  {transactions.map((transaction) => (
-                    <div key={transaction.id} className={styles.transactionItem}>
-                      <div className={styles.transactionInfo}>
-                        <div className={styles.transactionHeader}>
-                          <h3>{transaction.description}</h3>
-                          <span className={styles.category}>
-                            {transaction.category}
+                  {transactions.map((transaction) => {
+                    const CategoryIcon = categoryIcons[transaction.category] ?? Tag;
+                    const isIncome = transaction.type === TransactionType.Income;
+
+                    return (
+                      <div key={transaction.id} className={styles.transactionItem}>
+                        <div className={styles.transactionIcon}>
+                          <CategoryIcon size={18} />
+                        </div>
+                        <div className={styles.transactionInfo}>
+                          <div className={styles.transactionHeader}>
+                            <h3>{transaction.description}</h3>
+                            <span className={styles.category}>
+                              {transaction.category}
+                            </span>
+                          </div>
+                          <div className={styles.transactionDetails}>
+                            <span className={styles.metaItem}>
+                              <CardIcon size={12} />
+                              {getAccountName(transaction.accountId)}
+                            </span>
+                            <span className={styles.metaItem}>
+                              <CalendarDays size={12} />
+                              {formatDate(transaction.date)}
+                            </span>
+                          </div>
+                        </div>
+                        <div className={styles.transactionAmount}>
+                          <span
+                            className={`${styles.amount} ${isIncome ? styles.amountIncome : styles.amountExpense}`}
+                          >
+                            {isIncome ? "+" : "-"}
+                            {formatCurrency(transaction.amount)}
                           </span>
-                        </div>
-                        <div className={styles.transactionDetails}>
-                          <p className={styles.accountId}>
-                            {getAccountName(transaction.accountId)}
-                          </p>
-                          <p className={styles.date}>{formatDate(transaction.date)}</p>
+                          <button
+                            onClick={() => handleDeleteTransaction(transaction.id)}
+                            className={styles.deleteBtn}
+                            disabled={deletingId === transaction.id}
+                            aria-label="Delete transaction"
+                          >
+                            {deletingId === transaction.id ? (
+                              <Loader2 size={18} className={styles.spinner} />
+                            ) : (
+                              <Trash2 size={18} />
+                            )}
+                          </button>
                         </div>
                       </div>
-                      <div className={styles.transactionAmount}>
-                        <span className={styles.amount}>
-                          {formatCurrency(transaction.amount)}
-                        </span>
-                        <button
-                          onClick={() => handleDeleteTransaction(transaction.id)}
-                          className={styles.deleteBtn}
-                          disabled={deletingId === transaction.id}
-                          aria-label="Delete transaction"
-                        >
-                          {deletingId === transaction.id ? (
-                            <Loader2 size={18} className={styles.spinner} />
-                          ) : (
-                            <Trash2 size={18} />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 <div className={styles.totalSection}>

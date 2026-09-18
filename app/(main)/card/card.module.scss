@@ -81,6 +81,8 @@
 .content {
   @include layout.w-full;
   @include layout.flex(null, flex-start, column);
+  display: flex;
+  align-items: center;
   gap: vars.$spacing-2xl;
   font-family: var(--font-main), sans-serif;
   box-sizing: border-box;
@@ -183,6 +185,32 @@
   @include layout.w-full;
   @include layout.flex(null, null, column);
   gap: vars.$spacing-lg;
+}
+
+.closeFormBtn {
+  @include layout.flex(center, center);
+  border: 1px solid var(--secondary);
+  border-radius: vars.$radius-md;
+  padding: vars.$spacing-sm vars.$spacing-md;
+  position: absolute;
+  color: var(--secondary);
+  background: transparent;
+  top: 0 + vars.$spacing-2xl;
+  right: 0 + vars.$spacing-lg;
+  gap: vars.$spacing-md;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--secondary);
+    color: var(--secondary-text);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .toggleFormBtn {
@@ -422,7 +450,7 @@
 
 .listSection {
   @include layout.flex(null, null, column);
-  width: 100%;
+  @include layout.w-full;
   box-sizing: border-box;
   min-width: 0;
   gap: vars.$spacing-lg;
@@ -446,6 +474,57 @@
   font-style: italic;
 }
 
+.transactionCount {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.transactionsEmptyState {
+  @include layout.w-full;
+  @include layout.flex(center, center, column);
+  gap: vars.$spacing-sm;
+  padding: 3rem vars.$spacing-sm;
+  border-radius: vars.$radius-lg;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  text-align: center;
+
+  h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  p {
+    margin: 0;
+    max-width: 34ch;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+}
+
+.transactionsEmptyIcon {
+  @include layout.flex-center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: vars.$radius-full;
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.emptyStateBtn {
+  @include ui.btnPrimary;
+  @include layout.flex-center;
+  gap: vars.$spacing-sm;
+  margin-top: vars.$spacing-sm;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
 .transactionsList {
   @include layout.flex(null, null, column);
   gap: vars.$spacing-lg;
@@ -456,6 +535,7 @@
 .transactionItem {
   @include layout.w-full;
   @include layout.flex(space-between, center, row);
+  gap: vars.$spacing-lg;
   padding: vars.$spacing-lg;
   border-radius: vars.$radius-lg;
   background: var(--surface);
@@ -474,9 +554,18 @@
   @include typography.respond-down("mobile-m") {
     flex-direction: column;
     align-items: flex-start;
-    gap: vars.$spacing-lg;
     padding: vars.$spacing-md;
   }
+}
+
+.transactionIcon {
+  @include layout.flex-center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: vars.$radius-md;
+  background: var(--primary-light);
+  color: var(--primary);
 }
 
 .transactionInfo {
@@ -533,38 +622,26 @@
   flex-wrap: wrap;
   min-width: 0;
 
-  p {
-    margin: 0;
-    color: var(--text-secondary);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    &.cardName {
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    &.date {
-      color: var(--text-secondary);
-    }
-  }
-
   @include typography.respond-down("mobile-m") {
     flex-wrap: wrap;
     gap: vars.$spacing-md;
   }
 }
 
-.description {
-  margin: 0;
-  font-size: 0.875rem;
+.metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
   color: var(--text-secondary);
-  font-style: italic;
-  padding-top: vars.$spacing-sm;
-  border-top: 1px solid var(--border);
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
+
+  svg {
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
 }
 
 .transactionAmount {
@@ -586,7 +663,14 @@
 .amount {
   font-size: 1.125rem;
   font-weight: 700;
-  color: var(--primary);
+}
+
+.amountExpense {
+  color: var(--error);
+}
+
+.amountIncome {
+  color: var(--success);
 }
 
 .deleteBtn {
@@ -644,7 +728,7 @@
   font-size: 0.875rem;
   box-sizing: border-box;
 
-  > button {
+  >button {
     @include layout.flex-center;
     @include layout.pointer;
     flex-shrink: 0;
