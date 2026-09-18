@@ -4,6 +4,46 @@
 @use "@/styles/mixins/typography" as typography;
 @use "@/styles/variables" as vars;
 
+// Shared pill-shaped gradient CTA used by the primary flow actions
+// (open the transaction form, save the transaction).
+@mixin gradientCta {
+  @include layout.flex(center, center, row);
+  @include layout.pointer;
+  @include ui.transition;
+  @include ui.shadow-md;
+  width: 100%;
+  gap: vars.$spacing-md;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: vars.$radius-full;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--primary-text);
+  font-family: var(--font-display), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+
+  svg {
+    flex-shrink: 0;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.06);
+    @include ui.shadow-lg;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0) scale(0.98);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    filter: none;
+  }
+}
+
 // ========================================
 // Container & Layout
 // ========================================
@@ -214,14 +254,34 @@
 }
 
 .toggleFormBtn {
-  @include ui.btnPrimary;
-  @include layout.w-full;
-  @include layout.flex(center, center);
-  gap: vars.$spacing-md;
-  padding: 0.875rem 1.5rem;
-  font-size: 1rem;
+  @include layout.flex(center, center, row);
+  @include layout.pointer;
+  @include ui.transition;
+  align-self: flex-start;
+  gap: vars.$spacing-sm;
+  padding: 0.5rem 1.1rem;
+  border-radius: vars.$radius-full;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-main);
+  font-size: 0.875rem;
   font-weight: 600;
-  cursor: pointer;
+
+  svg {
+    flex-shrink: 0;
+    color: var(--primary);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: var(--primary-light);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
 
   &:disabled {
     opacity: 0.5;
@@ -413,18 +473,7 @@
 }
 
 .submitBtn {
-  @include ui.btnPrimary;
-  @include layout.w-full;
-  @include layout.flex(center, center);
-  gap: vars.$spacing-md;
-  padding: 0.875rem 1.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
+  @include gradientCta;
 }
 
 // Animation utility

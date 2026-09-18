@@ -8,6 +8,7 @@ import {
   Settings,
   CreditCard as CardIcon,
   X,
+  Check,
   Loader2,
   Receipt,
   CalendarDays,
@@ -385,7 +386,17 @@ export default function CreditCard() {
                   </div>
 
                   <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
-                    {isSubmitting ? "Saving..." : "Save Transaction"}
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={18} className={styles.spinner} />
+                        Saving...
+                      </>
+                    ) : (
+                      <>
+                        <Check size={18} />
+                        Save Transaction
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
