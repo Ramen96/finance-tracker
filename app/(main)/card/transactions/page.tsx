@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useApi } from "@/lib/api";
-import Link from "next/link";
 import styles from "../card.module.scss";
 import { Plus, Trash2, Settings, CreditCard as CardIcon } from "lucide-react";
-import { auth } from "@clerk/nextjs";
+import Loading from "@/components/Loading/loading";
+import ManageCards from "@/components/ManageCards/manageCards";
+import { TransactionType, accountTypeLabels } from "@/lib/types/enums";
 
 const cardCategories = [
   "Groceries",
@@ -18,51 +19,40 @@ const cardCategories = [
 ];
 
 type CardTransaction = {
-  id: number;
+  id: string;
   accountId: string;
-  merchant: string;
   amount: number;
   category: string;
+  type: number;
   date: string;
-  description: string | undefined;
-};
-
-// Mock tracked cards state to populate the form and the cards section
-type TrackedCard = {
-  id: string;
-  name: string;
-  network: string;
+  description: string;
 };
 
 type Account = {
   id: string;
   name: string;
-  type: string;
-}
+  type: number;
+  balance: number;
+};
 
 export default function CreditCard() {
-  // Mocking global data state of cards a user already set up to track
-  const [trackedCards] = useState<TrackedCard[]>([
-    { id: "1", name: "Chase Sapphire", network: "Visa" },
-    { id: "2", name: "Amex Gold", network: "Amex" },
-  ]);
-
-  const [accounts, setAccounts] = useState<Account[]>([]);
-  const [isPageLoading, setIsPageLoading] = useState(true);
   const { authFetch } = useApi();
 
+  const [accounts, setAccounts] = useState<Account[]>([]);
+  const [transactions, setTransactions] = useState<CardTransaction[]>([]);
+  const [isPageLoading, setIsPageLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
         const [accountsData, transactionsData] = await Promise.all([
           authFetch("api/accounts"),
-          authFetch("api/transactions")
+          authFetch("api/transactions"),
         ]);
         setAccounts(accountsData);
         setTransactions(transactionsData);
       } catch (error) {
-        console.error("Error fetching data: ", error)
+        console.error("Error fetching data: ", error);
       } finally {
         setIsPageLoading(false);
       }
@@ -70,36 +60,15 @@ export default function CreditCard() {
     fetchData();
   }, [authFetch]);
 
-  const [transactions, setTransactions] = useState<CardTransaction[]>([
-    {
-      id: 1,
-      accountId: "Chase Sapphire",
-      merchant: "Whole Foods",
-      amount: 125.50,
-      category: "Groceries",
-      date: "2026-01-28",
-      description: undefined
-    },
-    {
-      id: 2,
-      accountId: "Amex Gold",
-      merchant: "Restaurant XYZ",
-      amount: 85.00,
-      category: "Dining",
-      date: "2026-01-27",
-      description: undefined
-    },
-  ]);
-
-  const [isFormOpen, setIsFormOpen] = useState(true);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [showManageCards, setShowManageCards] = useState(false);
 
   const [formData, setFormData] = useState({
     accountId: "",
-    merchant: "",
+    description: "",
     amount: "",
     category: "Groceries",
     date: new Date().toISOString().split("T")[0],
-    description: "",
   });
 
   const handleInputChange = (
@@ -112,41 +81,60 @@ export default function CreditCard() {
     }));
   };
 
-  const handleAddTransaction = (e: React.SubmitEvent) => {
+  const handleAddTransaction = async (e: React.SubmitEvent) => {
     e.preventDefault();
 
-    if (!formData.accountId || !formData.merchant || !formData.amount) {
+    if (!formData.accountId || !formData.description || !formData.amount) {
       alert("Please fill in all required fields");
       return;
     }
 
-    const newTransaction: CardTransaction = {
-      id: Date.now(),
-      accountId: formData.accountId,
-      merchant: formData.merchant,
-      amount: parseFloat(formData.amount),
-      category: formData.category,
-      date: formData.date,
-      description: formData.description || undefined,
-    };
+    try {
+      const created = await authFetch("api/transactions", {
+        method: "POST",
+        body: JSON.stringify({
+          accountId: formData.accountId,
+          amount: parseFloat(formData.amount),
+          description: formData.description,
+          category: formData.category,
+          type: TransactionType.Expense,
+          date: new Date(formData.date).toISOString(),
+        }),
+      });
 
-    setTransactions((prev) => [newTransaction, ...prev]);
-    setFormData({
-      accountId: "",
-      merchant: "",
-      amount: "",
-      category: "Groceries",
-      date: new Date().toISOString().split("T")[0],
-      description: "",
-    });
-    setIsFormOpen(false);
+      setTransactions((prev) => [created, ...prev]);
+      setFormData({
+        accountId: "",
+        description: "",
+        amount: "",
+        category: "Groceries",
+        date: new Date().toISOString().split("T")[0],
+      });
+      setIsFormOpen(false);
+    } catch (error) {
+      console.error("Failed to add transaction: ", error);
+      alert("Failed to save transaction");
+    }
   };
 
-  const handleDeleteTransaction = (id: number) => {
-    setTransactions((prev) => prev.filter((t) => t.id !== id));
+  const handleDeleteTransaction = async (id: string) => {
+    try {
+      await authFetch(`api/transactions/${id}`, { method: "DELETE" });
+      setTransactions((prev) => prev.filter((t) => t.id !== id));
+    } catch (error) {
+      console.error("Failed to delete transaction: ", error);
+      alert("Failed to delete transaction");
+    }
   };
+
+  const getAccountName = (accountId: string): string =>
+    accounts.find((a) => a.id === accountId)?.name ?? "Unknown Account";
 
   const totalAmount = transactions.reduce((sum, t) => sum + t.amount, 0);
+
+  if (isPageLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className={styles.contentContainer}>
@@ -163,23 +151,32 @@ export default function CreditCard() {
           <div className={styles.cardsOverviewSection}>
             <div className={styles.sectionHeader}>
               <h2>Your Tracked Cards</h2>
-              <Link href="/card/manage-cards" className={styles.manageCardsBtn}>
+              <button
+                onClick={() => setShowManageCards(true)}
+                className={styles.manageCardsBtn}
+              >
                 <Settings size={16} />
                 Edit Cards
-              </Link>
+              </button>
             </div>
 
-            <div className={styles.cardsGrid}>
-              {trackedCards.map((card) => (
-                <div key={card.id} className={styles.cardInfoTile}>
-                  <CardIcon size={24} />
-                  <div>
-                    <h4>{card.name}</h4>
-                    <p>{card.network}</p>
+            {accounts.length === 0 ? (
+              <p className={styles.emptyState}>
+                No cards tracked yet. Add one in Manage Cards.
+              </p>
+            ) : (
+              <div className={styles.cardsGrid}>
+                {accounts.map((account) => (
+                  <div key={account.id} className={styles.cardInfoTile}>
+                    <CardIcon size={24} />
+                    <div>
+                      <h4>{account.name}</h4>
+                      <p>{accountTypeLabels[account.type] ?? "Unknown"}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* ================= SECTION 2: ADD TRANSACTION ACTION & FORM ================= */}
@@ -207,21 +204,21 @@ export default function CreditCard() {
                       required
                     >
                       <option value="">-- Choose a Card --</option>
-                      {trackedCards.map((card) => (
-                        <option key={card.id} value={card.name}>
-                          {card.name}
+                      {accounts.map((account) => (
+                        <option key={account.id} value={account.id}>
+                          {account.name}
                         </option>
                       ))}
                     </select>
                   </div>
 
                   <div className={styles.formGroup}>
-                    <label htmlFor="merchant">Merchant *</label>
+                    <label htmlFor="description">Description *</label>
                     <input
                       type="text"
-                      id="merchant"
-                      name="merchant"
-                      value={formData.merchant}
+                      id="description"
+                      name="description"
+                      value={formData.description}
                       onChange={handleInputChange}
                       placeholder="e.g., Target, Starbucks"
                       required
@@ -272,18 +269,6 @@ export default function CreditCard() {
                     </select>
                   </div>
 
-                  <div className={styles.formGroup}>
-                    <label htmlFor="description">Description (Optional)</label>
-                    <textarea
-                      id="description"
-                      name="description"
-                      value={formData.description}
-                      onChange={handleInputChange}
-                      placeholder="Add specific notes"
-                      rows={2}
-                    />
-                  </div>
-
                   <button type="submit" className={styles.submitBtn}>
                     Save Transaction
                   </button>
@@ -307,20 +292,17 @@ export default function CreditCard() {
                     <div key={transaction.id} className={styles.transactionItem}>
                       <div className={styles.transactionInfo}>
                         <div className={styles.transactionHeader}>
-                          <h3>{transaction.merchant}</h3>
+                          <h3>{transaction.description}</h3>
                           <span className={styles.category}>
                             {transaction.category}
                           </span>
                         </div>
                         <div className={styles.transactionDetails}>
-                          <p className={styles.accountId}>{transaction.accountId}</p>
+                          <p className={styles.accountId}>
+                            {getAccountName(transaction.accountId)}
+                          </p>
                           <p className={styles.date}>{transaction.date}</p>
                         </div>
-                        {transaction.description && (
-                          <p className={styles.description}>
-                            {transaction.description}
-                          </p>
-                        )}
                       </div>
                       <div className={styles.transactionAmount}>
                         <span className={styles.amount}>
@@ -350,6 +332,13 @@ export default function CreditCard() {
 
         </div>
       </section>
+
+      <ManageCards
+        isOpen={showManageCards}
+        onClose={() => setShowManageCards(false)}
+        accounts={accounts}
+        onAccountsChange={setAccounts}
+      />
     </div>
   );
 }
